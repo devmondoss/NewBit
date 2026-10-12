@@ -20,7 +20,7 @@ Sigue la **Secuencia de avances** del docente ([`docs/semana-05/SECUENCIA DE AVA
 
 | Paso | Formato | Plantilla / ejemplo | Estado para NewBit |
 |---|---|---|---|
-| 1 | FGAP010 Acta de Constitución | `docs/semana-02/` | **Borrador 1.0 listo** (12/10): [`entregables/FGAP010_Acta_Constitucion_NewBit/`](entregables/FGAP010_Acta_Constitucion_NewBit/FGAP010_Acta_Constitucion_NewBit.md); revisar los POR CONFIRMAR |
+| 1 | FGAP010 Acta de Constitución | `docs/semana-02/` | **Versión 1.0 completa** (12/10, sin pendientes): [`entregables/FGAP010_Acta_Constitucion_NewBit/`](entregables/FGAP010_Acta_Constitucion_NewBit/FGAP010_Acta_Constitucion_NewBit.md) |
 | 2 | FGAP020 Registro de Stakeholders | — (no recibido) | Pendiente; pedir formato al docente |
 | 3 | FGAP030 Roles y Prototipos | `docs/semana-03/` | Pendiente (la de VIGIA sirve de base) |
 | 4 | FGAP040 Épicas | `docs/semana-04/FGAP040_…/` | Pendiente; depende del Acta |
