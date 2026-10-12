@@ -143,10 +143,10 @@ function voter(x, y, n, name) {
   ];
 }
 S.push({
-  title: "Ejemplo: HU12 «Clasificar la conducta»",
-  notes: "Luis. Simulación con una historia real del FGAP040 (épica EP03). Izquierda: estimación. Anthony vota 2 porque creía que solo era mostrar el resultado; Luis vota 5 porque hay que armar secuencias de frames y entrenar el ConvLSTM. Tras explicarse, los dos votan 4: historia grande. Derecha: decisión con los tres. Hay dos votos de 2, así que no se cierra: se decide dividir HU12. Opcional: repetir la votación con el aula.",
+  title: "Ejemplo: HU07 «Procesar el clip con ConvLSTM»",
+  notes: "Luis. Simulación con una historia real de nuestras épicas (FGAP040, épica EP04). Izquierda: estimación. Anthony vota 2 porque creía que solo era mostrar el resultado; Luis vota 5 porque hay que armar secuencias de frames y entrenar el ConvLSTM. Tras explicarse, los dos votan 4: historia grande. Derecha: decisión con los tres. Hay dos votos de 2, así que no se cierra: se decide dividir HU07. Opcional: repetir la votación con el aula.",
   els: [
-    text(0.6, 1.12, 8.8, 0.3, "Épica EP03 · Detección de conductas inseguras · simulación del equipo NewBit", { size: 12, color: C.muted }),
+    text(0.6, 1.12, 8.8, 0.3, "Épica EP04 · Clasificación espacio-temporal (ConvLSTM) · simulación del equipo NewBit", { size: 12, color: C.muted }),
     // Estimar
     box(0.6, 1.55, 4.3, 3.4, C.soft, { r: 0.18 }),
     text(0.85, 1.7, 3.8, 0.35, "1 · Estimar la historia", { size: 16, bold: true }),
@@ -168,15 +168,64 @@ S.push({
     text(5.35, 1.7, 3.8, 0.35, "2 · Decidir en equipo", { size: 16, bold: true }),
     text(5.35, 2.03, 3.8, 0.25, "Votan los tres", { size: 11, color: C.muted }),
     box(5.35, 2.4, 3.8, 0.5, C.white, { r: 0.1 }),
-    text(5.5, 2.4, 3.6, 0.5, "¿HU12 entra completa al Sprint 1?", { size: 14, bold: true, valign: "middle" }),
+    text(5.5, 2.4, 3.6, 0.5, "¿HU07 entra completa al Sprint 3?", { size: 14, bold: true, valign: "middle" }),
     ...voter(5.55, 3.1, 2, "Albert"),
     ...voter(6.75, 3.1, 3, "Anthony"),
     ...voter(7.95, 3.1, 2, "Luis"),
     text(5.35, 4.0, 3.8, 0.75, [
       { text: "Dos votos de 2: hay dudas serias.", breakLine: true },
-      { text: "Decisión: dividir HU12 en dos historias.", bold: true },
+      { text: "Decisión: dividir HU07 en dos historias.", bold: true },
     ], { size: 12 }),
   ],
+});
+
+// 6 · Las 12 historias de NewBit estimadas
+const HUS = [
+  ["HU01", "Cargar un video industrial", 1, "EP01"], ["HU02", "Fragmentar el video en frames", 2, "EP01"],
+  ["HU03", "Detectar trabajadores con YOLOv4", 3, "EP02"], ["HU04", "Descartar frames sin trabajadores", 2, "EP02"],
+  ["HU05", "Agrupar frames en clips", 2, "EP03"], ["HU06", "Descartar clips muy cortos", 2, "EP03"],
+  ["HU07", "Procesar el clip con ConvLSTM", 4, "EP04"], ["HU08", "Etiquetar: segura o insegura", 3, "EP04"],
+  ["HU09", "Ver el video con recuadro de riesgo", 3, "EP05"], ["HU10", "Activar la alerta", 2, "EP05"],
+  ["HU11", "Ajustar el umbral de YOLOv4", 1, "EP06"], ["HU12", "Ver el log de tiempos", 2, "EP06"],
+];
+const SIZE_ALPHA = [null, 72, 55, 35, 15, 0];
+const huEls = [text(0.6, 1.12, 8.8, 0.3, "Nuestras 12 historias (FGAP040, épicas EP01–EP06) · tamaño acordado tras votar · 1 = muy pequeña, 5 = muy grande", { size: 12, color: C.muted })];
+HUS.forEach(([id, name, n, ep], i) => {
+  const x = 0.6 + (i % 4) * 2.25, y = 1.5 + Math.floor(i / 4) * 1.12;
+  huEls.push(box(x, y, 2.05, 1.0, C.soft, { r: 0.14 }));
+  huEls.push(text(x + 0.15, y + 0.1, 1.3, 0.25, [{ text: id, bold: true }, { text: " · " + ep }], { size: 11, color: C.accent }));
+  huEls.push(text(x + 0.15, y + 0.36, 1.32, 0.58, name, { size: 11, valign: "top" }));
+  huEls.push(box(x + 1.5, y + 0.25, 0.44, 0.44, C.accent, { r: 0.22, alpha: SIZE_ALPHA[n] }));
+  huEls.push(text(x + 1.5, y + 0.25, 0.44, 0.44, String(n), { size: 16, bold: true, color: n >= 3 ? C.white : C.ink, align: "center", valign: "middle" }));
+});
+huEls.push(text(0.6, 4.88, 8.8, 0.28, [{ text: "Lectura: ", bold: true }, { text: "la EP04 (ConvLSTM) concentra el mayor esfuerzo; las historias de carga y configuración son pequeñas. Votos simulados." }], { size: 11, color: C.muted }));
+S.push({
+  title: "Estimamos las 12 historias de NewBit",
+  notes: "Anthony. Aplicamos el puño de cinco a nuestras doce historias de usuario. Cada número es el tamaño acordado después de votar y de que los extremos explicaran su razón. La más grande es la HU07, procesar el clip con ConvLSTM, que vimos en el ejemplo anterior. Las de carga y configuración son pequeñas. Son votos simulados por el equipo; los reales se toman en la planificación de cada sprint.",
+  els: huEls,
+});
+
+// 7 · Decidir qué entra a cada sprint
+const DEC = [
+  ["Sprint 1", "¿EP01 (HU01–HU02) entra completa al Sprint 1?", [5, 4, 5], "Aprobado", C.yes],
+  ["Sprint 2", "¿EP02 y EP03 (HU03–HU06) juntas en el Sprint 2?", [3, 4, 3], "Sí, con revisión a mitad del sprint", C.doubt],
+  ["Sprint 4", "¿EP05 y EP06 (HU09–HU12) quedan para el Sprint 4?", [4, 5, 4], "Aprobado", C.yes],
+];
+const decEls = [text(0.6, 1.12, 8.8, 0.3, "Votan los tres: Albert (PO), Anthony y Luis · la EP04 va en el Sprint 3, dividida (ver ejemplo)", { size: 12, color: C.muted })];
+DEC.forEach(([sp, q, votes, res, col], i) => {
+  const y = 1.52 + i * 1.12;
+  decEls.push(box(0.6, y, 4.55, 0.92, C.soft, { r: 0.14 }));
+  decEls.push(text(0.8, y + 0.1, 1.2, 0.25, sp.toUpperCase(), { size: 10, bold: true, color: C.accent, spacing: 1 }));
+  decEls.push(text(0.8, y + 0.34, 4.2, 0.5, q, { size: 13, bold: true, valign: "top" }));
+  votes.forEach((n, k) => decEls.push(...voter(5.45 + k * 0.92, y + 0.08, n, ["Albert", "Anthony", "Luis"][k])));
+  decEls.push(box(8.2, y + 0.16, 1.2, 0.6, col, { r: 0.12, alpha: 82 }));
+  decEls.push(text(8.25, y + 0.16, 1.1, 0.6, res, { size: 10.5, bold: true, color: C.ink, align: "center", valign: "middle" }));
+});
+decEls.push(text(0.6, 4.88, 8.8, 0.28, [{ text: "Regla del equipo: ", bold: true }, { text: "si hay algún 1 o 2, se discute antes de cerrar. Votos simulados." }], { size: 11, color: C.muted }));
+S.push({
+  title: "Decidimos en equipo qué entra a cada sprint",
+  notes: "Luis. Usamos el puño de cinco para decidir. Primera: la EP01 entra completa al Sprint 1, votos 5, 4 y 5, aprobado. Segunda: la EP02 y la EP03 juntas en el Sprint 2; hubo dos votos de 3, así que se acepta pero con una revisión a mitad del sprint. Tercera: la EP05 y la EP06 quedan para el Sprint 4, aprobado. La EP04 va en el Sprint 3 y la dividimos, como vimos en el ejemplo. Votos simulados.",
+  els: decEls,
 });
 
 // 6 · Comparación y cierre

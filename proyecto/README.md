@@ -36,7 +36,7 @@ Sigue la **Secuencia de avances** del docente ([`docs/semana-05/SECUENCIA DE AVA
 | PPT de presentación del proyecto (semana 3) | — | **Versión 1.0** (12/10): [`entregables/semana-03/PPT_Presentacion_NewBit/`](entregables/semana-03/PPT_Presentacion_NewBit/PPT_Presentacion_NewBit.md): 10 diapositivas con notas del orador |
 | Infografía de 12 pasos + metodología (semana 3) | ejemplos del docente | **Versión 1.0 en HTML** (12/10): [`entregables/semana-03/Infografias_NewBit/`](entregables/semana-03/Infografias_NewBit/Infografias_NewBit.md), con fotos reales de Wikimedia |
 | Proyecto de RSU, Anexo 1 (semana 5) | `docs/semana-05/README.md` (reglamento + ejemplos) | **Por confirmar** con el docente; idea de tema en `docs/semana-05/README.md` |
-| Presentación de una técnica de estimación: **Puño de cinco** (semana 5) | Guía del SBOK, pág. 193–195 | **Versión 1.0** (12/10): [`entregables/semana-05/Presentacion_Fist_of_Five/`](entregables/semana-05/Presentacion_Fist_of_Five/Presentacion_Fist_of_Five.md): HTML + PPTX + PDF, 6 diapositivas con notas; confirmar formato con el docente |
+| Presentación de una técnica de estimación: **Puño de cinco** (semana 5) | Guía del SBOK, pág. 193–195 | **Versión 1.2** (12/10): [`entregables/semana-05/Presentacion_Fist_of_Five/`](entregables/semana-05/Presentacion_Fist_of_Five/Presentacion_Fist_of_Five.md): HTML + PPTX + PDF, 6 diapositivas con notas; confirmar formato con el docente |
 
 ## Decisiones
 Base: [UnsafeNet Research Pack](investigacion/UnsafeNet_Research_Pack/UnsafeNet_Research_Pack.md) (12/10). Las marcadas *propuesta* faltan confirmarlas entre el equipo.
