@@ -30,13 +30,15 @@
 | Semana | Carpeta | Tipo de `.md` | De qué trata |
 |---|---|---|---|
 | investigación | `NewBit_Top3_ComputerVision_SeguridadIndustrial/` | Resumen (solo Unsafe-Net) | Top 3 investigaciones; ficha y análisis de Unsafe-Net |
-| entregables | `FGAP010_Acta_Constitucion_NewBit/` | Resumen | Acta de NewBit, versión 1.0 completa (DOCX + PDF) |
-| entregables | `FGAP030_Roles_y_Prototipos_NewBit/` | Resumen | Roles y Prototipos de NewBit, versión 1.0 (DOCX + PDF) |
-| entregables | `EGAP015_Justificacion_NewBit/` | Resumen | Justificación de NewBit, versión 1.0 (DOCX + PDF) |
-| entregables | `FGAP040_Epicas_NewBit/` | Resumen | Épicas de NewBit, versión 1.0 (hoja del laboratorio, DOCX + PDF) |
-| entregables | `Diagrama_Arquitectura_NewBit/` | Resumen | Diagrama "Cómo funciona" de NewBit (HTML) |
-| entregables | `PPT_Presentacion_NewBit/` | Resumen | PPT de presentación de NewBit (PPTX + PDF), 10 diapositivas |
-| entregables | `Infografias_NewBit/` (HTML, CSS, fotos) | `Infografias_NewBit.md` | 12 pasos y metodología de NewBit; página web, excepción a la regla de una carpeta por archivo |
+| entregables sem. 2 | `FGAP010_Acta_Constitucion_NewBit/` | Resumen | Acta de NewBit, versión 1.0 completa (DOCX + PDF) |
+| entregables sem. 3 | `FGAP030_Roles_y_Prototipos_NewBit/` | Resumen | Roles y Prototipos de NewBit, versión 1.0 (DOCX + PDF) |
+| entregables sem. 4 | `EGAP015_Justificacion_NewBit/` | Resumen | Justificación de NewBit, versión 1.0 (DOCX + PDF) |
+| entregables sem. 4 | `FGAP040_Epicas_NewBit_equipo/` | Transcripción | **Épicas del equipo** (6 épicas, 12 HU); versión que vale |
+| entregables sem. 4 | `FGAP040_Epicas_NewBit/` | Resumen | Épicas de NewBit, versión 1.0 (hoja del laboratorio, DOCX + PDF) |
+| entregables sem. 3 | `Diagrama_Arquitectura_NewBit/` | Resumen | Diagrama "Cómo funciona" de NewBit (HTML) |
+| entregables sem. 3 | `PPT_Presentacion_NewBit/` | Resumen | PPT de presentación de NewBit (PPTX + PDF), 12 diapositivas |
+| entregables sem. 5 | `Presentacion_Fist_of_Five/` | Resumen | Presentación de la técnica Puño de cinco (HTML + PPTX + PDF + generador + fuente Carlito), 6 diapositivas |
+| entregables sem. 3 | `Infografias_NewBit/` (HTML, CSS, fotos) | `Infografias_NewBit.md` | 12 pasos y metodología de NewBit; página web, excepción a la regla de una carpeta por archivo |
 | investigación | `UnsafeNet_Research_Pack/` (zip + 15 `.md` ya descomprimidos) | Ficha rápida + los `.md` originales | Investigación del equipo: dataset, arquitectura, plan de réplica |
 
 ## Proyecto anterior (`archivo/vigia-industrial/`)

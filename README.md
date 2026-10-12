@@ -12,7 +12,7 @@ NewBit/
 │   └── semana-XX/<archivo>/ Una carpeta por archivo: original + <archivo>.md
 ├── proyecto/                Proyecto vigente: NewBit (documentos del equipo y, luego, código)
 │   ├── README.md            Estado, entregables aplicados al proyecto, decisiones abiertas
-│   ├── entregables/     Formatos del curso llenados (DOCX/PDF/PPTX/HTML + .md)
+│   ├── entregables/semana-XX/  Tareas del curso hechas para NewBit, por semana
 │   └── investigacion/   Contexto del proyecto (no va por semanas)
 └── archivo/
     └── vigia-industrial/    Proyecto anterior (VIGIA / NewBit / VisionOps). Solo referencia
@@ -30,6 +30,6 @@ NewBit/
 ## Reglas para agregar contenido
 1. **¿Lo mandó el docente?** → `docs/semana-XX/` (semana según la fecha de llegada). Original y su `.md` (resumen con sección **Análisis**) en la misma carpeta, y actualizar `docs/README.md` y `docs/CONTEXTO-CURSO.md`.
    **Todo archivo que no sea `.md` (PDF, Word, PowerPoint, imagen) necesita su `.md`**: si es largo o escaneado, solo una **ficha rápida** tras hojearlo (no se transcribe); si es corto o un formato a llenar, resumen y una fila en `INDICE-ARCHIVOS.md`. Va en **su propia carpeta con el mismo nombre**: `semana-XX/<nombre>/` con el original y `<nombre>.md`. Comprobar con `scripts/verificar-indice.sh`.
-2. **¿Es del proyecto?** → entregable del curso en `proyecto/entregables/`; investigación o contexto en `proyecto/investigacion/` (no se ordena por semanas). Actualizar `proyecto/README.md`.
+2. **¿Es del proyecto?** → tarea del curso en `proyecto/entregables/semana-XX/` (semana en que se pidió); investigación o contexto en `proyecto/investigacion/` (no se ordena por semanas). Actualizar `proyecto/README.md`.
 3. BigFarma, Retinopatía Diabética y los proyectos RSU de 2025 son **ejemplos del docente**, no del equipo.
 4. No afirmar resultados no demostrados; marcar como **propuesta** lo que sea diseño nuevo.

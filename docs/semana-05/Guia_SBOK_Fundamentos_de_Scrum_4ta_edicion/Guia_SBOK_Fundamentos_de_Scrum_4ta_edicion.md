@@ -70,7 +70,7 @@ Páginas leídas (libro): 33–35, 74–80, 90–95, 158–173, 185–200 y 235�
 **Estimación (9.2, pág. 191–195).** Estima el **Equipo Scrum** con el apoyo del SM. El PO solo aclara dudas. Se estiman solo historias que cumplan la DoR. Unidad: **puntos de historia** (tamaño relativo: riesgo + esfuerzo + complejidad), calibrados por cada equipo. Técnicas:
 - **Wideband Delphi:** rondas anónimas hasta llegar al consenso.
 - **Planning Poker:** cartas; si no hay consenso, se discute y se repite.
-- **Puño de cinco:** de 1 a 5 dedos.
+- **Puño de cinco (*Fist of Five*):** pág. **194–195** del libro (PDF 211–212), en 9.2.2.1 *Métodos de estimación*, técnica 3. Votación de 1 a 5 dedos tras un debate inicial; quienes dan valores atípicos explican su motivo y se repite la ronda o se decide en grupo. Sirve para estimar y para lograr consenso: 1 dedo = en desacuerdo con grandes inquietudes · 2 = en desacuerdo, asuntos menores · 3 = no estoy seguro, me sumo al consenso · 4 = de acuerdo, con asuntos por discutir · 5 = totalmente de acuerdo.
 - **Afinidad (tallas de camiseta):** se ubican en silencio en la pared, de menor a mayor, y luego el PO marca las categorías.
 
 El libro no menciona una escala concreta (como Fibonacci) en estas páginas.
