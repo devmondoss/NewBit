@@ -4,6 +4,7 @@ Material recibido el 12/10. Cada documento está en su carpeta (original + `.md`
 
 | Carpeta | Qué es |
 |---|---|
+| `Guia_SBOK_Fundamentos_de_Scrum_4ta_edicion/` | **Libro base del curso:** *Guía de los Fundamentos de Scrum (Guía del SBOK®)*, 4.ª ed., SCRUMstudy. Sirve para todas las semanas |
 | `FGAP070_Formato_Original_Completado_Retinopatia/` | **FGAP070 Criterios de Terminado** (Definition of Done), ejemplo Retinopatía |
 | `SECUENCIA DE AVANCES/` | **Hoja de ruta del curso:** FGAP010 → FGAP020 → FGAP030 → FGAP040 → FGAP060/070 → Sprints → FGAP090 |
 | `448 Transcrip - Aprobar Reglamento de Proyectos e Informes de Resp Social Universit y Extension Cultural y derogar R 113-19-CU/` | Resolución que aprueba el reglamento de RSU (2023) |

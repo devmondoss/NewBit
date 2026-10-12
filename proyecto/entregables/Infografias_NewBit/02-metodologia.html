@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NewBit · Metodología de investigación y desarrollo</title>
+<link rel="stylesheet" href="estilos.css">
+<style>
+  .meth { display: grid; gap: var(--gutter); grid-template-columns: 1fr 1fr 2.2fr 1fr 1.15fr;
+    grid-template-areas: "a b c d e" "f f f f e" "g g h h h"; }
+  .a{grid-area:a}.b{grid-area:b}.c{grid-area:c}.d{grid-area:d}.e{grid-area:e}.f{grid-area:f}.g{grid-area:g}.h{grid-area:h}
+  .branch { border: 1.5px solid var(--c); background: var(--s); border-radius: 12px; padding: 10px; display: grid; gap: 8px; }
+  .branch h3 { margin: 0; font-size: 14px; color: var(--ink); }
+  .row3 { display: grid; grid-template-columns: 210px 1fr; gap: 10px; align-items: center; }
+  .rules { display: grid; gap: 6px; }
+  .rules > div { display: flex; gap: 8px; align-items: center; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 5px 9px; font-size: 13px; }
+  .cm { display: grid; grid-template-columns: auto repeat(4, 62px); justify-content: start; gap: 3px; font-size: 10.5px; text-align: center; align-items: center; }
+  .cm i { display: block; width: 62px; height: 40px; border-radius: 3px; background: var(--c-blue); }
+  .heat { position: absolute; border-radius: 50%; filter: blur(14px); mix-blend-mode: multiply; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .train { display: grid; grid-template-columns: 1.1fr auto 1fr auto 1.3fr; gap: 10px; align-items: center; }
+  .arrow { font-size: 22px; font-weight: 800; color: var(--c); }
+  @media (max-width: 1300px) { .meth { grid-template-columns: 1fr 1fr; grid-template-areas: "a b" "c c" "d e" "f f" "g h"; } }
+  @media (max-width: 800px) { .meth { grid-template-columns: 1fr; grid-template-areas: "a" "b" "c" "d" "e" "f" "g" "h"; } .train, .two, .row3 { grid-template-columns: 1fr; } .arrow { display: none; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></symbol>
+<symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 18a9 9 0 1 1 16 0"/><path d="m12 14 4-5"/><circle cx="12" cy="15" r="1.2"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2.5 20h19z"/><path d="M12 10v5M12 17.5v.01"/></symbol>
+</svg>
+
+<div class="top">
+  <div class="eyebrow">NewBit · Plataforma de Computer Vision para operaciones industriales</div>
+  <h1>Metodología de investigación y desarrollo de NewBit</h1>
+  <p>Ocho bloques: de las fuentes de video a la evaluación. Dos ramas trabajan juntas: la detección encuentra <b>qué</b> hay en cada frame y el modelo temporal entiende <b>qué está pasando</b> en la secuencia.</p>
+  <nav>
+    <a href="index.html">← Índice</a>
+    <a href="01-pasos-proyecto.html">1 · Doce pasos</a>
+    <a href="02-metodologia.html" aria-current="page">2 · Metodología</a>
+  </nav>
+</div>
+
+<main>
+  <section class="meth">
+
+    <article class="card blue a">
+      <header><span class="n">1</span><h2>Entrada de datos <small>Fuentes de video industrial</small></h2></header>
+      <div class="body">
+        <div class="gallery" style="grid-template-columns:1fr 1fr"><div class="photo"><img src="assets/camara-domo.jpg" alt=""></div><div class="photo"><img src="assets/camara-bullet.jpg" alt=""></div></div>
+        <p style="font-size:13px">Clips MP4 de cámaras de planta.</p>
+        <div class="box solid" style="font-size:12.5px"><b>Dataset de entrenamiento:</b> video industrial público (CC BY 4.0), dos cámaras, conductas seguras e inseguras, con división oficial de entrenamiento y prueba.</div>
+      </div>
+    </article>
+
+    <article class="card green b">
+      <header><span class="n">2</span><h2>Preprocesamiento <small>y aumento de datos</small></h2></header>
+      <div class="body">
+        <div class="photo r43"><img src="assets/centro-distribucion.jpg" alt=""></div>
+        <ul style="font-size:13px">
+          <li>Extracción de frames</li>
+          <li>Redimensión y normalización</li>
+          <li>Muestreo para anotar</li>
+          <li>Aumento: brillo, espejo</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="card amber c">
+      <header><span class="n">3</span><h2>Arquitectura del pipeline de NewBit</h2></header>
+      <div class="body">
+        <div class="branch orange">
+          <h3>Rama 1 · Detección por frame (YOLOv4)</h3>
+          <div class="row3">
+            <div class="photo r43">
+              <img src="assets/montacargas-pasillo.jpg" alt="">
+              <div class="bb obj" style="left:33%;top:14%;width:37%;height:76%"><i>montacargas</i></div>
+              <div class="bb person" style="left:55%;top:36%;width:9%;height:19%"><i>persona</i></div>
+            </div>
+            <div class="flow"><div class="step">Backbone<small>CSPDarknet53</small></div><div class="step">Neck<small>SPP + PAN</small></div><div class="step">Head<small>cajas y clases</small></div></div>
+          </div>
+          <p class="note" style="margin:0">Detecta personas, montacargas y paneles.</p>
+        </div>
+        <div class="branch blue">
+          <h3>Rama 2 · Clasificación temporal (ConvLSTM)</h3>
+          <div class="row3">
+            <div class="gallery" style="grid-template-columns:repeat(3,1fr);gap:3px">
+              <div class="photo"><img src="assets/almacen-barandas.jpg" alt="" style="object-position:15% 45%"></div>
+              <div class="photo"><img src="assets/almacen-barandas.jpg" alt="" style="object-position:30% 45%"></div>
+              <div class="photo"><img src="assets/almacen-barandas.jpg" alt="" style="object-position:45% 45%"></div>
+            </div>
+            <div class="flow"><div class="step">Secuencia<small>frames del clip</small></div><div class="step">Celdas ConvLSTM<small>memoria espacio-temporal</small></div><div class="step">Softmax<small>conducta</small></div></div>
+          </div>
+          <p class="note" style="margin:0">Reconoce la acción a lo largo del tiempo.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="card purple d">
+      <header><span class="n">4</span><h2>Selección de frames <small>y armado de secuencias</small></h2></header>
+      <div class="body">
+        <div class="flow col">
+          <div class="step">Frames con persona, montacargas o panel</div>
+          <div class="step">Se descartan los frames sin actividad</div>
+          <div class="step">Clip reducido de una sola acción</div>
+        </div>
+        <p class="note">Menos frames que analizar: respuesta más rápida.</p>
+      </div>
+    </article>
+
+    <article class="card teal e">
+      <header><span class="n">5</span><h2>Motor de eventos <small>y configuración de alertas</small></h2></header>
+      <div class="body">
+        <div class="rules">
+          <div><svg class="ico"><use href="#i-alert"/></svg>Conducta activa</div>
+          <div><svg class="ico"><use href="#i-gauge"/></svg>Umbral de confianza</div>
+          <div><svg class="ico"><use href="#i-pin"/></svg>Zona y cámara</div>
+          <div><svg class="ico"><use href="#i-clock"/></svg>Deduplicación (mismo evento)</div>
+        </div>
+        <div class="photo r43">
+          <img src="assets/electricista-panel.jpg" alt="Electricista trabajando en un tablero abierto">
+          <div class="bb person" style="left:10%;top:14%;width:36%;height:56%"><i>persona</i></div>
+          <div class="bb bad" style="left:56%;top:14%;width:42%;height:82%"><i>panel abierto</i></div>
+          <span class="badge-ilus">ilustración</span>
+        </div>
+        <div class="flow col">
+          <div class="step red">Alerta visual y sonora con el clip</div>
+          <div class="step teal">Una persona confirma o descarta</div>
+          <div class="step slate">Registro e historial</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card slate f">
+      <header><span class="n">6</span><h2>Función de pérdida y estrategia de entrenamiento</h2></header>
+      <div class="body">
+        <div class="train">
+          <div>
+            <b style="font-size:13px">Clips por clase (conductas de la primera versión)</b>
+            <div class="bars" style="margin-top:26px">
+              <div style="height:100%;--c:var(--c-red)"><b>210</b></div>
+              <div style="height:36%;--c:var(--c-green)"><b>75</b></div>
+              <div style="height:68%;--c:var(--c-red)"><b>142</b></div>
+              <div style="height:15%;--c:var(--c-green)"><b>32</b></div>
+            </div>
+            <div class="bars-l"><span>Fuera de vía</span><span>En vía</span><span>Panel abierto</span><span>Panel cerrado</span></div>
+            <p class="note">Conteo reportado para el dataset público: hay desbalance entre clases inseguras y seguras.</p>
+          </div>
+          <span class="arrow">→</span>
+          <div class="box solid amber" style="text-align:center">
+            <b>Pérdidas</b><br><span style="font-size:13px">YOLOv4: CIoU + objetness + clase<br>ConvLSTM: entropía cruzada</span>
+          </div>
+          <span class="arrow">→</span>
+          <div class="box" style="font-size:13px"><b>Estrategia de entrenamiento</b>
+            <ul><li>Transfer learning (COCO) para YOLOv4</li><li>Split oficial entrenamiento / prueba</li><li>Early stopping y checkpoints</li><li>Manejo del desbalance (pesos por clase)</li><li>Configuración versionada</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card red g">
+      <header><span class="n">7</span><h2>Interpretabilidad (XAI) <span class="chip tag-futuro">propuesta</span></h2></header>
+      <div class="body">
+        <div class="two">
+          <div class="photo r43"><img src="assets/panel-control-cerrado.jpg" alt="" style="object-position:50% 30%"></div>
+          <div class="photo r43">
+            <img src="assets/panel-control-cerrado.jpg" alt="" style="object-position:50% 30%">
+            <span class="heat" style="left:20%;top:12%;width:60%;height:45%;background:rgba(255,40,0,.75)"></span>
+            <span class="heat" style="left:30%;top:50%;width:40%;height:35%;background:rgba(255,200,0,.6)"></span>
+            <span class="badge-ilus">ilustración</span>
+          </div>
+        </div>
+        <p style="font-size:13px">Mapas de calor (Grad-CAM) para mostrar qué región del frame pesó en la decisión: la puerta del panel, la vía peatonal, la persona.</p>
+      </div>
+    </article>
+
+    <article class="card blue h">
+      <header><span class="n">8</span><h2>Evaluación del sistema NewBit</h2></header>
+      <div class="body">
+        <div class="two">
+          <div class="box"><b>Métricas de evaluación</b>
+            <ul style="font-size:13px"><li>Accuracy y F1 por clase</li><li>Precisión y recall</li><li>Matriz de confusión</li><li>Tiempo por clip</li><li>% de frames descartados</li><li>Falsas alarmas</li></ul>
+          </div>
+          <div>
+            <b style="font-size:13px">Matriz de confusión (forma)</b>
+            <div class="cm" style="margin-top:8px">
+              <span></span><span>Fuera</span><span>En vía</span><span>Abierto</span><span>Cerrado</span>
+              <span>Fuera</span><i style="opacity:.9"></i><i style="opacity:.15"></i><i style="opacity:.05"></i><i style="opacity:.05"></i>
+              <span>En vía</span><i style="opacity:.2"></i><i style="opacity:.8"></i><i style="opacity:.05"></i><i style="opacity:.05"></i>
+              <span>Abierto</span><i style="opacity:.05"></i><i style="opacity:.05"></i><i style="opacity:.85"></i><i style="opacity:.2"></i>
+              <span>Cerrado</span><i style="opacity:.05"></i><i style="opacity:.05"></i><i style="opacity:.25"></i><i style="opacity:.75"></i>
+            </div>
+            <p class="note">Ilustrativa: los valores reales salen de la evaluación (Sprint 3).</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </section>
+</main>
+
+<footer class="credits"><details><summary>Créditos de imágenes (Wikimedia Commons)</summary><ul>
+<li><b>almacen-barandas.jpg</b> — Cjp24 · CC BY-SA 3.0 · <a href="https://commons.wikimedia.org/wiki/File:Warehouse-plastic_industry.jpg">Warehouse-plastic industry.jpg</a></li>
+<li><b>montacargas-pasillo.jpg</b> — Marketing Team · Dominio público · <a href="https://commons.wikimedia.org/wiki/File:Forklift.JPG">Forklift.JPG</a></li>
+<li><b>centro-distribucion.jpg</b> — Nick Saltmarsh · CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Distribution_centre_(J_Sainsbury%27s).jpg">Distribution centre (J Sainsbury's).jpg</a></li>
+<li><b>electricista-panel.jpg</b> — 176th Wing Alaska Air National Guard · CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File:110317_F_DU133_015_(5543643257).jpg">110317 F DU133 015.jpg</a></li>
+<li><b>panel-control-cerrado.jpg</b> — Asurnipal · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Sankt_Gallenkirch-Valiserabahn-middle_station-electrical_cabinet-AURO_control_panel-03ASD.jpg">AURO control panel</a></li>
+<li><b>camara-bullet.jpg</b> — MichalPL · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:CCTV_camera_in_Poland_(1).jpg">CCTV camera in Poland (1).jpg</a></li>
+<li><b>camara-domo.jpg</b> — sharky1005 · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:CP_Plus_CCTV_camera.jpg">CP Plus CCTV camera.jpg</a></li>
+</ul><p>Las cajas, zonas y mapas de calor dibujados sobre las fotos son ilustraciones, no salidas de un modelo.</p></details></footer>
+</body>
+</html>

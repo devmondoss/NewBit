@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NewBit · Infografías del proyecto</title>
+<link rel="stylesheet" href="estilos.css">
+<style>
+  .grid { display: grid; gap: var(--gutter); grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+  a.tile { text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+  a.tile:hover { transform: translateY(-2px); transition: transform .15s; }
+  a.tile .photo { aspect-ratio: 16/9; border-radius: 0; }
+  a.tile .body { padding: 14px; }
+  a.tile h2 { margin: 0 0 4px; font-size: 18px; }
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="eyebrow">NewBit · Plataforma de Computer Vision para operaciones industriales</div>
+  <h1>Infografías del proyecto</h1>
+  <p>Dos piezas a ancho completo. Ábrelas en el navegador; para exportarlas como imagen o PDF usa Imprimir (formato A3) o una captura de pantalla completa.</p>
+</div>
+<main>
+  <section class="grid">
+    <a class="card tile orange" href="01-pasos-proyecto.html">
+      <div class="photo"><img src="assets/montacargas-pasillo.jpg" alt=""></div>
+      <div class="body"><h2>1 · Doce pasos para desarrollar NewBit</h2><p>Del problema a las conclusiones: pipeline, tecnología, entrenamiento, validación y evaluación comparativa.</p></div>
+    </a>
+    <a class="card tile blue" href="02-metodologia.html">
+      <div class="photo"><img src="assets/electricista-panel.jpg" alt=""></div>
+      <div class="body"><h2>2 · Metodología de investigación y desarrollo</h2><p>Ocho bloques: datos, preprocesamiento, YOLOv4 + ConvLSTM, selección de frames, eventos, entrenamiento, XAI y evaluación.</p></div>
+    </a>
+  </section>
+</main>
+</body>
+</html>

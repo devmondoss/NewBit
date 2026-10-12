@@ -6,6 +6,7 @@ Resumen para consulta rápida. Cada semana tiene su carpeta en `docs/semana-XX/`
 - **Asignatura:** Ingeniería de Software II · Escuela de Ing. de Sistemas e Informática · Facultad de Ingeniería · Universidad Nacional del Santa (UNS)
 - **Semestre:** 2026-II · **Docente:** Dr. Ing. Alfredo Daza Vergaray
 - **Enfoque:** Scrum aplicado a un proyecto de software del equipo. Los documentos de gestión se entregan en formatos con código (EGAP/FGAP).
+- **Libro base:** *Guía de los Fundamentos de Scrum (Guía del SBOK®)*, 4.ª ed., SCRUMstudy (2022). El docente basa sus clases en él. Ficha, capítulos y dónde está cada formato: `semana-05/Guia_SBOK_Fundamentos_de_Scrum_4ta_edicion/`.
 
 ## Calendario y material por semana
 | Semana | Fechas | Qué se vio / pidió | Material (`docs/…`) |
@@ -14,7 +15,7 @@ Resumen para consulta rápida. Cada semana tiene su carpeta en `docs/semana-XX/`
 | 2 | 21–27/09 | **Principios de Scrum** (teoría + actividad). **Acta de Constitución** (EGAP010) | `semana-02/`: principios Scrum, plantilla y ejemplo de Acta |
 | 3 | 28/09–04/10 | **Roles y Prototipos** (FGAP030/EGAP030). Tareas: infografía de 12 pasos, PPT de presentación y diagrama de flujo de la arquitectura | `semana-03/`: plantilla y ejemplo de Roles |
 | 4 | 05–11/10 | **Laboratorio 4:** Justificación del proyecto (EGAP015) y Épicas e historias de usuario (FGAP040) | `semana-04/`: formato de Justificación y Épicas de ejemplo |
-| **5** | **12–18/10 (actual)** | **Responsabilidad Social Universitaria (RSU):** Reglamento UNS (Res. 448-2023-CU-R-UNS) y dos proyectos RSU de ejemplo (instrucción **por confirmar**). **Secuencia de avances:** hoja de ruta de formatos FGAP010 → FGAP090 | `semana-05/`: reglamento, ejemplos RSU, secuencia |
+| **5** | **12–18/10 (actual)** | **Responsabilidad Social Universitaria (RSU):** Reglamento UNS (Res. 448-2023-CU-R-UNS) y dos proyectos RSU de ejemplo (instrucción **por confirmar**). **Secuencia de avances:** hoja de ruta de formatos FGAP010 → FGAP090 | `semana-05/`: reglamento, ejemplos RSU, secuencia, FGAP070, **libro base (Guía del SBOK)** |
 
 ## Qué enseñó cada semana
 - **Semana 2 – Scrum:** control empírico (transparencia, inspección, adaptación), autoorganización, colaboración, priorización por valor (valor · riesgo · dependencias), time-boxing (sprint 1–4 semanas; daily 15 min), desarrollo iterativo (épicas → historias), Scrum vs cascada. Actividad: cuadro comparativo de los principios con un ejemplo práctico (sin evidencia de entrega en el repo).

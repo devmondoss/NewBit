@@ -34,7 +34,7 @@ Sigue la **Secuencia de avances** del docente ([`docs/semana-05/SECUENCIA DE AVA
 | EGAP015 Justificación (semana 4) | `docs/semana-04/Formato_Justificacion_…/` | **Versión 1.0** (12/10): [`entregables/EGAP015_Justificacion_NewBit/`](entregables/EGAP015_Justificacion_NewBit/EGAP015_Justificacion_NewBit.md) |
 | Diagrama de arquitectura / cómo funciona (semana 3) | — | **Versión 1.0 en HTML** (12/10): [`entregables/Diagrama_Arquitectura_NewBit/`](entregables/Diagrama_Arquitectura_NewBit/Diagrama_Arquitectura_NewBit.md) |
 | PPT de presentación del proyecto (semana 3) | — | **Versión 1.0** (12/10): [`entregables/PPT_Presentacion_NewBit/`](entregables/PPT_Presentacion_NewBit/PPT_Presentacion_NewBit.md): 10 diapositivas con notas del orador |
-| Infografía de 12 pasos (semana 3) | — | Pendiente (las de VIGIA están en `archivo/`) |
+| Infografía de 12 pasos + metodología (semana 3) | ejemplos del docente | **Versión 1.0 en HTML** (12/10): [`entregables/Infografias_NewBit/`](entregables/Infografias_NewBit/Infografias_NewBit.md), con fotos reales de Wikimedia |
 | Proyecto de RSU, Anexo 1 (semana 5) | `docs/semana-05/README.md` (reglamento + ejemplos) | **Por confirmar** con el docente; idea de tema en `docs/semana-05/README.md` |
 
 ## Decisiones

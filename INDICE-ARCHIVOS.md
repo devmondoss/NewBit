@@ -24,6 +24,7 @@
 | 5 | `448 Reglamento de Proyectos … Extensión Cultural-Anexo/` | Resumen detallado (escaneado; no reabrir) | Reglamento RSU de la UNS + anexos |
 | 5 | `(1.) PROYECTO El Futuro de la Tecnología …/` | Resumen | Ejemplo RSU: charla vocacional |
 | 5 | `(2.) PROYECTO Capacitación en Inteligencia Artificial …/` | Resumen | Ejemplo RSU: ajedrez con IA |
+| 5 | `Guia_SBOK_Fundamentos_de_Scrum_4ta_edicion/` | Ficha rápida (escaneado, 413 págs.) | **Libro base del curso:** Guía del SBOK, 4.ª ed. (SCRUMstudy); índice y dónde está cada formato |
 
 ## Proyecto vigente (`proyecto/`)
 | Semana | Carpeta | Tipo de `.md` | De qué trata |
@@ -35,6 +36,7 @@
 | entregables | `FGAP040_Epicas_NewBit/` | Resumen | Épicas de NewBit, versión 1.0 (hoja del laboratorio, DOCX + PDF) |
 | entregables | `Diagrama_Arquitectura_NewBit/` | Resumen | Diagrama "Cómo funciona" de NewBit (HTML) |
 | entregables | `PPT_Presentacion_NewBit/` | Resumen | PPT de presentación de NewBit (PPTX + PDF), 10 diapositivas |
+| entregables | `Infografias_NewBit/` (HTML, CSS, fotos) | `Infografias_NewBit.md` | 12 pasos y metodología de NewBit; página web, excepción a la regla de una carpeta por archivo |
 | 5 | `UnsafeNet_Research_Pack/` (zip + 15 `.md` ya descomprimidos) | Ficha rápida + los `.md` originales | Investigación del equipo: dataset, arquitectura, plan de réplica |
 
 ## Proyecto anterior (`archivo/vigia-industrial/`)

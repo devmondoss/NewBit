@@ -24,7 +24,7 @@ NewBit/
 | 2 | 21–27/09 | Scrum · Acta | (VIGIA, en `archivo/`) |
 | 3 | 28/09–04/10 | Roles y Prototipos · infografía | (VIGIA, en `archivo/`) |
 | 4 | 05–11/10 | Justificación · Épicas | Elección de Unsafe-Net como investigación base de NewBit |
-| **5** | **12–18/10 (actual)** | RSU (reglamento + ejemplos) · Secuencia de avances FGAP010 → FGAP090 · FGAP070 (ejemplo) | — |
+| **5** | **12–18/10 (actual)** | RSU (reglamento + ejemplos) · Secuencia de avances FGAP010 → FGAP090 · FGAP070 (ejemplo) · Libro base del curso: Guía del SBOK, 4.ª ed. | — |
 
 ## Reglas para agregar contenido
 1. **¿Lo mandó el docente?** → `docs/semana-XX/` (semana según la fecha de llegada). Original en ``, resumen en `.md` con sección **Análisis**, y actualizar `docs/README.md` y `docs/CONTEXTO-CURSO.md`.

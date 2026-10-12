@@ -13,7 +13,7 @@ while IFS= read -r -d '' f; do
     faltan=$((faltan + 1))
   fi
 done < <(find docs proyecto archivo -type f -not -name '*.md' -not -name '.DS_Store' \
-  -not -path '*/infografias/*' -print0)
+  -not -path '*/infografias/*' -not -path '*/Infografias_NewBit/*' -print0)
 
 # Archivos sueltos en la raíz (recién agregados, aún sin clasificar)
 while IFS= read -r -d '' f; do
