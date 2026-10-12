@@ -29,5 +29,5 @@
   - **Documentación de IA:** versión del dataset de Mendeley, split oficial, frames anotados, pesos del modelo y métricas por clase. Encaja con el plan experimental del Research Pack.
   - **Certificación:** prototipo académico, sin certificación de SST, sin afirmar que reduce accidentes.
   - **Otras:** atribución de la licencia CC BY 4.0, alertas orientativas con un humano que valida, y nada de reconocimiento facial.
-- **Revisión cruzada con 2 personas:** cada uno revisa el código del otro. Sirve como argumento para la duda pendiente con el docente sobre el tamaño del equipo.
+- **Revisión cruzada con 2 Developers** (Anthony y Luis): cada uno revisa el código del otro. Sirve como argumento para la duda pendiente con el docente sobre el tamaño del equipo.
 - Depende del Acta (código PY-…) y conviene hacerlo junto con el FGAP060 (Backlog), que todavía no llega.

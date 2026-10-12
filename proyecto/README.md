@@ -1,22 +1,26 @@
-# Proyecto: Unsafe-Net (en definición)
+# Proyecto: NewBit
 
-Proyecto vigente del equipo para el curso, elegido el **05/10/2026**: detección de **conductas inseguras** en video industrial con **YOLO + ConvLSTM**, a partir del artículo *Unsafe-Net* (Önal y Dandıl, 2024).
+**NewBit** — Plataforma de Computer Vision que convierte cámaras existentes en sensores inteligentes configurables para operaciones industriales. Código: **PY-NB-001**.
 
-- **Equipo (2):** Anthony Lopez Yrribarren · Luis Fernando Elias Salazar Diaz.
+**Investigación base** (elegida el **05/10/2026**), cuya réplica es la primera capacidad de NewBit: detección de **conductas inseguras** en video industrial con **YOLO + ConvLSTM**, a partir del artículo *Unsafe-Net* (Önal y Dandıl, 2024).
+
+- **Equipo Scrum (3):** Albert Sebastian Chumacero Chávarry — **Product Owner** · Anthony Gabriel Lopez Yrribarren — **Scrum Master y Developer** · Luis Fernando Salazar Diaz — **Developer**.
+- **Duración:** **4 sprints** de dos semanas (19/10–11/12/2026), más el inicio (05–16/10) y el cierre (14–18/12).
 - **Ficha y análisis del artículo:** [semana-04/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md](semana-04/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md).
 - **Material del curso** (plantillas y ejemplos del docente): [`../docs/`](../docs/README.md). **Proyecto anterior** (VIGIA Industrial): [`../archivo/vigia-industrial/`](../archivo/vigia-industrial/README.md).
 
 ## Cómo se ordena esta carpeta
 - `semana-XX/`: lo que el equipo produce cada semana del curso (**una carpeta por archivo**, con el original y su `.md` del mismo nombre; los documentos escritos por el equipo van como `.md` sueltos). Misma numeración de semanas que `docs/`.
+- `entregables/`: los formatos del curso llenados para NewBit (`.docx` listo para entregar + su `.md`), uno por carpeta, en el orden de la secuencia de avances.
 - Cuando empiece el código, va **dentro de esta carpeta** (por ejemplo `ml/` para el modelo y `app/` para la web/API); así el repo funciona como monorepo: curso en `docs/`, proyecto (docs + código) en `proyecto/`.
 - Todo lo que sea diseño propio se marca como **propuesta**. Las cifras del artículo (95.81 %, 0.14 s, 518 → 134) no son resultados nuestros.
 
-## Hoja de ruta: entregables aplicados a Unsafe-Net
+## Hoja de ruta: entregables de NewBit
 Sigue la **Secuencia de avances** del docente ([`docs/semana-05/SECUENCIA DE AVANCES/SECUENCIA DE AVANCES.md`](../docs/semana-05/SECUENCIA DE AVANCES/SECUENCIA DE AVANCES.md)). Plantilla o ejemplo de cada paso en `docs/semana-XX/`.
 
-| Paso | Formato | Plantilla / ejemplo | Estado para Unsafe-Net |
+| Paso | Formato | Plantilla / ejemplo | Estado para NewBit |
 |---|---|---|---|
-| 1 | FGAP010 Acta de Constitución | `docs/semana-02/` | Pendiente (la de VIGIA sirve de base) — **es la base de todo lo demás** |
+| 1 | FGAP010 Acta de Constitución | `docs/semana-02/` | **Borrador 1.0 listo** (12/10): [`entregables/FGAP010_Acta_Constitucion_NewBit/`](entregables/FGAP010_Acta_Constitucion_NewBit/FGAP010_Acta_Constitucion_NewBit.md); revisar los POR CONFIRMAR |
 | 2 | FGAP020 Registro de Stakeholders | — (no recibido) | Pendiente; pedir formato al docente |
 | 3 | FGAP030 Roles y Prototipos | `docs/semana-03/` | Pendiente (la de VIGIA sirve de base) |
 | 4 | FGAP040 Épicas | `docs/semana-04/FGAP040_…/` | Pendiente; depende del Acta |
@@ -40,7 +44,7 @@ Base: [UnsafeNet Research Pack](semana-05/UnsafeNet_Research_Pack/UnsafeNet_Rese
 | 2 | Fuente del video | **Resuelto:** dataset público de Mendeley (CC BY 4.0, 691 clips, split oficial). Confirmar tamaño y licencia en el enlace |
 | 3 | Réplica fiel o propia | *Propuesta:* **réplica pequeña fiel (nivel B)**: YOLOv4 filtra frames → ConvLSTM; comparar con el baseline; GUI simple y alerta simulada |
 | 4 | Dónde entrenar | *Propuesta:* Colab o GPU NVIDIA local; 30–50 GB libres en disco |
-| 5 | Nombre del proyecto y del Scrum Team | **Abierta** (el curso asume 1 PO + 1 SM + 3 Developers) |
+| 5 | Scrum Team y sprints | **Resuelto (12/10):** PO Albert Chumacero · SM + Dev Anthony Lopez · Dev Luis Salazar; 4 sprints. **Nombre: NewBit** (PY-NB-001) |
 | 6 | Organización del caso, interesados, contexto peruano y costos | **Abierta:** falta investigar (puntos E–G de la guía) |
 
 ## Por semana

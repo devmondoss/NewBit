@@ -1,6 +1,6 @@
 # NewBit – Ingeniería de Software II (UNS, 2026-II)
 
-Repositorio del equipo **Anthony Lopez Yrribarren** y **Luis Fernando Elias Salazar Diaz**. Separa lo que manda el docente de lo que hace el equipo.
+Repositorio del equipo Scrum: **Albert Sebastian Chumacero Chávarry** (Product Owner), **Anthony Gabriel Lopez Yrribarren** (Scrum Master y Developer) y **Luis Fernando Salazar Diaz** (Developer). Separa lo que manda el docente de lo que hace el equipo.
 
 ```
 NewBit/
@@ -10,7 +10,7 @@ NewBit/
 │   ├── README.md            Índice de semanas
 │   ├── CONTEXTO-CURSO.md    Calendario, convenciones del docente, entregables
 │   └── semana-XX/<archivo>/ Una carpeta por archivo: original + <archivo>.md
-├── proyecto/                Proyecto vigente: Unsafe-Net (documentos del equipo y, luego, código)
+├── proyecto/                Proyecto vigente: NewBit (documentos del equipo y, luego, código)
 │   ├── README.md            Estado, entregables aplicados al proyecto, decisiones abiertas
 │   └── semana-XX/
 └── archivo/
@@ -23,7 +23,7 @@ NewBit/
 | 1 | 14–20/09 | Sin actividad | — |
 | 2 | 21–27/09 | Scrum · Acta | (VIGIA, en `archivo/`) |
 | 3 | 28/09–04/10 | Roles y Prototipos · infografía | (VIGIA, en `archivo/`) |
-| 4 | 05–11/10 | Justificación · Épicas | Elección de Unsafe-Net |
+| 4 | 05–11/10 | Justificación · Épicas | Elección de Unsafe-Net como investigación base de NewBit |
 | **5** | **12–18/10 (actual)** | RSU (reglamento + ejemplos) · Secuencia de avances FGAP010 → FGAP090 · FGAP070 (ejemplo) | — |
 
 ## Reglas para agregar contenido

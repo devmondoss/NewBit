@@ -21,4 +21,4 @@ Resumen del curso, convenciones del docente y entregables: [CONTEXTO-CURSO.md](C
 Nota: `semana-04/borradores-revisar/` tiene un borrador de Justificación escrito para Retinopatía (ejemplo del docente); no corresponde al proyecto del equipo.
 
 ## Ejemplos del docente ≠ trabajo del equipo
-**BigFarma**, **Retinopatía Diabética** y los dos **proyectos RSU de 2025** son modelos del docente. El proyecto del equipo es **Unsafe-Net** (`../proyecto/`).
+**BigFarma**, **Retinopatía Diabética** y los dos **proyectos RSU de 2025** son modelos del docente. El proyecto del equipo es **NewBit** (`../proyecto/`), con Unsafe-Net como investigación base.

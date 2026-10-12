@@ -36,14 +36,14 @@ Los archivos de **BigFarma** (Acta, Roles, de 2018), de **Retinopatía Diabétic
 - El ejemplo asume un Scrum Team de **1 Product Owner + 1 Scrum Master + 3 Developers**.
 
 ## Entregables que pide el curso
-El avance de cada entregable **para Unsafe-Net** se sigue en [`proyecto/README.md`](../proyecto/README.md). Aquí queda qué pide el curso y si hay algo hecho.
+El avance de cada entregable **para NewBit** se sigue en [`proyecto/README.md`](../proyecto/README.md). Aquí queda qué pide el curso y si hay algo hecho.
 
 | Entregable | Semana | Estado |
 |---|---|---|
-| 1 · Acta de Constitución (FGAP/EGAP010) | 2 | Hecha para VIGIA (proyecto anterior); **rehacer para Unsafe-Net** |
+| 1 · Acta de Constitución (FGAP/EGAP010) | 2 | Hecha para VIGIA (proyecto anterior); **rehacer para NewBit** |
 | Cuadro comparativo de principios de Scrum | 2 | Sin evidencia |
 | 2 · Registro de Stakeholders (FGAP020) | 5 (en la secuencia) | **Nuevo; sin formato ni ejemplo en el repo** |
-| 3 · Roles y Prototipos (FGAP/EGAP030) | 3 | Hecho para VIGIA; **rehacer para Unsafe-Net** |
+| 3 · Roles y Prototipos (FGAP/EGAP030) | 3 | Hecho para VIGIA; **rehacer para NewBit** |
 | Infografía de 12 pasos del proyecto | 3 | Hecha en HTML para VIGIA; rehacer o adaptar |
 | Justificación del proyecto (EGAP015) | 4 | **Pendiente** |
 | 4 · Épicas e historias de usuario (FGAP040) | 4 | **Pendiente** |
@@ -54,7 +54,7 @@ El avance de cada entregable **para Unsafe-Net** se sigue en [`proyecto/README.m
 | 7 · Cierre del Proyecto (FGAP090) | – | Al final |
 
 ## Dudas para el docente
-1. Cómo se evalúa un equipo de **2 personas** si el ejemplo asume 1 PO + 1 SM + 3 developers.
+1. Cómo se evalúa un equipo de **3 personas** (PO + SM/Developer + Developer) si el ejemplo asume 1 PO + 1 SM + 3 developers.
 2. Si cambia el proyecto, qué entregables ya hechos (Acta, Roles) hay que rehacer.
 3. `NightWatch_Protocol_Propuesta.pdf` (en `semana-04/Formato_Justificacion_…/`) es en realidad el formato de Justificación: duplicado del `.docx`; renombrar o descartar.
 4. **RSU (semana 5):** ¿hay que redactar un proyecto de RSU propio (Anexo 1)? ¿solo el diseño o también ejecutarlo e informar (Anexo 2)? ¿debe relacionarse con el proyecto del curso? ¿fecha de entrega?

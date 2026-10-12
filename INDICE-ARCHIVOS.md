@@ -29,6 +29,7 @@
 | Semana | Carpeta | Tipo de `.md` | De qué trata |
 |---|---|---|---|
 | 4 | `NewBit_Top3_ComputerVision_SeguridadIndustrial/` | Resumen (solo Unsafe-Net) | Top 3 investigaciones; ficha y análisis de Unsafe-Net |
+| entregables | `FGAP010_Acta_Constitucion_NewBit/` | Resumen + pendientes | Acta de NewBit, borrador 1.0 (Word del docente) |
 | 5 | `UnsafeNet_Research_Pack/` (zip + 15 `.md` ya descomprimidos) | Ficha rápida + los `.md` originales | Investigación del equipo: dataset, arquitectura, plan de réplica |
 
 ## Proyecto anterior (`archivo/vigia-industrial/`)

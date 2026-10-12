@@ -1,16 +1,17 @@
 # NewBit – contexto del repositorio
 
-Repositorio del curso **Ingeniería de Software II** (UNS, 2026-II) y del proyecto del equipo de Anthony Lopez Yrribarren y Luis Fernando Elias Salazar Diaz. Monorepo: curso y proyecto van separados.
+Repositorio del curso **Ingeniería de Software II** (UNS, 2026-II) y del proyecto del equipo. **Equipo Scrum (3):** Albert Sebastian Chumacero Chávarry (Product Owner), Anthony Gabriel Lopez Yrribarren (Scrum Master y Developer) y Luis Fernando Salazar Diaz (Developer). Proyecto en **4 sprints**. Monorepo: curso y proyecto van separados.
 
 Antes de responder, lee:
 - `README.md` — mapa del repo, calendario y reglas para agregar contenido.
 - `docs/CONTEXTO-CURSO.md` — calendario por semanas, qué enseñó cada una, convenciones del docente y entregables.
-- `proyecto/README.md` — **proyecto vigente: Unsafe-Net** (conductas inseguras con YOLO + ConvLSTM, elegido el 05/10/2026). Estado de entregables y decisiones abiertas. Ficha: `proyecto/semana-04/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md`.
+- `proyecto/README.md` — **proyecto vigente: NewBit** — plataforma de Computer Vision que convierte cámaras existentes en sensores inteligentes configurables para operaciones industriales. **Investigación base: Unsafe-Net** (conductas inseguras con YOLO + ConvLSTM, elegida el 05/10/2026); "Unsafe-Net" no es el nombre del proyecto. Estado de entregables y decisiones abiertas. Ficha: `proyecto/semana-04/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md`.
 - `archivo/vigia-industrial/CONTEXTO-PROYECTO.md` — proyecto anterior (VIGIA Industrial / NewBit). Solo referencia.
 
 Estructura:
 - `docs/semana-XX/` — **solo material del docente** (**una carpeta por archivo** con el mismo nombre: original + `<mismo nombre>.md`). Índice: `docs/README.md`.
-- `proyecto/semana-XX/` — trabajo del equipo para Unsafe-Net. El código, cuando exista, va dentro de `proyecto/` (p. ej. `ml/`, `app/`).
+- `proyecto/entregables/<FORMATO>_…/` — formatos del curso llenados para NewBit (`.docx` + `.md`). Se editan directo en el Word (descomprimir → editar `word/document.xml` → comprimir); lo pendiente va resaltado en amarillo con "POR CONFIRMAR".
+- `proyecto/semana-XX/` — trabajo del equipo para NewBit. El código, cuando exista, va dentro de `proyecto/` (p. ej. `ml/`, `app/`).
 - `archivo/` — proyectos descartados.
 
 Ahorro de tokens (importante):
