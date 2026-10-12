@@ -34,6 +34,7 @@
 | entregables | `EGAP015_Justificacion_NewBit/` | Resumen | Justificación de NewBit, versión 1.0 (DOCX + PDF) |
 | entregables | `FGAP040_Epicas_NewBit/` | Resumen | Épicas de NewBit, versión 1.0 (hoja del laboratorio, DOCX + PDF) |
 | entregables | `Diagrama_Arquitectura_NewBit/` | Resumen | Diagrama "Cómo funciona" de NewBit (HTML) |
+| entregables | `PPT_Presentacion_NewBit/` | Resumen | PPT de presentación de NewBit (PPTX + PDF), 10 diapositivas |
 | 5 | `UnsafeNet_Research_Pack/` (zip + 15 `.md` ya descomprimidos) | Ficha rápida + los `.md` originales | Investigación del equipo: dataset, arquitectura, plan de réplica |
 
 ## Proyecto anterior (`archivo/vigia-industrial/`)
