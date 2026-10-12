@@ -22,8 +22,8 @@ Sigue la **Secuencia de avances** del docente ([`docs/semana-05/SECUENCIA DE AVA
 |---|---|---|---|
 | 1 | FGAP010 Acta de Constitución | `docs/semana-02/` | **Versión 1.0 completa** (12/10, sin pendientes): [`entregables/FGAP010_Acta_Constitucion_NewBit/`](entregables/FGAP010_Acta_Constitucion_NewBit/FGAP010_Acta_Constitucion_NewBit.md) |
 | 2 | FGAP020 Registro de Stakeholders | — (no recibido) | Pendiente; pedir formato al docente |
-| 3 | FGAP030 Roles y Prototipos | `docs/semana-03/` | Pendiente (la de VIGIA sirve de base) |
-| 4 | FGAP040 Épicas | `docs/semana-04/FGAP040_…/` | Pendiente; depende del Acta |
+| 3 | FGAP030 Roles y Prototipos | `docs/semana-03/` | **Versión 1.0 completa** (12/10): [`entregables/FGAP030_Roles_y_Prototipos_NewBit/`](entregables/FGAP030_Roles_y_Prototipos_NewBit/FGAP030_Roles_y_Prototipos_NewBit.md) — 5 roles con persona y foto |
+| 4 | FGAP040 Épicas | `docs/semana-04/FGAP040_…/` | **Versión 1.0** (12/10): [`entregables/FGAP040_Epicas_NewBit/`](entregables/FGAP040_Epicas_NewBit/FGAP040_Epicas_NewBit.md): 6 épicas, 26 HU; falta la carátula (ciclo, aula, turno) |
 | 5 | FGAP060 Backlog priorizado · FGAP070 Criterios de Terminado | FGAP060: no recibido · FGAP070: `docs/semana-05/FGAP070_…/` | Pendiente; el FGAP070 ya tiene ejemplo y su análisis dice cómo adaptarlo |
 | 6 | Sprints: planificación → implementación → revisión → retrospectiva | — | Aún no empieza |
 | 7 | FGAP090 Cierre del Proyecto | — | Al final |
@@ -31,7 +31,9 @@ Sigue la **Secuencia de avances** del docente ([`docs/semana-05/SECUENCIA DE AVA
 **Fuera de la secuencia, también pedidos:**
 | Documento | Plantilla / ejemplo | Estado |
 |---|---|---|
-| EGAP015 Justificación (semana 4) | `docs/semana-04/Formato_Justificacion_…/` | Pendiente; depende del Acta |
+| EGAP015 Justificación (semana 4) | `docs/semana-04/Formato_Justificacion_…/` | **Versión 1.0** (12/10): [`entregables/EGAP015_Justificacion_NewBit/`](entregables/EGAP015_Justificacion_NewBit/EGAP015_Justificacion_NewBit.md) |
+| Diagrama de arquitectura / cómo funciona (semana 3) | — | **Versión 1.0 en HTML** (12/10): [`entregables/Diagrama_Arquitectura_NewBit/`](entregables/Diagrama_Arquitectura_NewBit/Diagrama_Arquitectura_NewBit.md) |
+| PPT de presentación del proyecto (semana 3) | — | Pendiente para NewBit (el de VIGIA: `archivo/vigia-industrial/semana-03/VisionOps Industrial/`) |
 | Infografía de 12 pasos (semana 3) | — | Pendiente (las de VIGIA están en `archivo/`) |
 | Proyecto de RSU, Anexo 1 (semana 5) | `docs/semana-05/README.md` (reglamento + ejemplos) | **Por confirmar** con el docente; idea de tema en `docs/semana-05/README.md` |
 

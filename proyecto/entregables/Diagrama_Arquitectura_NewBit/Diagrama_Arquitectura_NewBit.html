@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NewBit – Cómo funciona</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f6fa; --card:#ffffff; --ink:#0f1b2d; --muted:#5b6b82; --line:#d7dee9;
+    --navy:#12233f; --amber:#f5a623; --amber-soft:#fff4dc; --teal:#0f9d8a; --teal-soft:#e2f6f3;
+    --violet:#5b4bdb; --violet-soft:#ecebff; --red:#e0483e; --red-soft:#fde8e6; --blue:#2f6fe4; --blue-soft:#e6efff;
+    --shadow:0 10px 30px rgba(15,27,45,.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.45}
+  .wrap{max-width:1280px;margin:0 auto;padding:32px 24px 48px}
+
+  /* encabezado */
+  header{display:flex;gap:24px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;
+    background:linear-gradient(120deg,var(--navy) 0%,#1d3a66 100%);color:#fff;border-radius:22px;padding:30px 34px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  header::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;
+    background:radial-gradient(circle,rgba(245,166,35,.35),transparent 70%)}
+  .brand{display:flex;align-items:center;gap:14px}
+  .logo{width:52px;height:52px;border-radius:14px;background:var(--amber);display:grid;place-items:center;flex:none}
+  h1{margin:0;font-size:34px;letter-spacing:-.02em}
+  .tag{margin:6px 0 0;color:#c9d6ea;font-size:15px;max-width:640px}
+  .meta{position:relative;z-index:1;text-align:right;font-size:13px;color:#c9d6ea}
+  .meta b{color:#fff}
+  .pill{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:4px 10px;border-radius:999px;margin:2px 0 0 4px;font-size:12px;color:#fff}
+
+  h2{font-size:20px;margin:34px 0 6px;letter-spacing:-.01em}
+  .lead{color:var(--muted);margin:0 0 18px;font-size:14.5px}
+
+  /* flujo principal */
+  .flow{display:grid;grid-template-columns:repeat(7,1fr);gap:0;align-items:stretch;position:relative}
+  .step{position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 14px 16px;margin:0 14px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;min-height:250px}
+  .step:not(:last-child)::after{content:"";position:absolute;right:-24px;top:58px;width:20px;height:2px;background:var(--navy)}
+  .step:not(:last-child)::before{content:"";position:absolute;right:-26px;top:53px;border:6px solid transparent;border-left:8px solid var(--navy)}
+  .num{font:600 11px "JetBrains Mono",monospace;color:var(--muted);letter-spacing:.06em}
+  .ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center}
+  .step h3{margin:0;font-size:15.5px;line-height:1.25}
+  .step p{margin:0;font-size:13px;color:var(--muted)}
+  .rf{margin-top:auto;font:500 11px "JetBrains Mono",monospace;color:var(--navy);background:#eef2f8;border-radius:6px;padding:3px 7px;align-self:flex-start}
+  .who{font-size:11.5px;font-weight:600;color:var(--teal)}
+  .s-input .ico{background:var(--blue-soft)} .s-ai .ico{background:var(--violet-soft)} .s-alert .ico{background:var(--red-soft)} .s-human .ico{background:var(--teal-soft)} .s-data .ico{background:var(--amber-soft)}
+  .s-ai{border-top:4px solid var(--violet)} .s-input{border-top:4px solid var(--blue)} .s-alert{border-top:4px solid var(--red)} .s-human{border-top:4px solid var(--teal)} .s-data{border-top:4px solid var(--amber)}
+
+  /* banda de conductas */
+  .behaviors{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:22px}
+  .bcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow)}
+  .bcard h4{margin:0 0 3px;font-size:14.5px}.bcard p{margin:0;font-size:13px;color:var(--muted)}
+  .badge{font:600 10.5px "JetBrains Mono",monospace;padding:3px 8px;border-radius:999px;display:inline-block;margin-bottom:6px}
+  .unsafe{background:var(--red-soft);color:var(--red)} .safe{background:var(--teal-soft);color:var(--teal)}
+
+  /* entrenamiento */
+  .train{margin-top:14px;background:linear-gradient(180deg,#fffaf0,#fff);border:1.5px dashed var(--amber);border-radius:20px;padding:20px 20px 22px;position:relative}
+  .train .label{position:absolute;top:-12px;left:22px;background:var(--amber);color:var(--navy);font-weight:700;font-size:12px;padding:3px 10px;border-radius:999px}
+  .tflow{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:6px}
+  .t{background:#fff;border:1px solid #f1dfb8;border-radius:14px;padding:12px 12px;position:relative}
+  .t:not(:last-child)::after{content:"→";position:absolute;right:-13px;top:50%;transform:translateY(-50%);color:#b07a12;font-weight:700}
+  .t b{display:block;font-size:13.5px;margin-bottom:2px}.t span{font-size:12px;color:var(--muted)}
+  .feed{margin-top:14px;font-size:13px;color:#7a5a12;display:flex;align-items:center;gap:8px}
+
+  /* inferior */
+  .grid3{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:18px;margin-top:8px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;box-shadow:var(--shadow)}
+  .panel h3{margin:0 0 12px;font-size:15.5px}
+  .roles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .role{display:flex;gap:10px;align-items:flex-start;font-size:13px}
+  .av{width:34px;height:34px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff}
+  .role b{display:block;font-size:13px}.role span{color:var(--muted);font-size:12px}
+  .sprints{display:flex;flex-direction:column;gap:9px}
+  .sp{display:grid;grid-template-columns:44px 1fr;gap:10px;align-items:center;font-size:13px}
+  .sp i{font-style:normal;font:600 12px "JetBrains Mono",monospace;background:var(--navy);color:#fff;border-radius:8px;text-align:center;padding:6px 0}
+  .sp small{display:block;color:var(--muted);font-size:11.5px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .chip{font:500 12px "JetBrains Mono",monospace;background:#eef2f8;border:1px solid var(--line);padding:5px 9px;border-radius:8px}
+  ul.pr{margin:0;padding-left:18px;font-size:13px;color:var(--muted)} ul.pr li{margin:4px 0} ul.pr b{color:var(--ink)}
+  footer{margin-top:28px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+  @media (max-width:1100px){
+    .flow{grid-template-columns:repeat(2,1fr);gap:16px}.step{margin:0;min-height:0}
+    .step::after,.step::before{display:none}
+    .tflow{grid-template-columns:repeat(3,1fr)} .t::after{display:none}
+    .grid3,.behaviors{grid-template-columns:1fr}
+  }
+  @media (max-width:560px){ .flow,.tflow,.roles{grid-template-columns:1fr} .wrap{padding:16px} h1{font-size:28px} .meta{text-align:left} }
+  @media print{ body{background:#fff} .wrap{max-width:none;padding:12px} .panel,.step,.bcard{box-shadow:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div style="position:relative;z-index:1">
+      <div class="brand">
+        <div class="logo">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#12233f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h12l4-3v14l-4-3H2z"/><circle cx="8" cy="12" r="2.2"/></svg>
+        </div>
+        <h1>NewBit</h1>
+      </div>
+      <p class="tag">Plataforma de Computer Vision que convierte cámaras existentes en sensores inteligentes configurables para operaciones industriales.</p>
+    </div>
+    <div class="meta">
+      <div><b>Cómo funciona</b>: del video a la alerta</div>
+      <div style="margin-top:6px"><span class="pill">PY-NB-001</span><span class="pill">Scrum · 4 sprints</span><span class="pill">UNS · 2026-II</span></div>
+    </div>
+  </header>
+
+  <h2>Flujo principal: reconocer la conducta, no solo el objeto</h2>
+  <p class="lead">Cada clip de video recorre siete etapas. La detección encuentra <b>qué</b> hay en cada frame; el modelo temporal entiende <b>qué está pasando</b> a lo largo de la secuencia. Una persona valida cada alerta.</p>
+
+  <div class="flow">
+    <div class="step s-input">
+      <span class="num">01</span>
+      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2f6fe4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3"/></svg></div>
+      <h3>Video de las cámaras</h3>
+      <p>Se cargan clips MP4 de las cámaras que la planta ya tiene.</p>
+      <span class="who">Administrador</span>
+      <span class="rf">RF-01</span>
+    </div>
+    <div class="step s-ai">
+      <span class="num">02</span>
+      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5b4bdb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><circle cx="12" cy="9" r="2.4"/><path d="M8.5 17c.6-2.2 1.9-3.3 3.5-3.3s2.9 1.1 3.5 3.3"/></svg></div>
+      <h3>Detección YOLOv4</h3>
+      <p>En cada frame localiza personas, montacargas y paneles.</p>
+      <span class="rf">RF-02</span>
+    </div>
+    <div class="step s-ai">
+      <span class="num">03</span>
+      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5b4bdb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18l-7 8v5l-4 2v-7z"/></svg></div>
+      <h3>Selección de frames</h3>
+      <p>Descarta los frames sin actividad relevante: menos video que analizar, respuesta más rápida.</p>
+      <span class="rf">RF-03</span>
+    </div>
+    <div class="step s-ai">
+      <span class="num">04</span>
+      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5b4bdb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="5" height="10" rx="1"/><rect x="9.5" y="7" width="5" height="10" rx="1"/><rect x="17" y="7" width="5" height="10" rx="1"/></svg></div>
+      <h3>Secuencias</h3>
+      <p>Agrupa los frames conservados en secuencias de una sola acción.</p>
+      <span class="rf">RF-04</span>
+    </div>
+    <div class="step s-ai">
+      <span class="num">05</span>
+      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5b4bdb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><circle cx="19" cy="12" r="2"/><path d="M7 11l3-4M7 13l3 4M14 7l3 4M14 17l3-4"/></svg></div>
+      <h3>Clasificación ConvLSTM</h3>
+      <p>Analiza la secuencia en el tiempo y reconoce la conducta, con su nivel de confianza.</p>
+      <span class="rf">RF-05</span>
+    </div>
+    <div class="step s-alert">
+      <span class="num">06</span>
+      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e0483e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></div>
+      <h3>Alerta con evidencia</h3>
+      <p>Si la conducta es insegura: alerta visual y sonora con el clip de evidencia.</p>
+      <span class="who">Operadora de monitoreo</span>
+      <span class="rf">RF-07</span>
+    </div>
+    <div class="step s-human">
+      <span class="num">07</span>
+      <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0f9d8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+      <h3>Validación y registro</h3>
+      <p>Una persona confirma o descarta. Todo queda en el historial y en los reportes.</p>
+      <span class="who">SST · Supervisor · Gerencia</span>
+      <span class="rf">RF-06</span>
+    </div>
+  </div>
+
+  <div class="behaviors">
+    <div class="bcard">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#e0483e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="1.8"/><path d="m9 21 2-6 2 2v4M7 12l3-3 3 1 3 3M11 15l-1-4"/><path d="M2 21h20" stroke-dasharray="2 2"/></svg>
+      <div><span class="badge unsafe">CONDUCTA INSEGURA</span><h4>Tránsito fuera de la vía peatonal</h4><p>Una persona camina fuera de la zona marcada, donde circulan montacargas.</p></div>
+    </div>
+    <div class="bcard">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#e0483e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="11" height="18" rx="1"/><path d="M15 3l5 2v14l-5 2"/><path d="m9 9-1.5 3h3L9 15"/></svg>
+      <div><span class="badge unsafe">CONDUCTA INSEGURA</span><h4>Panel eléctrico abierto</h4><p>El tablero queda abierto después de una intervención.</p></div>
+    </div>
+    <div class="bcard">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#0f9d8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>
+      <div><span class="badge safe">CASOS SEGUROS</span><h4>Contraste para aprender</h4><p>Caminar por la vía peatonal y el panel cerrado: el modelo aprende la diferencia.</p></div>
+    </div>
+  </div>
+
+  <h2>Antes de operar: cómo aprende NewBit</h2>
+  <p class="lead">Los modelos se entrenan una vez, se evalúan con métricas por clase y se versionan; luego los usa el flujo principal.</p>
+  <div class="train">
+    <span class="label">ENTRENAMIENTO Y EVALUACIÓN</span>
+    <div class="tflow">
+      <div class="t"><b>Dataset de video</b><span>Video industrial público, licencia CC BY 4.0, con división oficial de entrenamiento y prueba</span></div>
+      <div class="t"><b>Anotación</b><span>Muestra de frames etiquetados con LabelImg</span></div>
+      <div class="t"><b>Entrenar YOLOv4</b><span>Detector de personas, montacargas y paneles</span></div>
+      <div class="t"><b>Entrenar ConvLSTM</b><span>Clasificador de conductas sobre secuencias</span></div>
+      <div class="t"><b>Evaluar</b><span>Métricas por clase y tiempos: clasificación directa vs. pipeline completo</span></div>
+      <div class="t"><b>Modelos versionados</b><span>Configuración y checkpoints reproducibles</span></div>
+    </div>
+    <div class="feed">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b07a12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+      Los modelos entrenados alimentan las etapas <b>02</b> (YOLOv4) y <b>05</b> (ConvLSTM) del flujo principal.
+    </div>
+  </div>
+
+  <div class="grid3" style="margin-top:28px">
+    <div class="panel">
+      <h3>Quién usa NewBit</h3>
+      <div class="roles">
+        <div class="role"><div class="av" style="background:#2f6fe4">JP</div><div><b>Administrador</b><span>Carga videos, configura umbrales y usuarios</span></div></div>
+        <div class="role"><div class="av" style="background:#0f9d8a">MT</div><div><b>Supervisora de SST</b><span>Revisa alertas y prioriza inspecciones</span></div></div>
+        <div class="role"><div class="av" style="background:#f5a623;color:#12233f">CV</div><div><b>Supervisor de turno</b><span>Corrige la conducta en su área</span></div></div>
+        <div class="role"><div class="av" style="background:#e0483e">LR</div><div><b>Operadora de monitoreo</b><span>Atiende y valida cada alerta</span></div></div>
+        <div class="role"><div class="av" style="background:#12233f">RS</div><div><b>Gerente de operaciones</b><span>Lee reportes y decide inversiones</span></div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Se construye en 4 sprints</h3>
+      <div class="sprints">
+        <div class="sp"><i>S1</i><div>Dataset, anotación y entorno<small>19/10 – 30/10</small></div></div>
+        <div class="sp"><i>S2</i><div>YOLOv4, selección de frames y secuencias<small>02/11 – 13/11</small></div></div>
+        <div class="sp"><i>S3</i><div>ConvLSTM, pipeline completo y evaluación<small>16/11 – 27/11</small></div></div>
+        <div class="sp"><i>S4</i><div>Interfaz, alertas, registro y pruebas<small>30/11 – 11/12</small></div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Tecnología y principios</h3>
+      <div class="chips"><span class="chip">Python</span><span class="chip">OpenCV</span><span class="chip">YOLOv4 · Darknet</span><span class="chip">ConvLSTM · PyTorch</span><span class="chip">LabelImg</span><span class="chip">Web</span></div>
+      <ul class="pr">
+        <li><b>Se evalúa la conducta</b>, no un frame aislado.</li>
+        <li><b>Una persona valida</b> cada alerta: NewBit apoya, no reemplaza.</li>
+        <li><b>Privacidad por diseño</b>: sin reconocimiento facial.</li>
+        <li><b>Reproducible</b>: configuración y modelos versionados.</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    <span>NewBit · Albert Chumacero (PO) · Anthony Lopez (SM y Dev) · Luis Salazar (Dev)</span>
+    <span>Ingeniería de Software II · Universidad Nacional del Santa · 2026-II</span>
+  </footer>
+</div>
+</body>
+</html>

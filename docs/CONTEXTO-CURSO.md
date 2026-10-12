@@ -12,7 +12,7 @@ Resumen para consulta rápida. Cada semana tiene su carpeta en `docs/semana-XX/`
 |---|---|---|---|
 | 1 | 14–20/09 | Sin actividad | `semana-01/README.md` |
 | 2 | 21–27/09 | **Principios de Scrum** (teoría + actividad). **Acta de Constitución** (EGAP010) | `semana-02/`: principios Scrum, plantilla y ejemplo de Acta |
-| 3 | 28/09–04/10 | **Roles y Prototipos** (FGAP030/EGAP030). Tarea: infografía de 12 pasos del proyecto | `semana-03/`: plantilla y ejemplo de Roles |
+| 3 | 28/09–04/10 | **Roles y Prototipos** (FGAP030/EGAP030). Tareas: infografía de 12 pasos, PPT de presentación y diagrama de flujo de la arquitectura | `semana-03/`: plantilla y ejemplo de Roles |
 | 4 | 05–11/10 | **Laboratorio 4:** Justificación del proyecto (EGAP015) y Épicas e historias de usuario (FGAP040) | `semana-04/`: formato de Justificación y Épicas de ejemplo |
 | **5** | **12–18/10 (actual)** | **Responsabilidad Social Universitaria (RSU):** Reglamento UNS (Res. 448-2023-CU-R-UNS) y dos proyectos RSU de ejemplo (instrucción **por confirmar**). **Secuencia de avances:** hoja de ruta de formatos FGAP010 → FGAP090 | `semana-05/`: reglamento, ejemplos RSU, secuencia |
 
