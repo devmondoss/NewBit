@@ -23,6 +23,7 @@ Resumen para consulta rápida. Cada semana tiene su carpeta en `docs/semana-XX/`
 - **Semana 4 – Justificación (EGAP015):** 10 apartados: datos generales · necesidad · justificación tecnológica, operativa, económica, social/clínica y académica · beneficios (tangibles e intangibles) · viabilidad · conclusión. **Épicas (FGAP040):** épicas con "Como [rol], yo debería… a fin de…" y su relación con historias de usuario.
 - **Semana 5 – RSU:** el reglamento de la UNS exige que los proyectos de RSU estén ligados a la carrera (Art. 6.6), tengan 1 docente responsable + hasta 8 estudiantes colaboradores (Art. 9), no se ejecuten sin resolución (Art. 16), se informen en ≤ 15 días (Art. 18) y usen APA. Estructura del proyecto (Anexo 1): datos generales · justificación (legal, importancia, antecedentes) · problemática y objetivos · metodología · cronograma (Gantt) · presupuesto · estrategias · referencias. Los ejemplos son talleres de ~1 mes en colegios de Nuevo Chimbote, 30–40 beneficiarios, < S/ 150, con encuesta pre/post.
 - **Semana 5 – Secuencia de avances:** el proyecto sigue 7 pasos: FGAP010 Acta → **FGAP020 Registro de Stakeholders** → FGAP030 Roles y Prototipos → FGAP040 Épicas → FGAP060 Backlog priorizado + FGAP070 Criterios de Terminado → Sprints (planificación, implementación, revisión, retrospectiva) → FGAP090 Cierre. La Justificación (EGAP015) no figura en la secuencia.
+- **Semana 5 – FGAP070 Criterios de Terminado:** la Definition of Done común a todas las historias: prueba unitaria, prueba integrada, revisión por pares, certificación (aquí: no aplica, no afirmar validación), documentación (para IA: dataset, preprocesamiento, modelo, métricas), aprobaciones técnicas (Developers) y administrativas (PO; no sustituye la DoD), otras.
 
 ## Ejemplos y plantillas del docente
 Los archivos de **BigFarma** (Acta, Roles, de 2018), de **Retinopatía Diabética** (Acta, Roles, Justificación, Épicas) y los dos **proyectos RSU de 2025** (semana 5) son **ejemplos del docente**, no del equipo. Las instrucciones de los labs lo dicen: *revise el ejemplo, desarrolle lo de su propio proyecto, no copie el ejemplo*.
@@ -48,7 +49,7 @@ El avance de cada entregable **para Unsafe-Net** se sigue en [`proyecto/README.m
 | 4 · Épicas e historias de usuario (FGAP040) | 4 | **Pendiente** |
 | Proyecto de RSU (Anexo 1 del reglamento) | 5 | **Por confirmar** si se pide y cuándo |
 | 5 · Backlog priorizado (FGAP060) | 5 (en la secuencia) | Pendiente; sin formato aún |
-| 5 · Criterios de Terminado (FGAP070) | 5 (en la secuencia) | Pendiente; sin formato aún |
+| 5 · Criterios de Terminado (FGAP070) | 5 | Pendiente; **ejemplo recibido** (`semana-05/FGAP070_…/`) |
 | 6 · Sprints (planificación, revisión, retrospectiva) | – | Pendiente |
 | 7 · Cierre del Proyecto (FGAP090) | – | Al final |
 

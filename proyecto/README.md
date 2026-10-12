@@ -20,7 +20,7 @@ Sigue la **Secuencia de avances** del docente ([`docs/semana-05/SECUENCIA DE AVA
 | 2 | FGAP020 Registro de Stakeholders | — (no recibido) | Pendiente; pedir formato al docente |
 | 3 | FGAP030 Roles y Prototipos | `docs/semana-03/` | Pendiente (la de VIGIA sirve de base) |
 | 4 | FGAP040 Épicas | `docs/semana-04/FGAP040_…/` | Pendiente; depende del Acta |
-| 5 | FGAP060 Backlog priorizado · FGAP070 Criterios de Terminado | — (no recibido) | Pendiente |
+| 5 | FGAP060 Backlog priorizado · FGAP070 Criterios de Terminado | FGAP060: no recibido · FGAP070: `docs/semana-05/FGAP070_…/` | Pendiente; el FGAP070 ya tiene ejemplo y su análisis dice cómo adaptarlo |
 | 6 | Sprints: planificación → implementación → revisión → retrospectiva | — | Aún no empieza |
 | 7 | FGAP090 Cierre del Proyecto | — | Al final |
 
@@ -31,16 +31,20 @@ Sigue la **Secuencia de avances** del docente ([`docs/semana-05/SECUENCIA DE AVA
 | Infografía de 12 pasos (semana 3) | — | Pendiente (las de VIGIA están en `archivo/`) |
 | Proyecto de RSU, Anexo 1 (semana 5) | `docs/semana-05/README.md` (reglamento + ejemplos) | **Por confirmar** con el docente; idea de tema en `docs/semana-05/README.md` |
 
-## Decisiones abiertas
-Detalle en [semana-04/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md](semana-04/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md#decisiones-abiertas-a-definir-con-el-equipo-y-el-docente):
-1. Qué conductas implementar (de las 4 del artículo, o 1–2 para que sea viable).
-2. De dónde sale el video (planta real con autorización, dataset público o grabaciones propias). **Mayor riesgo.**
-3. Réplica fiel o versión propia.
-4. Dónde se entrena el ConvLSTM (GPU local o nube).
-5. Nombre del proyecto y del Scrum Team (el curso asume 1 PO + 1 SM + 3 Developers).
+## Decisiones
+Base: [UnsafeNet Research Pack](semana-05/UnsafeNet_Research_Pack/UnsafeNet_Research_Pack.md) (12/10). Las marcadas *propuesta* faltan confirmarlas entre el equipo.
+
+| # | Decisión | Estado |
+|---|---|---|
+| 1 | Conductas | *Propuesta:* **Safe Walkway Violation + Opened Panel Cover**, ampliable a las 4 inseguras |
+| 2 | Fuente del video | **Resuelto:** dataset público de Mendeley (CC BY 4.0, 691 clips, split oficial). Confirmar tamaño y licencia en el enlace |
+| 3 | Réplica fiel o propia | *Propuesta:* **réplica pequeña fiel (nivel B)**: YOLOv4 filtra frames → ConvLSTM; comparar con el baseline; GUI simple y alerta simulada |
+| 4 | Dónde entrenar | *Propuesta:* Colab o GPU NVIDIA local; 30–50 GB libres en disco |
+| 5 | Nombre del proyecto y del Scrum Team | **Abierta** (el curso asume 1 PO + 1 SM + 3 Developers) |
+| 6 | Organización del caso, interesados, contexto peruano y costos | **Abierta:** falta investigar (puntos E–G de la guía) |
 
 ## Por semana
 | Semana | Fechas | Qué hizo el equipo |
 |---|---|---|
 | 4 | 05–11/10 | Elección de Unsafe-Net: [Ficha y análisis](semana-04/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md) (el PDF original está en la misma carpeta) |
-| 5 | 12–18/10 | (sin avances registrados aún) |
+| 5 | 12–18/10 | [Guía de investigación](semana-05/guia-investigacion-unsafe-net.md) (qué investigar para cerrar las decisiones y redactar los formatos) · [UnsafeNet Research Pack](semana-05/UnsafeNet_Research_Pack/UnsafeNet_Research_Pack.md) (investigación del equipo: dataset, arquitectura, plan de réplica) |

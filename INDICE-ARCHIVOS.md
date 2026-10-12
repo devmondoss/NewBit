@@ -18,6 +18,7 @@
 | 3 | `EGAP030_Roles_y_Prototipos_Retinopatia_Diabetica/` | Resumen | Roles de ejemplo (Retinopatía) |
 | 4 | `Formato_Justificacion_Proyecto_Retinopatia_Economica_Detallada/` (DOCX + `NightWatch_Protocol_Propuesta.pdf`, mismo contenido) | Resumen | Formato EGAP015 de Justificación + ejemplo |
 | 4 | `FGAP040_Epicas_Proyecto_Retinopatia_Diabetica/` (PDF + DOCX) | Resumen | Épicas de ejemplo (Retinopatía) |
+| 5 | `FGAP070_Formato_Original_Completado_Retinopatia/` | Transcripción (1 pág.) | FGAP070 Criterios de Terminado, ejemplo Retinopatía |
 | 5 | `SECUENCIA DE AVANCES/` | Transcripción | Hoja de ruta FGAP010 → FGAP090 |
 | 5 | `448 Transcrip - Aprobar Reglamento … R 113-19-CU/` | Resumen | Resolución 448-2023 que aprueba el reglamento RSU |
 | 5 | `448 Reglamento de Proyectos … Extensión Cultural-Anexo/` | Resumen detallado (escaneado; no reabrir) | Reglamento RSU de la UNS + anexos |
@@ -28,6 +29,7 @@
 | Semana | Carpeta | Tipo de `.md` | De qué trata |
 |---|---|---|---|
 | 4 | `NewBit_Top3_ComputerVision_SeguridadIndustrial/` | Resumen (solo Unsafe-Net) | Top 3 investigaciones; ficha y análisis de Unsafe-Net |
+| 5 | `UnsafeNet_Research_Pack/` (zip + 15 `.md` ya descomprimidos) | Ficha rápida + los `.md` originales | Investigación del equipo: dataset, arquitectura, plan de réplica |
 
 ## Proyecto anterior (`archivo/vigia-industrial/`)
 | Semana | Carpeta | Tipo de `.md` | De qué trata |

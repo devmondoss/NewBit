@@ -1,0 +1,22 @@
+{
+  "project": "Unsafe-Net Research Pack",
+  "files": [
+    "README.md",
+    "01_SCOPE_AND_TAXONOMY.md",
+    "02_RESEARCH_LINEAGE.md",
+    "03_ORIGINAL_SYSTEM_ARCHITECTURE.md",
+    "04_DATASET.md",
+    "05_YOLOV4_STAGE.md",
+    "06_CONVLSTM_STAGE.md",
+    "07_EXPERIMENTS_AND_RESULTS.md",
+    "08_DEPLOYMENT_AND_FIELD_PILOT.md",
+    "09_LIMITATIONS_AND_OPEN_QUESTIONS.md",
+    "10_SMALL_SCALE_REPLICATION.md",
+    "11_REQUIREMENTS_AND_STACK.md",
+    "12_EXPERIMENT_PLAN.md",
+    "13_REFERENCES.md",
+    "14_GLOSSARY.md"
+  ],
+  "source_count": 8,
+  "purpose": "Academic small-scale replication documentation"
+}
