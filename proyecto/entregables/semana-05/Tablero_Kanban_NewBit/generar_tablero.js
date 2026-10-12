@@ -39,7 +39,7 @@ function hand(x, y, W, n, color) {
 
 
 // ---------- datos (FGAP040, versión del equipo) ----------
-// Prioridad, estimación, sprint y tareas: PROPUESTA del equipo, para validar con el puño de cinco.
+// Prioridad (MoSCoW + 100 puntos) y estimación (puño de cinco) votadas por el Grupo D3 el 12/10/2026.
 const EP = {
   EP01: { name: "Ingestión de video", color: "5B6B7A" },
   EP02: { name: "Filtrado YOLOv4", color: "2F6DB5" },
@@ -67,25 +67,25 @@ const HU = [
   { id: "HU05", ep: "EP03", t: "Agrupar en clips", rank: 5, mo: "Must", pts: 3, sp: 2,
     story: "Como investigador, quiero agrupar los frames en clips fijos, para la red temporal.",
     ac: ["Todos los clips tienen N frames consecutivos (N configurable).", "La salida tiene la forma de entrada que espera ConvLSTM."] },
-  { id: "HU06", ep: "EP03", t: "Descartar clips cortos", rank: 9, mo: "Should", pts: 2, sp: 2,
+  { id: "HU06", ep: "EP03", t: "Descartar clips cortos", rank: 11, mo: "Should", pts: 2, sp: 2,
     story: "Como investigador, quiero descartar clips sin tiempo mínimo, para evitar falsos.",
     ac: ["Los clips con menos frames que el mínimo se descartan.", "Registra cuántos clips se descartaron."] },
   { id: "HU07", ep: "EP04", t: "Procesar con ConvLSTM", rank: 6, mo: "Must", pts: 5, sp: 3,
     story: "Como investigador, quiero procesar el clip con ConvLSTM, para extraer el movimiento.",
     ac: ["Entrena con el split oficial y guarda pesos y métricas.", "Recibe un clip y devuelve una probabilidad por clase."] },
   { id: "HU08", ep: "EP04", t: "Etiquetar el clip", rank: 7, mo: "Must", pts: 3, sp: 3,
-    story: "Como investigador, quiero la etiqueta «seguro» o «inseguro», para obtener el resultado.",
+    story: "Como investigador, quiero la etiqueta seguro/inseguro, para obtener el resultado.",
     ac: ["Cada clip queda etiquetado con su probabilidad.", "Reporta accuracy, precision, recall y F1 del set de prueba."] },
   { id: "HU09", ep: "EP05", t: "Ver video con recuadro", rank: 8, mo: "Must", pts: 4, sp: 4,
     story: "Como evaluador, quiero ver el video con un recuadro de color, para validar la inferencia.",
     ac: ["El recuadro es verde (seguro) o rojo (inseguro) por tramo.", "Funciona con los videos del conjunto de prueba."] },
-  { id: "HU10", ep: "EP05", t: "Alerta insegura", rank: 10, mo: "Should", pts: 2, sp: 4,
-    story: "Como evaluador, quiero una alerta ante una conducta insegura, para probar la respuesta.",
+  { id: "HU10", ep: "EP05", t: "Alerta insegura", rank: 9, mo: "Should", pts: 2, sp: 4,
+    story: "Como evaluador, quiero una alerta ante un riesgo, para probar la respuesta.",
     ac: ["Una conducta insegura dispara un aviso visual y sonoro.", "Cada alerta se guarda con hora, video y probabilidad."] },
   { id: "HU11", ep: "EP06", t: "Ajustar umbral", rank: 12, mo: "Could", pts: 1, sp: 2,
     story: "Como administrador, quiero cambiar el umbral de YOLOv4, para calibrar el filtrado.",
     ac: ["El umbral se cambia en la configuración, sin tocar código.", "Rechaza valores fuera de 0–1 y anota el cambio en el log."] },
-  { id: "HU12", ep: "EP06", t: "Ver log de tiempos", rank: 11, mo: "Should", pts: 2, sp: 4,
+  { id: "HU12", ep: "EP06", t: "Ver log de tiempos", rank: 10, mo: "Should", pts: 2, sp: 4,
     story: "Como administrador, quiero ver el log de tiempos, para saber si el filtrado acelera.",
     ac: ["Muestra el tiempo de cada etapa del procesamiento.", "Compara el mismo video con y sin filtrado."] },
 ];
@@ -115,9 +115,9 @@ function storyCard(x, y, h) {
   els.push(text(x + 0.38, y + 0.14, 1.25, 0.26, [{ text: h.id + " ", bold: true }, { text: h.ep, color: EP[h.ep].color }], { size: 11, valign: "middle" }));
   els.push(...badges(x + W - 1.28, y + 0.16, h));
   els.push(text(x + 0.16, y + 0.42, W - 0.32, 0.25, h.t, { size: 12, bold: true }));
-  els.push(text(x + 0.16, y + 0.68, W - 0.32, 0.36, h.story, { size: 10, italic: true, color: C.muted }));
+  els.push(text(x + 0.16, y + 0.66, W - 0.32, 0.34, h.story, { size: 10, italic: true, color: C.muted }));
   h.ac.forEach((a, i) => {
-    const cy = y + 1.08 + i * 0.34;
+    const cy = y + 1.06 + i * 0.35;
     els.push(circle(x + 0.18, cy + 0.06, 0.07, C.accent));
     els.push(text(x + 0.32, cy, W - 0.48, 0.32, a, { size: 10 }));
   });
@@ -161,9 +161,9 @@ S.push({
 // 2 · Backlog priorizado
 S.push({
   title: "Product Backlog priorizado",
-  notes: "Albert (PO). Las 12 historias del FGAP040 ordenadas por prioridad: valor, riesgo y dependencias (SBOK 8.5). Cada una tiene su prioridad MoSCoW, su estimación en puntos y el sprint donde entra. Total 31 puntos en 4 sprints. Es nuestra propuesta; la validamos votando con el puño de cinco.",
+  notes: "Albert (PO). Las 12 historias del FGAP040 ordenadas por prioridad: MoSCoW, los 100 puntos y las dependencias (SBOK 8.5; ver la actividad de priorización). Cada una tiene su prioridad MoSCoW, su estimación en puntos y el sprint donde entra. Total 31 puntos en 4 sprints. La prioridad salió de MoSCoW y los 100 puntos; la estimación, del puño de cinco.",
   els: [
-    text(0.6, 1.08, 8.8, 0.28, `12 historias · ${TOTAL} puntos · 4 sprints de 2 semanas · propuesta del equipo para validar con el puño de cinco`, { size: 12, color: C.muted }),
+    text(0.6, 1.08, 8.8, 0.28, `12 historias · ${TOTAL} puntos · 4 sprints de 2 semanas · priorizado con MoSCoW y 100 puntos · estimado con el puño de cinco`, { size: 12, color: C.muted }),
     { t: "table", x: 0.6, y: 1.45, w: 8.8, colW: [0.45, 0.65, 2.75, 2.25, 1.0, 0.6, 1.1], rowH: 0.27, size: 11,
       rows: [["#", "HU", "Historia", "Épica", "Prioridad", "Pts", "Sprint"],
         ...byRank.map(h => [String(h.rank), h.id, h.t, `${h.ep} · ${EP[h.ep].name}`, h.mo, String(h.pts), `Sprint ${h.sp}`])],
@@ -173,10 +173,10 @@ S.push({
 
 // 3–4 · Criterios de aceptación
 [[0, 6], [6, 12]].forEach(([a, b], k) => {
-  const els = [text(0.6, 1.0, 8.8, 0.25, "Cada historia con sus criterios de aceptación: los define el PO y son los que se revisan al aceptar o rechazar la historia.", { size: 11, color: C.muted })];
-  HU.slice(a, b).forEach((h, i) => els.push(...storyCard(0.6 + (i % 3) * 3.0, 1.35 + Math.floor(i / 3) * 1.92, h)));
+  const els = [text(0.6, 1.08, 8.8, 0.25, "Cada historia con sus criterios de aceptación: los define el PO y son los que se revisan al aceptar o rechazar la historia.", { size: 11, color: C.muted })];
+  HU.slice(a, b).forEach((h, i) => els.push(...storyCard(0.6 + (i % 3) * 3.0, 1.42 + Math.floor(i / 3) * 1.86, h)));
   S.push({
-    title: `Criterios de aceptación · ${HU[a].id} a ${HU[b - 1].id}`,
+    title: `Criterios de aceptación (${k + 1}/2)`,
     notes: k === 0
       ? "Anthony. Cada tarjeta es una historia: código y épica, prioridad y puntos arriba; la historia en formato «Como…, quiero…, para…»; y abajo sus criterios de aceptación, que son verificables. Aquí las épicas EP01 a EP03: ingestión, filtrado con YOLOv4 y segmentación."
       : "Luis. Épicas EP04 a EP06: clasificación con ConvLSTM, la interfaz con la alerta y la administración. En HU08 el criterio es reportar las métricas, no alcanzar una cifra: no afirmamos resultados que aún no tenemos.",
@@ -187,22 +187,21 @@ S.push({
 // 5 · Scrumboard del Sprint 1
 const cols = ["Historia", "Por hacer", "En progreso", "En prueba", "Terminada"];
 const cx = [0.6, 2.64, 4.34, 6.04, 7.74], cw = [1.9, 1.62, 1.62, 1.62, 1.66];
-const sb = [text(0.6, 1.0, 8.8, 0.28, `Sprint 1 · ${SPRINTS[0].d} · 3 historias · ${ptsOf(1)} puntos · estado al inicio del sprint`, { size: 12, color: C.muted })];
-cols.forEach((c, i) => sb.push(...pill(cx[i], 1.38, cw[i], 0.3, c, i === 0 ? C.accent : C.ink, C.white, 11)));
+const sb = [text(0.6, 1.08, 8.8, 0.28, `Sprint 1 · ${SPRINTS[0].d} · 3 historias · ${ptsOf(1)} puntos · inicio del sprint · tareas propuestas por el equipo`, { size: 12, color: C.muted })];
+cols.forEach((c, i) => sb.push(...pill(cx[i], 1.45, cw[i], 0.3, c, i === 0 ? C.accent : C.ink, C.white, 11)));
 HU.filter(h => h.sp === 1).forEach((h, r) => {
-  const y = 1.82 + r * 1.1;
-  sb.push(box(cx[0], y, cw[0], 1.0, C.soft, { r: 0.1 }));
+  const y = 1.88 + r * 1.06;
+  sb.push(box(cx[0], y, cw[0], 0.96, C.soft, { r: 0.1 }));
   sb.push(dot(cx[0] + 0.12, y + 0.14, EP[h.ep].color));
   sb.push(text(cx[0] + 0.32, y + 0.08, 1.5, 0.26, [{ text: h.id + " ", bold: true }, { text: h.ep, color: EP[h.ep].color }], { size: 11, valign: "middle" }));
   sb.push(text(cx[0] + 0.12, y + 0.36, 1.7, 0.26, h.t, { size: 12, bold: true }));
-  sb.push(...badges(cx[0] + 0.12, y + 0.68, h));
-  for (let c = 1; c < 5; c++) sb.push(box(cx[c], y, cw[c], 1.0, "FAFAF9", { r: 0.1 }));
+  sb.push(...badges(cx[0] + 0.12, y + 0.64, h));
+  for (let c = 1; c < 5; c++) sb.push(box(cx[c], y, cw[c], 0.96, "FAFAF9", { r: 0.1 }));
   h.tasks.forEach((t, k) => {
-    sb.push(box(cx[1] + 0.08, y + 0.07 + k * 0.3, cw[1] - 0.16, 0.26, "FFE9A8", { r: 0.04 }));
-    sb.push(text(cx[1] + 0.16, y + 0.07 + k * 0.3, cw[1] - 0.3, 0.26, t, { size: 10, valign: "middle" }));
+    sb.push(box(cx[1] + 0.08, y + 0.07 + k * 0.28, cw[1] - 0.16, 0.25, "FFE9A8", { r: 0.04 }));
+    sb.push(text(cx[1] + 0.16, y + 0.07 + k * 0.28, cw[1] - 0.3, 0.25, t, { size: 10, valign: "middle" }));
   });
 });
-sb.push(text(0.6, 5.0, 8.8, 0.2, "Tareas = propuesta del equipo · las notas amarillas se mueven de columna en el Daily Standup", { size: 9, color: C.muted }));
 S.push({
   title: "Tablero del Sprint 1 (Scrumboard)",
   notes: "Luis. Es el Scrumboard de la Guía del SBOK (9.3.3, fig. 9-10): cada fila es una historia comprometida en el Sprint 1 y sus tareas son notas que avanzan de Por hacer a Terminada. Hoy, antes de empezar el sprint, todas están en Por hacer. La columna «En prueba» es la variante del libro para tareas terminadas que aún se están verificando.",
@@ -211,7 +210,7 @@ S.push({
 
 // 6 · Cómo priorizamos y estimamos
 const pe = [
-  box(0.6, 1.2, 4.3, 3.75, C.soft, { r: 0.14 }),
+  box(0.6, 1.2, 4.3, 3.65, C.soft, { r: 0.14 }),
   text(0.85, 1.35, 3.8, 0.35, "Prioridad", { size: 18, bold: true }),
   text(0.85, 1.72, 3.85, 0.5, "Valor + riesgo + dependencias (SBOK 8.5), con la escala MoSCoW.", { size: 12, color: C.muted }),
 ];
@@ -222,18 +221,18 @@ const pe = [
   pe.push(text(x, 3.3, 1.2, 0.25, lab, { size: 11, color: C.muted }));
 });
 pe.push(text(0.85, 3.75, 3.85, 1.1, "HU11 es Could pero entra en el Sprint 2: es pequeña y calibra el filtrado de HU03–HU04 (dependencia).", { size: 11 }));
-pe.push(box(5.1, 1.2, 4.3, 3.75, C.soft, { r: 0.14 }));
+pe.push(box(5.1, 1.2, 4.3, 3.65, C.soft, { r: 0.14 }));
 pe.push(text(5.35, 1.35, 3.8, 0.35, "Estimación y plan", { size: 18, bold: true }));
 pe.push(text(5.35, 1.72, 3.85, 0.5, "Puntos 1–5 con el puño de cinco: votan Anthony y Luis; el PO aclara dudas.", { size: 12, color: C.muted }));
 SPRINTS.forEach((s, i) => {
-  const y = 2.35 + i * 0.6, p = ptsOf(s.n), ids = HU.filter(h => h.sp === s.n).map(h => h.id).join(" · ");
+  const y = 2.3 + i * 0.58, p = ptsOf(s.n), ids = HU.filter(h => h.sp === s.n).map(h => h.id).join(" · ");
   pe.push(text(5.35, y, 0.45, 0.25, `S${s.n}`, { size: 12, bold: true }));
   pe.push(box(5.8, y + 0.03, 3.0 * p / 8, 0.2, C.accent, { r: 0.04 }));
   pe.push(text(5.8 + 3.0 * p / 8 + 0.08, y, 0.6, 0.25, `${p} pts`, { size: 11, bold: true, color: C.accent }));
   pe.push(text(5.8, y + 0.26, 3.4, 0.22, `${s.d} · ${ids}`, { size: 10, color: C.muted }));
 });
-pe.push(text(5.35, 4.72, 3.9, 0.22, `Total ${TOTAL} puntos · unos 8 por sprint`, { size: 11, bold: true }));
-pe.push(text(0.6, 5.0, 8.8, 0.2, "Criterios de aceptación (por historia) ≠ Definición de terminado (común a todas, FGAP070)", { size: 9, color: C.muted }));
+pe.push(text(5.35, 4.58, 3.9, 0.22, `Total ${TOTAL} puntos · unos 8 por sprint`, { size: 11, bold: true }));
+pe.push(text(0.6, 4.95, 8.8, 0.2, "Criterios de aceptación (por historia) ≠ Definición de terminado (común a todas, FGAP070)", { size: 9, color: C.muted }));
 S.push({
   title: "Cómo priorizamos y estimamos",
   notes: "Anthony. Prioridad: el PO ordena por valor, riesgo y dependencias; usamos MoSCoW: 8 Must, 3 Should y 1 Could. Estimación: los developers votan con el puño de cinco (1 = muy pequeña, 5 = muy grande). Total 31 puntos repartidos en 4 sprints de unos 8 puntos. Cierre: los criterios de aceptación son por historia; la definición de terminado (FGAP070) es común a todas.",

@@ -38,6 +38,8 @@
 | entregables sem. 3 | `Diagrama_Arquitectura_NewBit/` | Resumen | Diagrama "Cómo funciona" de NewBit (HTML) |
 | entregables sem. 3 | `PPT_Presentacion_NewBit/` | Resumen | PPT de presentación de NewBit (PPTX + PDF), 12 diapositivas |
 | entregables sem. 5 | `Presentacion_Fist_of_Five/` | Resumen | Presentación de la técnica Puño de cinco (HTML + PPTX + PDF + generador + fuente Carlito), 6 diapositivas |
+| entregables sem. 5 | `Tablero_Kanban_NewBit/` | Resumen + backlog completo | Tablero Kanban: 12 HU con criterios, prioridad MoSCoW, puntos y sprint; Scrumboard del Sprint 1 (HTML + PPTX + PDF + generador) |
+| entregables sem. 5 | `Priorizacion_MoSCoW_100_Puntos_NewBit/` | Resumen + datos | Priorización con MoSCoW y 100 puntos de las 12 HU (PDF + PPTX + HTML + generador) |
 | entregables sem. 3 | `Infografias_NewBit/` (HTML, CSS, fotos) | `Infografias_NewBit.md` | 12 pasos y metodología de NewBit; página web, excepción a la regla de una carpeta por archivo |
 | investigación | `UnsafeNet_Research_Pack/` (zip + 15 `.md` ya descomprimidos) | Ficha rápida + los `.md` originales | Investigación del equipo: dataset, arquitectura, plan de réplica |
 

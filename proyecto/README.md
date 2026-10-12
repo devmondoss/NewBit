@@ -24,7 +24,7 @@ Sigue la **Secuencia de avances** del docente ([`docs/semana-05/SECUENCIA DE AVA
 | 2 | FGAP020 Registro de Stakeholders | — (no recibido) | Pendiente; pedir formato al docente |
 | 3 | FGAP030 Roles y Prototipos | `docs/semana-03/` | **Versión 1.0 completa** (12/10): [`entregables/semana-03/FGAP030_Roles_y_Prototipos_NewBit/`](entregables/semana-03/FGAP030_Roles_y_Prototipos_NewBit/FGAP030_Roles_y_Prototipos_NewBit.md) — 5 roles con persona y foto |
 | 4 | FGAP040 Épicas | `docs/semana-04/FGAP040_…/` | **Versión 1.0** (12/10): [`entregables/semana-04/FGAP040_Epicas_NewBit/`](entregables/semana-04/FGAP040_Epicas_NewBit/FGAP040_Epicas_NewBit.md): 6 épicas, 26 HU; falta la carátula (ciclo, aula, turno) |
-| 5 | FGAP060 Backlog priorizado · FGAP070 Criterios de Terminado | FGAP060: no recibido · FGAP070: `docs/semana-05/FGAP070_…/` | Pendiente; el FGAP070 ya tiene ejemplo y su análisis dice cómo adaptarlo |
+| 5 | FGAP060 Backlog priorizado · FGAP070 Criterios de Terminado | FGAP060: no recibido · FGAP070: `docs/semana-05/FGAP070_…/` | Pendiente; el FGAP070 ya tiene ejemplo y su análisis dice cómo adaptarlo. Borrador del backlog (prioridad, puntos, sprint, criterios) en `entregables/semana-05/Tablero_Kanban_NewBit/` |
 | 6 | Sprints: planificación → implementación → revisión → retrospectiva | — | Aún no empieza |
 | 7 | FGAP090 Cierre del Proyecto | — | Al final |
 
@@ -37,6 +37,8 @@ Sigue la **Secuencia de avances** del docente ([`docs/semana-05/SECUENCIA DE AVA
 | Infografía de 12 pasos + metodología (semana 3) | ejemplos del docente | **Versión 1.0 en HTML** (12/10): [`entregables/semana-03/Infografias_NewBit/`](entregables/semana-03/Infografias_NewBit/Infografias_NewBit.md), con fotos reales de Wikimedia |
 | Proyecto de RSU, Anexo 1 (semana 5) | `docs/semana-05/README.md` (reglamento + ejemplos) | **Por confirmar** con el docente; idea de tema en `docs/semana-05/README.md` |
 | Presentación de una técnica de estimación: **Puño de cinco** (semana 5) | Guía del SBOK, pág. 193–195 | **Versión 1.2** (12/10): [`entregables/semana-05/Presentacion_Fist_of_Five/`](entregables/semana-05/Presentacion_Fist_of_Five/Presentacion_Fist_of_Five.md): HTML + PPTX + PDF, 6 diapositivas con notas; confirmar formato con el docente |
+| Tablero Kanban con criterios de aceptación, prioridad y estimación (semana 5) | Guía del SBOK 8.5, 9.1–9.3 (sin formato del docente) | **Versión 1.1** (12/10): [`entregables/semana-05/Tablero_Kanban_NewBit/`](entregables/semana-05/Tablero_Kanban_NewBit/Tablero_Kanban_NewBit.md): HTML + PPTX + PDF, 6 diapositivas; 12 HU del FGAP040 del equipo, 31 puntos en 4 sprints. Prioridad y puntos votados por el equipo (12/10) |
+| Priorización con **MoSCoW y 100 puntos** (semana 5, actividad de clase; se sube en PDF al Drive) | Guía del SBOK 4.5.2 y 8.5.2.1, pp. 76–78 y 169 | **Versión 1.0** (12/10): [`entregables/semana-05/Priorizacion_MoSCoW_100_Puntos_NewBit/`](entregables/semana-05/Priorizacion_MoSCoW_100_Puntos_NewBit/Priorizacion_MoSCoW_100_Puntos_NewBit.md): PDF + PPTX + HTML, 6 páginas. Votación de los tres integrantes en clase (12/10) |
 
 ## Decisiones
 Base: [UnsafeNet Research Pack](investigacion/UnsafeNet_Research_Pack/UnsafeNet_Research_Pack.md) (12/10). Las marcadas *propuesta* faltan confirmarlas entre el equipo.
