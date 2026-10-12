@@ -1,35 +1,41 @@
 # NewBit – Ingeniería de Software II (UNS, 2026-II)
 
-Repositorio del equipo Scrum: **Albert Sebastian Chumacero Chávarry** (Product Owner), **Anthony Gabriel Lopez Yrribarren** (Scrum Master y Developer) y **Luis Fernando Salazar Diaz** (Developer). Separa lo que manda el docente de lo que hace el equipo.
+Repositorio del **Grupo D3** (laboratorio D, equipo 3): **Albert Sebastian Chumacero Chávarry** (Product Owner), **Anthony Gabriel Lopez Yrribarren** (Scrum Master y Developer) y **Luis Fernando Salazar Diaz** (Developer). Proyecto: **NewBit**, plataforma de Computer Vision que convierte cámaras existentes en sensores inteligentes para operaciones industriales.
 
+## Dónde está cada cosa
 ```
 NewBit/
-├── INDICE-ARCHIVOS.md     Cada PDF/DOCX/PPTX/imagen → el .md que lo reemplaza (leer este primero)
-├── scripts/verificar-indice.sh  Avisa si algún archivo no tiene .md
-├── docs/                    Material del curso (lo que envía el docente), por semana
-│   ├── README.md            Índice de semanas
-│   ├── CONTEXTO-CURSO.md    Calendario, convenciones del docente, entregables
-│   └── semana-XX/<archivo>/ Una carpeta por archivo: original + <archivo>.md
-├── proyecto/                Proyecto vigente: NewBit (documentos del equipo y, luego, código)
-│   ├── README.md            Estado, entregables aplicados al proyecto, decisiones abiertas
-│   ├── entregables/semana-XX/  Tareas del curso hechas para NewBit, por semana
-│   └── investigacion/   Contexto del proyecto (no va por semanas)
-└── archivo/
-    └── vigia-industrial/    Proyecto anterior (VIGIA / NewBit / VisionOps). Solo referencia
+├── curso/                         ← TODO LO DE CLASE
+│   ├── README.md                  calendario y temas por semana
+│   ├── contexto-del-curso.md      convenciones del profe y lista de entregables
+│   ├── libro-guia-sbok/           libro base del profe (Guía del SBOK, 4.ª ed.)
+│   └── semana-XX-<tema>/
+│       ├── material-del-profe/    lo que mandó el profe (formatos, ejemplos, reglamentos)
+│       └── nuestras-entregas/     lo que entregamos esa semana (Word, PDF, PPT…)
+├── proyecto-newbit/               ← EL PROYECTO EN SÍ (no va por semanas)
+│   ├── README.md                  estado, decisiones y hoja de ruta de entregables
+│   └── investigacion/             paper Unsafe-Net, research pack, guía de investigación
+│                                  (el código irá aquí: app/, ml/)
+├── descartado/                    ← solo consulta: proyecto anterior (VIGIA) y borradores viejos
+├── herramientas/                  ← para mantener el orden (lo usa Claude)
+│   ├── indice-de-archivos.md      cada PDF/Word/PPT → su resumen .md
+│   └── verificar-indice.sh        avisa si algún archivo no tiene su .md
+└── CLAUDE.md                      instrucciones para Claude
 ```
 
-## Calendario
-| Semana | Fechas | Curso (`docs/`) | Proyecto (`proyecto/`) |
+## Semanas
+| Semana | Fechas | Tema | Carpeta |
 |---|---|---|---|
 | 1 | 14–20/09 | Sin actividad | — |
-| 2 | 21–27/09 | Scrum · Acta | (VIGIA, en `archivo/`) |
-| 3 | 28/09–04/10 | Roles y Prototipos · infografía | (VIGIA, en `archivo/`) |
-| 4 | 05–11/10 | Justificación · Épicas | Elección de Unsafe-Net como investigación base de NewBit |
-| **5** | **12–18/10 (actual)** | RSU (reglamento + ejemplos) · Secuencia de avances FGAP010 → FGAP090 · FGAP070 (ejemplo) · Libro base del curso: Guía del SBOK, 4.ª ed. | — |
+| 2 | 21–27/09 | Principios de Scrum · Acta de Constitución | [`curso/semana-02-scrum-y-acta/`](curso/semana-02-scrum-y-acta/) |
+| 3 | 28/09–04/10 | Roles y Prototipos · infografía · PPT · diagrama | [`curso/semana-03-roles-y-prototipos/`](curso/semana-03-roles-y-prototipos/) |
+| 4 | 05–11/10 | Justificación · Épicas e historias | [`curso/semana-04-justificacion-y-epicas/`](curso/semana-04-justificacion-y-epicas/) |
+| **5** | **12–18/10 (actual)** | RSU · Secuencia de avances · Criterios de terminado · Puño de cinco · Kanban · Priorización | [`curso/semana-05-rsu-y-backlog/`](curso/semana-05-rsu-y-backlog/) |
 
 ## Reglas para agregar contenido
-1. **¿Lo mandó el docente?** → `docs/semana-XX/` (semana según la fecha de llegada). Original y su `.md` (resumen con sección **Análisis**) en la misma carpeta, y actualizar `docs/README.md` y `docs/CONTEXTO-CURSO.md`.
-   **Todo archivo que no sea `.md` (PDF, Word, PowerPoint, imagen) necesita su `.md`**: si es largo o escaneado, solo una **ficha rápida** tras hojearlo (no se transcribe); si es corto o un formato a llenar, resumen y una fila en `INDICE-ARCHIVOS.md`. Va en **su propia carpeta con el mismo nombre**: `semana-XX/<nombre>/` con el original y `<nombre>.md`. Comprobar con `scripts/verificar-indice.sh`.
-2. **¿Es del proyecto?** → tarea del curso en `proyecto/entregables/semana-XX/` (semana en que se pidió); investigación o contexto en `proyecto/investigacion/` (no se ordena por semanas). Actualizar `proyecto/README.md`.
-3. BigFarma, Retinopatía Diabética y los proyectos RSU de 2025 son **ejemplos del docente**, no del equipo.
-4. No afirmar resultados no demostrados; marcar como **propuesta** lo que sea diseño nuevo.
+1. **¿Lo mandó el profe?** → `curso/semana-XX-<tema>/material-del-profe/` (la semana es la de llegada). Si es de todo el curso, como el libro, va directo en `curso/`. Actualizar [`curso/README.md`](curso/README.md) y [`curso/contexto-del-curso.md`](curso/contexto-del-curso.md).
+2. **¿Es una tarea que entregamos?** → `curso/semana-XX-<tema>/nuestras-entregas/` (la semana en que se pidió). Actualizar [`proyecto-newbit/README.md`](proyecto-newbit/README.md).
+3. **¿Es investigación o código del proyecto?** → `proyecto-newbit/`.
+4. **Todo PDF, Word, PPT o imagen lleva su `.md`** en una carpeta con el mismo nombre (`<nombre>/<nombre>.pdf` + `<nombre>/<nombre>.md`), con una fila en [`herramientas/indice-de-archivos.md`](herramientas/indice-de-archivos.md). Comprobar con `herramientas/verificar-indice.sh`.
+5. BigFarma, Retinopatía Diabética y los proyectos RSU de 2025 son **ejemplos del profe**, no nuestros.
+6. No afirmar resultados no demostrados; marcar como **propuesta** lo que sea diseño nuevo.
