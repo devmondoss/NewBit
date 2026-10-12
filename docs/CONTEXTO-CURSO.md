@@ -42,7 +42,7 @@ El avance de cada entregable **para NewBit** se sigue en [`proyecto/README.md`](
 | Entregable | Semana | Estado |
 |---|---|---|
 | 1 · Acta de Constitución (FGAP/EGAP010) | 2 | Hecha para VIGIA (proyecto anterior); **rehacer para NewBit** |
-| Cuadro comparativo de principios de Scrum | 2 | Sin evidencia |
+| Cuadro comparativo de principios de Scrum | 2 | **Hecho** para NewBit (`proyecto/entregables/semana-02/Cuadro_Principios_Scrum_NewBit/`) |
 | 2 · Registro de Stakeholders (FGAP020) | 5 (en la secuencia) | **Nuevo; sin formato ni ejemplo en el repo** |
 | 3 · Roles y Prototipos (FGAP/EGAP030) | 3 | Hecho para VIGIA; **rehacer para NewBit** |
 | Infografía de 12 pasos del proyecto | 3 | Hecha en HTML para VIGIA; rehacer o adaptar |

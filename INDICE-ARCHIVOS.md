@@ -30,6 +30,7 @@
 | Semana | Carpeta | Tipo de `.md` | De qué trata |
 |---|---|---|---|
 | investigación | `NewBit_Top3_ComputerVision_SeguridadIndustrial/` | Resumen (solo Unsafe-Net) | Top 3 investigaciones; ficha y análisis de Unsafe-Net |
+| entregables sem. 2 | `Cuadro_Principios_Scrum_NewBit/` | Resumen | Cuadro comparativo de los 6 principios de Scrum con ejemplos de NewBit (PPTX + PDF) |
 | entregables sem. 2 | `FGAP010_Acta_Constitucion_NewBit/` | Resumen | Acta de NewBit, versión 1.0 completa (DOCX + PDF) |
 | entregables sem. 3 | `FGAP030_Roles_y_Prototipos_NewBit/` | Resumen | Roles y Prototipos de NewBit, versión 1.0 (DOCX + PDF) |
 | entregables sem. 4 | `EGAP015_Justificacion_NewBit/` | Resumen | Justificación de NewBit, versión 1.0 (DOCX + PDF) |

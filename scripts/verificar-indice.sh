@@ -20,4 +20,4 @@ while IFS= read -r -d '' f; do
   echo "SIN CLASIFICAR (raíz): $f"; faltan=$((faltan + 1))
 done < <(find . -maxdepth 1 -type f -not -name '*.md' -not -name '.*' -print0)
 
-if [ "$faltan" -eq 0 ]; then echo "OK: cada archivo está en su carpeta con su .md."; fi
+if [ "$faltan" -eq 0 ]; then echo "OK: cada archivo está en su carpeta con su .md."; else exit 1; fi

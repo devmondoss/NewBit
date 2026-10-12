@@ -23,7 +23,7 @@ Sigue la **Secuencia de avances** del docente ([`docs/semana-05/SECUENCIA DE AVA
 | 1 | FGAP010 Acta de Constitución | `docs/semana-02/` | **Versión 1.0 completa** (12/10, sin pendientes): [`entregables/semana-02/FGAP010_Acta_Constitucion_NewBit/`](entregables/semana-02/FGAP010_Acta_Constitucion_NewBit/FGAP010_Acta_Constitucion_NewBit.md) |
 | 2 | FGAP020 Registro de Stakeholders | — (no recibido) | Pendiente; pedir formato al docente |
 | 3 | FGAP030 Roles y Prototipos | `docs/semana-03/` | **Versión 1.0 completa** (12/10): [`entregables/semana-03/FGAP030_Roles_y_Prototipos_NewBit/`](entregables/semana-03/FGAP030_Roles_y_Prototipos_NewBit/FGAP030_Roles_y_Prototipos_NewBit.md) — 5 roles con persona y foto |
-| 4 | FGAP040 Épicas | `docs/semana-04/FGAP040_…/` | **Versión 1.0** (12/10): [`entregables/semana-04/FGAP040_Epicas_NewBit/`](entregables/semana-04/FGAP040_Epicas_NewBit/FGAP040_Epicas_NewBit.md): 6 épicas, 26 HU; falta la carátula (ciclo, aula, turno) |
+| 4 | FGAP040 Épicas | `docs/semana-04/FGAP040_…/` | **Versión del equipo, corregida** (12/10): [`entregables/semana-04/FGAP040_Epicas_NewBit_equipo/`](entregables/semana-04/FGAP040_Epicas_NewBit_equipo/FGAP040_Epicas_NewBit_equipo.md): 6 épicas, 12 HU. Falta la carátula (ciclo, aula, turno, fecha) |
 | 5 | FGAP060 Backlog priorizado · FGAP070 Criterios de Terminado | FGAP060: no recibido · FGAP070: `docs/semana-05/FGAP070_…/` | Pendiente; el FGAP070 ya tiene ejemplo y su análisis dice cómo adaptarlo. Borrador del backlog (prioridad, puntos, sprint, criterios) en `entregables/semana-05/Tablero_Kanban_NewBit/` |
 | 6 | Sprints: planificación → implementación → revisión → retrospectiva | — | Aún no empieza |
 | 7 | FGAP090 Cierre del Proyecto | — | Al final |
@@ -31,9 +31,10 @@ Sigue la **Secuencia de avances** del docente ([`docs/semana-05/SECUENCIA DE AVA
 **Fuera de la secuencia, también pedidos:**
 | Documento | Plantilla / ejemplo | Estado |
 |---|---|---|
+| Cuadro comparativo de los principios de Scrum (semana 2) | `docs/semana-02/Semana02_Principios Scrum/` | **Versión 1.0** (12/10): [`entregables/semana-02/Cuadro_Principios_Scrum_NewBit/`](entregables/semana-02/Cuadro_Principios_Scrum_NewBit/Cuadro_Principios_Scrum_NewBit.md): 6 principios con ejemplos de NewBit (PPTX + PDF) |
 | EGAP015 Justificación (semana 4) | `docs/semana-04/Formato_Justificacion_…/` | **Versión 1.0** (12/10): [`entregables/semana-04/EGAP015_Justificacion_NewBit/`](entregables/semana-04/EGAP015_Justificacion_NewBit/EGAP015_Justificacion_NewBit.md) |
 | Diagrama de arquitectura / cómo funciona (semana 3) | — | **Versión 1.0 en HTML** (12/10): [`entregables/semana-03/Diagrama_Arquitectura_NewBit/`](entregables/semana-03/Diagrama_Arquitectura_NewBit/Diagrama_Arquitectura_NewBit.md) |
-| PPT de presentación del proyecto (semana 3) | — | **Versión 1.0** (12/10): [`entregables/semana-03/PPT_Presentacion_NewBit/`](entregables/semana-03/PPT_Presentacion_NewBit/PPT_Presentacion_NewBit.md): 10 diapositivas con notas del orador |
+| PPT de presentación del proyecto (semana 3) | — | **Versión 1.0** (12/10): [`entregables/semana-03/PPT_Presentacion_NewBit/`](entregables/semana-03/PPT_Presentacion_NewBit/PPT_Presentacion_NewBit.md): 12 diapositivas con notas del orador (incluye épicas e historias) |
 | Infografía de 12 pasos + metodología (semana 3) | ejemplos del docente | **Versión 1.0 en HTML** (12/10): [`entregables/semana-03/Infografias_NewBit/`](entregables/semana-03/Infografias_NewBit/Infografias_NewBit.md), con fotos reales de Wikimedia |
 | Proyecto de RSU, Anexo 1 (semana 5) | `docs/semana-05/README.md` (reglamento + ejemplos) | **Por confirmar** con el docente; idea de tema en `docs/semana-05/README.md` |
 | Presentación de una técnica de estimación: **Puño de cinco** (semana 5) | Guía del SBOK, pág. 193–195 | **Versión 1.2** (12/10): [`entregables/semana-05/Presentacion_Fist_of_Five/`](entregables/semana-05/Presentacion_Fist_of_Five/Presentacion_Fist_of_Five.md): HTML + PPTX + PDF, 6 diapositivas con notas; confirmar formato con el docente |
