@@ -2,7 +2,7 @@
 
 - **Fecha:** 12/10/2026 (semana 5) · **Para:** Anthony y Luis Fernando.
 - **Objetivo:** reunir lo mínimo para cerrar las decisiones abiertas y redactar los formatos (Acta, Stakeholders, Roles, Épicas, Justificación). No hace falta investigar todo: cada bloque dice **qué traer**.
-- **Cómo entregarlo:** pegar notas o archivos en `proyecto/semana-05/`; cada archivo en su carpeta con su `.md` (ficha rápida si es largo).
+- **Cómo entregarlo:** pegar notas o archivos en `proyecto/investigacion/`; cada archivo en su carpeta con su `.md` (ficha rápida si es largo).
 
 > **Estado (12/10):** A, B y C quedan cubiertos por `UnsafeNet_Research_Pack/` (dataset público en Mendeley; plan de réplica nivel B); D está cubierto en parte (stack y hardware en sus archivos 11 y 12). **Faltan E, F y G.**
 

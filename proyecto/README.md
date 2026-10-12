@@ -6,11 +6,11 @@
 
 - **Equipo Scrum (3):** Albert Sebastian Chumacero Chávarry — **Product Owner** · Anthony Gabriel Lopez Yrribarren — **Scrum Master y Developer** · Luis Fernando Salazar Diaz — **Developer**.
 - **Duración:** **4 sprints** de dos semanas (19/10–11/12/2026), más el inicio (05–16/10) y el cierre (14–18/12).
-- **Ficha y análisis del artículo:** [semana-04/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md](semana-04/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md).
+- **Ficha y análisis del artículo:** [investigacion/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md](investigacion/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md).
 - **Material del curso** (plantillas y ejemplos del docente): [`../docs/`](../docs/README.md). **Proyecto anterior** (VIGIA Industrial): [`../archivo/vigia-industrial/`](../archivo/vigia-industrial/README.md).
 
 ## Cómo se ordena esta carpeta
-- `semana-XX/`: lo que el equipo produce cada semana del curso (**una carpeta por archivo**, con el original y su `.md` del mismo nombre; los documentos escritos por el equipo van como `.md` sueltos). Misma numeración de semanas que `docs/`.
+- `investigacion/`: **contexto del proyecto** que no pertenece a ninguna semana: ficha del Top 3, guía de investigación y UnsafeNet Research Pack (una carpeta por archivo, con su `.md`).
 - `entregables/`: los formatos del curso llenados para NewBit (`.docx` listo para entregar + su `.md`), uno por carpeta, en el orden de la secuencia de avances.
 - Cuando empiece el código, va **dentro de esta carpeta** (por ejemplo `ml/` para el modelo y `app/` para la web/API); así el repo funciona como monorepo: curso en `docs/`, proyecto (docs + código) en `proyecto/`.
 - Todo lo que sea diseño propio se marca como **propuesta**. Las cifras del artículo (95.81 %, 0.14 s, 518 → 134) no son resultados nuestros.
@@ -36,9 +36,10 @@ Sigue la **Secuencia de avances** del docente ([`docs/semana-05/SECUENCIA DE AVA
 | PPT de presentación del proyecto (semana 3) | — | **Versión 1.0** (12/10): [`entregables/PPT_Presentacion_NewBit/`](entregables/PPT_Presentacion_NewBit/PPT_Presentacion_NewBit.md): 10 diapositivas con notas del orador |
 | Infografía de 12 pasos + metodología (semana 3) | ejemplos del docente | **Versión 1.0 en HTML** (12/10): [`entregables/Infografias_NewBit/`](entregables/Infografias_NewBit/Infografias_NewBit.md), con fotos reales de Wikimedia |
 | Proyecto de RSU, Anexo 1 (semana 5) | `docs/semana-05/README.md` (reglamento + ejemplos) | **Por confirmar** con el docente; idea de tema en `docs/semana-05/README.md` |
+| Presentación de una técnica de estimación: **Puño de cinco** (semana 5) | Guía del SBOK, pág. 193–195 | **Índice y guion v0.1** (12/10): [`entregables/Presentacion_Fist_of_Five/`](entregables/Presentacion_Fist_of_Five/Presentacion_Fist_of_Five.md); falta el PPT y confirmar formato |
 
 ## Decisiones
-Base: [UnsafeNet Research Pack](semana-05/UnsafeNet_Research_Pack/UnsafeNet_Research_Pack.md) (12/10). Las marcadas *propuesta* faltan confirmarlas entre el equipo.
+Base: [UnsafeNet Research Pack](investigacion/UnsafeNet_Research_Pack/UnsafeNet_Research_Pack.md) (12/10). Las marcadas *propuesta* faltan confirmarlas entre el equipo.
 
 | # | Decisión | Estado |
 |---|---|---|
@@ -49,8 +50,8 @@ Base: [UnsafeNet Research Pack](semana-05/UnsafeNet_Research_Pack/UnsafeNet_Rese
 | 5 | Scrum Team y sprints | **Resuelto (12/10):** PO Albert Chumacero · SM + Dev Anthony Lopez · Dev Luis Salazar; 4 sprints. **Nombre: NewBit** (PY-NB-001) |
 | 6 | Organización del caso, interesados, contexto peruano y costos | **Abierta:** falta investigar (puntos E–G de la guía) |
 
-## Por semana
+## Historial
 | Semana | Fechas | Qué hizo el equipo |
 |---|---|---|
-| 4 | 05–11/10 | Elección de Unsafe-Net: [Ficha y análisis](semana-04/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md) (el PDF original está en la misma carpeta) |
-| 5 | 12–18/10 | [Guía de investigación](semana-05/guia-investigacion-unsafe-net.md) (qué investigar para cerrar las decisiones y redactar los formatos) · [UnsafeNet Research Pack](semana-05/UnsafeNet_Research_Pack/UnsafeNet_Research_Pack.md) (investigación del equipo: dataset, arquitectura, plan de réplica) |
+| 4 | 05–11/10 | Elección de Unsafe-Net: [Ficha y análisis](investigacion/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md) (el PDF original está en la misma carpeta) |
+| 5 | 12–18/10 | [Guía de investigación](investigacion/guia-investigacion-unsafe-net.md) (qué investigar para cerrar las decisiones y redactar los formatos) · [UnsafeNet Research Pack](investigacion/UnsafeNet_Research_Pack/UnsafeNet_Research_Pack.md) (investigación del equipo: dataset, arquitectura, plan de réplica) |

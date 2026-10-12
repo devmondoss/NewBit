@@ -5,13 +5,13 @@ Repositorio del curso **Ingeniería de Software II** (UNS, 2026-II) y del proyec
 Antes de responder, lee:
 - `README.md` — mapa del repo, calendario y reglas para agregar contenido.
 - `docs/CONTEXTO-CURSO.md` — calendario por semanas, qué enseñó cada una, convenciones del docente y entregables.
-- `proyecto/README.md` — **proyecto vigente: NewBit** — plataforma de Computer Vision que convierte cámaras existentes en sensores inteligentes configurables para operaciones industriales. **Investigación base: Unsafe-Net** (conductas inseguras con YOLO + ConvLSTM, elegida el 05/10/2026); "Unsafe-Net" no es el nombre del proyecto. Estado de entregables y decisiones abiertas. Ficha: `proyecto/semana-04/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md`.
+- `proyecto/README.md` — **proyecto vigente: NewBit** — plataforma de Computer Vision que convierte cámaras existentes en sensores inteligentes configurables para operaciones industriales. **Investigación base: Unsafe-Net** (conductas inseguras con YOLO + ConvLSTM, elegida el 05/10/2026); "Unsafe-Net" no es el nombre del proyecto. Estado de entregables y decisiones abiertas. Ficha: `proyecto/investigacion/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md`.
 - `archivo/vigia-industrial/CONTEXTO-PROYECTO.md` — proyecto anterior (VIGIA Industrial / NewBit). Solo referencia.
 
 Estructura:
 - `docs/semana-XX/` — **solo material del docente** (**una carpeta por archivo** con el mismo nombre: original + `<mismo nombre>.md`). Índice: `docs/README.md`.
 - `proyecto/entregables/<FORMATO>_…/` — formatos del curso llenados para NewBit (`.docx` + `.md`). Se editan directo en el Word (descomprimir → editar `word/document.xml` → comprimir); lo pendiente va resaltado en amarillo con "POR CONFIRMAR".
-- `proyecto/semana-XX/` — trabajo del equipo para NewBit. El código, cuando exista, va dentro de `proyecto/` (p. ej. `ml/`, `app/`).
+- `proyecto/investigacion/` — **contexto del proyecto, no va por semanas** (Top 3, guía de investigación, UnsafeNet Research Pack). Todo lo que sea investigación o contexto del proyecto va aquí. El código, cuando exista, va dentro de `proyecto/` (p. ej. `ml/`, `app/`).
 - `archivo/` — proyectos descartados.
 
 Ahorro de tokens (importante):
@@ -26,5 +26,5 @@ Ahorro de tokens (importante):
 Reglas:
 - Los documentos de **Retinopatía Diabética**, **BigFarma** y los **proyectos RSU de 2025** son **ejemplos/plantillas del docente**, no del equipo.
 - **Semanas:** 1 = 14–20/09 (sin actividad) · 2 = 21–27/09 (Scrum, Acta) · 3 = 28/09–04/10 (Roles, infografía) · 4 = 05–11/10 (Justificación y Épicas) · **5 = 12–18/10, actual (RSU y Secuencia de avances FGAP010→FGAP090)**. Cada semana empieza el lunes; la semana de un archivo se decide por su fecha de llegada.
-- Material nuevo del docente → `docs/semana-XX/` + actualizar `docs/README.md`, `docs/CONTEXTO-CURSO.md` y la tabla del `README.md` raíz. Trabajo del equipo → `proyecto/semana-XX/` + actualizar `proyecto/README.md`.
+- Material nuevo del docente → `docs/semana-XX/` + actualizar `docs/README.md`, `docs/CONTEXTO-CURSO.md` y la tabla del `README.md` raíz. Trabajo del equipo → `proyecto/entregables/` (formatos) o `proyecto/investigacion/` (contexto) + actualizar `proyecto/README.md`.
 - No afirmar resultados no demostrados; marcar como propuesta lo que sea diseño nuevo.

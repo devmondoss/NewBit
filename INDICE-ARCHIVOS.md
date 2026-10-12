@@ -29,7 +29,7 @@
 ## Proyecto vigente (`proyecto/`)
 | Semana | Carpeta | Tipo de `.md` | De qué trata |
 |---|---|---|---|
-| 4 | `NewBit_Top3_ComputerVision_SeguridadIndustrial/` | Resumen (solo Unsafe-Net) | Top 3 investigaciones; ficha y análisis de Unsafe-Net |
+| investigación | `NewBit_Top3_ComputerVision_SeguridadIndustrial/` | Resumen (solo Unsafe-Net) | Top 3 investigaciones; ficha y análisis de Unsafe-Net |
 | entregables | `FGAP010_Acta_Constitucion_NewBit/` | Resumen | Acta de NewBit, versión 1.0 completa (DOCX + PDF) |
 | entregables | `FGAP030_Roles_y_Prototipos_NewBit/` | Resumen | Roles y Prototipos de NewBit, versión 1.0 (DOCX + PDF) |
 | entregables | `EGAP015_Justificacion_NewBit/` | Resumen | Justificación de NewBit, versión 1.0 (DOCX + PDF) |
@@ -37,7 +37,7 @@
 | entregables | `Diagrama_Arquitectura_NewBit/` | Resumen | Diagrama "Cómo funciona" de NewBit (HTML) |
 | entregables | `PPT_Presentacion_NewBit/` | Resumen | PPT de presentación de NewBit (PPTX + PDF), 10 diapositivas |
 | entregables | `Infografias_NewBit/` (HTML, CSS, fotos) | `Infografias_NewBit.md` | 12 pasos y metodología de NewBit; página web, excepción a la regla de una carpeta por archivo |
-| 5 | `UnsafeNet_Research_Pack/` (zip + 15 `.md` ya descomprimidos) | Ficha rápida + los `.md` originales | Investigación del equipo: dataset, arquitectura, plan de réplica |
+| investigación | `UnsafeNet_Research_Pack/` (zip + 15 `.md` ya descomprimidos) | Ficha rápida + los `.md` originales | Investigación del equipo: dataset, arquitectura, plan de réplica |
 
 ## Proyecto anterior (`archivo/vigia-industrial/`)
 | Semana | Carpeta | Tipo de `.md` | De qué trata |
