@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NewBit · Doce pasos del proyecto de visión computacional</title>
+<link rel="stylesheet" href="estilos.css">
+<style>
+  .steps { display: grid; gap: var(--gutter); grid-template-columns: repeat(3, 1fr); }
+  .steps .card .body { font-size: 14px; }
+  .ex { background: var(--s); border-radius: 10px; padding: 8px 10px; font-size: 13px; }
+  .var { display: grid; gap: 6px; }
+  .var > div { background: #fff; border: 1px solid var(--c); border-left-width: 5px; border-radius: 8px; padding: 6px 9px; font-size: 13px; }
+  .tech { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 13px; }
+  .tech b { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  .num { counter-reset: p; display: grid; gap: 5px; margin: 0; padding: 0; list-style: none; }
+  .num li { counter-increment: p; display: flex; gap: 8px; align-items: center; background: #fff; border: 1px solid var(--c); border-radius: 8px; padding: 4px 9px; font-size: 13px; margin: 0; }
+  .num li::before { content: counter(p); flex: none; width: 20px; height: 20px; border-radius: 50%; background: var(--c); color: #fff; display: grid; place-items: center; font-size: 11px; font-weight: 700; }
+  .tri { display: grid; gap: 8px; grid-template-columns: repeat(3, 1fr); }
+  .tri .step { padding: 10px 6px; }
+  .ba { display: grid; gap: 8px; }
+  .ba .row { display: grid; grid-template-columns: 28px 1fr; gap: 8px; align-items: start; font-size: 13px; }
+  .ba .row span { width: 24px; height: 24px; border-radius: 50%; background: var(--c); color: #fff; font-weight: 700; font-size: 12px; display: grid; place-items: center; }
+  .thesis { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); }
+  .thesis .step { padding: 12px 6px; min-height: 56px; }
+  .logos { display: flex; flex-wrap: wrap; gap: 8px; }
+  .logos .chip { font-size: 13px; padding: 6px 12px; }
+  .bottom { display: grid; gap: var(--gutter); grid-template-columns: 2fr 1fr; }
+  @media (max-width: 1200px) { .steps { grid-template-columns: 1fr 1fr; } .bottom { grid-template-columns: 1fr; } }
+  @media (max-width: 700px) { .steps { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-camera" viewBox="0 0 24 24"><path d="M3 8h11a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3z"/><path d="m16 11 5-3v8l-5-3"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="m10 12 5 3-5 3z"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></symbol>
+<symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="7" rx="1.5"/><rect x="4" y="14" width="16" height="7" rx="1.5"/><path d="M8 6.5h.01M8 17.5h.01"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2.5 20h19z"/><path d="M12 10v5M12 17.5v.01"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
+<symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H15a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h6.5"/></symbol>
+<symbol id="i-polygon" viewBox="0 0 24 24"><path d="m4 9 8-6 8 5-3 12H7z" stroke-dasharray="3 2"/></symbol>
+<symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 18a9 9 0 1 1 16 0"/><path d="m12 14 4-5"/><circle cx="12" cy="15" r="1.2"/></symbol>
+<symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M8.5 11.5l1.5 1.5 2.5-3M8.5 17l1.5 1.5 2.5-3M14.5 12h2.5M14.5 17.5h2.5"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16"/><rect x="7" y="12" width="3" height="5"/><rect x="12" y="8" width="3" height="9"/><rect x="17" y="5" width="3" height="12"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7M9 8h3"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></symbol>
+<symbol id="i-helmet" viewBox="0 0 24 24"><path d="M4 16a8 8 0 0 1 16 0z"/><path d="M12 8v8M3 19h18"/></symbol>
+<symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></symbol>
+<symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+<symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/></symbol>
+</svg>
+
+
+<div class="top">
+  <div class="eyebrow">NewBit · Guía de desarrollo</div>
+  <h1>Pasos para desarrollar un proyecto de visión computacional industrial</h1>
+  <p>Del problema a las conclusiones, en doce pasos ajustados al alcance real del MVP: una cámara, una zona, una regla. Lo que queda fuera del MVP está marcado como <span class="chip tag-futuro">futuro</span>.</p>
+  <nav>
+    <a href="index.html">← Índice</a>
+    <a href="01-metodologia.html">1 · Metodología</a>
+    <a href="02-pasos-proyecto.html" aria-current="page">2 · Doce pasos</a>
+    <a href="03-tecnologias.html">3 · Tecnologías</a>
+  </nav>
+</div>
+
+<main>
+  <section class="steps">
+
+    <article class="card blue">
+      <header><span class="n">1</span><h2>Definir el problema</h2></header>
+      <div class="body">
+        <div class="photo r32"><img src="assets/camara-bullet.jpg" alt="Cámara de seguridad en una pared" style="object-position:center 30%"></div>
+        <p>La supervisión humana no cubre todos los puntos y momentos; el CCTV <b>graba, pero no alerta</b>. Hay una brecha entre “lo que ocurrió” y “cuándo alguien se enteró”.</p>
+        <div class="ex"><b>Ejemplo:</b> una persona entra a una zona operacional sin casco. El video lo registra, pero nadie lo ve a tiempo; y si se alerta por cada frame, el supervisor se satura de falsas alarmas.</div>
+      </div>
+    </article>
+
+    <article class="card green">
+      <header><span class="n">2</span><h2>Definir objetivo y variables</h2></header>
+      <div class="body">
+        <p><svg class="ico" style="vertical-align:-5px;color:var(--c)"><use href="#i-target"/></svg> Construir un <b>MVP</b> que convierta video en eventos accionables para alertar condiciones inseguras (primer caso: casco).</p>
+        <div class="var">
+          <div><b>Independiente:</b> configuración de reglas — zona, ventana N s, cooldown, umbral por clase.</div>
+          <div><b>Dependiente:</b> precisión y recall del evento, latencia, duplicados y % de eventos accionables.</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card purple">
+      <header><span class="n">3</span><h2>Diseñar la experiencia de CV<small>Qué verá y hará el usuario</small></h2></header>
+      <div class="body">
+        <div class="flow">
+          <div class="step"><svg class="ico"><use href="#i-camera"/></svg>Cámara</div>
+          <div class="step"><svg class="ico"><use href="#i-eye"/></svg>Inferencia</div>
+          <div class="step"><svg class="ico"><use href="#i-route"/></svg>Rastreo</div>
+          <div class="step"><svg class="ico"><use href="#i-polygon"/></svg>Zona + regla</div>
+          <div class="step"><svg class="ico"><use href="#i-alert"/></svg>Alerta</div>
+        </div>
+        <div class="photo r32">
+          <img src="assets/obra-casco-amarillo.jpg" alt="Obrero con casco y chaleco en un sitio de trabajo">
+          <svg class="poly" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="8,55 62,48 96,92 4,96" fill="rgba(212,116,44,.22)" stroke="#d4742c" stroke-width=".8" stroke-dasharray="2 1.4" vector-effect="non-scaling-stroke"/></svg>
+          <span class="badge-ilus">zona virtual ilustrativa</span>
+        </div>
+        <p class="note">El supervisor ve <b>un evento con evidencia</b>, no horas de video, y decide.</p>
+      </div>
+    </article>
+
+    <article class="card amber">
+      <header><span class="n">4</span><h2>Seleccionar la tecnología</h2></header>
+      <div class="body">
+        <div class="tech">
+          <b>Visión</b><span>OpenCV (FFmpeg)</span>
+          <b>Detector</b><span>Ultralytics YOLO nano</span>
+          <b>Tracker</b><span>ByteTrack</span>
+          <b>Lenguaje</b><span>Python</span>
+          <b>Backend</b><span>FastAPI</span>
+          <b>Base de datos</b><span>PostgreSQL + snapshots</span>
+          <b>Despliegue</b><span>Docker Compose</span>
+          <b>Dashboard</b><span>Next.js</span>
+        </div>
+        <p class="note">Simple a propósito: sin Kafka ni Kubernetes. Detalle y justificación en la página 3.</p>
+      </div>
+    </article>
+
+    <article class="card orange">
+      <header><span class="n">5</span><h2>Entrenar y configurar el modelo<small>Fine-tuning de YOLO nano</small></h2></header>
+      <div class="body">
+        <div class="gallery">
+          <div class="photo"><img src="assets/obrero-casco-blanco.jpg" alt=""></div>
+          <div class="photo"><img src="assets/planta-chalecos-cascos.jpg" alt=""></div>
+          <div class="photo"><img src="assets/demolicion-obreros.jpg" alt=""></div>
+          <div class="photo"><img src="assets/obra-casco-amarillo.jpg" alt=""></div>
+          <div class="photo"><img src="assets/acereria-colada.jpg" alt=""></div>
+          <div class="photo"><img src="assets/perforacion-chalecos.jpg" alt="" style="object-position:center 35%"></div>
+        </div>
+        <p>Base COCO → fine-tuning con Construction-PPE (3 clases, 640 px) → <b>fine-tuning con imágenes de la planta</b> para corregir <i>domain shift</i> (construcción ≠ siderurgia).</p>
+        <p class="note">Imágenes de ejemplo del tipo de escenas a etiquetar; el dataset real del proyecto se arma con capturas propias.</p>
+      </div>
+    </article>
+
+    <article class="card red">
+      <header><span class="n">6</span><h2>Implementar el sistema NewBit</h2></header>
+      <div class="body">
+        <ol class="num">
+          <li>Ingerir video (OpenCV)</li>
+          <li>Procesar frame (inferencia)</li>
+          <li>Actualizar trackers</li>
+          <li>Evaluar zonas y reglas</li>
+          <li>Generar evento + snapshot</li>
+          <li>Persistir datos (API → PostgreSQL)</li>
+          <li>Visualizar alertas (dashboard)</li>
+        </ol>
+        <div class="photo r169"><img src="assets/monitor-cctv.jpg" alt="Monitor con varias cámaras"><span class="badge-ilus">el dashboard reemplaza la pared de monitores</span></div>
+      </div>
+    </article>
+
+    <article class="card blue">
+      <header><span class="n">7</span><h2>Lógica de eventos y analítica<small>Dónde está la “parte inteligente”</small></h2></header>
+      <div class="body">
+        <div class="box solid"><span class="chip tag-mvp">MVP</span> <b>Evento único, trazable</b>: hora, cámara, zona, regla, confianza y evidencia; deduplicado por persona/regla.</div>
+        <div class="box solid"><span class="chip tag-futuro">futuro</span> <b>Analítica sobre eventos</b>: recurrencia por zona y turno, tiempos de permanencia, persona–montacargas, conteos.</div>
+        <div class="photo r32"><img src="assets/montacargas-casco.jpg" alt="Montacargas con operario con casco"><span class="badge-ilus">caso futuro: persona–montacargas</span></div>
+      </div>
+    </article>
+
+    <article class="card purple">
+      <header><span class="n">8</span><h2>Diseñar la validación industrial<small>Foco: desempeño operacional</small></h2></header>
+      <div class="body">
+        <ul>
+          <li><b>Latencia</b> regla → dashboard ≤ 5 s (hora del evento vs hora de recepción vs render).</li>
+          <li><b>Falsos positivos / negativos</b> por evento, no por frame.</li>
+          <li><b>Duplicados</b>: ≤ 1 evento por persona/regla en cooldown.</li>
+          <li><b>Estabilidad</b>: 30 min continuos sin caída.</li>
+          <li><b>Set de prueba</b>: ≥ 30 escenarios (con y sin casco, oclusión, distancia, entradas a zona).</li>
+        </ul>
+        <div class="flow"><div class="step"><svg class="ico"><use href="#i-gauge"/></svg>≤ 5 s</div><div class="step"><svg class="ico"><use href="#i-check"/></svg>≥ 90 % prec.</div><div class="step"><svg class="ico"><use href="#i-clock"/></svg>30 min</div></div>
+      </div>
+    </article>
+
+    <article class="card amber">
+      <header><span class="n">9</span><h2>Validar la plataforma</h2></header>
+      <div class="body">
+        <div class="box solid"><b>Validación técnica</b>
+          <ul><li>Precisión / recall de evento (≥ 90 % / ≥ 85 %)</li><li>Latencia de alerta ≤ 5 s</li><li>Rastreo temporal estable (IDs consistentes)</li></ul></div>
+        <div class="box solid"><b>Validación con experto (SST / operaciones)</b>
+          <ul><li>Relevancia operativa: ¿≥ 80 % de eventos accionables?</li><li>Facilidad para configurar zonas y reglas</li><li>Confiabilidad de la evidencia</li></ul></div>
+      </div>
+    </article>
+
+    <article class="card green">
+      <header><span class="n">10</span><h2>Realizar la prueba piloto<small>Una cámara · una zona · una regla</small></h2></header>
+      <div class="body">
+        <div class="ba">
+          <div class="row"><span>1</span><div><b>Línea base (antes)</b>: medir T<sub>detect</sub> (ocurrencia → detección) y T<sub>action</sub> (detección → acción) con SST/operaciones.</div></div>
+          <div class="row"><span>2</span><div><b>Desplegar NewBit</b> en la cámara y zona elegidas.</div></div>
+          <div class="row"><span>3</span><div><b>Medir (después)</b>: eventos, latencia, accionables, falsas alarmas.</div></div>
+        </div>
+        <p class="note"><span class="chip tag-futuro">opcional</span> Grupo de control (supervisión manual) si la planta lo permite; el discovery no lo exige.</p>
+        <div class="photo r32"><img src="assets/cabina-cascos.jpg" alt="Dos trabajadores con casco" style="object-position:center 25%"></div>
+      </div>
+    </article>
+
+    <article class="card red">
+      <header><span class="n">11</span><h2>Analizar resultados</h2></header>
+      <div class="body">
+        <p>Comparar contra la línea base:</p>
+        <ul>
+          <li><b>Tiempo de respuesta</b>: T<sub>detect</sub> y T<sub>action</sub> antes vs después</li>
+          <li><b>Eventos accionables</b> vs descartados (señal de fatiga de alertas)</li>
+          <li><b>Recurrencia</b> por zona, turno y regla</li>
+          <li><b>Falsos positivos / negativos</b> y causas (oclusión, luz, cámara)</li>
+        </ul>
+        <div class="flow"><div class="step"><svg class="ico"><use href="#i-chart"/></svg>antes</div><div class="step"><svg class="ico"><use href="#i-chart"/></svg>después</div></div>
+        <p class="note">No se atribuyen beneficios que el piloto no haya demostrado.</p>
+      </div>
+    </article>
+
+    <article class="card teal">
+      <header><span class="n">12</span><h2>Conclusiones</h2></header>
+      <div class="body">
+        <div class="tri">
+          <div class="step"><svg class="ico"><use href="#i-check"/></svg>Correcto</div>
+          <div class="step"><svg class="ico"><use href="#i-clock"/></svg>A tiempo</div>
+          <div class="step"><svg class="ico"><use href="#i-flag"/></svg>Accionable</div>
+        </div>
+        <ul>
+          <li>Efectividad para seguridad industrial (¿el evento lleva a una acción?)</li>
+          <li>Limitaciones: hardware, cámara, <i>domain shift</i>, privacidad</li>
+          <li>Buenas prácticas para configurar reglas y reducir falsas alarmas</li>
+          <li>Decisión: <b>GO / PIVOT / STOP</b></li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <section class="bottom">
+    <article class="card slate">
+      <header><h2>Estructura completa para una tesis</h2></header>
+      <div class="body">
+        <div class="thesis">
+          <div class="step" style="--c:var(--c-blue);--s:var(--s-blue)">Problema</div>
+          <div class="step" style="--c:var(--c-green);--s:var(--s-green)">Objetivos</div>
+          <div class="step" style="--c:var(--c-purple);--s:var(--s-purple)">Diseño del pipeline de CV</div>
+          <div class="step" style="--c:var(--c-orange);--s:var(--s-orange)">Fine-tuning del modelo</div>
+          <div class="step" style="--c:var(--c-teal);--s:var(--s-teal)">Backend y motor de reglas</div>
+          <div class="step" style="--c:var(--c-red);--s:var(--s-red)">Integración</div>
+          <div class="step" style="--c:var(--c-blue);--s:var(--s-blue)">Pruebas técnicas</div>
+          <div class="step" style="--c:var(--c-purple);--s:var(--s-purple)">Validación con usuario</div>
+          <div class="step" style="--c:var(--c-amber);--s:var(--s-amber)">Prueba piloto</div>
+          <div class="step" style="--c:var(--c-teal);--s:var(--s-teal)">Análisis operativo</div>
+          <div class="step" style="--c:var(--c-green);--s:var(--s-green)">Conclusiones</div>
+        </div>
+      </div>
+    </article>
+    <article class="card slate">
+      <header><h2>Tecnología recomendada (resumen)</h2></header>
+      <div class="body">
+        <div class="logos">
+          <span class="chip dark">OpenCV</span><span class="chip dark">Ultralytics YOLO</span><span class="chip dark">ByteTrack</span>
+          <span class="chip dark">Python</span><span class="chip dark">FastAPI</span><span class="chip dark">PostgreSQL</span>
+          <span class="chip dark">Docker</span><span class="chip dark">Next.js</span>
+        </div>
+      </div>
+    </article>
+  </section>
+</main>
+
+<footer class="credits"><details><summary>Créditos de imágenes (Wikimedia Commons)</summary><ul><li><b>obrero-casco-blanco.jpg</b> — Ermell · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Baustelle_H%C3%B6lzla_6066312.jpg">Baustelle Hölzla 6066312.jpg</a></li><li><b>planta-chalecos-cascos.jpg</b> — 江戸村のとくぞう · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Shibuya_Station_230107f.jpg">Shibuya Station 230107f.jpg</a></li><li><b>perforacion-chalecos.jpg</b> — Ildar Sagdejev (Specious) · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:2008-07-15_Construction_on_Erwin_Rd_in_Durham.jpg">2008-07-15 Construction on Erwin Rd in Durham.jpg</a></li><li><b>demolicion-obreros.jpg</b> — Grand Canyon NPS · CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Grand_Canyon_NP-_Demolition_of_Maswik_South_Lodging_Complex_1165_-_47990656061.jpg">Grand Canyon NP- Demolition of Maswik South Lodging Complex </a></li><li><b>obra-casco-amarillo.jpg</b> — Hong Kong Free Press · CC BY 4.0 · <a href="https://commons.wikimedia.org/wiki/File:A_worker_wears_a_helmet_and_visor_at_a_Hong_Kong_construction_site_during_a_heatwave.jpg">A worker wears a helmet and visor at a Hong Kong constructio</a></li><li><b>acereria-colada.jpg</b> — Courtesy of U.S. NAVY PHOTOGRAPHER&#x27;S MATE 2ND CLASS GEORGE TRIAN · Public domain · <a href="https://commons.wikimedia.org/wiki/File:US_Army_52565_Title.jpg">US Army 52565 Title.jpg</a></li><li><b>horno-operario.jpg</b> — U.S. Navy photo by Photographer&#x27;s Mate 1st Class Dean Dunwody. · Public domain · <a href="https://commons.wikimedia.org/wiki/File:US_Navy_030910-N-7542D-240_A_worker_from_the_Amite_Foundry_supervises_the_pouring_of_molten_steel_recycled_from_the_World_Trade_Center_into_a_ladle.jpg">US Navy 030910-N-7542D-240 A worker from the Amite Foundry s</a></li><li><b>estructura-arnes.jpg</b> — FBenjr123 · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Baliwagenyo_welder_with_green_hard_hat_working_atop_a_petrol_station_metal_structure_01.jpg">Baliwagenyo welder with green hard hat working atop a petrol</a></li><li><b>operario-panel.jpg</b> — Lindsey G · CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Williston_North_Dakota_Oil_Worker_On_The_Rig_Deck_(5894634028).jpg">Williston North Dakota Oil Worker On The Rig Deck (589463402</a></li><li><b>montacargas-casco.jpg</b> — U.S. Army USAG-V by Chiara Mattirolo · Public domain · <a href="https://commons.wikimedia.org/wiki/File:Camp_Darby_Humanitarian_Assistance_Program_responds_to_Ukraine_needs_(5153318).jpg">Camp Darby Humanitarian Assistance Program responds to Ukrai</a></li><li><b>camara-bullet.jpg</b> — MichalPL · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:CCTV_camera_in_Poland_(1).jpg">CCTV camera in Poland (1).jpg</a></li><li><b>camara-domo.jpg</b> — sharky1005 · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:CP_Plus_CCTV_camera.jpg">CP Plus CCTV camera.jpg</a></li><li><b>monitor-cctv.jpg</b> — Harrison Keely · CC BY 4.0 · <a href="https://commons.wikimedia.org/wiki/File:A_CCTV_security_camera_system_in_a_county_jail_in_the_United_States.jpg">A CCTV security camera system in a county jail in the United</a></li><li><b>altos-hornos.jpg</b> — w_lemay · CC BY-SA 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Old_Bethlehem_Steel_Mill,_Bethlehem,_PA_-_52403261095.jpg">Old Bethlehem Steel Mill, Bethlehem, PA - 52403261095.jpg</a></li><li><b>cabina-cascos.jpg</b> — National Institute for Occupational Safety and Health (NIOSH) from USA · Public domain · <a href="https://commons.wikimedia.org/wiki/File:Worker_Speaking_of_Personal_Safety_(8744516732).jpg">Worker Speaking of Personal Safety (8744516732).jpg</a></li></ul><p>Cajas, IDs y mapas de calor sobre las fotos: ilustraciones, no salidas de un modelo. Licencias: CC BY / CC BY-SA 2.0–4.0 y dominio público.</p></details></footer>
+</body>
+</html>

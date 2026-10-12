@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NewBit · Metodología de investigación y desarrollo</title>
+<link rel="stylesheet" href="estilos.css">
+<style>
+  .grid-top { display: grid; gap: var(--gutter); grid-template-columns: 1.3fr 1fr 2.1fr 1.05fr 1.2fr; align-items: stretch; }
+  .grid-bot { display: grid; gap: var(--gutter); grid-template-columns: 1fr 2fr; }
+  .branch { border: 1.5px solid var(--c); background: var(--s); border-radius: 12px; padding: 10px 12px; display: grid; gap: 8px; }
+  .flow.nowrap{flex-wrap:nowrap}.flow.nowrap .step{font-size:12px;padding:8px 2px}.box li{font-size:13px}
+  .branch h3 { margin: 0; font-size: 14px; color: var(--c); }
+  .aug { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .aug .photo { aspect-ratio: 4/3; }
+  .aug .lbl { position: absolute; left: 5px; top: 5px; background: rgba(20,22,28,.78); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 999px; }
+  .bars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; align-items: end; height: 130px; padding: 6px 4px 0; border-bottom: 2px solid var(--line); }
+  .bars div { border: 2px dashed var(--c-red); background: repeating-linear-gradient(45deg, var(--s-red), var(--s-red) 6px, #fff 6px, #fff 12px); border-radius: 6px 6px 0 0; display: grid; place-items: start center; font-size: 11px; color: var(--c-red); padding-top: 4px; }
+  .barlbl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; font-size: 12px; font-weight: 600; }
+  .loss { display: grid; grid-template-columns: 1fr auto 1.1fr auto 1fr; gap: 10px; align-items: center; }
+  .loss .arrow { font-size: 22px; color: var(--c-red); font-weight: 800; }
+  .heat { position: absolute; inset: 0; background:
+      radial-gradient(ellipse 14% 13% at 45% 24%, rgba(255,40,0,.85), rgba(255,160,0,.55) 55%, transparent 100%),
+      radial-gradient(ellipse 22% 24% at 46% 52%, rgba(255,200,0,.6), rgba(60,200,100,.35) 60%, transparent 100%),
+      radial-gradient(ellipse 34% 55% at 46% 52%, rgba(60,120,255,.28), transparent 100%); mix-blend-mode: multiply; }
+  .cm { display: grid; grid-template-columns: auto 1fr 1fr; gap: 4px; font-size: 12px; text-align: center; align-items: center; }
+  .cm .cell { padding: 10px 6px; border-radius: 8px; font-weight: 700; }
+  .cm .tp, .cm .tn { background: #cfe3fb; color: #1b4a94; } .cm .fp, .cm .fn { background: #fbe0dc; color: #8f2a1f; }
+  .cm .h { font-size: 11px; color: var(--muted); font-weight: 600; }
+  @media (max-width: 1500px) { .grid-top { grid-template-columns: 1fr 1fr 1fr; } .grid-top > .wide { grid-column: span 3; order: 3; } }
+  @media (max-width: 900px) { .grid-top { grid-template-columns: 1fr 1fr; } .grid-top > .wide { grid-column: span 2; } .grid-bot { grid-template-columns: 1fr; } .loss { grid-template-columns: 1fr; } .loss .arrow { transform: rotate(90deg); justify-self: center; } }
+  @media (max-width: 600px) { .grid-top { grid-template-columns: 1fr; } .grid-top > .wide { grid-column: auto; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-camera" viewBox="0 0 24 24"><path d="M3 8h11a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3z"/><path d="m16 11 5-3v8l-5-3"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="m10 12 5 3-5 3z"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></symbol>
+<symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="7" rx="1.5"/><rect x="4" y="14" width="16" height="7" rx="1.5"/><path d="M8 6.5h.01M8 17.5h.01"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2.5 20h19z"/><path d="M12 10v5M12 17.5v.01"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
+<symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H15a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h6.5"/></symbol>
+<symbol id="i-polygon" viewBox="0 0 24 24"><path d="m4 9 8-6 8 5-3 12H7z" stroke-dasharray="3 2"/></symbol>
+<symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 18a9 9 0 1 1 16 0"/><path d="m12 14 4-5"/><circle cx="12" cy="15" r="1.2"/></symbol>
+<symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M8.5 11.5l1.5 1.5 2.5-3M8.5 17l1.5 1.5 2.5-3M14.5 12h2.5M14.5 17.5h2.5"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16"/><rect x="7" y="12" width="3" height="5"/><rect x="12" y="8" width="3" height="9"/><rect x="17" y="5" width="3" height="12"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7M9 8h3"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></symbol>
+<symbol id="i-helmet" viewBox="0 0 24 24"><path d="M4 16a8 8 0 0 1 16 0z"/><path d="M12 8v8M3 19h18"/></symbol>
+<symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></symbol>
+<symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+<symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/></symbol>
+</svg>
+
+
+<div class="top">
+  <div class="eyebrow">NewBit · Computer Vision industrial</div>
+  <h1>Metodologías de investigación y desarrollo</h1>
+  <p>Del video industrial al evento accionable: ocho bloques metodológicos del MVP (1 cámara · 1 zona · 1 regla). Las fotos son reales; las cajas y mapas de calor son ilustraciones, no salidas del modelo.</p>
+  <nav>
+    <a href="index.html">← Índice</a>
+    <a href="01-metodologia.html" aria-current="page">1 · Metodología</a>
+    <a href="02-pasos-proyecto.html">2 · Doce pasos</a>
+    <a href="03-tecnologias.html">3 · Tecnologías</a>
+  </nav>
+</div>
+
+<main>
+  <section class="grid-top">
+
+    <!-- 1 -->
+    <article class="card blue">
+      <header><span class="n">1</span><h2>Entrada de datos industriales<small>Fuentes de video</small></h2></header>
+      <div class="body">
+        <div class="flow nowrap">
+          <div class="step"><svg class="ico"><use href="#i-camera"/></svg>Webcam<small>720p</small></div>
+          <div class="step"><svg class="ico"><use href="#i-file"/></svg>MP4<small>archivo</small></div>
+          <div class="step" style="--s:#fff;--c:var(--c-slate)"><svg class="ico"><use href="#i-server"/></svg>RTSP<small>después</small></div>
+        </div>
+        <div class="photo r43"><img src="assets/monitor-cctv.jpg" alt="Monitor de videovigilancia con varias cámaras"><span class="badge-ilus">CCTV existente: graba, no previene</span></div>
+        <div class="box"><b>Datasets</b>
+          <ul>
+            <li><b>Construction-PPE</b> (Ultralytics): 1,416 imágenes · 11 clases — punto de partida</li>
+            <li><b>Capturas locales</b> de la planta (turnos, casco real) — etiquetado en CVAT / Label Studio</li>
+            <li><b>Set de prueba</b>: ≥ 30 escenarios controlados, separado del entrenamiento</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <!-- 2 -->
+    <article class="card green">
+      <header><span class="n">2</span><h2>Preprocesamiento y aumento<small>Datos industriales</small></h2></header>
+      <div class="body">
+        <div class="flow col">
+          <div class="step">Redimensionar<small>640 × 640</small></div>
+          <div class="step">BGR → RGB<small>÷ 255</small></div>
+        </div>
+        <div class="aug">
+          <div class="photo"><img src="assets/obrero-casco-blanco.jpg" alt="Obrero con casco, original"><span class="lbl">Original</span></div>
+          <div class="photo"><img src="assets/obrero-casco-blanco.jpg" alt="Brillo aumentado" style="filter:brightness(1.35) contrast(.95)"><span class="lbl">Brillo +</span></div>
+          <div class="photo"><img src="assets/obrero-casco-blanco.jpg" alt="Desenfoque" style="filter:blur(2.5px)"><span class="lbl">Blur</span></div>
+          <div class="photo"><img src="assets/obrero-casco-blanco.jpg" alt="Volteo horizontal" style="transform:scaleX(-1)"><span class="lbl">Flip</span></div>
+        </div>
+        <p class="note">Aumentos del plan de entrenamiento: brillo, blur y flip. Sirven para tolerar luz variable y cámaras de distinta calidad (domain shift).</p>
+      </div>
+    </article>
+
+    <!-- 3 -->
+    <article class="card orange wide">
+      <header><span class="n">3</span><h2>Arquitectura del pipeline NewBit<small>Dos ramas: percepción y consistencia temporal</small></h2></header>
+      <div class="body">
+        <div class="branch" style="--c:var(--c-orange);--s:var(--s-orange)">
+          <h3>Rama 1 · Inferencia de detección (YOLO nano)</h3>
+          <div style="display:grid;grid-template-columns:minmax(200px,1.3fr) 2fr;gap:12px;align-items:center">
+            <div class="photo r32">
+              <img src="assets/planta-chalecos-cascos.jpg" alt="Obreros con casco y chaleco en una planta">
+              <div class="bb person" style="left:33.9%;top:39.4%;width:15.9%;height:60.6%"><i>persona</i></div>
+              <div class="bb helmet" style="left:40.4%;top:39.4%;width:7.3%;height:10.3%"></div>
+              <div class="bb person" style="left:25.3%;top:28.1%;width:14.8%;height:56.3%"></div>
+              <div class="bb helmet" style="left:27.9%;top:28.1%;width:7.5%;height:8.1%"></div>
+              <div class="bb person" style="left:59.1%;top:25%;width:9.7%;height:22.7%"></div>
+              <div class="bb helmet" style="left:62%;top:25.3%;width:4.2%;height:4.4%"></div>
+              <span class="badge-ilus">cajas ilustrativas</span>
+            </div>
+            <div>
+              <div class="flow">
+                <div class="step">Backbone<small>extracción de rasgos</small></div>
+                <div class="step">Neck<small>fusión multiescala</small></div>
+                <div class="step">Head<small>clase + caja + confianza</small></div>
+              </div>
+              <p class="note" style="margin-top:8px">Salida por frame: <span class="mono">persona · casco · sin_casco</span>. <b>Todavía no es un evento</b>: solo responde “qué hay en el frame”.</p>
+            </div>
+          </div>
+        </div>
+        <div class="branch" style="--c:var(--c-blue);--s:var(--s-blue)">
+          <h3>Rama 2 · Consistencia temporal (ByteTrack)</h3>
+          <div class="flow">
+            <div class="step">Asociación<small>IoU + asignación húngara; usa detecciones de alta y baja confianza</small></div>
+            <div class="step">Filtro de Kalman<small>predice dónde estará cada persona</small></div>
+            <div class="step">ID temporal<small>un ID por persona entre frames</small></div>
+          </div>
+          <p class="note">Sin tracking cada frame parece una persona nueva. Con tracking se habilita persistencia temporal, cooldown por persona/regla y deduplicación.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 4 -->
+    <article class="card purple">
+      <header><span class="n">4</span><h2>Sincronización detección e inferencia<small>Integración de rastreo</small></h2></header>
+      <div class="body">
+        <div class="box solid" style="text-align:center;font-weight:600">Detecciones + tracks<br><small class="note">se une el casco con la persona (cabeza = tercio superior de la caja)</small></div>
+        <div class="photo r32">
+          <img src="assets/planta-chalecos-cascos.jpg" alt="Personas con identificador de rastreo">
+          <div class="bb person" style="left:33.9%;top:39.4%;width:15.9%;height:60.6%"><i>ID 1</i></div>
+          <div class="bb person" style="left:25.3%;top:28.1%;width:14.8%;height:56.3%"><i>ID 2</i></div>
+          <div class="bb person" style="left:42.7%;top:26.3%;width:9.4%;height:25.3%"></div>
+          <div class="bb person" style="left:59.1%;top:25%;width:9.7%;height:22.7%"><i>ID 4</i></div>
+          <span class="badge-ilus">IDs ilustrativos</span>
+        </div>
+        <ul>
+          <li>Estado del casco por persona = voto de los últimos N frames.</li>
+          <li>“Desconocido” <b>no</b> cuenta como “sin casco” (evita falsas alarmas por oclusión).</li>
+        </ul>
+        <p class="note">Salida: <b>pistas de objetos contextualizadas</b> (ID, caja, atributo casco).</p>
+      </div>
+    </article>
+
+    <!-- 5 -->
+    <article class="card red">
+      <header><span class="n">5</span><h2>Motor de reglas y configuración de eventos<small>Zona + condición + tiempo</small></h2></header>
+      <div class="body">
+        <div class="box"><b>Configurador de reglas</b>
+          <div style="display:grid;gap:5px;margin-top:6px">
+            <div class="chip ghost"><svg class="ico" style="width:14px;height:14px;vertical-align:-2px"><use href="#i-user"/></svg> Persona</div>
+            <div class="chip ghost"><svg class="ico" style="width:14px;height:14px;vertical-align:-2px"><use href="#i-helmet"/></svg> Casco (sí / no)</div>
+            <div class="chip ghost"><svg class="ico" style="width:14px;height:14px;vertical-align:-2px"><use href="#i-pin"/></svg> Zona (polígono)</div>
+            <div class="chip ghost"><svg class="ico" style="width:14px;height:14px;vertical-align:-2px"><use href="#i-clock"/></svg> Tiempo N s + cooldown</div>
+          </div>
+        </div>
+        <p class="mono" style="text-align:center">persona ∧ dentro(zona A) ∧ sin casco ∧ ≥ N s → EVENTO</p>
+        <div class="flow">
+          <div class="step">IDLE</div><div class="step">CANDIDATO</div><div class="step">DISPARO</div><div class="step">COOLDOWN</div>
+        </div>
+        <div class="box solid" style="--c:var(--c-red);--s:var(--s-red)">
+          <b><svg class="ico" style="width:16px;height:16px;vertical-align:-3px"><use href="#i-alert"/></svg> Alerta con snapshot</b><br>
+          <span class="mono">cam-01 · zona-operacional-A · casco_requerido · track 17 · 0.87</span>
+          <div class="note">Valores de ejemplo (ilustrativos). Máx. 1 evento por persona/regla durante el cooldown.</div>
+        </div>
+        <p class="note"><span class="chip tag-futuro">futuro</span> Severidad (0 no EPP · 1 leve · 2 grave) para reducir fatiga de alertas.</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- 6 -->
+  <article class="card red">
+    <header><span class="n">6</span><h2>Función de pérdida y estrategia de entrenamiento<small>YOLO nano con transferencia desde COCO</small></h2></header>
+    <div class="body" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;align-items:start">
+      <div class="box solid" style="--c:var(--c-slate);--s:#fff">
+        <b>Distribución de clases del MVP</b> <span class="chip" style="--c:var(--c-red);--s:var(--s-red)">por medir</span>
+        <div class="bars" style="margin-top:8px"><div>?</div><div>?</div><div>?</div></div>
+        <div class="barlbl"><span>persona</span><span>casco</span><span>sin_casco</span></div>
+        <p class="note" style="margin-top:6px">Los conteos reales se miden al preparar el dataset (Sprint 1). Hipótesis a verificar: <b>sin_casco</b> será la clase minoritaria → posible desbalance.</p>
+      </div>
+      <div style="display:grid;gap:10px">
+        <div class="loss">
+          <div class="step" style="--c:var(--c-red);--s:var(--s-red)">Caja<small>CIoU</small></div>
+          <span class="arrow">+</span>
+          <div class="step" style="--c:var(--c-red);--s:var(--s-red)">Distribución de bordes<small>DFL</small></div>
+          <span class="arrow">+</span>
+          <div class="step" style="--c:var(--c-red);--s:var(--s-red)">Clasificación<small>BCE</small></div>
+        </div>
+        <div class="step" style="--c:var(--c-orange);--s:var(--s-orange)">Pérdida combinada → Optimizador <b>AdamW</b></div>
+        <p class="note">Componentes de pérdida y optimizador de la familia YOLO de Ultralytics; se confirman con la versión de modelo que se elija.</p>
+      </div>
+      <div class="box solid" style="--c:var(--c-slate);--s:#fff">
+        <b>Estrategia de entrenamiento</b>
+        <ul>
+          <li><b>Transfer learning</b>: pesos preentrenados en COCO</li>
+          <li><b>Fine-tuning 1</b>: Construction-PPE → 3 clases, 640 px</li>
+          <li><b>Fine-tuning 2</b>: imágenes locales (corrige domain shift)</li>
+          <li>Early stopping y programación de tasa de aprendizaje</li>
+          <li>Partición train / val / test <b>sin fuga de datos</b></li>
+          <li>Calibración: umbral por clase, ventana de N frames, cooldown</li>
+          <li><span class="chip tag-futuro">opcional</span> validación cruzada k-fold</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <section class="grid-bot">
+    <!-- 7 -->
+    <article class="card red" style="--c:#b8483f;--s:#fbe9e6">
+      <header><span class="n">7</span><h2>Interpretabilidad de campo (XAI)<small><span class="chip tag-futuro">fase de investigación · fuera del MVP</span></small></h2></header>
+      <div class="body">
+        <div class="flow">
+          <div class="photo r43" style="flex:1 1 140px"><img src="assets/obrero-casco-blanco.jpg" alt="Imagen original"><span class="badge-ilus">imagen original</span></div>
+          <div class="photo r43" style="flex:1 1 140px"><img src="assets/obrero-casco-blanco.jpg" alt="Mapa de calor ilustrativo"><div class="heat" style="background:
+              radial-gradient(ellipse 18% 20% at 43% 33%, rgba(255,30,0,.9), rgba(255,170,0,.55) 55%, transparent 100%),
+              radial-gradient(ellipse 22% 24% at 68% 62%, rgba(255,210,0,.6), rgba(60,200,100,.3) 60%, transparent 100%);mix-blend-mode:multiply"></div><span class="badge-ilus">Grad-CAM (ilustrativo)</span></div>
+        </div>
+        <div class="legend"><span style="--k:#e0554a">Cabeza (casco)</span><span style="--k:#2f8f5b">Pecho (chaleco)</span><span style="--k:#7a4fc4">Persona</span></div>
+        <p class="note">Idea: verificar que el detector “mira” la cabeza y no el fondo. El mapa mostrado es una simulación visual, no el resultado de un modelo entrenado.</p>
+      </div>
+    </article>
+
+    <!-- 8 -->
+    <article class="card teal">
+      <header><span class="n">8</span><h2>Evaluación del sistema NewBit<small>Se mide el evento completo, no solo el detector</small></h2></header>
+      <div class="body" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;align-items:start">
+        <div>
+          <table>
+            <thead><tr><th>Métrica</th><th>Meta MVP</th></tr></thead>
+            <tbody>
+              <tr><td>Eventos accionables (según evaluador)</td><td><b>≥ 80 %</b></td></tr>
+              <tr><td>Precisión de evento (≥ 30 escenarios)</td><td><b>≥ 90 %</b></td></tr>
+              <tr><td>Recall de evento</td><td><b>≥ 85 %</b></td></tr>
+              <tr><td>Latencia E2E (regla → dashboard)</td><td><b>≤ 5 s</b></td></tr>
+              <tr><td>Duplicados por persona/regla (cooldown)</td><td><b>≤ 1</b></td></tr>
+              <tr><td>Estabilidad (una fuente)</td><td><b>30 min</b> sin caída</td></tr>
+              <tr><td>mAP por clase · FPS</td><td>a registrar</td></tr>
+            </tbody>
+          </table>
+          <p class="note" style="margin-top:6px">Objetivos de demo para validar el loop, no SLA de producción.</p>
+        </div>
+        <div class="box solid" style="--c:var(--c-teal);--s:#fff">
+          <b>Matriz de confusión a nivel de evento</b>
+          <div class="cm" style="margin-top:8px">
+            <span></span><span class="h">Hubo incumplimiento</span><span class="h">No hubo</span>
+            <span class="h">Se emitió evento</span><div class="cell tp">VP<br><small>evento correcto</small></div><div class="cell fp">FP<br><small>falsa alarma</small></div>
+            <span class="h">No se emitió</span><div class="cell fn">FN<br><small>incumplimiento perdido</small></div><div class="cell tn">VN<br><small>correcto</small></div>
+          </div>
+          <p class="note" style="margin-top:8px">Precisión = VP/(VP+FP) · Recall = VP/(VP+FN). Cada evento se compara con el <i>ground truth</i> del escenario.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+</main>
+
+<footer class="credits"><details><summary>Créditos de imágenes (Wikimedia Commons)</summary><ul><li><b>obrero-casco-blanco.jpg</b> — Ermell · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Baustelle_H%C3%B6lzla_6066312.jpg">Baustelle Hölzla 6066312.jpg</a></li><li><b>planta-chalecos-cascos.jpg</b> — 江戸村のとくぞう · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Shibuya_Station_230107f.jpg">Shibuya Station 230107f.jpg</a></li><li><b>perforacion-chalecos.jpg</b> — Ildar Sagdejev (Specious) · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:2008-07-15_Construction_on_Erwin_Rd_in_Durham.jpg">2008-07-15 Construction on Erwin Rd in Durham.jpg</a></li><li><b>demolicion-obreros.jpg</b> — Grand Canyon NPS · CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Grand_Canyon_NP-_Demolition_of_Maswik_South_Lodging_Complex_1165_-_47990656061.jpg">Grand Canyon NP- Demolition of Maswik South Lodging Complex </a></li><li><b>obra-casco-amarillo.jpg</b> — Hong Kong Free Press · CC BY 4.0 · <a href="https://commons.wikimedia.org/wiki/File:A_worker_wears_a_helmet_and_visor_at_a_Hong_Kong_construction_site_during_a_heatwave.jpg">A worker wears a helmet and visor at a Hong Kong constructio</a></li><li><b>acereria-colada.jpg</b> — Courtesy of U.S. NAVY PHOTOGRAPHER&#x27;S MATE 2ND CLASS GEORGE TRIAN · Public domain · <a href="https://commons.wikimedia.org/wiki/File:US_Army_52565_Title.jpg">US Army 52565 Title.jpg</a></li><li><b>horno-operario.jpg</b> — U.S. Navy photo by Photographer&#x27;s Mate 1st Class Dean Dunwody. · Public domain · <a href="https://commons.wikimedia.org/wiki/File:US_Navy_030910-N-7542D-240_A_worker_from_the_Amite_Foundry_supervises_the_pouring_of_molten_steel_recycled_from_the_World_Trade_Center_into_a_ladle.jpg">US Navy 030910-N-7542D-240 A worker from the Amite Foundry s</a></li><li><b>estructura-arnes.jpg</b> — FBenjr123 · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Baliwagenyo_welder_with_green_hard_hat_working_atop_a_petrol_station_metal_structure_01.jpg">Baliwagenyo welder with green hard hat working atop a petrol</a></li><li><b>operario-panel.jpg</b> — Lindsey G · CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Williston_North_Dakota_Oil_Worker_On_The_Rig_Deck_(5894634028).jpg">Williston North Dakota Oil Worker On The Rig Deck (589463402</a></li><li><b>montacargas-casco.jpg</b> — U.S. Army USAG-V by Chiara Mattirolo · Public domain · <a href="https://commons.wikimedia.org/wiki/File:Camp_Darby_Humanitarian_Assistance_Program_responds_to_Ukraine_needs_(5153318).jpg">Camp Darby Humanitarian Assistance Program responds to Ukrai</a></li><li><b>camara-bullet.jpg</b> — MichalPL · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:CCTV_camera_in_Poland_(1).jpg">CCTV camera in Poland (1).jpg</a></li><li><b>camara-domo.jpg</b> — sharky1005 · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:CP_Plus_CCTV_camera.jpg">CP Plus CCTV camera.jpg</a></li><li><b>monitor-cctv.jpg</b> — Harrison Keely · CC BY 4.0 · <a href="https://commons.wikimedia.org/wiki/File:A_CCTV_security_camera_system_in_a_county_jail_in_the_United_States.jpg">A CCTV security camera system in a county jail in the United</a></li><li><b>altos-hornos.jpg</b> — w_lemay · CC BY-SA 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Old_Bethlehem_Steel_Mill,_Bethlehem,_PA_-_52403261095.jpg">Old Bethlehem Steel Mill, Bethlehem, PA - 52403261095.jpg</a></li><li><b>cabina-cascos.jpg</b> — National Institute for Occupational Safety and Health (NIOSH) from USA · Public domain · <a href="https://commons.wikimedia.org/wiki/File:Worker_Speaking_of_Personal_Safety_(8744516732).jpg">Worker Speaking of Personal Safety (8744516732).jpg</a></li></ul><p>Cajas, IDs y mapas de calor sobre las fotos: ilustraciones, no salidas de un modelo. Licencias: CC BY / CC BY-SA 2.0–4.0 y dominio público.</p></details></footer>
+</body>
+</html>
