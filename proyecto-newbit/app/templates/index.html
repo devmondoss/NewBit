@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard Principal · NewBit (PY-NB-001){% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+
+    <!-- Hero / Welcome Banner -->
+    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-blue-950 p-8 border border-slate-800 shadow-xl">
+        <div class="relative z-10 max-w-3xl space-y-4">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-semibold border border-blue-500/20">
+                <span>🏭 Entorno Operativo: Manufactura Metalmecánica</span>
+            </div>
+            <h1 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+                Plataforma de Visión Artificial para Actos Inseguros
+            </h1>
+            <p class="text-slate-300 text-base leading-relaxed">
+                NewBit transforma grabaciones de cámaras industriales en sensores activos. Mediante el detector 
+                <span class="text-blue-400 font-semibold">YOLOv8n</span> y un motor de reducción temporal, 
+                descarta fotogramas sin operarios y aísla secuencias críticas para la seguridad en planta.
+            </p>
+            <div class="flex flex-wrap gap-3 pt-2 text-xs text-slate-400">
+                <span class="bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">📌 Réplica: Unsafe-Net (2024)</span>
+                <span class="bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">📹 Dataset: 691 clips Kafaoğlu</span>
+                <span class="bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">⚡ Aceleración: Inferencia Espacial</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Stats Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- Stat 1 -->
+        <div class="glass-panel p-5 rounded-xl border border-slate-800">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Videos en Catálogo</span>
+                <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"/></svg>
+                </div>
+            </div>
+            <div class="mt-3 flex items-baseline space-x-2">
+                <span class="text-2xl font-bold text-white">{{ stats.total_videos }}</span>
+                <span class="text-xs text-slate-400">archivos</span>
+            </div>
+            <p class="mt-1 text-xs text-slate-400">Formato .mp4 / .avi</p>
+        </div>
+
+        <!-- Stat 2 -->
+        <div class="glass-panel p-5 rounded-xl border border-slate-800">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Fotogramas Extraídos</span>
+                <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </div>
+            </div>
+            <div class="mt-3 flex items-baseline space-x-2">
+                <span class="text-2xl font-bold text-white">{{ stats.total_frames }}</span>
+                <span class="text-xs text-slate-400">frames</span>
+            </div>
+            <p class="mt-1 text-xs text-slate-400">OpenCV 5.0</p>
+        </div>
+
+        <!-- Stat 3 -->
+        <div class="glass-panel p-5 rounded-xl border border-slate-800">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Reducción Espacial</span>
+                <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+            </div>
+            <div class="mt-3 flex items-baseline space-x-2">
+                <span class="text-2xl font-bold text-white">{{ stats.avg_reduction }}%</span>
+                <span class="text-xs text-emerald-400 font-medium">ahorro</span>
+            </div>
+            <p class="mt-1 text-xs text-slate-400">Tiempo inactivo descartado</p>
+        </div>
+
+        <!-- Stat 4 -->
+        <div class="glass-panel p-5 rounded-xl border border-slate-800">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Detector Espacial</span>
+                <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+                </div>
+            </div>
+            <div class="mt-3 flex items-baseline space-x-2">
+                <span class="text-lg font-bold text-white">YOLOv8 Nano</span>
+            </div>
+            <p class="mt-1 text-xs text-purple-300">Confianza: {{ stats.confidence }} · IoU: {{ stats.iou }}</p>
+        </div>
+    </div>
+
+    <!-- Modules Navigation Cards (Sprints 1 and 2) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Sprint 1 Card -->
+        <div class="glass-panel rounded-2xl p-6 border border-slate-800 flex flex-col justify-between hover:border-slate-700 transition-colors">
+            <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold uppercase tracking-wider text-blue-400">Sprint 1 (7 pts) · Ingesta y Catálogo</span>
+                    <span class="text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20">HU01 - HU03</span>
+                </div>
+                <h3 class="text-xl font-bold text-white">Ingesta de Video y Ficha Técnica</h3>
+                <p class="text-sm text-slate-300">
+                    Carga archivos de video de CCTV (.mp4/.avi), extrae automáticamente sus metadatos (duración, FPS, resolución) 
+                    y consulta el catálogo interactivo de clips de planta.
+                </p>
+            </div>
+            <div class="pt-6">
+                <a href="/videos" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors shadow-lg shadow-blue-600/30">
+                    <span>Abrir Catálogo de Videos</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Sprint 2 Card -->
+        <div class="glass-panel rounded-2xl p-6 border border-slate-800 flex flex-col justify-between hover:border-slate-700 transition-colors">
+            <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Sprint 2 (8 pts) · Calibración y Filtro</span>
+                    <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">HU04 - HU11</span>
+                </div>
+                <h3 class="text-xl font-bold text-white">Calibrador de Umbrales YOLOv8</h3>
+                <p class="text-sm text-slate-300">
+                    Ajusta los parámetros de sensibilidad del detector espacial (umbral de confianza y supresión de no-máximos IoU) 
+                    en tiempo real desde la web para responder a condiciones lumínicas cambiantes en la nave.
+                </p>
+            </div>
+            <div class="pt-6">
+                <a href="/calibration" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-semibold text-sm border border-slate-700 transition-colors">
+                    <span>Panel de Calibración</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

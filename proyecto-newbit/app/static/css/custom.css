@@ -1,0 +1,44 @@
+/* NewBit UI Custom Styles */
+:root {
+    --brand-primary: #2563eb;
+    --brand-accent: #10b981;
+    --brand-warning: #f59e0b;
+    --brand-danger: #ef4444;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+    background: rgba(30, 41, 59, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(51, 65, 85, 0.6);
+}
+
+/* Metric card pulse on update */
+@keyframes highlight-fade {
+    0% { background-color: rgba(37, 99, 235, 0.2); }
+    100% { background-color: transparent; }
+}
+
+.highlight-update {
+    animation: highlight-fade 1.5s ease-out;
+}
