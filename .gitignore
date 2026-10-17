@@ -5,3 +5,18 @@ package-lock.json
 .venv/
 __pycache__/
 *.pyc
+
+# ML weights binaries
+*.pt
+*.onnx
+*.weights
+
+# Local media storage (preserve directories with .gitkeep)
+proyecto-newbit/storage/uploads/*
+!proyecto-newbit/storage/uploads/.gitkeep
+proyecto-newbit/storage/frames/*
+!proyecto-newbit/storage/frames/.gitkeep
+proyecto-newbit/storage/outputs/*
+!proyecto-newbit/storage/outputs/.gitkeep
+proyecto-newbit/ml/weights/*
+!proyecto-newbit/ml/weights/.gitkeep
