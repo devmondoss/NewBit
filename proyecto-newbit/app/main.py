@@ -4,18 +4,29 @@ Capa FastAPI + Jinja2 + Tailwind para gestión de video y visualización de acto
 """
 
 from pathlib import Path
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, JSONResponse
 import torch
 
-from app import config
+from app import config, db
+from app.api import routes_videos
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Inicializar base de datos SQLite y directorios al arranque
+    db.init_db()
+    yield
+
 
 app = FastAPI(
     title=f"{config.PROJECT_NAME} ({config.PROJECT_CODE})",
     description="Sistema web con Visión Artificial para la detección de actos inseguros en áreas operativas de manufactura metalmecánica",
     version=config.APP_VERSION,
+    lifespan=lifespan,
 )
 
 # Montaje de archivos estáticos
@@ -23,6 +34,9 @@ app.mount("/static", StaticFiles(directory=str(config.STATIC_DIR)), name="static
 
 # Configuración del motor de plantillas Jinja2
 templates = Jinja2Templates(directory=str(config.TEMPLATES_DIR))
+
+# Inclusión de enrutadores API
+app.include_router(routes_videos.router)
 
 
 @app.get("/api/health")
@@ -44,11 +58,12 @@ async def health_check():
 
 @app.get("/", response_class=HTMLResponse)
 async def dashboard(request: Request):
-    """Página principal / Dashboard de NewBit."""
-    # En D-02 suministramos estadísticas base; en D-05 se dinamizan con la base de datos/almacenamiento
+    """Página principal / Dashboard de NewBit con estadísticas dinámicas."""
+    videos = db.get_all_videos()
+    total_frames = sum(v["frame_count"] for v in videos)
     stats = {
-        "total_videos": len(list(config.UPLOADS_DIR.glob("*.*"))),
-        "total_frames": len(list(config.FRAMES_DIR.glob("*/*.*"))),
+        "total_videos": len(videos),
+        "total_frames": total_frames,
         "avg_reduction": 0.0,
         "confidence": config.DEFAULT_YOLO_CONFIDENCE,
         "iou": config.DEFAULT_YOLO_IOU,
@@ -58,6 +73,7 @@ async def dashboard(request: Request):
         name="index.html",
         context={"stats": stats}
     )
+
 
 
 @app.get("/videos", response_class=HTMLResponse)

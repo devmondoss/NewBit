@@ -11,6 +11,10 @@ __pycache__/
 *.onnx
 *.weights
 
+# Local database files
+*.db
+*.sqlite3
+
 # Local media storage (preserve directories with .gitkeep)
 proyecto-newbit/storage/uploads/*
 !proyecto-newbit/storage/uploads/.gitkeep
