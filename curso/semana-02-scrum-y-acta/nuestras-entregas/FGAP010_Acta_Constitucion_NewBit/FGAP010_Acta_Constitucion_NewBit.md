@@ -1,27 +1,26 @@
-# FGAP010 – Acta de Constitución: NewBit (versión 1.0)
+# FGAP010 – Acta de Constitución: NewBit (Versión Oficial Normalizada)
 
-- **Archivos para entregar** (esta carpeta): `FGAP010_Acta_Constitucion_NewBit.pdf` (5 págs., exportado con Pages; para subir al Drive) y `FGAP010_Acta_Constitucion_NewBit.docx` (editable). Formato EGAP/FGAP010 del docente; se usó como plantilla el Acta de VIGIA (mismas tablas, encabezado y estilos).
-- **Fecha:** 12/10/2026 · **Estado:** completa, **sin pendientes** (decisiones confirmadas por el equipo el 12/10).
-- **Enfoque de redacción:** NewBit se presenta como proyecto propio. Unsafe-Net no se menciona; solo se cita el **dataset** (autores, DOI y licencia CC BY 4.0), porque su licencia exige atribución y en una revisión académica los datos ajenos deben citarse.
+- **Archivos para entregar** (esta carpeta): `FGAP010_Acta_Constitucion_NewBit.pdf` (5 págs.) y `FGAP010_Acta_Constitucion_NewBit.docx` (editable). Formato FGAP010 del docente.
+- **Fecha de normalización:** 17/10/2026 · **Versión:** 2.0 (Grupo D3).
+- **Estado:** Completa y normalizada según Decisiones D-01, D-02 y D-03.
+- **Enfoque de redacción:** Proyecto presentado bajo el marco de desarrollo de software formal de la UNS. La inferencia espacial se moderniza a **YOLOv8** y se cita con rigor el dataset público de referencia (Önal y Dandıl, 2024, DOI `10.17632/xjmtb22pff.1`, licencia CC BY 4.0).
 
-## Resumen
-| Sección | Contenido |
+## Resumen Ejecutivo
+| Sección | Contenido Normalizado |
 |---|---|
-| Código y nombre | PY-NB-001 – NewBit: plataforma de Computer Vision que convierte cámaras existentes en sensores inteligentes configurables para operaciones industriales |
-| Visión | Cámaras existentes → sensores inteligentes; primera capacidad: detectar conductas inseguras con YOLOv4 + ConvLSTM y alertar en segundos; vigilancia continua para el supervisor de SST; apoya la decisión humana; privacidad por diseño |
-| Requisitos | RF-01…RF-07 + no funcionales (reproducibilidad, split oficial, métricas por clase, atribución CC BY 4.0, sin reconocimiento facial) |
-| Alcance | 2 conductas: tránsito fuera de la vía peatonal y panel eléctrico abierto (arquitectura preparada para más) · dataset de Mendeley citado · comparación clasificación directa vs pipeline completo |
-| Fuera de alcance | Instalación en planta, cámaras en vivo, alertas físicas, reconocimiento facial, certificación de SST |
-| Riesgos | 7: ajuste del modelo temporal, implementación propia, GPU, etiquetado, disco, cambio de entorno, SM que también es Developer |
-| Hitos | Inicio 05–16/10 · **4 sprints** (19/10–11/12) · cierre 14–18/12/2026 |
-| Presupuesto | **S/ 20,768**: Albert 100 h × S/ 40, Anthony 200 h × S/ 38, Luis 200 h × S/ 35 (S/ 18,600) + S/ 280 de gasto + 10 % de contingencia |
-| Interesados | Albert Sebastian Chumacero Chávarry (PO), Anthony Gabriel Lopez Yrribarren (SM + Dev), Luis Fernando Salazar Diaz (Dev); Sponsor Ricardo Salcedo, SST Mariana Torres y TI Jorge Ponce (ficticios); docente; supervisores y trabajadores |
-| Aprobación | 6 criterios técnicos (pipeline completo, etapas separadas, reducción de frames, comparación, documentación, reproducibilidad); metas fijadas con la línea base del Sprint 3 |
-| Culminación | Normal · alcance reducido (1 conducta) · cancelación |
-| PO / Sponsor | Albert Sebastian Chumacero Chávarry / Ricardo Salcedo Paredes, SIDERPERU (caso académico) |
+| **Código y nombre** | **PY-NB-001 – Sistema web con Visión Artificial para la detección de actos inseguros en áreas operativas de manufactura metalmecánica** *(Plataforma NewBit)* |
+| **Visión** | Transformar el registro pasivo de cámaras de videovigilancia de talleres de manufactura en un sistema de detección temprana de actos inseguros; primera capacidad: detección espacial de operarios con YOLOv8 y clasificación temporal con ConvLSTM a partir de lotes de video industrial; apoyo a la decisión del supervisor de SST; privacidad por diseño. |
+| **Requisitos** | RF-01 a RF-07 (carga de videos, extracción de frames, inferencia espacial, filtrado inteligente, clasificación temporal, alertas y auditoría) + Requisitos no funcionales (reproducibilidad, split oficial de validación, métricas por clase, atribución CC BY 4.0, sin reconocimiento facial). |
+| **Alcance** | 2 conductas de riesgo priorizadas: tránsito fuera de la vía peatonal y panel de máquina/control abierto (arquitectura extensible a más actos); procesamiento sobre clips de video en formatos .mp4 y .avi; evaluación comparativa (clasificación directa vs. pipeline con reducción de frames). |
+| **Fuera de alcance** | Instalación física en planta, cámaras en vivo vía RTSP continuo, actuadores/alertas físicas en planta, reconocimiento facial de trabajadores, certificación médica o regulatoria formal de SST. |
+| **Riesgos** | 7 riesgos identificados: ajuste del modelo temporal, reproducibilidad de pesos, consumo de GPU/recursos, iluminación y oclusiones en taller, espacio en disco para frames, transferibilidad de dominio y Scrum Master con doble rol (SM + Developer). |
+| **Hitos del Cronograma** | Fase de Inicio (05–16/10) · **4 Sprints** de 2 semanas (19/10–11/12/2026) · Cierre y sustentación (14–18/12/2026). |
+| **Presupuesto** | **S/ 20,768**: Albert 100 h × S/ 40 (S/ 4,000), Anthony 200 h × S/ 38 (S/ 7,600), Luis 200 h × S/ 35 (S/ 7,000) $\rightarrow$ Subtotal RRHH: S/ 18,600 + Gastos directos operativos: S/ 280 + Contingencia (10%): S/ 1,888. |
+| **Interesados clave** | **Equipo Scrum:** Albert Chumacero (PO), Anthony Lopez (SM + Dev), Luis Salazar (Dev). **Interesados de negocio:** Ricardo Salcedo (Gerente de Operaciones / Sponsor), Mariana Torres (Supervisora de SST), Jorge Ponce (Administrador TI), Lucía Ramos (Operadora de Monitoreo). **Académicos:** Dr. Ing. Alfredo Daza Vergaray (Docente). |
+| **Criterios de Aprobación** | Pipeline completo integrado, separación modular espacial/temporal, demostración de reducción de frames ($\ge 60\%$), reproducibilidad técnica y documentación de métricas (Accuracy, Precision, Recall, F1). |
+| **Criterios de Culminación** | Cumplimiento de criterios de aceptación del Backlog en los 4 sprints; cierre formal con entrega del incremento de software probado. |
+| **Product Owner / Sponsor** | Albert Sebastian Chumacero Chávarry (PO) / Ricardo Salcedo Paredes (Gerente de Operaciones, Taller de Manufactura Metalmecánica / Maestranza Industrial, caso académico). |
 
-## Análisis
-- Primer entregable de la secuencia. Los formatos siguientes deben repetir **el mismo nombre, alcance, equipo y presupuesto (S/ 20,768)**.
-- Si el docente pregunta por la base técnica, el enfoque YOLO + ConvLSTM y el dataset vienen de la literatura (Önal y Dandıl, 2024). Conviene citarlos como antecedente en la Justificación (EGAP015).
-- Se corrigieron dos defectos heredados de la plantilla: los títulos grises de 5 tablas ahora ocupan todo el ancho, y la columna Fecha del control de versiones es más ancha (Pages la ocultaba).
-- El encabezado dice "EGAP010", heredado de la plantilla; la Secuencia de avances lo llama FGAP010.
+## Análisis y Coherencia
+- Primer entregable de la secuencia del curso (FGAP010). Todos los formatos siguientes ([FGAP030](file:///c:/Users/luisf/OneDrive/Escritorio/Proyectos/IngSoftware/NewBit/curso/semana-03-roles-y-prototipos/nuestras-entregas/FGAP030_Roles_y_Prototipos_NewBit/FGAP030_Roles_y_Prototipos_NewBit.md), [EGAP015](file:///c:/Users/luisf/OneDrive/Escritorio/Proyectos/IngSoftware/NewBit/curso/semana-04-justificacion-y-epicas/nuestras-entregas/EGAP015_Justificacion_NewBit/EGAP015_Justificacion_NewBit.md), [FGAP040](file:///c:/Users/luisf/OneDrive/Escritorio/Proyectos/IngSoftware/NewBit/curso/semana-04-justificacion-y-epicas/nuestras-entregas/FGAP040_Epicas_NewBit/FGAP040_Epicas_NewBit.md)) mantienen **el mismo código (PY-NB-001), título, entorno de manufactura metalmecánica, equipo y presupuesto idéntico (S/ 20,768)**.
+- El alcance técnico declara con honestidad académica el procesamiento de videos por lotes, garantizando que el software desarrollado sea 100% defendible sin simular conectividad RTSP que no existe.
