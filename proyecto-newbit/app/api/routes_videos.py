@@ -7,12 +7,13 @@ import uuid
 import aiofiles
 from pathlib import Path
 from fastapi import APIRouter, UploadFile, File, HTTPException, status
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 
 from app import config, db
-from ml.video_processor import validate_video_file, get_video_metadata
+from ml.video_processor import validate_video_file, get_video_metadata, extract_frames
 
 router = APIRouter(prefix="/api/videos", tags=["Videos"])
+
 
 
 @router.post("/upload", status_code=status.HTTP_201_CREATED)
@@ -120,3 +121,84 @@ async def get_video(video_id: str):
         "status": "success",
         "video": video,
     }
+
+
+@router.get("/{video_id}/stream")
+async def stream_video(video_id: str):
+    """Transmite el archivo de video para su reproducción en el reproductor HTML5."""
+    video = db.get_video_by_id(video_id)
+    if not video:
+        raise HTTPException(status_code=404, detail="Video no encontrado.")
+
+    video_path = Path(video["filepath"])
+    if not video_path.exists():
+        raise HTTPException(status_code=404, detail="El archivo físico de video no existe en disco.")
+
+    return FileResponse(
+        path=str(video_path),
+        media_type="video/mp4",
+        filename=video["filename"],
+    )
+
+
+@router.post("/{video_id}/extract-frames")
+async def extract_video_frames(video_id: str, max_frames: int | None = None):
+    """
+    Dispara la fragmentación del video en fotogramas normalizados (640x640)
+    y los almacena en storage/frames/{video_id}/.
+    """
+    video = db.get_video_by_id(video_id)
+    if not video:
+        raise HTTPException(status_code=404, detail="Video no encontrado.")
+
+    video_path = Path(video["filepath"])
+    output_dir = config.FRAMES_DIR / video_id
+
+    try:
+        frames = extract_frames(
+            video_path=video_path,
+            output_dir=output_dir,
+            target_size=config.TARGET_FRAME_SIZE,
+            max_frames=max_frames,
+        )
+        # Actualizar estado en la base de datos
+        db.update_video_status(video_id, "frames_extracted")
+        return {
+            "status": "success",
+            "message": f"Se extrajeron {len(frames)} fotogramas normalizados a 640x640.",
+            "total_frames_extracted": len(frames),
+            "target_resolution": f"{config.TARGET_FRAME_SIZE[0]}x{config.TARGET_FRAME_SIZE[1]}",
+            "frames": frames[:50],  # Devolver muestra de nombres
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error durante la extracción de frames: {str(e)}")
+
+
+@router.get("/{video_id}/frames")
+async def list_video_frames(video_id: str):
+    """Lista los fotogramas extraídos existentes para un video."""
+    video = db.get_video_by_id(video_id)
+    if not video:
+        raise HTTPException(status_code=404, detail="Video no encontrado.")
+
+    frames_dir = config.FRAMES_DIR / video_id
+    if not frames_dir.exists():
+        return {"status": "success", "count": 0, "frames": []}
+
+    frames = sorted([f.name for f in frames_dir.glob("*.jpg")])
+    return {
+        "status": "success",
+        "count": len(frames),
+        "frames": frames,
+    }
+
+
+@router.get("/{video_id}/frames/{filename}")
+async def get_single_frame(video_id: str, filename: str):
+    """Sirve la imagen JPEG de un fotograma individual normalizado."""
+    frame_path = config.FRAMES_DIR / video_id / filename
+    if not frame_path.exists():
+        raise HTTPException(status_code=404, detail="Fotograma no encontrado.")
+
+    return FileResponse(path=str(frame_path), media_type="image/jpeg")
+

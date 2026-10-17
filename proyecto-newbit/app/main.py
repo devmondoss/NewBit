@@ -79,19 +79,52 @@ async def dashboard(request: Request):
 @app.get("/videos", response_class=HTMLResponse)
 async def videos_catalog_placeholder(request: Request):
     """Ruta preliminar para el catálogo de videos (se completa en D-05)."""
+    videos = db.get_all_videos()
+    total_frames = sum(v["frame_count"] for v in videos)
     return templates.TemplateResponse(
         request=request,
         name="index.html",
         context={
             "stats": {
-                "total_videos": len(list(config.UPLOADS_DIR.glob("*.*"))),
-                "total_frames": len(list(config.FRAMES_DIR.glob("*/*.*"))),
+                "total_videos": len(videos),
+                "total_frames": total_frames,
                 "avg_reduction": 0.0,
                 "confidence": config.DEFAULT_YOLO_CONFIDENCE,
                 "iou": config.DEFAULT_YOLO_IOU,
             }
         }
     )
+
+
+@app.get("/videos/{video_id}", response_class=HTMLResponse)
+async def video_detail_view(request: Request, video_id: str):
+    """Visor web HTML5 con ficha técnica de metadatos y visor de fotogramas (HU02)."""
+    video = db.get_video_by_id(video_id)
+    if not video:
+        return templates.TemplateResponse(
+            request=request,
+            name="index.html",
+            context={
+                "stats": {
+                    "total_videos": 0,
+                    "total_frames": 0,
+                    "avg_reduction": 0.0,
+                    "confidence": config.DEFAULT_YOLO_CONFIDENCE,
+                    "iou": config.DEFAULT_YOLO_IOU,
+                }
+            },
+            status_code=404
+        )
+
+    frames_dir = config.FRAMES_DIR / video_id
+    frames = sorted([f.name for f in frames_dir.glob("*.jpg")]) if frames_dir.exists() else []
+
+    return templates.TemplateResponse(
+        request=request,
+        name="video_detail.html",
+        context={"video": video, "frames": frames}
+    )
+
 
 
 @app.get("/calibration", response_class=HTMLResponse)

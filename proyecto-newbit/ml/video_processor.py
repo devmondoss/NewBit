@@ -74,3 +74,57 @@ def get_video_metadata(video_path: Path | str) -> Dict[str, Any]:
         }
     finally:
         cap.release()
+
+
+def extract_frames(
+    video_path: Path | str,
+    output_dir: Path | str,
+    target_size: tuple = (640, 640),
+    max_frames: int | None = None,
+) -> list[str]:
+    """
+    Decodifica el video con OpenCV, normaliza cada fotograma al tamaño
+    requerido por YOLOv8 (640x640) y los guarda secuencialmente como imágenes JPEG.
+    Retorna la lista de nombres de archivo generados.
+    """
+    path = Path(video_path)
+    out_dir = Path(output_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    if not path.exists():
+        raise FileNotFoundError(f"Video no encontrado: {path}")
+
+    cap = cv2.VideoCapture(str(path))
+    if not cap.isOpened():
+        raise ValueError(f"No se pudo abrir el video para extraer fotogramas: {path.name}")
+
+    extracted_files = []
+    frame_idx = 0
+
+    try:
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                break
+
+            frame_idx += 1
+            if max_frames and frame_idx > max_frames:
+                break
+
+            # Normalización dimensional a target_size (640x640)
+            if target_size:
+                frame_resized = cv2.resize(frame, target_size, interpolation=cv2.INTER_AREA)
+            else:
+                frame_resized = frame
+
+            filename = f"frame_{frame_idx:06d}.jpg"
+            dest_frame_path = out_dir / filename
+
+            # Guardar con calidad JPEG óptima (95%)
+            cv2.imwrite(str(dest_frame_path), frame_resized, [cv2.IMWRITE_JPEG_QUALITY, 95])
+            extracted_files.append(filename)
+
+        return extracted_files
+    finally:
+        cap.release()
+
