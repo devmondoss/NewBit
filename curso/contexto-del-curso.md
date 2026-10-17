@@ -52,7 +52,7 @@ El avance de cada entregable **para NewBit** se sigue en [`proyecto-newbit/READM
 | Proyecto de RSU (Anexo 1 del reglamento) | 5 | **Por confirmar** si se pide y cuándo formalizarlo ante el docente |
 | 5 · Backlog priorizado (FGAP060) | 5 (secuencia) | **Completado v2.0:** [`semana-05/Tablero_Kanban_NewBit/`](semana-05-rsu-y-backlog/nuestras-entregas/Tablero_Kanban_NewBit/Tablero_Kanban_NewBit.md) y [`semana-05/Priorizacion_MoSCoW_100_Puntos_NewBit/`](semana-05-rsu-y-backlog/nuestras-entregas/Priorizacion_MoSCoW_100_Puntos_NewBit/Priorizacion_MoSCoW_100_Puntos_NewBit.md) |
 | Estimación: Puño de cinco (Fist of Five) | 5 | **Completada v2.0:** [`semana-05/Presentacion_Fist_of_Five/`](semana-05-rsu-y-backlog/nuestras-entregas/Presentacion_Fist_of_Five/Presentacion_Fist_of_Five.md) (8 diapositivas con votación de las 12 HU) |
-| 5 · Criterios de Terminado (FGAP070) | 5 | Analizado y adaptado; criterios de aceptación y DoD incorporados en las HU del Tablero Kanban |
+| 5 · Criterios de Terminado (FGAP070) | 5 | **Completado v1.0:** [`semana-05/FGAP070_Criterios_de_Terminado_NewBit/`](semana-05-rsu-y-backlog/nuestras-entregas/FGAP070_Criterios_de_Terminado_NewBit/FGAP070_Criterios_de_Terminado_NewBit.md) (DoD canónica en Word, PDF y MD) |
 | 6 · Sprints (planificación, implementación, revisión) | – | **En desarrollo activo:** alcance de código enfocado en Sprint 1 y Sprint 2 (15 puntos de historia) |
 | 7 · Cierre del Proyecto (FGAP090) | – | Previsto para el final del semestre |
 
