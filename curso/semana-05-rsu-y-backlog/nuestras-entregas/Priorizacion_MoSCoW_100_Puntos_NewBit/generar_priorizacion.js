@@ -38,29 +38,29 @@ function hand(x, y, W, n, color) {
 }
 
 
-// ---------- datos (FGAP040, versión del equipo) ----------
+// ---------- datos (FGAP040, versión oficial normalizada) ----------
 // Votos de los 100 puntos del Grupo D3 (sesión en clase, 12/10/2026).
 const EP = {
   EP01: { name: "Ingestión de video", color: "5B6B7A" },
-  EP02: { name: "Filtrado YOLOv4", color: "2F6DB5" },
-  EP03: { name: "Segmentación temporal", color: "7A5AB8" },
+  EP02: { name: "Detección YOLOv8", color: "2F6DB5" },
+  EP03: { name: "Reducción y clips", color: "7A5AB8" },
   EP04: { name: "Clasificación ConvLSTM", color: "B4235A" },
-  EP05: { name: "GUI y validación", color: "1F8A70" },
-  EP06: { name: "Administración", color: "8A6D1E" },
+  EP05: { name: "Monitoreo y alertas", color: "1F8A70" },
+  EP06: { name: "Calibración y métricas", color: "8A6D1E" },
 };
 // v = [Albert, Anthony, Luis]; dep = historias de las que depende; final = orden final del backlog.
 const HU = [
   { id: "HU01", ep: "EP01", t: "Cargar video", mo: "Must", v: [6, 8, 5], dep: "—", sp: 1, final: 1 },
   { id: "HU02", ep: "EP01", t: "Extraer frames", mo: "Must", v: [5, 8, 7], dep: "HU01", sp: 1, final: 2 },
-  { id: "HU03", ep: "EP02", t: "Detectar trabajadores", mo: "Must", v: [12, 12, 13], dep: "HU02", sp: 1, final: 3 },
+  { id: "HU03", ep: "EP02", t: "Detectar operarios", mo: "Must", v: [12, 12, 13], dep: "HU02", sp: 1, final: 3 },
   { id: "HU04", ep: "EP02", t: "Descartar frames vacíos", mo: "Must", v: [8, 10, 10], dep: "HU03", sp: 2, final: 4 },
   { id: "HU05", ep: "EP03", t: "Agrupar en clips", mo: "Must", v: [6, 9, 10], dep: "HU04", sp: 2, final: 5 },
   { id: "HU06", ep: "EP03", t: "Descartar clips cortos", mo: "Should", v: [3, 4, 5], dep: "HU05", sp: 2, final: 11 },
   { id: "HU07", ep: "EP04", t: "Procesar con ConvLSTM", mo: "Must", v: [15, 14, 18], dep: "HU05", sp: 3, final: 6 },
-  { id: "HU08", ep: "EP04", t: "Etiquetar el clip", mo: "Must", v: [14, 12, 12], dep: "HU07", sp: 3, final: 7 },
+  { id: "HU08", ep: "EP04", t: "Clasificar y tipificar", mo: "Must", v: [14, 12, 12], dep: "HU07", sp: 3, final: 7 },
   { id: "HU09", ep: "EP05", t: "Ver video con recuadro", mo: "Must", v: [13, 9, 8], dep: "HU08", sp: 4, final: 8 },
-  { id: "HU10", ep: "EP05", t: "Alerta insegura", mo: "Should", v: [10, 6, 5], dep: "HU08", sp: 4, final: 9 },
-  { id: "HU11", ep: "EP06", t: "Ajustar umbral", mo: "Could", v: [2, 3, 3], dep: "HU03", sp: 2, final: 12 },
+  { id: "HU10", ep: "EP05", t: "Alerta de riesgo", mo: "Should", v: [10, 6, 5], dep: "HU08", sp: 4, final: 9 },
+  { id: "HU11", ep: "EP06", t: "Calibrar umbral", mo: "Could", v: [2, 3, 3], dep: "HU03", sp: 2, final: 12 },
   { id: "HU12", ep: "EP06", t: "Ver log de tiempos", mo: "Should", v: [6, 5, 4], dep: "HU04", sp: 4, final: 10 },
 ];
 HU.forEach(h => h.tot = h.v.reduce((a, b) => a + b, 0));

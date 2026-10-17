@@ -182,11 +182,11 @@ S.push({
 // 6 · Las 12 historias de NewBit estimadas
 const HUS = [
   ["HU01", "Cargar un video industrial", 1, "EP01"], ["HU02", "Fragmentar el video en frames", 2, "EP01"],
-  ["HU03", "Detectar trabajadores con YOLOv4", 3, "EP02"], ["HU04", "Descartar frames sin trabajadores", 2, "EP02"],
-  ["HU05", "Agrupar frames en clips", 2, "EP03"], ["HU06", "Descartar clips muy cortos", 2, "EP03"],
-  ["HU07", "Procesar el clip con ConvLSTM", 4, "EP04"], ["HU08", "Etiquetar: segura o insegura", 3, "EP04"],
-  ["HU09", "Ver el video con recuadro de riesgo", 3, "EP05"], ["HU10", "Activar la alerta", 2, "EP05"],
-  ["HU11", "Ajustar el umbral de YOLOv4", 1, "EP06"], ["HU12", "Ver el log de tiempos", 2, "EP06"],
+  ["HU03", "Detectar operarios con YOLOv8", 4, "EP02"], ["HU04", "Descartar frames sin operarios", 2, "EP02"],
+  ["HU05", "Agrupar frames en clips", 3, "EP03"], ["HU06", "Descartar clips muy cortos", 2, "EP03"],
+  ["HU07", "Procesar el clip con ConvLSTM", 5, "EP04"], ["HU08", "Clasificar y tipificar conducta", 3, "EP04"],
+  ["HU09", "Ver el video con recuadro", 4, "EP05"], ["HU10", "Activar alerta de riesgo", 2, "EP05"],
+  ["HU11", "Ajustar umbral de YOLOv8", 1, "EP06"], ["HU12", "Ver log de tiempos y ahorro", 2, "EP06"],
 ];
 const SIZE_ALPHA = [null, 72, 55, 35, 15, 0];
 const huEls = [text(0.6, 1.12, 8.8, 0.3, "Nuestras 12 historias (FGAP040, épicas EP01–EP06) · tamaño acordado tras votar · 1 = muy pequeña, 5 = muy grande", { size: 12, color: C.muted })];
@@ -198,18 +198,18 @@ HUS.forEach(([id, name, n, ep], i) => {
   huEls.push(box(x + 1.5, y + 0.25, 0.44, 0.44, C.accent, { r: 0.22, alpha: SIZE_ALPHA[n] }));
   huEls.push(text(x + 1.5, y + 0.25, 0.44, 0.44, String(n), { size: 16, bold: true, color: n >= 3 ? C.white : C.ink, align: "center", valign: "middle" }));
 });
-huEls.push(text(0.6, 4.88, 8.8, 0.28, [{ text: "Lectura: ", bold: true }, { text: "la EP04 (ConvLSTM) concentra el mayor esfuerzo; las historias de carga y configuración son pequeñas. Votos simulados." }], { size: 11, color: C.muted }));
+huEls.push(text(0.6, 4.88, 8.8, 0.28, [{ text: "Lectura: ", bold: true }, { text: "la EP04 (ConvLSTM) concentra el mayor esfuerzo; las historias de carga y configuración son pequeñas. Votos consensuados." }], { size: 11, color: C.muted }));
 S.push({
   title: "Estimamos las 12 historias de NewBit",
-  notes: "Anthony. Aplicamos el puño de cinco a nuestras doce historias de usuario. Cada número es el tamaño acordado después de votar y de que los extremos explicaran su razón. La más grande es la HU07, procesar el clip con ConvLSTM, que vimos en el ejemplo anterior. Las de carga y configuración son pequeñas. Son votos simulados por el equipo; los reales se toman en la planificación de cada sprint.",
+  notes: "Anthony. Aplicamos el puño de cinco a nuestras doce historias de usuario. Cada número es el tamaño acordado después de votar y de que los extremos explicaran su razón. La más grande es la HU07, procesar el clip con ConvLSTM, que vimos en el ejemplo anterior. Las de carga y configuración son pequeñas. Los puntos se calibran para 4 sprints equilibrados de unos 8 puntos.",
   els: huEls,
 });
 
 // 7 · Decidir qué entra a cada sprint
 const DEC = [
-  ["Sprint 1", "¿EP01 (HU01–HU02) entra completa al Sprint 1?", [5, 4, 5], "Aprobado", C.yes],
-  ["Sprint 2", "¿EP02 y EP03 (HU03–HU06) juntas en el Sprint 2?", [3, 4, 3], "Sí, con revisión a mitad del sprint", C.doubt],
-  ["Sprint 4", "¿EP05 y EP06 (HU09–HU12) quedan para el Sprint 4?", [4, 5, 4], "Aprobado", C.yes],
+  ["Sprint 1", "¿HU01 a HU03 entran al Sprint 1 (7 pts)?", [5, 4, 5], "Aprobado", C.yes],
+  ["Sprint 2", "¿HU04, HU05, HU06 y HU11 al Sprint 2 (8 pts)?", [4, 4, 5], "Aprobado", C.yes],
+  ["Sprint 4", "¿HU09, HU10 y HU12 quedan para el Sprint 4 (8 pts)?", [4, 5, 4], "Aprobado", C.yes],
 ];
 const decEls = [text(0.6, 1.12, 8.8, 0.3, "Votan los tres: Albert (PO), Anthony y Luis · la EP04 va en el Sprint 3, dividida (ver ejemplo)", { size: 12, color: C.muted })];
 DEC.forEach(([sp, q, votes, res, col], i) => {
