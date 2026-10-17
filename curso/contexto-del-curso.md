@@ -37,26 +37,27 @@ Los archivos de **BigFarma** (Acta, Roles, de 2018), de **Retinopatía Diabétic
 - El ejemplo asume un Scrum Team de **1 Product Owner + 1 Scrum Master + 3 Developers**.
 
 ## Entregables que pide el curso
-El avance de cada entregable **para NewBit** se sigue en [`proyecto-newbit/README.md`](../proyecto-newbit/README.md). Aquí queda qué pide el curso y si hay algo hecho.
+El avance de cada entregable **para NewBit** se sigue en [`proyecto-newbit/README.md`](../proyecto-newbit/README.md) y en la hoja de ruta central [`ROADMAP_REESTRUCTURACION_NEWBIT.md`](../../ROADMAP_REESTRUCTURACION_NEWBIT.md). Estado actual consolidado:
 
-| Entregable | Semana | Estado |
+| Entregable | Semana | Estado para NewBit |
 |---|---|---|
-| 1 · Acta de Constitución (FGAP/EGAP010) | 2 | Hecha para VIGIA (proyecto anterior); **rehacer para NewBit** |
-| Cuadro comparativo de principios de Scrum | 2 | **Hecho** para NewBit (`curso/semana-02-scrum-y-acta/nuestras-entregas/Cuadro_Principios_Scrum_NewBit/`) |
-| 2 · Registro de Stakeholders (FGAP020) | 5 (en la secuencia) | **Nuevo; sin formato ni ejemplo en el repo** |
-| 3 · Roles y Prototipos (FGAP/EGAP030) | 3 | Hecho para VIGIA; **rehacer para NewBit** |
-| Infografía de 12 pasos del proyecto | 3 | Hecha en HTML para VIGIA; rehacer o adaptar |
-| Justificación del proyecto (EGAP015) | 4 | **Pendiente** |
-| 4 · Épicas e historias de usuario (FGAP040) | 4 | **Pendiente** |
-| Proyecto de RSU (Anexo 1 del reglamento) | 5 | **Por confirmar** si se pide y cuándo |
-| 5 · Backlog priorizado (FGAP060) | 5 (en la secuencia) | Pendiente; sin formato aún |
-| 5 · Criterios de Terminado (FGAP070) | 5 | Pendiente; **ejemplo recibido** (`semana-05/FGAP070_…/`) |
-| 6 · Sprints (planificación, revisión, retrospectiva) | – | Pendiente |
-| 7 · Cierre del Proyecto (FGAP090) | – | Al final |
+| 1 · Acta de Constitución (FGAP/EGAP010) | 2 | **Completada v2.0:** [`semana-02/FGAP010_Acta_Constitucion_NewBit/`](semana-02-scrum-y-acta/nuestras-entregas/FGAP010_Acta_Constitucion_NewBit/FGAP010_Acta_Constitucion_NewBit.md) (dominio taller metalmecánico, YOLOv8, S/ 20,768) |
+| Cuadro comparativo de principios de Scrum | 2 | **Completado v2.0:** [`semana-02/Cuadro_Principios_Scrum_NewBit/`](semana-02-scrum-y-acta/nuestras-entregas/Cuadro_Principios_Scrum_NewBit/Cuadro_Principios_Scrum_NewBit.md) (ejemplos adaptados y HU11 sincronizada en Sprint 2) |
+| 2 · Registro de Stakeholders (FGAP020) | 5 (secuencia) | Pendiente de plantilla oficial del docente (los interesados clave están definidos en FGAP010 y FGAP030) |
+| 3 · Roles y Prototipos (FGAP/EGAP030) | 3 | **Completado v2.0:** [`semana-03/FGAP030_Roles_y_Prototipos_NewBit/`](semana-03-roles-y-prototipos/nuestras-entregas/FGAP030_Roles_y_Prototipos_NewBit/FGAP030_Roles_y_Prototipos_NewBit.md) (5 perfiles de planta aprobados) |
+| Diagrama de arquitectura y PPT NewBit | 3 | **Completado v1.0:** [`semana-03/Diagrama_Arquitectura_NewBit/`](semana-03-roles-y-prototipos/nuestras-entregas/Diagrama_Arquitectura_NewBit/Diagrama_Arquitectura_NewBit.md) y [`semana-03/PPT_Presentacion_NewBit/`](semana-03-roles-y-prototipos/nuestras-entregas/PPT_Presentacion_NewBit/PPT_Presentacion_NewBit.md) |
+| Infografía de 12 pasos del proyecto | 3 | **Completada v1.0:** [`semana-03/Infografias_NewBit/`](semana-03-roles-y-prototipos/nuestras-entregas/Infografias_NewBit/Infografias_NewBit.md) (página web HTML/CSS con metodología del proyecto) |
+| Justificación del proyecto (EGAP015) | 4 | **Completada v2.0:** [`semana-04/EGAP015_Justificacion_NewBit/`](semana-04-justificacion-y-epicas/nuestras-entregas/EGAP015_Justificacion_NewBit/EGAP015_Justificacion_NewBit.md) (S/ 20,768, viabilidad técnica, citas Önal & Dandıl 2024) |
+| 4 · Épicas e historias de usuario (FGAP040) | 4 | **Completado v2.0 canónico:** [`semana-04/FGAP040_Epicas_NewBit/`](semana-04-justificacion-y-epicas/nuestras-entregas/FGAP040_Epicas_NewBit/FGAP040_Epicas_NewBit.md) (6 épicas, 12 HU con roles de planta reales) |
+| Proyecto de RSU (Anexo 1 del reglamento) | 5 | **Por confirmar** si se pide y cuándo formalizarlo ante el docente |
+| 5 · Backlog priorizado (FGAP060) | 5 (secuencia) | **Completado v2.0:** [`semana-05/Tablero_Kanban_NewBit/`](semana-05-rsu-y-backlog/nuestras-entregas/Tablero_Kanban_NewBit/Tablero_Kanban_NewBit.md) y [`semana-05/Priorizacion_MoSCoW_100_Puntos_NewBit/`](semana-05-rsu-y-backlog/nuestras-entregas/Priorizacion_MoSCoW_100_Puntos_NewBit/Priorizacion_MoSCoW_100_Puntos_NewBit.md) |
+| Estimación: Puño de cinco (Fist of Five) | 5 | **Completada v2.0:** [`semana-05/Presentacion_Fist_of_Five/`](semana-05-rsu-y-backlog/nuestras-entregas/Presentacion_Fist_of_Five/Presentacion_Fist_of_Five.md) (8 diapositivas con votación de las 12 HU) |
+| 5 · Criterios de Terminado (FGAP070) | 5 | Analizado y adaptado; criterios de aceptación y DoD incorporados en las HU del Tablero Kanban |
+| 6 · Sprints (planificación, implementación, revisión) | – | **En desarrollo activo:** alcance de código enfocado en Sprint 1 y Sprint 2 (15 puntos de historia) |
+| 7 · Cierre del Proyecto (FGAP090) | – | Previsto para el final del semestre |
 
-## Dudas para el docente
-1. Cómo se evalúa un equipo de **3 personas** (PO + SM/Developer + Developer) si el ejemplo asume 1 PO + 1 SM + 3 developers.
-2. Si cambia el proyecto, qué entregables ya hechos (Acta, Roles) hay que rehacer.
-3. `justificacion-formato-y-ejemplo.pdf` (en `semana-04/Formato_Justificacion_…/`) es en realidad el formato de Justificación: duplicado del `.docx`; renombrar o descartar.
-4. **RSU (semana 5):** ¿hay que redactar un proyecto de RSU propio (Anexo 1)? ¿solo el diseño o también ejecutarlo e informar (Anexo 2)? ¿debe relacionarse con el proyecto del curso? ¿fecha de entrega?
-5. **Secuencia (semana 5):** pedir el formato **FGAP020 (Registro de Stakeholders)**, FGAP060 y FGAP070. ¿Hay diferencia entre EGAP y FGAP? ¿Existen FGAP050 y FGAP080?
+## Precisiones y Consultas para el Docente
+1. **Composición del equipo (3 integrantes):** El Scrum Team está conformado por Albert Chumacero (PO), Anthony Lopez (SM y Developer) y Luis Salazar (Developer). Las estimaciones y compromisos de sprint están calibrados para esta capacidad.
+2. **Pivote metodológico cerrado:** La transición de VIGIA (acería pesada) a NewBit (taller metalmecánico con visión artificial offline y dataset Mendeley) ha quedado 100% normalizada en todos los formatos FGAP/EGAP.
+3. **RSU (semana 5):** Mantener en consulta si se requerirá redactar un proyecto de RSU independiente o si se vinculará con la difusión de seguridad laboral asistida por IA.
+4. **Secuencia documental:** Continuar usando la estructura canónica FGAP010 → FGAP030 → FGAP040 → FGAP060/070, asegurando consistencia de datos en cada revisión.

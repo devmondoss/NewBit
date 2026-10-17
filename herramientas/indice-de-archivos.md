@@ -37,10 +37,9 @@ Rutas relativas a la raíz del repo. `S2…S5` = `curso/semana-02-scrum-y-acta`,
 | 3 | `Diagrama_Arquitectura_NewBit/` | Resumen | Diagrama "Cómo funciona" de NewBit (HTML) |
 | 3 | `PPT_Presentacion_NewBit/` | Resumen | PPT de presentación de NewBit (PPTX + PDF), 12 diapositivas |
 | 3 | `Infografias_NewBit/` (HTML, CSS, fotos) | `Infografias_NewBit.md` | 12 pasos y metodología de NewBit; página web, excepción a la regla de una carpeta por archivo |
-| 4 | `EGAP015_Justificacion_NewBit/` | Resumen | Justificación de NewBit, versión 1.0 (DOCX + PDF) |
-| 4 | `FGAP040_Epicas_NewBit_equipo/` | Transcripción | **Épicas del equipo** (6 épicas, 12 HU); la versión que vale |
-| 4 | `FGAP040_Epicas_NewBit/` | Resumen | Épicas, versión anterior (hoja del laboratorio, DOCX + PDF) |
-| 5 | `Presentacion_Fist_of_Five/` | Resumen | Estimación con el Puño de cinco aplicada a las historias (HTML + PPTX + PDF + generador) |
+| 4 | `EGAP015_Justificacion_NewBit/` | Resumen | Justificación de NewBit, versión 2.0 (DOCX + PDF) |
+| 4 | `FGAP040_Epicas_NewBit/` | Transcripción | **Épicas canónicas del equipo** (6 épicas, 12 HU con roles de planta normalizados y YOLOv8) |
+| 5 | `Presentacion_Fist_of_Five/` | Resumen | Estimación con el Puño de cinco aplicada a las historias (HTML + PPTX + PDF + generador, 8 diapositivas) |
 | 5 | `Priorizacion_MoSCoW_100_Puntos_NewBit/` | Resumen + datos | Priorización con MoSCoW y 100 puntos de las 12 HU (PDF + PPTX + HTML + generador) |
 | 5 | `Tablero_Kanban_NewBit/` | Resumen + backlog completo | Tablero Kanban: 12 HU con criterios, prioridad, puntos y sprint; Scrumboard del Sprint 1 (HTML + PPTX + PDF + generador) |
 
@@ -59,7 +58,10 @@ Rutas relativas a la raíz del repo. `S2…S5` = `curso/semana-02-scrum-y-acta`,
 | `vigia-industrial/semana-03/NewBit_Arquitectura_Proyecto/` | Resumen | Arquitectura conceptual, 24 diapositivas |
 | `vigia-industrial/semana-03/VisionOps Industrial/` | Resumen | Presentación del equipo, 15 diapositivas |
 | `vigia-industrial/semana-03/Roles_y_Prototipos_VIGIA_Industrial_SIDERPERU/` | Resumen | Roles de VIGIA |
-| `vigia-industrial/semana-03/referencias/<imagen>/` (3 imágenes) | Resumen | Imágenes que inspiraron las infografías |
+| `vigia-industrial/semana-03/referencias/infografia-referencia-pasos-vc/` | Resumen | Imagen de referencia: pasos de Computer Vision |
+| `vigia-industrial/semana-03/referencias/referencia-metodologia-investigacion/` | Resumen | Imagen de referencia: metodología de investigación |
+| `vigia-industrial/semana-03/referencias/referencia-tabla-tecnologias/` | Resumen | Imagen de referencia: comparativa de tecnologías |
 | `vigia-industrial/semana-03/04-arquitectura-tecnica.md` (sin original) | — | Documento escrito por el equipo |
 | `vigia-industrial/semana-03/infografias/` (HTML, CSS, fotos) | `CREDITOS.md` | Página web de VIGIA; excepción a la regla de una carpeta por archivo |
 | `borrador-justificacion-retinopatia.md` (sin original) | — | Borrador de Justificación escrito para el ejemplo de Retinopatía; no es del equipo |
+| `epicas-26-hu-obsoletas/` | Histórico | Borrador preliminar de 26 HU con roles genéricos de laboratorio (reemplazado por FGAP040 canónico de 12 HU) |

@@ -1,6 +1,7 @@
 # NewBit – Ingeniería de Software II (UNS, 2026-II)
 
-Repositorio del **Grupo D3** (laboratorio D, equipo 3): **Albert Sebastian Chumacero Chávarry** (Product Owner), **Anthony Gabriel Lopez Yrribarren** (Scrum Master y Developer) y **Luis Fernando Salazar Diaz** (Developer). Proyecto: **NewBit**, plataforma de Computer Vision que convierte cámaras existentes en sensores inteligentes para operaciones industriales.
+Repositorio del **Grupo D3** (laboratorio D, equipo 3): **Albert Sebastian Chumacero Chávarry** (Product Owner), **Anthony Gabriel Lopez Yrribarren** (Scrum Master y Developer) y **Luis Fernando Salazar Diaz** (Developer).  
+Proyecto: **PY-NB-001 – Sistema web con Visión Artificial para la detección de actos inseguros en áreas operativas de manufactura metalmecánica** (Nombre comercial: **NewBit**).
 
 ## Dónde está cada cosa
 ```
@@ -15,12 +16,14 @@ NewBit/
 ├── proyecto-newbit/               ← EL PROYECTO EN SÍ (no va por semanas)
 │   ├── README.md                  estado, decisiones y hoja de ruta de entregables
 │   └── investigacion/             paper Unsafe-Net, research pack, guía de investigación
-│                                  (el código irá aquí: app/, ml/)
-├── descartado/                    ← solo consulta: proyecto anterior (VIGIA) y borradores viejos
-├── herramientas/                  ← para mantener el orden (lo usa Claude)
+│                                  (el código va aquí en monorepo: app/, ml/)
+├── descartado/                    ← solo consulta: proyecto anterior (VIGIA) y borradores obsoletos
+├── herramientas/                  ← utilitarios de mantenimiento y automatización
 │   ├── indice-de-archivos.md      cada PDF/Word/PPT → su resumen .md
-│   └── verificar-indice.sh        avisa si algún archivo no tiene su .md
-└── CLAUDE.md                      instrucciones para Claude
+│   ├── package.json               manifiesto NPM para generadores de PPTX/HTML
+│   ├── verificar-indice.ps1       verificador nativo PowerShell (Windows)
+│   └── verificar-indice.sh        verificador Bash (Linux / Git Bash)
+└── CLAUDE.md                      instrucciones para asistentes y pair-programming
 ```
 
 ## Semanas

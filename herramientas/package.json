@@ -1,0 +1,24 @@
+{
+  "name": "newbit-herramientas",
+  "version": "1.0.0",
+  "description": "Herramientas y generadores de presentaciones y tableros para NewBit (Grupo D3, UNS)",
+  "private": true,
+  "scripts": {
+    "check": "powershell -ExecutionPolicy Bypass -File ./verificar-indice.ps1",
+    "check:sh": "bash ./verificar-indice.sh",
+    "generate:fist-of-five": "node ../curso/semana-05-rsu-y-backlog/nuestras-entregas/Presentacion_Fist_of_Five/generar_presentacion.js .",
+    "generate:kanban": "node ../curso/semana-05-rsu-y-backlog/nuestras-entregas/Tablero_Kanban_NewBit/generar_tablero.js .",
+    "generate:moscow": "node ../curso/semana-05-rsu-y-backlog/nuestras-entregas/Priorizacion_MoSCoW_100_Puntos_NewBit/generar_priorizacion.js ."
+  },
+  "dependencies": {
+    "pptxgenjs": "^3.12.0"
+  },
+  "keywords": [
+    "scrum",
+    "newbit",
+    "kanban",
+    "pptxgenjs"
+  ],
+  "author": "Grupo D3 (UNS)",
+  "license": "UNLICENSED"
+}
