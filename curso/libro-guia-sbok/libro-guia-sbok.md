@@ -81,7 +81,7 @@ El libro no menciona una escala concreta (como Fibonacci) en estas páginas.
 
 ### Qué implica para NewBit (propuesta)
 - **Formato:** el libro usa "Como… yo debería… a fin de…" **para historias**. El docente usa ese formato para épicas y "Como…, quiero…, para…" para historias (ver `contexto-del-curso.md`). Seguir al docente en los formatos, pero saber que el libro no los distingue.
-- Las **26 historias** de FGAP040 son solo títulos. Según el libro, a cada una le falta: redacción completa, personaje (de FGAP030), **criterios de aceptación verificables** (2–4 viñetas), **prioridad** (valor + riesgo + dependencias; MoSCoW es lo más simple de justificar) y **estimación en puntos** (Planning Poker entre los 3).
+- El backlog oficial de NewBit (**FGAP040**) cuenta con **12 historias de usuario** organizadas en 6 épicas, con personajes reales derivados de FGAP030 (Jorge, Mariana, Lucía, Ricardo), **criterios de aceptación verificables**, **prioridad MoSCoW + 100 puntos** y **estimación con el Puño de cinco** (31 puntos en 4 sprints). La propuesta preliminar de 26 títulos quedó descartada y archivada.
 - **FGAP060** = backlog priorizado. **FGAP070** = DoD común. No mezclar los criterios de aceptación de cada historia con la DoD.
 
 ## Análisis
