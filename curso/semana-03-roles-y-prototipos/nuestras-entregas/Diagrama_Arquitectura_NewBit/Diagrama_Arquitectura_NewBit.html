@@ -124,8 +124,8 @@
     <div class="step s-ai">
       <span class="num">02</span>
       <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5b4bdb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><circle cx="12" cy="9" r="2.4"/><path d="M8.5 17c.6-2.2 1.9-3.3 3.5-3.3s2.9 1.1 3.5 3.3"/></svg></div>
-      <h3>Detección YOLOv4</h3>
-      <p>En cada frame localiza personas, montacargas y paneles.</p>
+      <h3>Detección YOLOv8</h3>
+      <p>En cada frame seleccionado localiza personas y áreas de trabajo.</p>
       <span class="rf">RF-02</span>
     </div>
     <div class="step s-ai">
@@ -183,20 +183,20 @@
   </div>
 
   <h2>Antes de operar: cómo aprende NewBit</h2>
-  <p class="lead">Los modelos se entrenan una vez, se evalúan con métricas por clase y se versionan; luego los usa el flujo principal.</p>
+  <p class="lead">Los modelos se calibran, se evalúan con métricas por clase y se versionan; luego los usa el flujo principal.</p>
   <div class="train">
     <span class="label">ENTRENAMIENTO Y EVALUACIÓN</span>
     <div class="tflow">
       <div class="t"><b>Dataset de video</b><span>Video industrial público, licencia CC BY 4.0, con división oficial de entrenamiento y prueba</span></div>
-      <div class="t"><b>Anotación</b><span>Muestra de frames etiquetados con LabelImg</span></div>
-      <div class="t"><b>Entrenar YOLOv4</b><span>Detector de personas, montacargas y paneles</span></div>
+      <div class="t"><b>Anotación</b><span>Muestra de frames etiquetados y normalizados</span></div>
+      <div class="t"><b>Inferencia YOLOv8</b><span>Detector espacial de personas y maquinaria</span></div>
       <div class="t"><b>Entrenar ConvLSTM</b><span>Clasificador de conductas sobre secuencias</span></div>
       <div class="t"><b>Evaluar</b><span>Métricas por clase y tiempos: clasificación directa vs. pipeline completo</span></div>
       <div class="t"><b>Modelos versionados</b><span>Configuración y checkpoints reproducibles</span></div>
     </div>
     <div class="feed">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b07a12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-      Los modelos entrenados alimentan las etapas <b>02</b> (YOLOv4) y <b>05</b> (ConvLSTM) del flujo principal.
+      Los modelos entrenados alimentan las etapas <b>02</b> (YOLOv8) y <b>05</b> (ConvLSTM) del flujo principal.
     </div>
   </div>
 
@@ -215,14 +215,14 @@
       <h3>Se construye en 4 sprints</h3>
       <div class="sprints">
         <div class="sp"><i>S1</i><div>Dataset, anotación y entorno<small>19/10 – 30/10</small></div></div>
-        <div class="sp"><i>S2</i><div>YOLOv4, selección de frames y secuencias<small>02/11 – 13/11</small></div></div>
+        <div class="sp"><i>S2</i><div>YOLOv8, umbrales y selección de frames<small>02/11 – 13/11</small></div></div>
         <div class="sp"><i>S3</i><div>ConvLSTM, pipeline completo y evaluación<small>16/11 – 27/11</small></div></div>
         <div class="sp"><i>S4</i><div>Interfaz, alertas, registro y pruebas<small>30/11 – 11/12</small></div></div>
       </div>
     </div>
     <div class="panel">
       <h3>Tecnología y principios</h3>
-      <div class="chips"><span class="chip">Python</span><span class="chip">OpenCV</span><span class="chip">YOLOv4 · Darknet</span><span class="chip">ConvLSTM · PyTorch</span><span class="chip">LabelImg</span><span class="chip">Web</span></div>
+      <div class="chips"><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">OpenCV</span><span class="chip">YOLOv8 · Ultralytics</span><span class="chip">ConvLSTM</span><span class="chip">Web</span></div>
       <ul class="pr">
         <li><b>Se evalúa la conducta</b>, no un frame aislado.</li>
         <li><b>Una persona valida</b> cada alerta: NewBit apoya, no reemplaza.</li>

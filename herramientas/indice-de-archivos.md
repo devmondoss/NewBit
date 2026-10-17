@@ -34,7 +34,7 @@ Rutas relativas a la raíz del repo. `S2…S5` = `curso/semana-02-scrum-y-acta`,
 | 2 | `FGAP010_Acta_Constitucion_NewBit/` | Resumen | Acta de NewBit, versión 1.0 completa (DOCX + PDF) |
 | 2 | `Cuadro_Principios_Scrum_NewBit/` | Resumen | Cuadro comparativo de los 6 principios de Scrum con ejemplos de NewBit (PPTX + PDF) |
 | 3 | `FGAP030_Roles_y_Prototipos_NewBit/` | Resumen | Roles y Prototipos de NewBit, versión 1.0 (DOCX + PDF) |
-| 3 | `Diagrama_Arquitectura_NewBit/` | Resumen | Diagrama "Cómo funciona" de NewBit (HTML) |
+| 3 | `Diagrama_Arquitectura_NewBit/` | Resumen | Diagrama "Cómo funciona" de NewBit (HTML + PDF) |
 | 3 | `PPT_Presentacion_NewBit/` | Resumen | PPT de presentación de NewBit (PPTX + PDF), 12 diapositivas |
 | 3 | `Infografias_NewBit/` (HTML, CSS, fotos) | `Infografias_NewBit.md` | 12 pasos y metodología de NewBit; página web, excepción a la regla de una carpeta por archivo |
 | 4 | `EGAP015_Justificacion_NewBit/` | Resumen | Justificación de NewBit, versión 2.0 (DOCX + PDF) |
