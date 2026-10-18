@@ -61,10 +61,16 @@ async def dashboard(request: Request):
     """Página principal / Dashboard de NewBit con estadísticas dinámicas."""
     videos = db.get_all_videos()
     total_frames = sum(v["frame_count"] for v in videos)
+    sampled_videos = [v for v in videos if v.get("reduction_pct", 0) > 0]
+    avg_reduction = (
+        round(sum(v["reduction_pct"] for v in sampled_videos) / len(sampled_videos), 1)
+        if sampled_videos
+        else 0.0
+    )
     stats = {
         "total_videos": len(videos),
         "total_frames": total_frames,
-        "avg_reduction": 0.0,
+        "avg_reduction": avg_reduction,
         "confidence": config.DEFAULT_YOLO_CONFIDENCE,
         "iou": config.DEFAULT_YOLO_IOU,
     }
@@ -81,10 +87,16 @@ async def videos_catalog_view(request: Request):
     """Catálogo web interactivo de videos con dropzone y tabla de estados (HU01 - HU03)."""
     videos = db.get_all_videos()
     total_frames = sum(v["frame_count"] for v in videos)
+    sampled_videos = [v for v in videos if v.get("reduction_pct", 0) > 0]
+    avg_reduction = (
+        round(sum(v["reduction_pct"] for v in sampled_videos) / len(sampled_videos), 1)
+        if sampled_videos
+        else 0.0
+    )
     stats = {
         "total_videos": len(videos),
         "total_frames": total_frames,
-        "avg_reduction": 0.0,
+        "avg_reduction": avg_reduction,
         "confidence": config.DEFAULT_YOLO_CONFIDENCE,
         "iou": config.DEFAULT_YOLO_IOU,
     }
@@ -93,6 +105,7 @@ async def videos_catalog_view(request: Request):
         name="videos_catalog.html",
         context={"videos": videos, "stats": stats}
     )
+
 
 
 

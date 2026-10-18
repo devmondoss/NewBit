@@ -39,11 +39,26 @@ def init_db() -> None:
                 height INTEGER NOT NULL,
                 codec TEXT,
                 status TEXT NOT NULL DEFAULT 'uploaded',
+                sampled_frames_count INTEGER DEFAULT 0,
+                target_fps REAL DEFAULT 0.0,
+                reduction_pct REAL DEFAULT 0.0,
                 created_at TEXT NOT NULL
             )
             """
         )
+
+        # Migración segura de columnas si la tabla ya existía
+        cursor.execute("PRAGMA table_info(videos)")
+        existing_cols = {row["name"] for row in cursor.fetchall()}
+        if "sampled_frames_count" not in existing_cols:
+            cursor.execute("ALTER TABLE videos ADD COLUMN sampled_frames_count INTEGER DEFAULT 0")
+        if "target_fps" not in existing_cols:
+            cursor.execute("ALTER TABLE videos ADD COLUMN target_fps REAL DEFAULT 0.0")
+        if "reduction_pct" not in existing_cols:
+            cursor.execute("ALTER TABLE videos ADD COLUMN reduction_pct REAL DEFAULT 0.0")
+
         conn.commit()
+
 
 
 def save_video_record(record: Dict[str, Any]) -> Dict[str, Any]:
@@ -119,3 +134,25 @@ def delete_video_record(video_id: str) -> bool:
         cursor.execute("DELETE FROM videos WHERE id = ?", (video_id,))
         conn.commit()
         return cursor.rowcount > 0
+
+
+def update_sampling_metrics(
+    video_id: str, sampled_count: int, target_fps: float, reduction_pct: float
+) -> bool:
+    """Actualiza las métricas de submuestreo y tasa de reducción en la base de datos."""
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+            UPDATE videos
+            SET sampled_frames_count = ?,
+                target_fps = ?,
+                reduction_pct = ?,
+                status = 'frames_extracted'
+            WHERE id = ?
+            """,
+            (sampled_count, target_fps, reduction_pct, video_id),
+        )
+        conn.commit()
+        return cursor.rowcount > 0
+

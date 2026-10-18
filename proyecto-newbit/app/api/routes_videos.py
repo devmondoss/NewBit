@@ -13,8 +13,10 @@ from fastapi.responses import JSONResponse, FileResponse
 
 from app import config, db
 from ml.video_processor import validate_video_file, get_video_metadata, extract_frames
+from ml.sampler import extract_sampled_frames
 
 router = APIRouter(prefix="/api/videos", tags=["Videos"])
+
 
 
 
@@ -249,5 +251,64 @@ async def delete_video(video_id: str):
         "status": "success",
         "message": f"Video '{video['original_name']}' ({video_id}) y sus recursos fueron eliminados correctamente.",
     }
+
+
+@router.post("/{video_id}/sample")
+async def sample_video_frames(video_id: str, target_fps: float = config.DEFAULT_SAMPLE_FPS):
+    """
+    Ejecuta el submuestreo inteligente de fotogramas (HU04).
+    Reduce la tasa de frames a target_fps (por defecto 5.0) y almacena los frames
+    normalizados en storage/frames/{video_id}/.
+    """
+    video = db.get_video_by_id(video_id)
+    if not video:
+        raise HTTPException(status_code=404, detail="Video no encontrado.")
+
+    if target_fps <= 0 or target_fps > 60:
+        raise HTTPException(status_code=400, detail="target_fps debe estar entre 0.5 y 60 FPS.")
+
+    video_path = Path(video["filepath"])
+    output_dir = config.FRAMES_DIR / video_id
+
+    try:
+        result = extract_sampled_frames(
+            video_path=video_path,
+            output_dir=output_dir,
+            target_fps=target_fps,
+            target_size=config.TARGET_FRAME_SIZE,
+        )
+
+        db.update_sampling_metrics(
+            video_id=video_id,
+            sampled_count=result["sampled_frames"],
+            target_fps=target_fps,
+            reduction_pct=result["reduction_pct"],
+        )
+
+        return {
+            "status": "success",
+            "message": f"Submuestreo completado: {result['sampled_frames']} frames extraídos a {target_fps} FPS.",
+            "metrics": result,
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Fallo durante el submuestreo: {str(e)}")
+
+
+@router.get("/{video_id}/sampling-metrics")
+async def get_sampling_metrics(video_id: str):
+    """Obtiene las métricas de submuestreo registradas para un video."""
+    video = db.get_video_by_id(video_id)
+    if not video:
+        raise HTTPException(status_code=404, detail="Video no encontrado.")
+
+    return {
+        "status": "success",
+        "video_id": video_id,
+        "original_frame_count": video["frame_count"],
+        "sampled_frames_count": video.get("sampled_frames_count", 0),
+        "target_fps": video.get("target_fps", 0.0),
+        "reduction_pct": video.get("reduction_pct", 0.0),
+    }
+
 
 
