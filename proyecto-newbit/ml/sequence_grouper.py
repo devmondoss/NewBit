@@ -71,6 +71,37 @@ def group_active_sequences(
     return accepted_sequences, discarded_sequences
 
 
+def _create_video_writer(
+    filepath: str,
+    fps: float,
+    size: Tuple[int, int],
+) -> cv2.VideoWriter:
+    """
+    Inicializa un codificador de video OpenCV intentando generar compresión
+    H.264 compatible con navegadores web modernos (HTML5 <video>).
+    Usa MSMF en Windows, o FFMPEG con avc1/H264 en Linux/macOS, con fallback a mp4v.
+    """
+    candidates = [
+        (cv2.CAP_MSMF, cv2.VideoWriter_fourcc(*"H264")),
+        (cv2.CAP_MSMF, cv2.VideoWriter_fourcc(*"avc1")),
+        (None, cv2.VideoWriter_fourcc(*"avc1")),
+        (None, cv2.VideoWriter_fourcc(*"H264")),
+        (None, cv2.VideoWriter_fourcc(*"mp4v")),
+    ]
+    for backend, fourcc in candidates:
+        try:
+            if backend is not None:
+                writer = cv2.VideoWriter(filepath, backend, fourcc, fps, size)
+            else:
+                writer = cv2.VideoWriter(filepath, fourcc, fps, size)
+            if writer.isOpened():
+                return writer
+        except Exception:
+            continue
+
+    return cv2.VideoWriter(filepath, cv2.VideoWriter_fourcc(*"mp4v"), fps, size)
+
+
 def render_processed_video(
     video_id: str,
     selected_frames: List[str],
@@ -95,8 +126,7 @@ def render_processed_video(
         raise ValueError("No se proporcionaron fotogramas para ensamblar el video procesado.")
 
     width, height = target_size
-    fourcc = cv2.VideoWriter_fourcc(*"mp4v")
-    writer = cv2.VideoWriter(str(out_path), fourcc, fps, (width, height))
+    writer = _create_video_writer(str(out_path), fps, (width, height))
 
     if not writer.isOpened():
         raise RuntimeError(f"No se pudo inicializar el codificador de video OpenCV para {out_path}.")

@@ -141,7 +141,6 @@ async def stream_video(video_id: str):
     return FileResponse(
         path=str(video_path),
         media_type="video/mp4",
-        filename=video["filename"],
     )
 
 

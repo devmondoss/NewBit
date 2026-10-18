@@ -51,14 +51,39 @@ def create_industrial_background(width: int = 640, height: int = 480) -> np.ndar
     return img
 
 
+def _create_video_writer(
+    filepath: str,
+    fps: float,
+    size: tuple[int, int],
+) -> cv2.VideoWriter:
+    """Crea un VideoWriter con códec H.264 nativo para compatibilidad con navegadores HTML5."""
+    candidates = [
+        (cv2.CAP_MSMF, cv2.VideoWriter_fourcc(*"H264")),
+        (cv2.CAP_MSMF, cv2.VideoWriter_fourcc(*"avc1")),
+        (None, cv2.VideoWriter_fourcc(*"avc1")),
+        (None, cv2.VideoWriter_fourcc(*"H264")),
+        (None, cv2.VideoWriter_fourcc(*"mp4v")),
+    ]
+    for backend, fourcc in candidates:
+        try:
+            if backend is not None:
+                writer = cv2.VideoWriter(filepath, backend, fourcc, fps, size)
+            else:
+                writer = cv2.VideoWriter(filepath, fourcc, fps, size)
+            if writer.isOpened():
+                return writer
+        except Exception:
+            continue
+    return cv2.VideoWriter(filepath, cv2.VideoWriter_fourcc(*"mp4v"), fps, size)
+
+
 def generate_sample_metalworking_clip(output_path: Path) -> Path:
     """Genera el clip de 5.0s con fases de tiempo muerto y presencia humana real."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     width, height = 640, 480
     fps = 24
-    fourcc = cv2.VideoWriter_fourcc(*"mp4v")
-    writer = cv2.VideoWriter(str(output_path), fourcc, fps, (width, height))
+    writer = _create_video_writer(str(output_path), fps, (width, height))
 
     # Cargar imagen oficial de personas de Ultralytics (zidane.jpg)
     zidane_path = ASSETS / "zidane.jpg"
