@@ -115,3 +115,61 @@ async def get_video_detections_summary(video_id: str):
         "annotated_frames_count": len(annotated_files),
         "annotated_frames": annotated_files,
     }
+
+
+@router.post("/{video_id}/group-and-render")
+async def group_and_render_video(
+    video_id: str,
+    min_duration: float = Query(1.0, ge=0.2, le=10.0, description="Ventana mínima de duración de acción en segundos (HU06)"),
+):
+    """
+    Agrupa secuencias continuas de operarios activos, descarta acciones menores a min_duration (HU06)
+    y ensambla el video consolidado en storage/outputs/{video_id}_processed.mp4.
+    """
+    video = db.get_video_by_id(video_id)
+    if not video:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Video con ID '{video_id}' no encontrado en el sistema.",
+        )
+
+    from ml.sequence_grouper import execute_sequence_pipeline
+
+    try:
+        result = execute_sequence_pipeline(video_id=video_id, min_duration_sec=min_duration)
+        return JSONResponse(
+            status_code=status.HTTP_200_OK,
+            content={
+                "status": "success",
+                "message": (
+                    f"Video procesado generado con éxito: {result.get('processed_frame_count', 0)} frames "
+                    f"({result.get('processed_duration_sec', 0.0)}s) · {result.get('time_reduction_pct', 0.0)}% reducción."
+                ),
+                "result": result,
+            },
+        )
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Fallo durante el agrupamiento y renderizado del clip: {str(e)}",
+        )
+
+
+@router.get("/{video_id}/processed-stream")
+async def stream_processed_video(video_id: str):
+    """Sirve el video procesado y filtrado almacenado en storage/outputs/."""
+    video = db.get_video_by_id(video_id)
+    if not video:
+        raise HTTPException(status_code=404, detail="Video no encontrado.")
+
+    processed_path = config.OUTPUTS_DIR / f"{video_id}_processed.mp4"
+    if not processed_path.exists():
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="El video procesado no existe. Ejecute el agrupamiento y renderizado primero.",
+        )
+
+    return FileResponse(path=str(processed_path), media_type="video/mp4")
+

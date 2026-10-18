@@ -44,6 +44,9 @@ def init_db() -> None:
                 reduction_pct REAL DEFAULT 0.0,
                 detected_workers_count INTEGER DEFAULT 0,
                 active_frames_count INTEGER DEFAULT 0,
+                processed_video_path TEXT,
+                processed_duration_sec REAL DEFAULT 0.0,
+                processed_frame_count INTEGER DEFAULT 0,
                 created_at TEXT NOT NULL
             )
             """
@@ -62,6 +65,13 @@ def init_db() -> None:
             cursor.execute("ALTER TABLE videos ADD COLUMN detected_workers_count INTEGER DEFAULT 0")
         if "active_frames_count" not in existing_cols:
             cursor.execute("ALTER TABLE videos ADD COLUMN active_frames_count INTEGER DEFAULT 0")
+        if "processed_video_path" not in existing_cols:
+            cursor.execute("ALTER TABLE videos ADD COLUMN processed_video_path TEXT")
+        if "processed_duration_sec" not in existing_cols:
+            cursor.execute("ALTER TABLE videos ADD COLUMN processed_duration_sec REAL DEFAULT 0.0")
+        if "processed_frame_count" not in existing_cols:
+            cursor.execute("ALTER TABLE videos ADD COLUMN processed_frame_count INTEGER DEFAULT 0")
+
 
 
         # Tabla de configuración del sistema (HU11)
@@ -209,6 +219,31 @@ def update_detection_metrics(
         )
         conn.commit()
         return cursor.rowcount > 0
+
+
+def update_processed_video_metrics(
+    video_id: str,
+    processed_path: str,
+    duration_sec: float,
+    frame_count: int,
+) -> bool:
+    """Actualiza el video procesado y su estado final a 'completed' (HU06)."""
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+            UPDATE videos
+            SET processed_video_path = ?,
+                processed_duration_sec = ?,
+                processed_frame_count = ?,
+                status = 'completed'
+            WHERE id = ?
+            """,
+            (processed_path, duration_sec, frame_count, video_id),
+        )
+        conn.commit()
+        return cursor.rowcount > 0
+
 
 
 

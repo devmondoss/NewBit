@@ -148,6 +148,9 @@ async def video_detail_view(request: Request, video_id: str):
         else []
     )
 
+    processed_file = config.OUTPUTS_DIR / f"{video_id}_processed.mp4"
+    has_processed_video = processed_file.exists() and processed_file.stat().st_size > 0
+
     return templates.TemplateResponse(
         request=request,
         name="video_detail.html",
@@ -155,8 +158,10 @@ async def video_detail_view(request: Request, video_id: str):
             "video": video,
             "frames": frames,
             "annotated_frames": annotated_frames,
+            "has_processed_video": has_processed_video,
         },
     )
+
 
 
 

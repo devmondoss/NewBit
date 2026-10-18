@@ -189,7 +189,7 @@ class YOLOv8Detector:
         )
         empty_ratio_pct = round(100.0 - active_ratio_pct, 2)
 
-        return {
+        meta_result = {
             "video_id": video_id,
             "total_frames_analyzed": total_frames,
             "active_frames_count": len(active_frames),
@@ -202,3 +202,15 @@ class YOLOv8Detector:
             "annotated_filenames": annotated_filenames,
             "detections_by_frame": detections_by_frame,
         }
+
+        # Persistir resumen en detections.json para consumo rápido por sequence_grouper
+        try:
+            import json
+            meta_path = frames_dir / "detections.json"
+            with open(meta_path, "w", encoding="utf-8") as f:
+                json.dump(meta_result, f, indent=2)
+        except Exception:
+            pass
+
+        return meta_result
+
