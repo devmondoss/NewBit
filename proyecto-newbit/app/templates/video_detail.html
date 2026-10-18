@@ -23,11 +23,14 @@
                     <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 border border-slate-700">Cargado</span>
                 {% elif video.status == 'frames_extracted' %}
                     <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20">Frames Extraídos</span>
+                {% elif video.status == 'detected' %}
+                    <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20">Operarios Detectados</span>
                 {% elif video.status == 'completed' %}
                     <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Procesado</span>
                 {% else %}
                     <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">{{ video.status }}</span>
                 {% endif %}
+
             </div>
             <p class="text-xs text-slate-400 font-mono">UUID: {{ video.id }} · Ubicación: storage/uploads/{{ video.filename }}</p>
         </div>
@@ -91,7 +94,44 @@
                         </span>
                         {% if video.reduction_pct and video.reduction_pct > 0 %}
                             <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                                ⚡ {{ video.reduction_pct }}% ahorro de inferencia
+                                ⚡ {{ video.reduction_pct }}% ahorro temporal
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- YOLOv8 Detection & Spatial Filter Action Bar (HU05) -->
+                <div class="space-y-3 pt-3 border-t border-slate-800/80">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-purple-950/20 p-3.5 rounded-xl border border-purple-900/40">
+                        <div class="space-y-0.5">
+                            <span class="text-xs font-bold text-purple-300 flex items-center gap-1.5">
+                                <svg class="w-3.5 h-3.5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                                Inferencia Espacial YOLOv8n (HU05)
+                            </span>
+                            <p class="text-[11px] text-slate-400">Detección de operarios (clase person) y filtrado de tiempo muerto</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button id="btn-detect" onclick="runDetection('{{ video.id }}')" class="px-3.5 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs transition flex items-center space-x-1.5 shadow-lg shadow-purple-600/20">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                                <span>Detectar Operarios</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Detection Status & Metrics -->
+                    <div class="flex items-center justify-between text-xs px-1">
+                        <span id="detect-status" class="text-slate-400">
+                            {% if video.detected_workers_count and video.detected_workers_count > 0 %}
+                                <strong class="text-purple-400 font-mono">{{ video.detected_workers_count }}</strong> detecciones de operarios en <strong class="text-emerald-400 font-mono">{{ video.active_frames_count }}</strong> frames activos
+                            {% elif video.status == 'detected' %}
+                                Segmento sin operarios detectados (tiempo muerto)
+                            {% else %}
+                                Inferencia espacial no ejecutada. Presiona "Detectar Operarios".
+                            {% endif %}
+                        </span>
+                        {% if video.active_frames_count is not none and video.sampled_frames_count and video.sampled_frames_count > 0 %}
+                            <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                                🎯 {{ ((video.active_frames_count / video.sampled_frames_count) * 100)|round(1) }}% actividad
                             </span>
                         {% endif %}
                     </div>
@@ -99,31 +139,55 @@
 
             </div>
 
-            <!-- Frames Gallery Preview -->
+            <!-- Frames Gallery Preview with YOLOv8 Tabs -->
             <div class="glass-panel p-5 rounded-2xl border border-slate-800 space-y-4">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-300">Fotogramas Normalizados</h3>
-                        <p class="text-xs text-slate-400">Resolución fijada a 640×640 px para inferencia YOLOv8</p>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                    <div class="flex items-center space-x-2">
+                        <button id="tab-btn-annotated" onclick="switchGalleryTab('annotated')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition {% if annotated_frames %}bg-purple-600 text-white shadow-lg shadow-purple-600/20{% else %}bg-slate-800 text-slate-400 hover:text-white{% endif %}">
+                            Detecciones YOLOv8 ({{ annotated_frames|length }})
+                        </button>
+                        <button id="tab-btn-raw" onclick="switchGalleryTab('raw')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition {% if not annotated_frames %}bg-blue-600 text-white shadow-lg shadow-blue-600/20{% else %}bg-slate-800 text-slate-400 hover:text-white{% endif %}">
+                            Submuestreados ({{ frames|length }})
+                        </button>
                     </div>
-                    <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">storage/frames/{{ video.id }}/</span>
+                    <span id="gallery-path-label" class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">
+                        {% if annotated_frames %}storage/frames/{{ video.id }}/annotated/{% else %}storage/frames/{{ video.id }}/{% endif %}
+                    </span>
                 </div>
 
-                <div id="frames-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2.5 max-h-96 overflow-y-auto pr-1">
+                <!-- Grid de Fotogramas Anotados con Bounding Boxes -->
+                <div id="grid-annotated" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2.5 max-h-96 overflow-y-auto pr-1 {% if not annotated_frames %}hidden{% endif %}">
+                    {% if annotated_frames %}
+                        {% for aframe in annotated_frames %}
+                            <div class="relative rounded-lg overflow-hidden border border-purple-900/50 bg-slate-900 group">
+                                <img src="/api/videos/{{ video.id }}/annotated-frames/{{ aframe }}" alt="{{ aframe }}" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
+                                <span class="absolute bottom-1 right-1 px-1 py-0.2 bg-black/85 text-[9px] text-purple-300 rounded font-mono">{{ aframe.replace('frame_', '').replace('.jpg', '') }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="col-span-full py-8 text-center text-xs text-slate-500">
+                            Aún no se han generado fotogramas anotados. Haz clic en "Detectar Operarios" arriba para ejecutar el filtrado espacial.
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Grid de Fotogramas Crudos / Submuestreados -->
+                <div id="grid-raw" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2.5 max-h-96 overflow-y-auto pr-1 {% if annotated_frames %}hidden{% endif %}">
                     {% if frames %}
                         {% for frame in frames %}
                             <div class="relative rounded-lg overflow-hidden border border-slate-800 bg-slate-900 group">
-                                <img src="/api/videos/{{ video.id }}/frames/{{ frame }}" alt="{{ frame }}" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-200">
+                                <img src="/api/videos/{{ video.id }}/frames/{{ frame }}" alt="{{ frame }}" class="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy">
                                 <span class="absolute bottom-1 right-1 px-1 py-0.2 bg-black/80 text-[9px] text-slate-300 rounded font-mono">{{ frame.replace('frame_', '').replace('.jpg', '') }}</span>
                             </div>
                         {% endfor %}
                     {% else %}
                         <div class="col-span-full py-8 text-center text-xs text-slate-500">
-                            No se han extraído fotogramas para este video. Haz clic en "Extraer Fotogramas" para prepararlo.
+                            No se han extraído fotogramas para este video. Haz clic en "Submuestreo Inteligente" para prepararlo.
                         </div>
                     {% endif %}
                 </div>
             </div>
+
         </div>
 
         <!-- Right: Official Technical Metadata Sheet -->
@@ -187,6 +251,16 @@
                         <dd class="text-emerald-300 font-mono font-bold">⚡ {{ video.reduction_pct }}% reducción</dd>
                     </div>
                     {% endif %}
+                    {% if video.status == 'detected' or (video.detected_workers_count and video.detected_workers_count > 0) %}
+                    <div class="py-2.5 flex justify-between bg-purple-500/5 px-2 rounded">
+                        <dt class="text-purple-400 font-semibold">Operarios Detectados (HU05)</dt>
+                        <dd class="text-purple-300 font-mono font-bold">{{ video.detected_workers_count }} detecciones</dd>
+                    </div>
+                    <div class="py-2.5 flex justify-between bg-purple-500/5 px-2 rounded">
+                        <dt class="text-purple-400 font-semibold">Frames Activos con Presencia</dt>
+                        <dd class="text-purple-300 font-mono font-bold">{{ video.active_frames_count }} frames</dd>
+                    </div>
+                    {% endif %}
                     <div class="py-2.5 flex justify-between">
                         <dt class="text-slate-400">Fecha de Ingesta</dt>
                         <dd class="text-slate-300 font-mono">{{ video.created_at[:19].replace('T', ' ') }}</dd>
@@ -194,12 +268,12 @@
                 </dl>
             </div>
 
-            <!-- Next Sprint Actions -->
+            <!-- Pipeline Overview -->
             <div class="glass-panel p-5 rounded-2xl border border-slate-800 space-y-3">
-                <h3 class="text-xs font-bold uppercase tracking-wider text-purple-400">Próximo Hito: HU05 / HU11</h3>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400">Filtrado Espacial-Temporal Unsafe-Net</h3>
                 <p class="text-xs text-slate-300 leading-relaxed">
-                    Con el submuestreo temporal a 5 FPS y normalización a 640×640 px, se calibra la confianza 
-                    de detección espacial (HU11) y se ejecutan las inferencias de YOLOv8n (HU05).
+                    Etapa 1: Submuestreo inteligente (HU04) + Detección de operarios con YOLOv8n (HU05). 
+                    Los frames sin presencia humana se descartan para que el agrupador (HU06) ensamble solo clips de actividad operativa.
                 </p>
             </div>
         </div>
@@ -211,6 +285,64 @@
 
 {% block scripts %}
 <script>
+function switchGalleryTab(tab) {
+    const btnAnnotated = document.getElementById('tab-btn-annotated');
+    const btnRaw = document.getElementById('tab-btn-raw');
+    const gridAnnotated = document.getElementById('grid-annotated');
+    const gridRaw = document.getElementById('grid-raw');
+    const pathLabel = document.getElementById('gallery-path-label');
+    const videoId = '{{ video.id }}';
+
+    if (tab === 'annotated') {
+        if (gridAnnotated) gridAnnotated.classList.remove('hidden');
+        if (gridRaw) gridRaw.classList.add('hidden');
+        if (btnAnnotated) btnAnnotated.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-purple-600 text-white shadow-lg shadow-purple-600/20';
+        if (btnRaw) btnRaw.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-slate-800 text-slate-400 hover:text-white';
+        if (pathLabel) pathLabel.innerText = `storage/frames/${videoId}/annotated/`;
+    } else {
+        if (gridRaw) gridRaw.classList.remove('hidden');
+        if (gridAnnotated) gridAnnotated.classList.add('hidden');
+        if (btnRaw) btnRaw.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-blue-600 text-white shadow-lg shadow-blue-600/20';
+        if (btnAnnotated) btnAnnotated.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-slate-800 text-slate-400 hover:text-white';
+        if (pathLabel) pathLabel.innerText = `storage/frames/${videoId}/`;
+    }
+}
+
+async function runDetection(videoId) {
+    const btn = document.getElementById('btn-detect');
+    const statusText = document.getElementById('detect-status');
+
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<svg class="animate-spin w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> <span>Detectando YOLOv8...</span>`;
+    }
+    if (statusText) {
+        statusText.innerText = "Ejecutando inferencia espacial YOLOv8n sobre fotogramas...";
+    }
+
+    try {
+        const response = await fetch(`/api/videos/${videoId}/detect`, { method: 'POST' });
+        const data = await response.json();
+
+        if (response.ok) {
+            if (statusText) statusText.innerText = `Detección lista: ${data.metrics.active_frames_count} frames con operarios (${data.metrics.active_ratio_pct}% activos).`;
+            window.location.reload();
+        } else {
+            if (statusText) statusText.innerText = `Error: ${data.detail || 'Fallo en detección espacial'}`;
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = `<span>Reintentar</span>`;
+            }
+        }
+    } catch (err) {
+        if (statusText) statusText.innerText = `Error de red: ${err.message}`;
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = `<span>Reintentar</span>`;
+        }
+    }
+}
+
 async function runSampling(videoId) {
     const btn = document.getElementById('btn-sample');
     const select = document.getElementById('select-target-fps');
@@ -268,4 +400,5 @@ async function extractFrames(videoId) {
 }
 </script>
 {% endblock %}
+
 

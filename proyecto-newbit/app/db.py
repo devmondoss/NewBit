@@ -42,6 +42,8 @@ def init_db() -> None:
                 sampled_frames_count INTEGER DEFAULT 0,
                 target_fps REAL DEFAULT 0.0,
                 reduction_pct REAL DEFAULT 0.0,
+                detected_workers_count INTEGER DEFAULT 0,
+                active_frames_count INTEGER DEFAULT 0,
                 created_at TEXT NOT NULL
             )
             """
@@ -56,6 +58,11 @@ def init_db() -> None:
             cursor.execute("ALTER TABLE videos ADD COLUMN target_fps REAL DEFAULT 0.0")
         if "reduction_pct" not in existing_cols:
             cursor.execute("ALTER TABLE videos ADD COLUMN reduction_pct REAL DEFAULT 0.0")
+        if "detected_workers_count" not in existing_cols:
+            cursor.execute("ALTER TABLE videos ADD COLUMN detected_workers_count INTEGER DEFAULT 0")
+        if "active_frames_count" not in existing_cols:
+            cursor.execute("ALTER TABLE videos ADD COLUMN active_frames_count INTEGER DEFAULT 0")
+
 
         # Tabla de configuración del sistema (HU11)
         cursor.execute(
@@ -182,6 +189,27 @@ def update_sampling_metrics(
         )
         conn.commit()
         return cursor.rowcount > 0
+
+
+def update_detection_metrics(
+    video_id: str, active_frames: int, total_detections: int
+) -> bool:
+    """Actualiza las métricas de detección de operarios y frames activos (HU05)."""
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+            UPDATE videos
+            SET active_frames_count = ?,
+                detected_workers_count = ?,
+                status = 'detected'
+            WHERE id = ?
+            """,
+            (active_frames, total_detections, video_id),
+        )
+        conn.commit()
+        return cursor.rowcount > 0
+
 
 
 # =========================================================================

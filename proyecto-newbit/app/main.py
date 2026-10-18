@@ -12,7 +12,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 import torch
 
 from app import config, db
-from app.api import routes_videos, routes_calibration
+from app.api import routes_videos, routes_calibration, routes_processing
 
 
 @asynccontextmanager
@@ -38,6 +38,8 @@ templates = Jinja2Templates(directory=str(config.TEMPLATES_DIR))
 # Inclusión de enrutadores API
 app.include_router(routes_videos.router)
 app.include_router(routes_calibration.router)
+app.include_router(routes_processing.router)
+
 
 
 
@@ -134,13 +136,28 @@ async def video_detail_view(request: Request, video_id: str):
         )
 
     frames_dir = config.FRAMES_DIR / video_id
-    frames = sorted([f.name for f in frames_dir.glob("*.jpg")]) if frames_dir.exists() else []
+    frames = (
+        sorted([f.name for f in frames_dir.glob("*.jpg") if f.is_file()])
+        if frames_dir.exists()
+        else []
+    )
+    annotated_dir = frames_dir / "annotated"
+    annotated_frames = (
+        sorted([f.name for f in annotated_dir.glob("*.jpg") if f.is_file()])
+        if annotated_dir.exists()
+        else []
+    )
 
     return templates.TemplateResponse(
         request=request,
         name="video_detail.html",
-        context={"video": video, "frames": frames}
+        context={
+            "video": video,
+            "frames": frames,
+            "annotated_frames": annotated_frames,
+        },
     )
+
 
 
 
