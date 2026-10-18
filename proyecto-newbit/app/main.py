@@ -12,7 +12,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 import torch
 
 from app import config, db
-from app.api import routes_videos
+from app.api import routes_videos, routes_calibration
 
 
 @asynccontextmanager
@@ -37,6 +37,8 @@ templates = Jinja2Templates(directory=str(config.TEMPLATES_DIR))
 
 # Inclusión de enrutadores API
 app.include_router(routes_videos.router)
+app.include_router(routes_calibration.router)
+
 
 
 @app.get("/api/health")
@@ -67,18 +69,20 @@ async def dashboard(request: Request):
         if sampled_videos
         else 0.0
     )
+    calib = db.get_calibration_settings()
     stats = {
         "total_videos": len(videos),
         "total_frames": total_frames,
         "avg_reduction": avg_reduction,
-        "confidence": config.DEFAULT_YOLO_CONFIDENCE,
-        "iou": config.DEFAULT_YOLO_IOU,
+        "confidence": calib["confidence"],
+        "iou": calib["iou"],
     }
     return templates.TemplateResponse(
         request=request,
         name="index.html",
         context={"stats": stats}
     )
+
 
 
 
@@ -141,19 +145,14 @@ async def video_detail_view(request: Request, video_id: str):
 
 
 @app.get("/calibration", response_class=HTMLResponse)
-async def calibration_placeholder(request: Request):
-    """Ruta preliminar para calibración de umbrales (se completa en D-07)."""
+async def calibration_view(request: Request):
+    """Panel de calibración dinámica de umbrales YOLOv8 y submuestreo (HU11)."""
+    settings = db.get_calibration_settings()
+    history = db.get_calibration_audit_logs(limit=15)
     return templates.TemplateResponse(
         request=request,
-        name="index.html",
-        context={
-            "stats": {
-                "total_videos": len(list(config.UPLOADS_DIR.glob("*.*"))),
-                "total_frames": len(list(config.FRAMES_DIR.glob("*/*.*"))),
-                "avg_reduction": 0.0,
-                "confidence": config.DEFAULT_YOLO_CONFIDENCE,
-                "iou": config.DEFAULT_YOLO_IOU,
-            }
-        }
+        name="calibration.html",
+        context={"settings": settings, "history": history}
     )
+
 

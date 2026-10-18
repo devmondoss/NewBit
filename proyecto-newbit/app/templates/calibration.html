@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block title %}Calibración YOLOv8 · NewBit (PY-NB-001){% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+
+    <!-- Breadcrumb & Header -->
+    <div class="space-y-2">
+        <nav class="flex items-center space-x-2 text-xs text-slate-400">
+            <a href="/" class="hover:text-slate-200 transition-colors">Dashboard</a>
+            <span>/</span>
+            <span class="text-blue-400">Calibración Dinámica</span>
+        </nav>
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+                <h1 class="text-3xl font-extrabold text-white tracking-tight">Calibración Dinámica de Detección</h1>
+                <p class="text-sm text-slate-400">
+                    Ajuste en caliente de la sensibilidad espacial de YOLOv8n y submuestreo temporal sin alterar código (HU11).
+                </p>
+            </div>
+            <div class="flex items-center space-x-3 text-xs">
+                <span class="px-3 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 font-semibold">
+                    👤 Rol: Jorge (TI) / Mariana (SST)
+                </span>
+                <span class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 font-mono">
+                    Zero-Downtime
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Grid: Controls + Guidelines & Audit -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+        <!-- Left Column: Interactive Sliders Form -->
+        <div class="lg:col-span-7 space-y-6">
+            <div class="glass-panel p-6 rounded-2xl border border-slate-800 shadow-xl space-y-6">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-base font-bold text-white">Parámetros del Detector YOLOv8</h2>
+                            <p class="text-xs text-slate-400">Modificaciones aplicadas de forma inmediata al motor de inferencia</p>
+                        </div>
+                    </div>
+                    <span id="sensitivity-badge" class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-300 border border-blue-500/20">
+                        Sensibilidad Equilibrada
+                    </span>
+                </div>
+
+                <form id="calibration-form" class="space-y-6">
+                    <!-- Slider 1: Confidence -->
+                    <div class="space-y-2 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                        <div class="flex justify-between items-center">
+                            <label for="slider-confidence" class="text-xs font-bold uppercase tracking-wider text-slate-200">
+                                1. Umbral de Confianza Mínima (Confidence)
+                            </label>
+                            <span id="val-confidence" class="px-2.5 py-0.5 rounded font-mono font-bold text-blue-400 bg-blue-500/10 border border-blue-500/20 text-sm">
+                                {{ "%.2f"|format(settings.confidence) }}
+                            </span>
+                        </div>
+                        <input type="range" id="slider-confidence" min="0.10" max="0.95" step="0.05" value="{{ settings.confidence }}" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                        <div class="flex justify-between text-[11px] text-slate-500 font-mono">
+                            <span>0.10 (Muy sensible / Sombras)</span>
+                            <span>0.50 (Estándar)</span>
+                            <span>0.95 (Ultra estricto)</span>
+                        </div>
+                        <p class="text-xs text-slate-400 pt-1">
+                            Probabilidad mínima requerida para confirmar la presencia de un operario o maquinaria en el taller.
+                        </p>
+                    </div>
+
+                    <!-- Slider 2: IoU NMS -->
+                    <div class="space-y-2 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                        <div class="flex justify-between items-center">
+                            <label for="slider-iou" class="text-xs font-bold uppercase tracking-wider text-slate-200">
+                                2. Umbral IoU de Supresión de No Máximos (NMS)
+                            </label>
+                            <span id="val-iou" class="px-2.5 py-0.5 rounded font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 text-sm">
+                                {{ "%.2f"|format(settings.iou) }}
+                            </span>
+                        </div>
+                        <input type="range" id="slider-iou" min="0.10" max="0.90" step="0.05" value="{{ settings.iou }}" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+                        <div class="flex justify-between text-[11px] text-slate-500 font-mono">
+                            <span>0.10 (Elimina cajas solapadas)</span>
+                            <span>0.45 (Equilibrado)</span>
+                            <span>0.90 (Permite solapamiento)</span>
+                        </div>
+                        <p class="text-xs text-slate-400 pt-1">
+                            Controla el porcentaje de intersección sobre unión (IoU) permitido antes de fusionar cajas delimitadoras duplicadas.
+                        </p>
+                    </div>
+
+                    <!-- Slider 3: Target FPS -->
+                    <div class="space-y-2 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                        <div class="flex justify-between items-center">
+                            <label for="slider-fps" class="text-xs font-bold uppercase tracking-wider text-slate-200">
+                                3. Tasa de Submuestreo por Defecto (Target FPS)
+                            </label>
+                            <span id="val-fps" class="px-2.5 py-0.5 rounded font-mono font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 text-sm">
+                                {{ "%.1f"|format(settings.target_fps) }} FPS
+                            </span>
+                        </div>
+                        <input type="range" id="slider-fps" min="1.0" max="15.0" step="1.0" value="{{ settings.target_fps }}" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500">
+                        <div class="flex justify-between text-[11px] text-slate-500 font-mono">
+                            <span>1.0 FPS (Ahorro ~95%)</span>
+                            <span>5.0 FPS (Recomendado)</span>
+                            <span>15.0 FPS (Alta carga)</span>
+                        </div>
+                        <p class="text-xs text-slate-400 pt-1">
+                            Frecuencia de extracción previa para aliviar la carga computacional del procesador en el taller.
+                        </p>
+                    </div>
+
+                    <!-- Metadata inputs (User & Note) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                        <div>
+                            <label for="input-user" class="block text-xs font-semibold text-slate-300 mb-1">Responsable del Cambio:</label>
+                            <select id="input-user" class="w-full bg-slate-900 border border-slate-700 text-xs text-white rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500">
+                                <option value="Jorge (TI - Admin)" selected>Jorge (TI) · Administrador de Plataforma</option>
+                                <option value="Mariana (SST - Supervisora)">Mariana (SST) · Supervisora de Seguridad</option>
+                                <option value="Lucía (Monitoreo)">Lucía · Operadora de Monitoreo</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="input-note" class="block text-xs font-semibold text-slate-300 mb-1">Motivo / Condición de Planta:</label>
+                            <input type="text" id="input-note" placeholder="Ej: Ajuste por baja luz en nave 2" class="w-full bg-slate-900 border border-slate-700 text-xs text-white rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500 placeholder-slate-500">
+                        </div>
+                    </div>
+
+                    <!-- Actions & Alerts -->
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-800">
+                        <button type="submit" id="btn-save-calibration" class="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition flex items-center justify-center space-x-2 shadow-lg shadow-blue-600/30">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>Guardar Calibración en Caliente</span>
+                        </button>
+                        <button type="button" id="btn-reset-calibration" class="w-full sm:w-auto px-4 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition">
+                            Restablecer Valores de Fábrica
+                        </button>
+                    </div>
+
+                    <div id="save-status" class="hidden p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs text-center font-medium"></div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Column: Guidelines & Audit Log -->
+        <div class="lg:col-span-5 space-y-6">
+
+            <!-- Operational Guidelines Card -->
+            <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
+                <div class="flex items-center space-x-2 border-b border-slate-800 pb-3">
+                    <span class="text-base">🏭</span>
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-white">Guía de Calibración en Planta</h3>
+                </div>
+                <div class="space-y-3 text-xs text-slate-300 leading-relaxed">
+                    <div class="p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+                        <strong class="text-blue-400 block mb-0.5">🌙 Turno Noche / Iluminación Tenue:</strong>
+                        Reduce la confianza a <code class="text-blue-300">0.30 - 0.35</code> para compensar sombras proyectadas por tornos y fresadoras sin perder operarios.
+                    </div>
+                    <div class="p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+                        <strong class="text-amber-400 block mb-0.5">☀️ Soldadura y Reflejos Metálicos:</strong>
+                        Eleva la confianza a <code class="text-amber-300">0.60 - 0.65</code> para evitar que destellos de arco eléctrico generen falsas detecciones.
+                    </div>
+                    <div class="p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+                        <strong class="text-emerald-400 block mb-0.5">👥 Tránsito en Pasarela Peatonal:</strong>
+                        Mantén IoU en <code class="text-emerald-300">0.45 - 0.50</code> para permitir que dos operarios caminando juntos sean delimitados con cajas independientes.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calibration Audit Log Card (HU11) -->
+            <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-white">Bitácora de Auditoría</h3>
+                    </div>
+                    <span class="text-xs text-slate-500 font-mono">{{ history|length }} registros</span>
+                </div>
+
+                <div class="max-h-72 overflow-y-auto space-y-2.5 pr-1">
+                    {% if history %}
+                        {% for item in history %}
+                            <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800/80 text-xs space-y-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-semibold text-slate-200">{{ item.changed_by }}</span>
+                                    <span class="text-[10px] text-slate-500 font-mono">{{ item.created_at[:19].replace('T', ' ') }}</span>
+                                </div>
+                                <div class="flex items-center space-x-3 text-slate-400 font-mono text-[11px]">
+                                    <span>Conf: <strong class="text-blue-400">{{ "%.2f"|format(item.confidence) }}</strong></span>
+                                    <span>IoU: <strong class="text-emerald-400">{{ "%.2f"|format(item.iou) }}</strong></span>
+                                    <span>FPS: <strong class="text-amber-400">{{ "%.1f"|format(item.target_fps) }}</strong></span>
+                                </div>
+                                <p class="text-[11px] text-slate-400 italic">"{{ item.note }}"</p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center py-6 text-xs text-slate-500">
+                            No hay calibraciones registradas aún en el log de auditoría.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/calibration.js"></script>
+{% endblock %}

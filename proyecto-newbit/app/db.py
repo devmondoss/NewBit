@@ -57,7 +57,34 @@ def init_db() -> None:
         if "reduction_pct" not in existing_cols:
             cursor.execute("ALTER TABLE videos ADD COLUMN reduction_pct REAL DEFAULT 0.0")
 
+        # Tabla de configuración del sistema (HU11)
+        cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS settings (
+                key TEXT PRIMARY KEY,
+                value TEXT NOT NULL,
+                updated_at TEXT NOT NULL
+            )
+            """
+        )
+
+        # Tabla de auditoría de calibración (HU11)
+        cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS calibration_audit (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                confidence REAL NOT NULL,
+                iou REAL NOT NULL,
+                target_fps REAL NOT NULL,
+                changed_by TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                note TEXT
+            )
+            """
+        )
+
         conn.commit()
+
 
 
 
@@ -155,4 +182,99 @@ def update_sampling_metrics(
         )
         conn.commit()
         return cursor.rowcount > 0
+
+
+# =========================================================================
+# FUNCIONES DE CALIBRACIÓN DINÁMICA DE DETECTOR Y SISTEMA (HU11)
+# =========================================================================
+
+def get_calibration_settings() -> Dict[str, Any]:
+    """Recupera la configuración activa de calibración o inicializa valores de fábrica."""
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT key, value, updated_at FROM settings WHERE key IN ('confidence', 'iou', 'target_fps')")
+        rows = cursor.fetchall()
+        settings_map = {row["key"]: row["value"] for row in rows}
+
+    now_iso = datetime.now().isoformat()
+    confidence = float(settings_map.get("confidence", config.DEFAULT_YOLO_CONFIDENCE))
+    iou = float(settings_map.get("iou", config.DEFAULT_YOLO_IOU))
+    target_fps = float(settings_map.get("target_fps", config.DEFAULT_SAMPLE_FPS))
+    updated_at = settings_map.get("updated_at", now_iso)
+
+    return {
+        "confidence": confidence,
+        "iou": iou,
+        "target_fps": target_fps,
+        "updated_at": updated_at,
+    }
+
+
+def save_calibration_settings(
+    confidence: float,
+    iou: float,
+    target_fps: float = 5.0,
+    changed_by: str = "Jorge (TI)",
+    note: str = "Ajuste de parámetros de detección en planta",
+) -> Dict[str, Any]:
+    """Valida, persiste y registra en auditoría los nuevos umbrales de calibración."""
+    if not (0.10 <= confidence <= 0.95):
+        raise ValueError(f"El umbral de confianza debe estar entre 0.10 y 0.95 (recibido: {confidence}).")
+    if not (0.10 <= iou <= 0.90):
+        raise ValueError(f"El umbral IoU debe estar entre 0.10 y 0.90 (recibido: {iou}).")
+    if not (1.0 <= target_fps <= 30.0):
+        raise ValueError(f"La tasa objetivo debe estar entre 1.0 y 30.0 FPS (recibido: {target_fps}).")
+
+    now_iso = datetime.now().isoformat()
+
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        for key, val in [("confidence", str(confidence)), ("iou", str(iou)), ("target_fps", str(target_fps))]:
+            cursor.execute(
+                """
+                INSERT INTO settings (key, value, updated_at) VALUES (?, ?, ?)
+                ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at
+                """,
+                (key, val, now_iso),
+            )
+
+        # Registro en la bitácora de auditoría
+        cursor.execute(
+            """
+            INSERT INTO calibration_audit (confidence, iou, target_fps, changed_by, created_at, note)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (confidence, iou, target_fps, changed_by, now_iso, note),
+        )
+        conn.commit()
+
+    return {
+        "confidence": confidence,
+        "iou": iou,
+        "target_fps": target_fps,
+        "updated_at": now_iso,
+    }
+
+
+def reset_calibration_settings(changed_by: str = "Jorge (TI)") -> Dict[str, Any]:
+    """Restaura los parámetros de calibración a los valores predeterminados de fábrica."""
+    return save_calibration_settings(
+        confidence=config.DEFAULT_YOLO_CONFIDENCE,
+        iou=config.DEFAULT_YOLO_IOU,
+        target_fps=config.DEFAULT_SAMPLE_FPS,
+        changed_by=changed_by,
+        note="Restauración a valores predeterminados de fábrica",
+    )
+
+
+def get_calibration_audit_logs(limit: int = 10) -> List[Dict[str, Any]]:
+    """Consulta el historial de auditoría de calibración ordenado de más reciente a más antiguo."""
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT * FROM calibration_audit ORDER BY created_at DESC LIMIT ?", (limit,)
+        )
+        rows = cursor.fetchall()
+        return [dict(r) for r in rows]
+
 
