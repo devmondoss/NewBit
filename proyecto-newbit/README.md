@@ -1,60 +1,199 @@
-# Proyecto: NewBit
+# NewBit (PY-NB-001)
 
-**NewBit** — Plataforma de Computer Vision que convierte cámaras existentes en sensores inteligentes configurables para operaciones industriales. Código: **PY-NB-001**.
+> **Sistema web con Visión Artificial para la detección de actos inseguros en áreas operativas de manufactura metalmecánica.**  
+> Basado en la arquitectura bi-etápica de *Unsafe-Net* (Önal y Dandıl, 2024).
 
-**Investigación base** (elegida el **05/10/2026**), cuya réplica es la primera capacidad de NewBit: detección de **conductas inseguras** en video industrial con **YOLO + ConvLSTM**, a partir del artículo *Unsafe-Net* (Önal y Dandıl, 2024).
+---
 
-- **Grupo D3** (laboratorio D, equipo 3). **Equipo Scrum (3):** Albert Sebastian Chumacero Chávarry — **Product Owner** · Anthony Gabriel Lopez Yrribarren — **Scrum Master y Developer** · Luis Fernando Salazar Diaz — **Developer**.
-- **Duración:** **4 sprints** de dos semanas (19/10–11/12/2026), más el inicio (05–16/10) y el cierre (14–18/12).
-- **Ficha y análisis del artículo:** [investigacion/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md](investigacion/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md).
-- **Lo de clase** (material del profe y nuestras entregas, por semana): [`../curso/`](../curso/README.md). **Proyecto anterior** (VIGIA Industrial): [`../descartado/vigia-industrial/`](../descartado/vigia-industrial/README.md).
+## 1. Identidad y Contexto del Proyecto
 
-## Cómo se ordena esta carpeta
-- `investigacion/`: **contexto del proyecto** que no pertenece a ninguna semana: ficha del Top 3, guía de investigación y UnsafeNet Research Pack (una carpeta por archivo, con su `.md`).
-- Las **tareas del curso** hechas para NewBit (Acta, Roles, Épicas…) **no están aquí**: van en `../curso/semana-XX-<tema>/nuestras-entregas/`, junto al material del profe de esa semana. La tabla de abajo enlaza cada una.
-- Cuando empiece el código, va **dentro de esta carpeta** (por ejemplo `ml/` para el modelo y `app/` para la web/API); así el repo funciona como monorepo: curso en `curso/`, proyecto (docs + código) en `proyecto-newbit/`.
-- Todo lo que sea diseño propio se marca como **propuesta**. Las cifras del artículo (95.81 %, 0.14 s, 518 → 134) no son resultados nuestros.
+* **Código de Proyecto:** `PY-NB-001`
+* **Curso:** Ingeniería de Software II (Semestre 2026-II) · Universidad Nacional del Santa (UNS)
+* **Docente Asignado:** Prof. Dr. Alfredo Daza Vergaray
+* **Equipo Scrum (Grupo D3):**
+  * **Product Owner:** Albert Sebastian Chumacero Chávarry
+  * **Scrum Master & Developer:** Anthony Gabriel Lopez Yrribarren
+  * **Developer:** Luis Fernando Salazar Diaz
+* **Dominio de Aplicación:** Taller de manufactura metalmecánica (mecanizado con tornos, fresadoras, taladros de columna y pasarelas de seguridad peatonal).
+* **Dataset Base:** *Video Dataset for Safe and Unsafe Behaviours* (Kafaoğlu Metal Plastik Makine San. ve Tic. A.Ş. / Mendeley Data, DOI: `10.17632/xjmtb22pff.1`).
+* **Investigación Base:** *Unsafe-Net: A Two-Stage Spatial-Temporal Convolutional Architecture for Unsafe Human Action Recognition in Industrial CCTV Videos* (Önal & Dandıl, 2024).
 
-## Hoja de ruta: entregables de NewBit
-Sigue la **Secuencia de avances** del docente ([`curso/semana-05-rsu-y-backlog/material-del-profe/secuencia-de-avances/secuencia-de-avances.md`](../curso/semana-05-rsu-y-backlog/material-del-profe/secuencia-de-avances/secuencia-de-avances.md)). Plantilla o ejemplo de cada paso en `../curso/semana-XX-<tema>/material-del-profe/`.
+---
 
-| Paso | Formato | Plantilla / ejemplo | Estado para NewBit |
-|---|---|---|---|
-| 1 | FGAP010 Acta de Constitución | `curso/semana-02-scrum-y-acta/material-del-profe/` | **Versión 2.0 completa** (17/10): [`../curso/semana-02-scrum-y-acta/nuestras-entregas/FGAP010_Acta_Constitucion_NewBit/`](../curso/semana-02-scrum-y-acta/nuestras-entregas/FGAP010_Acta_Constitucion_NewBit/FGAP010_Acta_Constitucion_NewBit.md) (taller metalmecánico, YOLOv8, S/ 20,768) |
-| 2 | FGAP020 Registro de Stakeholders | — (no recibido) | Pendiente de plantilla docente; roles e interesados clave detallados en FGAP010 y FGAP030 |
-| 3 | FGAP030 Roles y Prototipos | `curso/semana-03-roles-y-prototipos/material-del-profe/` | **Versión 2.0 completa** (17/10): [`../curso/semana-03-roles-y-prototipos/nuestras-entregas/FGAP030_Roles_y_Prototipos_NewBit/`](../curso/semana-03-roles-y-prototipos/nuestras-entregas/FGAP030_Roles_y_Prototipos_NewBit/FGAP030_Roles_y_Prototipos_NewBit.md) — 5 perfiles de planta aprobados |
-| 4 | FGAP040 Épicas | `curso/semana-04-justificacion-y-epicas/material-del-profe/epicas-ejemplo-retinopatia/` | **Versión 2.0 canónica del equipo** (17/10): [`../curso/semana-04-justificacion-y-epicas/nuestras-entregas/FGAP040_Epicas_NewBit/`](../curso/semana-04-justificacion-y-epicas/nuestras-entregas/FGAP040_Epicas_NewBit/FGAP040_Epicas_NewBit.md): 6 épicas, 12 HU con roles de planta reales (versión preliminar de 26 HU archivada en `descartado/epicas-26-hu-obsoletas/`) |
-| 5 | FGAP060 Backlog priorizado · FGAP070 Criterios de Terminado | FGAP060: no recibido · FGAP070: `curso/semana-05-rsu-y-backlog/material-del-profe/criterios-de-terminado-ejemplo-retinopatia/` | **Versión 2.0 completa** (17/10): Tablero Kanban, criterios DoD y priorización MoSCoW sincronizados en [`../curso/semana-05-rsu-y-backlog/nuestras-entregas/Tablero_Kanban_NewBit/`](../curso/semana-05-rsu-y-backlog/nuestras-entregas/Tablero_Kanban_NewBit/Tablero_Kanban_NewBit.md) |
-| 6 | Sprints: planificación → implementación → revisión → retrospectiva | — | En desarrollo activo del incremento MVP (Sprints 1 y 2, 15 puntos de historia) |
-| 7 | FGAP090 Cierre del Proyecto | — | Al final del semestre |
+## 2. Resumen del Incremento MVP (Sprints 1 y 2 – 15 Puntos de Historia)
 
-**Fuera de la secuencia, también pedidos:**
-| Documento | Plantilla / ejemplo | Estado |
+El proyecto se encuentra en el **hito de congelamiento de software (~50% del Product Backlog total)**, habiendo implementado el 100% de los puntos de historia asignados a los Sprints 1 y 2 (15 SP) correspondientes a la **Etapa 1 de Unsafe-Net** (Filtro espacio-temporal inteligente):
+
+| Épica | Historia de Usuario | Rol de Negocio (FGAP030) | SP | Sprint | Estado | Descripción Técnica y Funcional |
+|---|---|---|:---:|:---:|:---:|---|
+| **EP01** | **HU01: Ingestión y validación de video** | Jorge Ponce (TI Planta) | 3 | S1 | **Completado** | Subida multipart `.mp4`/`.avi` ($\le 100$ MB), validación OpenCV de FPS, resolución, duración y registro en SQLite. |
+| **EP01** | **HU02: Extracción y visor HTML5** | Jorge Ponce (TI Planta) | 2 | S1 | **Completado** | Normalización de fotogramas a $640\times 640$ px, streaming HTTP y ficha técnica de metadatos (FGAP040). |
+| **EP01** | **HU03: Catálogo web interactivo** | Lucía Ramos (Monitoreo) | 2 | S1 | **Completado** | Interfaz con Dropzone Drag & Drop, barra de progreso XHR en tiempo real, tabla de estados y borrado seguro de archivos. |
+| **EP03** | **HU04: Submuestreo temporal inteligente** | Jorge Ponce (TI Planta) | 2 | S2 | **Completado** | Algoritmo con OpenCV para reducir de 24–30 FPS a 5.0 FPS, logrando **75% a 85% de reducción** en fotogramas a procesar. |
+| **EP06** | **HU11: Calibración dinámica de umbrales** | Jorge Ponce (TI Planta) | 2 | S2 | **Completado** | Interfaz web con sliders para ajustar confianza ($0.10–0.95$) e IoU ($0.10–0.90$) en caliente con bitácora de auditoría en SQLite. |
+| **EP02** | **HU05: Inferencia espacial con YOLOv8n** | Mariana Torres (Supervisora SST) | 2 | S2 | **Completado** | Patrón singleton para `yolov8n.pt`, filtrado de clase `person` (operarios), renderizado de bounding boxes verde esmeralda y separación de tiempo muerto. |
+| **EP03** | **HU06: Agrupamiento temporal y clip final** | Mariana Torres (Supervisora SST) | 2 | S2 | **Completado** | Agrupador de secuencias continuas con descarte de acciones fugaces ($< 1.0$ s) y ensamblado de clip final en `storage/outputs/`. |
+
+---
+
+## 3. Arquitectura del Monorepo
+
+El repositorio sigue un esquema de monorepo 100% en Python, separando la lógica web, la inferencia de visión computacional y el almacenamiento de medios:
+
+```text
+NewBit/
+├── .venv/                              # Entorno virtual de Python 3.12+ (excluido de git)
+├── run.bat                             # Script de arranque de un clic para Windows (Batch)
+├── run.ps1                             # Script de arranque nativo para Windows (PowerShell)
+├── ROADMAP_REESTRUCTURACION_NEWBIT.md  # Hoja de ruta canónica de gobernanza y auditoría
+├── curso/                              # Entregables de gestión académica (Semanas 2 a 5)
+└── proyecto-newbit/                    # Código fuente del software
+    ├── app/                            # Capa de aplicación web (FastAPI)
+    │   ├── api/                        # Controladores y rutas REST
+    │   │   ├── routes_videos.py        # Endpoints de ingesta, streaming y catálogo (HU01-HU03)
+    │   │   ├── routes_calibration.py   # Endpoints de calibración y auditoría (HU11)
+    │   │   └── routes_processing.py    # Endpoints de inferencia YOLOv8 y agrupamiento (HU05-HU06)
+    │   ├── templates/                  # Plantillas responsivas Jinja2 + Tailwind CSS
+    │   │   ├── base.html               # Estructura visual compartida y navegación
+    │   │   ├── index.html              # Dashboard analítico con métricas en tiempo real
+    │   │   ├── videos_catalog.html     # Catálogo con Dropzone interactiva
+    │   │   ├── video_detail.html       # Reproductor HTML5 dual y ficha técnica
+    │   │   └── calibration.html        # Panel de sintonía fina de umbrales
+    │   ├── static/                     # Archivos estáticos (CSS personalizado, JS interactivo)
+    │   ├── config.py                   # Parámetros globales y límites de almacenamiento
+    │   ├── db.py                       # Capa de persistencia relacional ligera con SQLite
+    │   └── main.py                     # Instancia principal de la aplicación FastAPI
+    ├── ml/                             # Módulos de Machine Learning y Visión Artificial
+    │   ├── weights/                    # Binarios de modelos neuronales (yolov8n.pt)
+    │   ├── video_processor.py          # Extracción y validación técnica con OpenCV
+    │   ├── sampler.py                  # Motor de submuestreo inteligente de zancada temporal
+    │   ├── detector.py                 # Inferencia con YOLOv8n y dibujo de bounding boxes
+    │   └── sequence_grouper.py         # Agrupamiento de secuencias y renderizado MP4
+    ├── storage/                        # Almacenamiento local estructurado (ignorado en git)
+    │   ├── uploads/                    # Videos originales subidos por los usuarios
+    │   ├── frames/                     # Fotogramas normalizados (640x640) y anotados
+    │   └── outputs/                    # Clips finales filtrados procesados por la Etapa 1
+    ├── tests/                          # Suite completa de pruebas automatizadas
+    │   ├── fixtures/                   # Generador y clips sintéticos representativos
+    │   ├── test_environment.py         # Comprobación de librerías y stack
+    │   ├── test_server_base.py         # Salud técnica de endpoints y renderizado
+    │   ├── test_video_ingestion.py     # Validación técnica de ingesta (HU01)
+    │   ├── test_video_viewer.py        # Ficha técnica y streaming (HU02)
+    │   ├── test_videos_catalog.py      # Catálogo y borrado seguro (HU03)
+    │   ├── test_sampler.py             # Submuestreo inteligente de frames (HU04)
+    │   ├── test_calibration.py         # Calibración dinámica y auditoría (HU11)
+    │   ├── test_detector.py            # Inferencia espacial con YOLOv8n (HU05)
+    │   ├── test_sequence_grouper.py    # Agrupamiento temporal y síntesis MP4 (HU06)
+    │   └── test_e2e_pipeline.py        # Prueba de integración de extremo a extremo
+    ├── investigacion/                  # Research Pack y fichas técnicas de Unsafe-Net
+    └── requirements.txt                # Dependencias fijadas y verificadas
+```
+
+---
+
+## 4. Requisitos del Sistema
+
+* **Sistema Operativo:** Windows 10/11, Linux (Ubuntu 20.04+) o macOS (Apple Silicon compatible).
+* **Python:** Versión `3.10`, `3.11` o `3.12` (verificado en Python 3.12.10).
+* **Aceleración de Hardware:** Inferencia por defecto optimizada para **CPU** (~25–40 ms por frame con YOLOv8n). Compatible automáticamente con **GPU NVIDIA CUDA** si está disponible mediante PyTorch.
+* **Espacio en Disco:** Mínimo 500 MB libres para almacenamiento temporal de fotogramas y base de datos SQLite.
+
+---
+
+## 5. Guía Rápida de Instalación y Despliegue
+
+### Opción A: Inicio con un solo clic (Windows)
+En la raíz del proyecto, ejecuta mediante consola o doble clic:
+```cmd
+run.bat
+```
+O desde PowerShell:
+```powershell
+.\run.ps1 -OpenBrowser
+```
+
+### Opción B: Instalación Manual por Comandos
+
+1. **Clonar el repositorio y situarse en la raíz:**
+   ```bash
+   git clone https://github.com/devmondoss/NewBit.git
+   cd NewBit
+   ```
+
+2. **Crear y activar el entorno virtual:**
+   ```powershell
+   python -m venv .venv
+   .\.venv\Scripts\Activate.ps1
+   ```
+
+3. **Instalar dependencias de Python:**
+   ```bash
+   pip install --upgrade pip
+   pip install -r proyecto-newbit/requirements.txt
+   ```
+
+4. **Lanzar el servidor web local:**
+   ```bash
+   uvicorn app.main:app --app-dir proyecto-newbit --host 127.0.0.1 --port 8000 --reload
+   ```
+
+---
+
+## 6. Mapa de Navegación y Endpoints
+
+Una vez iniciado el servidor, accede a las siguientes vistas en tu navegador:
+
+| Módulo / Vista | URL Local | Descripción |
 |---|---|---|
-| Cuadro comparativo de los principios de Scrum (semana 2) | `curso/semana-02-scrum-y-acta/material-del-profe/principios-de-scrum/` | **Versión 2.0** (17/10): [`../curso/semana-02-scrum-y-acta/nuestras-entregas/Cuadro_Principios_Scrum_NewBit/`](../curso/semana-02-scrum-y-acta/nuestras-entregas/Cuadro_Principios_Scrum_NewBit/Cuadro_Principios_Scrum_NewBit.md): 6 principios con ejemplos de NewBit y HU11 en Sprint 2 |
-| EGAP015 Justificación (semana 4) | `curso/semana-04-justificacion-y-epicas/material-del-profe/justificacion-formato-y-ejemplo/` | **Versión 2.0** (17/10): [`../curso/semana-04-justificacion-y-epicas/nuestras-entregas/EGAP015_Justificacion_NewBit/`](../curso/semana-04-justificacion-y-epicas/nuestras-entregas/EGAP015_Justificacion_NewBit/EGAP015_Justificacion_NewBit.md): presupuesto S/ 20,768, viabilidad técnica, citas Önal & Dandıl 2024 |
-| Diagrama de arquitectura / cómo funciona (semana 3) | — | **Versión 1.0 en HTML** (12/10): [`../curso/semana-03-roles-y-prototipos/nuestras-entregas/Diagrama_Arquitectura_NewBit/`](../curso/semana-03-roles-y-prototipos/nuestras-entregas/Diagrama_Arquitectura_NewBit/Diagrama_Arquitectura_NewBit.md) |
-| PPT de presentación del proyecto (semana 3) | — | **Versión 1.0** (12/10): [`../curso/semana-03-roles-y-prototipos/nuestras-entregas/PPT_Presentacion_NewBit/`](../curso/semana-03-roles-y-prototipos/nuestras-entregas/PPT_Presentacion_NewBit/PPT_Presentacion_NewBit.md): 12 diapositivas con notas del orador |
-| Infografía de 12 pasos + metodología (semana 3) | ejemplos del docente | **Versión 1.0 en HTML** (12/10): [`../curso/semana-03-roles-y-prototipos/nuestras-entregas/Infografias_NewBit/`](../curso/semana-03-roles-y-prototipos/nuestras-entregas/Infografias_NewBit/Infografias_NewBit.md), con fotos reales de Wikimedia |
-| Proyecto de RSU, Anexo 1 (semana 5) | `curso/semana-05-rsu-y-backlog/README.md` (reglamento + ejemplos) | **Por confirmar** con el docente |
-| Presentación de una técnica de estimación: **Puño de cinco** (semana 5) | Guía del SBOK, pág. 193–195 | **Versión 2.0** (17/10): [`../curso/semana-05-rsu-y-backlog/nuestras-entregas/Presentacion_Fist_of_Five/`](../curso/semana-05-rsu-y-backlog/nuestras-entregas/Presentacion_Fist_of_Five/Presentacion_Fist_of_Five.md): HTML + PPTX + PDF, **8 diapositivas** con notas sincronizadas con el Backlog canónico |
-| Tablero Kanban con criterios de aceptación, prioridad y estimación (semana 5) | Guía del SBOK 8.5, 9.1–9.3 (sin formato del docente) | **Versión 2.0** (17/10): [`../curso/semana-05-rsu-y-backlog/nuestras-entregas/Tablero_Kanban_NewBit/`](../curso/semana-05-rsu-y-backlog/nuestras-entregas/Tablero_Kanban_NewBit/Tablero_Kanban_NewBit.md): HTML + PPTX + PDF, 6 diapositivas; 12 HU canónicas, 31 puntos en 4 sprints |
-| Priorización con **MoSCoW y 100 puntos** (semana 5, actividad de clase) | Guía del SBOK 4.5.2 y 8.5.2.1, pp. 76–78 y 169 | **Versión 2.0** (17/10): [`../curso/semana-05-rsu-y-backlog/nuestras-entregas/Priorizacion_MoSCoW_100_Puntos_NewBit/`](../curso/semana-05-rsu-y-backlog/nuestras-entregas/Priorizacion_MoSCoW_100_Puntos_NewBit/Priorizacion_MoSCoW_100_Puntos_NewBit.md): PDF + PPTX + HTML, 6 páginas |
+| **Dashboard Principal** | `http://127.0.0.1:8000/` | Visión ejecutiva con métricas acumuladas, total de frames, % de ahorro temporal y estado del modelo. |
+| **Catálogo de Videos** | `http://127.0.0.1:8000/videos` | Zona Drag & Drop para cargar clips `.mp4`/`.avi`, tabla de estados de procesamiento y acciones rápidas. |
+| **Ficha Técnica y Visor Dual** | `http://127.0.0.1:8000/videos/{id}` | Reproductor HTML5 nativo, barra de submuestreo, inferencia YOLOv8, galería de detecciones y reproductor del clip final procesado. |
+| **Panel de Calibración** | `http://127.0.0.1:8000/calibration` | Sliders interactivos para calibrar umbrales de confianza e IoU en caliente con bitácora de auditoría. |
+| **Documentación OpenAPI (Swagger)** | `http://127.0.0.1:8000/docs` | Explorador interactivo de todas las rutas y especificaciones de la API REST. |
+| **Especificación Redoc** | `http://127.0.0.1:8000/redoc` | Documentación técnica alternativa para desarrolladores. |
 
-## Decisiones
-Base: [UnsafeNet Research Pack](investigacion/UnsafeNet_Research_Pack/UnsafeNet_Research_Pack.md) y [`ROADMAP_REESTRUCTURACION_NEWBIT.md`](../../ROADMAP_REESTRUCTURACION_NEWBIT.md).
+---
 
-| # | Decisión | Estado |
-|---|---|---|
-| 1 | Conductas | *Propuesta:* **Safe Walkway Violation + Opened Panel Cover**, ampliable a las 4 inseguras del dataset |
-| 2 | Fuente del video | **Resuelto:** dataset público de Mendeley (CC BY 4.0, 691 clips, split oficial de Kafaoğlu Metal Plastik) |
-| 3 | Réplica fiel o propia | **Resuelto (D-03):** Stack unificado 100% Python con **FastAPI** + Jinja2/Tailwind + OpenCV. Detector espacial modernizado a **YOLOv8n** (`ultralytics`), ingesta de clips .mp4 en lote y arquitectura en monorepo (`app/` y `ml/`). Alcance MVP: Sprints 1 y 2 (15 puntos). |
-| 4 | Dónde entrenar | *Propuesta:* Inferencia local en CPU/GPU; entrenamiento en Google Colab o GPU NVIDIA local |
-| 5 | Scrum Team y sprints | **Resuelto (12/10):** PO Albert Chumacero · SM + Dev Anthony Lopez · Dev Luis Salazar; 4 sprints de 2 semanas. **Nombre: NewBit** (PY-NB-001) |
-| 6 | Organización del caso, interesados, contexto peruano y costos | **Resuelto (D-01/D-02):** Caso de estudio: taller de manufactura metalmecánica / mecanizado industrial. 5 perfiles de planta aprobados en FGAP030. Presupuesto formal consolidado: **S/ 20,768** (FGAP010 y EGAP015). |
+## 7. Ejecución de Pruebas Automatizadas
 
-## Historial
-| Semana | Fechas | Qué hizo el equipo |
-|---|---|---|
-| 4 | 05–11/10 | Elección de Unsafe-Net: [Ficha y análisis](investigacion/NewBit_Top3_ComputerVision_SeguridadIndustrial/NewBit_Top3_ComputerVision_SeguridadIndustrial.md) (el PDF original está en la misma carpeta) |
-| 5 | 12–18/10 | [Guía de investigación](investigacion/guia-investigacion-unsafe-net.md) (qué investigar para cerrar las decisiones y redactar los formatos) · [UnsafeNet Research Pack](investigacion/UnsafeNet_Research_Pack/UnsafeNet_Research_Pack.md) (investigación del equipo: dataset, arquitectura, plan de réplica) |
+NewBit cuenta con una cobertura integral de pruebas unitarias, de integración y extremo a extremo (E2E). Para ejecutar la suite completa de **43 pruebas**:
+
+```powershell
+# Ejecutar todas las pruebas con reporte detallado
+.\.venv\Scripts\python.exe -m unittest discover -s proyecto-newbit/tests -v
+```
+
+Resultado esperado:
+```text
+Ran 43 tests in ~4.5s
+OK
+```
+
+Para ejecutar una prueba específica:
+```powershell
+# Prueba de Extremo a Extremo (E2E) con clip de taller metalmecánico
+.\.venv\Scripts\python.exe -m unittest proyecto-newbit/tests/test_e2e_pipeline.py -v
+
+# Pruebas del detector YOLOv8n
+.\.venv\Scripts\python.exe -m unittest proyecto-newbit/tests/test_detector.py -v
+```
+
+---
+
+## 8. Trazabilidad con la Guía SBOK y Entregables del Curso
+
+Los entregables de gestión ágil aprobados se encuentran normalizados en la carpeta [`curso/`](../curso/README.md):
+
+* **Semana 2:** Acta de Constitución (`FGAP010`) y Cuadro Comparativo de Principios de Scrum (`Cuadro_Principios_Scrum_NewBit`).
+* **Semana 3:** Registro de Roles y Prototipos (`FGAP030`), Presentación del Proyecto (`PPT_Presentacion_NewBit`) y Diagrama de Arquitectura.
+* **Semana 4:** Justificación Técnica y Presupuestaria (`EGAP015`) y Catálogo Canónico de Épicas (`FGAP040`).
+* **Semana 5:** Tablero Kanban oficial de 12 HU (`Tablero_Kanban_NewBit`), Priorización MoSCoW (`Priorizacion_MoSCoW_100_Puntos_NewBit`), Presentación Puño de Cinco (`Presentacion_Fist_of_Five`) y Criterios de Terminado (`FGAP070`).
+* **Hoja de Ruta Canónica:** [`ROADMAP_REESTRUCTURACION_NEWBIT.md`](../ROADMAP_REESTRUCTURACION_NEWBIT.md).
+
+---
+
+## 9. Licencia y Créditos
+
+Este proyecto es de uso académico y de investigación en la Universidad Nacional del Santa (UNS).  
+El dataset de entrenamiento y evaluación se utiliza bajo licencia **Creative Commons Attribution 4.0 International (CC BY 4.0)**:  
+> Önal, O., & Dandıl, E. (2024). *Video Dataset for Safe and Unsafe Behaviours in Metalworking Manufacturing*. Mendeley Data, V1, doi: 10.17632/xjmtb22pff.1.
