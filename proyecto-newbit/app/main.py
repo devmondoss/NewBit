@@ -77,23 +77,23 @@ async def dashboard(request: Request):
 
 
 @app.get("/videos", response_class=HTMLResponse)
-async def videos_catalog_placeholder(request: Request):
-    """Ruta preliminar para el catálogo de videos (se completa en D-05)."""
+async def videos_catalog_view(request: Request):
+    """Catálogo web interactivo de videos con dropzone y tabla de estados (HU01 - HU03)."""
     videos = db.get_all_videos()
     total_frames = sum(v["frame_count"] for v in videos)
+    stats = {
+        "total_videos": len(videos),
+        "total_frames": total_frames,
+        "avg_reduction": 0.0,
+        "confidence": config.DEFAULT_YOLO_CONFIDENCE,
+        "iou": config.DEFAULT_YOLO_IOU,
+    }
     return templates.TemplateResponse(
         request=request,
-        name="index.html",
-        context={
-            "stats": {
-                "total_videos": len(videos),
-                "total_frames": total_frames,
-                "avg_reduction": 0.0,
-                "confidence": config.DEFAULT_YOLO_CONFIDENCE,
-                "iou": config.DEFAULT_YOLO_IOU,
-            }
-        }
+        name="videos_catalog.html",
+        context={"videos": videos, "stats": stats}
     )
+
 
 
 @app.get("/videos/{video_id}", response_class=HTMLResponse)

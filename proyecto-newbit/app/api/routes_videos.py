@@ -4,10 +4,12 @@ Permite subida de archivos .mp4/.avi, validación técnica y persistencia de met
 """
 
 import uuid
+import shutil
 import aiofiles
 from pathlib import Path
 from fastapi import APIRouter, UploadFile, File, HTTPException, status
 from fastapi.responses import JSONResponse, FileResponse
+
 
 from app import config, db
 from ml.video_processor import validate_video_file, get_video_metadata, extract_frames
@@ -201,4 +203,51 @@ async def get_single_frame(video_id: str, filename: str):
         raise HTTPException(status_code=404, detail="Fotograma no encontrado.")
 
     return FileResponse(path=str(frame_path), media_type="image/jpeg")
+
+
+@router.delete("/{video_id}")
+async def delete_video(video_id: str):
+    """
+    Elimina un video del catálogo y limpia todos sus artefactos en disco:
+    archivo original en storage/uploads/, fotogramas en storage/frames/{id}/
+    y registro en base de datos.
+    """
+    video = db.get_video_by_id(video_id)
+    if not video:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Video con ID '{video_id}' no encontrado en el catálogo.",
+        )
+
+    # 1. Eliminar archivo original en uploads/
+    raw_path = Path(video["filepath"])
+    if raw_path.exists():
+        try:
+            raw_path.unlink()
+        except Exception:
+            pass
+
+    # 2. Eliminar carpeta de fotogramas extraídos en frames/
+    frames_dir = config.FRAMES_DIR / video_id
+    if frames_dir.exists():
+        try:
+            shutil.rmtree(frames_dir)
+        except Exception:
+            pass
+
+    # 3. Eliminar posibles archivos de salida procesados en outputs/
+    for output_file in config.OUTPUTS_DIR.glob(f"{video_id}_*"):
+        try:
+            output_file.unlink()
+        except Exception:
+            pass
+
+    # 4. Eliminar registro en base de datos
+    db.delete_video_record(video_id)
+
+    return {
+        "status": "success",
+        "message": f"Video '{video['original_name']}' ({video_id}) y sus recursos fueron eliminados correctamente.",
+    }
+
 
