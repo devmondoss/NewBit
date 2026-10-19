@@ -48,7 +48,7 @@ Rutas relativas a la raíz del repo. `S2…S6` = `curso/semana-02-scrum-y-acta`,
 | 5 | `Priorizacion_MoSCoW_100_Puntos_NewBit/` | Resumen + datos | Priorización con MoSCoW y 100 puntos de las 12 HU (PDF + PPTX + HTML + generador) |
 | 5 | `Tablero_Kanban_NewBit/` | Resumen + backlog completo | Tablero Kanban: 12 HU con criterios, prioridad, puntos y sprint; Scrumboard del Sprint 1 (HTML + PPTX + PDF + generador) |
 | 6 | `Producto_Unidad_1_NewBit/` | Resumen | Producto de la Unidad I v2: informe en LaTeX, APA 7, enfocado en la Guía SBOK (PDF de 37 págs. + `.tex` + sello UNS) |
-| 6 | `PPT_Producto_Unidad_1_NewBit/` | Resumen | Presentación del Producto de la Unidad I en PowerPoint (`.pptx` editable de 19 diapositivas + PDF + generador) |
+| 6 | `PPT_Producto_Unidad_1_NewBit/` | Resumen | Presentación del Producto de la Unidad I en PowerPoint v3, estilo pitch (`.pptx` editable de 27 láminas + PDF + generadores) |
 
 ## Proyecto (`proyecto-newbit/investigacion/`)
 | Carpeta | Tipo de `.md` | De qué trata |
