@@ -1,23 +1,23 @@
-# Producto de la Unidad I: NewBit (informe en LaTeX, APA 7)
+# Producto de la Unidad I: NewBit (informe en LaTeX, APA 7) · versión 2
 
-- **Archivos** (esta carpeta): `Producto_Unidad_1_NewBit.pdf` (25 págs., para entregar) y `Producto_Unidad_1_NewBit.tex` (fuente).
-- **Semana:** 6 (pedido el 19/10/2026). **Estructura pedida por el docente:** carátula, índice, introducción, antecedentes, marco teórico, desarrollo (todos los formatos) y referencias.
-- **Compilar:** `tectonic Producto_Unidad_1_NewBit.tex` (o XeLaTeX). Fuentes TeX Gyre Termes (texto, equivalente a Times) y Heros (diagramas). Diagramas en TikZ, sin imágenes externas.
-- **Enfoque:** presenta la **idea y su evolución**, no el código ya construido. No se menciona el estado del repositorio ni se adelantan métricas propias.
+- **Archivos** (esta carpeta): `Producto_Unidad_1_NewBit.pdf` (37 págs., para entregar), `Producto_Unidad_1_NewBit.tex` (fuente) y `logo-uns.png` (sello de la UNS para la carátula, tomado del material del docente).
+- **Semana:** 6 (pedido el 19/10/2026). **Estructura pedida:** carátula, índice, introducción, antecedentes, marco teórico, desarrollo con todos los formatos (semanas 2 a 5) y referencias. La PPT está en [`PPT_Producto_Unidad_1_NewBit`](../PPT_Producto_Unidad_1_NewBit/PPT_Producto_Unidad_1_NewBit.md).
+- **Compilar:** `tectonic Producto_Unidad_1_NewBit.tex` (o XeLaTeX). Incrusta como figuras los PDF reales de las entregas (rutas relativas a `curso/semana-0X/...`): no mover esas carpetas.
+- **Enfoque (v2):** todo anclado a la **Guía SBOK** con número de página: cada entregable se vincula al proceso que lo produce y a sus salidas obligatorias. Presenta la idea y su evolución; no describe el código ya construido ni adelanta métricas propias.
 
 ## Contenido
 | Sección | Qué tiene |
 |---|---|
-| Carátula, índice | Índice general, de tablas (15) y de figuras (4) |
-| 1. Introducción | Problema (actos inseguros, supervisión intermitente), propuesta, objetivo general y 4 específicos |
-| 2. Antecedentes | Internacionales: Önal y Dandıl 2021, 2024b, 2025 (Unsafe-Net). Nacionales verificados: Gutiérrez Torres 2022 (PUCP), Machaca Arcana 2019 (UNSA), Paucara y Rodríguez 2024 (UCV), León y León 2024 (UPN). Tabla síntesis |
-| 3. Marco teórico | SST y actos inseguros (Heinrich, Ley 29783) · Scrum/SBOK · requisitos ágiles · MoSCoW, 100 puntos, puño de cinco · YOLO/YOLOv8 · LSTM/ConvLSTM · métricas (IoU, precisión, sensibilidad, F1, micro/macro) |
-| 4. Desarrollo | 4.1 Evolución VIGIA → Unsafe-Net → NewBit · FGAP010 (acta, RF/RNF, riesgos, hitos, presupuesto) · **FGAP020 (nuevo, v1.0, con matriz poder-interés)** · FGAP030 · EGAP015 · FGAP040 (6 épicas, 12 HU con criterios) · FGAP060 (MoSCoW + 100 pts + sprint) · FGAP070 · arquitectura y plan de sprints |
-| Referencias | 23 en APA 7, con DOI o handle cuando existe |
+| Carátula, índices | Sello UNS · índice general · 20 tablas · 9 figuras |
+| 1. Introducción | Problema, propuesta, objetivo general y 4 específicos (incluye el enfoque Scrum) |
+| 2. Antecedentes | 3 internacionales (Önal y Dandıl) y 4 nacionales verificados (PUCP, UNSA, UCV, UPN), con tabla síntesis |
+| 3. Marco teórico | **3.1 Scrum según la Guía SBOK:** principios (tabla con pág.), aspectos, roles, 19 procesos en 5 fases (tabla), reuniones y time-boxes (tabla) · requisitos ágiles · priorización y estimación · SST · YOLO · ConvLSTM · métricas |
+| 4. Desarrollo | Tabla entregable ↔ proceso SBOK · evolución VIGIA → NewBit · **Semana 2:** cuadro de principios (figura) y FGAP010 · **Semana 3:** FGAP030, infografía (figura en dos partes), diagrama de arquitectura (figura) · **Semana 4:** EGAP015, FGAP040 · **Semana 5:** FGAP060, puño de cinco, Scrumboard del Sprint 1 (figura), FGAP070 · **Semana 6:** FGAP020 y definición de listo · planificación de la liberación: arquitectura, plan de sprints y ciclo de cada sprint |
+| Referencias | 23 en APA 7 |
 
 ## Decisiones tomadas al redactar (revisar)
-- **FGAP020 se elaboró aquí** a partir del acta y de FGAP030 (no existía). Poder/interés y estrategia de involucramiento son propuesta del equipo.
-- **Cronograma:** fechas del acta (S1 19–30/10…); los objetivos de cada sprint siguen el backlog (FGAP040/060), porque el acta decía otra cosa para S1–S2.
-- **César Vásquez:** se escribió «área de mecanizado»; el FGAP030 entregado dice «zona de laminación» (resto del proyecto siderúrgico anterior).
-- **Unsafe-Net** se cita como 2025 (volumen 84), no 2024 (publicación en línea), según APA 7.
-- **Escuela:** «Escuela Profesional de Ingeniería de Sistemas e Informática» (POR CONFIRMAR). La carátula no tiene logo de la UNS.
+- **Hechos para este producto (semana 6):** FGAP020, **definición de listo** y planificación de la liberación (una liberación guiada por fecha, 14–18/12). Son salidas obligatorias del SBOK que faltaban; están marcadas como propuesta.
+- **Cronograma:** fechas del acta (S1 19–30/10…); el tablero Kanban dice 01/11 como fin del S1 y se aclara en una nota que prevalece el acta.
+- **César Vásquez:** «área de mecanizado»; el FGAP030 entregado dice «zona de laminación».
+- **Unsafe-Net** citado como 2025 (volumen 84), según APA 7.
+- **Escuela:** «Escuela Profesional de Ingeniería de Sistemas e Informática» (POR CONFIRMAR).

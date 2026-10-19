@@ -188,7 +188,7 @@ Los entregables de gestión ágil aprobados se encuentran normalizados en la car
 * **Semana 3:** Registro de Roles y Prototipos (`FGAP030`), Presentación del Proyecto (`PPT_Presentacion_NewBit`) y Diagrama de Arquitectura.
 * **Semana 4:** Justificación Técnica y Presupuestaria (`EGAP015`) y Catálogo Canónico de Épicas (`FGAP040`).
 * **Semana 5:** Tablero Kanban oficial de 12 HU (`Tablero_Kanban_NewBit`), Priorización MoSCoW (`Priorizacion_MoSCoW_100_Puntos_NewBit`), Presentación Puño de Cinco (`Presentacion_Fist_of_Five`) y Criterios de Terminado (`FGAP070`).
-* **Semana 6:** Producto de la Unidad I, informe en LaTeX con normas APA 7 (`Producto_Unidad_1_NewBit`, incluye el FGAP020 v1.0) y su presentación en Beamer (`PPT_Producto_Unidad_1_NewBit`).
+* **Semana 6:** Producto de la Unidad I, informe en LaTeX con normas APA 7 (`Producto_Unidad_1_NewBit`, incluye el FGAP020 v1.0) y su presentación en PowerPoint (`PPT_Producto_Unidad_1_NewBit`).
 * **Hoja de Ruta Canónica:** [`gestion/roadmap-reestructuracion.md`](gestion/roadmap-reestructuracion.md).
 
 ---

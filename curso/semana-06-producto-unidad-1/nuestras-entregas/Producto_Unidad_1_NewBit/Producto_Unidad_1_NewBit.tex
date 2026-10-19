@@ -77,6 +77,7 @@
 \setlength{\@fptop}{0pt}
 \setlength{\@fpbot}{0pt plus 1fil}
 \makeatother
+\usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,fit,calc,babel}
 
@@ -109,6 +110,7 @@
 \newcommand{\cita@par}[1]{\cita@revisar{#1}\cita@sep\csuse{ca@#1}, \csuse{cy@#1}\def\cita@sep{; }}
 \newcommand{\parencite}[1]{(\def\cita@sep{}\forcsvlist{\cita@par}{#1})}
 \newcommand{\textcite}[1]{\cita@revisar{#1}\csuse{ca@#1} (\csuse{cy@#1})}
+\newcommand{\parencitep}[2]{\cita@revisar{#1}(\csuse{ca@#1}, \csuse{cy@#1}, #2)}
 \makeatother
 \citadef{bochkovskiy2020}{Bochkovskiy et al.}{2020}
 \citadef{clegg1994}{Clegg y Barker}{1994}
@@ -143,21 +145,22 @@
 % =====================================================================
 \begin{titlepage}
 \centering\singlespacing
+\IfFileExists{logo-uns.png}{\includegraphics[height=3.2cm]{logo-uns.png}\par\vspace{10pt}}{}
 {\large\bfseries UNIVERSIDAD NACIONAL DEL SANTA\par}
 \vspace{4pt}
 {\bfseries Facultad de Ingeniería\par}
 {Escuela Profesional de Ingeniería de Sistemas e Informática\par}
-\vspace{2.2cm}
+\vspace{1.2cm}
 {\bfseries Curso: Ingeniería de Software II\par}
 \vspace{0.4cm}
 {Producto de la Unidad I\par}
-\vspace{1.6cm}
+\vspace{1.1cm}
 {\Large\bfseries NewBit\par}
 \vspace{0.4cm}
 {\large\bfseries \proyecto\par}
 \vspace{0.3cm}
 {Código del proyecto: PY-NB-001\par}
-\vspace{2cm}
+\vspace{1.3cm}
 {\bfseries Integrantes (Grupo D3)\par}
 \vspace{6pt}
 \begin{tabular}{ll}
@@ -198,7 +201,7 @@ En las plantas de manufactura metalmecánica conviven máquinas herramienta, tab
 
 La supervisión de estas conductas, sin embargo, sigue siendo intermitente: el inspector de SST recorre la planta por turnos y las cámaras de videovigilancia graban horas de video que casi nadie revisa. El resultado es que el acto inseguro se detecta tarde o no se detecta. La visión artificial ofrece una alternativa: analizar el video ya grabado para identificar automáticamente las secuencias en las que ocurre una conducta de riesgo y presentar la evidencia a la persona responsable.
 
-NewBit (PY-NB-001) es el proyecto del Grupo D3 que aborda ese problema. Se trata de un sistema web que recibe videos industriales por lotes, detecta a los operarios con un modelo de detección de objetos (YOLOv8), descarta los fotogramas sin actividad, agrupa los restantes en secuencias y las clasifica con una red convolucional recurrente (ConvLSTM) como conductas seguras o inseguras. Su base científica es Unsafe-Net, la arquitectura de dos etapas propuesta por \textcite{onal2025}, y su fuente de datos es el conjunto público que esos autores publicaron con licencia CC~BY~4.0 \parencite{onal2024dataset}. El proyecto se gestiona con Scrum, siguiendo la \textit{Guía de los fundamentos de Scrum} \parencite{sbok}, en cuatro sprints de dos semanas.
+NewBit (PY-NB-001) es el proyecto del Grupo D3 que aborda ese problema. Se trata de un sistema web que recibe videos industriales por lotes, detecta a los operarios con un modelo de detección de objetos (YOLOv8), descarta los fotogramas sin actividad, agrupa los restantes en secuencias y las clasifica con una red convolucional recurrente (ConvLSTM) como conductas seguras o inseguras. Su base científica es Unsafe-Net, la arquitectura de dos etapas propuesta por \textcite{onal2025}, y su fuente de datos es el conjunto público que esos autores publicaron con licencia CC~BY~4.0 \parencite{onal2024dataset}. El proyecto se gestiona con Scrum, siguiendo la \textit{Guía de los fundamentos de Scrum} \parencite{sbok}, en cuatro sprints de dos semanas, y cada formato del curso se elabora como salida de un proceso concreto de esa guía.
 
 La propuesta no nació en su forma actual. Comenzó como una plataforma para verificar el uso de casco y chaleco con cámaras en vivo y, tras dos iteraciones, se convirtió en un sistema que reconoce conductas a partir de video grabado. Ese recorrido, y las razones de cada cambio, forman parte de este documento.
 
@@ -206,12 +209,12 @@ Este documento es el producto de la Unidad~I del curso. Su \textbf{objetivo gene
 
 \begin{enumerate}[label=\alph*)]
   \item Revisar los antecedentes nacionales e internacionales que sustentan el uso de visión artificial para la seguridad laboral.
-  \item Exponer el marco teórico de Scrum, de la ingeniería de requisitos ágil y de los modelos de visión artificial que emplea el proyecto.
+  \item Exponer el marco teórico de Scrum según la Guía SBOK (principios, aspectos, roles, procesos y time-boxes), de la ingeniería de requisitos ágil y de los modelos de visión artificial que emplea el proyecto.
   \item Describir cómo evolucionó la propuesta y qué motivó cada cambio.
-  \item Desarrollar, en el orden de la secuencia de avances del curso, los formatos FGAP010, FGAP020, FGAP030, EGAP015, FGAP040, FGAP060 y FGAP070 aplicados a NewBit, junto con la arquitectura propuesta y el plan de sprints.
+  \item Presentar, semana por semana, los entregables de la Unidad~I (FGAP010, FGAP030, EGAP015, FGAP040, FGAP060, FGAP070 y las piezas que los acompañan), vincular cada uno con su proceso de la Guía SBOK y completar las salidas obligatorias faltantes: el registro de interesados (FGAP020), la definición de listo y la planificación de la liberación.
 \end{enumerate}
 
-El documento se organiza en cuatro partes. La sección~\ref{sec:antecedentes} revisa los antecedentes; la sección~\ref{sec:marco}, el marco teórico; la sección~\ref{sec:desarrollo} desarrolla los formatos de gestión y el estado del proyecto, y al final se listan las referencias en formato APA.
+El documento se organiza en cuatro partes. La sección~\ref{sec:antecedentes} revisa los antecedentes; la sección~\ref{sec:marco}, el marco teórico; la sección~\ref{sec:desarrollo} presenta los entregables semana por semana, vinculados a los procesos de la Guía SBOK, y cierra con la planificación de la liberación y de los sprints; al final se listan las referencias en formato APA.
 
 % =====================================================================
 \FloatBarrier
@@ -268,27 +271,108 @@ Autor (año) & Ámbito & Técnica principal & Unidad & Resultado reportado\\
 \section{Marco teórico}\label{sec:marco}
 % =====================================================================
 
+
+\FloatBarrier
+\subsection{Scrum según la Guía SBOK}
+
+Scrum es un marco de trabajo ágil para desarrollar productos complejos de forma iterativa e incremental \parencite{scrumguide}. El curso lo estudia a través de la Guía SBOK, que organiza Scrum en tres componentes: \textit{principios}, \textit{aspectos} y \textit{procesos} \parencitep{sbok}{p.~9}. Los principios son obligatorios y no se negocian; los aspectos y los procesos pueden adaptarse a cada proyecto u organización \parencitep{sbok}{p.~9}. Esta sección resume cada componente y anticipa cómo se aplica en NewBit.
+
+\subsubsection{Principios}
+
+Los seis principios de Scrum son la base de todo el marco de trabajo y deben aplicarse en cualquier proyecto \parencitep{sbok}{pp.~21--40}. La Tabla~\ref{tab:principios} los resume junto con la página de la guía donde se desarrolla cada uno.
+
+\begin{table}[!htbp]
+\caption{Principios de Scrum y su aplicación en NewBit}\label{tab:principios}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{3.0cm} P{4.6cm} L C{0.9cm}}
+\toprule
+Principio & Qué exige & Aplicación en NewBit & Pág.\\
+\midrule
+Control del proceso empírico & Decidir con base en lo observado, mediante transparencia, inspección y adaptación & Backlog y tablero visibles para todos; inspección del incremento en cada revisión; la propuesta se adaptó tres veces antes del primer sprint & 22\\
+Autoorganización & El equipo decide cómo hacer el trabajo y asume la responsabilidad del resultado & Los Developers se reparten las tareas en cada planificación del sprint & 27\\
+Colaboración & Conciencia, articulación y apropiación compartida del trabajo & Revisión de pares entre Developers; el Product Owner aclara los criterios de aceptación & 29\\
+Priorización basada en valor & Entregar el máximo valor de negocio en el menor tiempo & MoSCoW, 100 puntos y dependencias técnicas (FGAP060) & 33\\
+\textit{Time-boxing} & Asignar un tiempo fijo a cada actividad y reunión & Sprints de dos semanas y reuniones con duración fija (Tabla~\ref{tab:timebox}) & 35\\
+Desarrollo iterativo & Construir el producto en iteraciones que incorporan retroalimentación & Un incremento revisable al final de cada uno de los cuatro sprints & 38\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{La columna Pág. indica la página de la Guía SBOK \parencite{sbok} donde se desarrolla cada principio.}
+\end{table}
+
+\subsubsection{Aspectos}
+
+Los aspectos son las áreas que se gestionan durante todo el proyecto \parencitep{sbok}{pp.~41--134}. La \textit{organización} define los roles y su estructura (cap.~3). La \textit{justificación del negocio} sostiene que el proyecto entregue valor y se revisa a lo largo de su ciclo de vida (cap.~4). La \textit{calidad} se entiende como la capacidad de los entregables de cumplir los criterios de aceptación y alcanzar el valor que espera el cliente (cap.~5). El \textit{cambio} se acepta como parte del proceso: los interesados cambian de opinión y los sprints cortos permiten incorporar esos cambios (cap.~6). El \textit{riesgo} se identifica, evalúa y atiende según su probabilidad e impacto desde el inicio del proyecto (cap.~7). En NewBit, cada aspecto tiene un formato que lo concreta: la organización en FGAP020 y FGAP030, la justificación en EGAP015, la calidad en FGAP070, el cambio en el control de versiones de cada formato y el riesgo en la sección de riesgos del acta.
+
+\subsubsection{Roles}
+
+Scrum tiene tres roles principales, que en conjunto forman el \textit{equipo principal de Scrum}, y ninguno tiene autoridad sobre los demás \parencitep{sbok}{p.~42}. El \textit{Product Owner} maximiza el valor del negocio, articula los requisitos del cliente y mantiene la justificación del proyecto; es la voz del cliente. El \textit{Scrum Master} es un facilitador que asegura un ambiente propicio, enseña las prácticas de Scrum, elimina impedimentos y vela porque se sigan los procesos; no es un jefe, sino un par del equipo. El \textit{Equipo Scrum} entiende los requerimientos, estima las historias y crea los entregables \parencitep{sbok}{pp.~42--43}. Entre los roles secundarios destacan los \textit{interesados del negocio}: clientes, usuarios y patrocinadores, cuyo involucramiento es responsabilidad del Product Owner \parencitep{sbok}{p.~44}.
+
+La guía recomienda un Equipo Scrum de seis a diez miembros y advierte que los equipos pequeños se ven más afectados por la pérdida de un integrante \parencitep{sbok}{p.~50}. NewBit tiene tres integrantes y uno de ellos ejerce a la vez de Scrum Master y Developer; por eso el acta registra esta condición como riesgo, con su respuesta (Tabla~\ref{tab:riesgos}).
+
+\subsubsection{Procesos y fases}
+
+La guía define diecinueve procesos fundamentales, agrupados en cinco fases (Tabla~\ref{tab:procesos}). Cada proceso tiene entradas, herramientas y salidas, y la guía marca con asterisco las que son obligatorias \parencitep{sbok}{p.~15}. Los procesos no son estrictamente secuenciales: los de planificación, implementación y revisión se repiten en cada sprint.
+
+\begin{table}[!htbp]
+\caption{Procesos fundamentales de Scrum por fase y su momento en NewBit}\label{tab:procesos}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{2.8cm} L P{4.2cm}}
+\toprule
+Fase (capítulo) & Procesos & Momento en NewBit\\
+\midrule
+Inicio (8) & 1. Crear la visión del proyecto · 2. Identificar al Scrum Master y a los interesados del negocio · 3. Formar el Equipo Scrum · 4. Desarrollar épicas · 5. Crear el backlog priorizado del producto · 6. Realizar la planificación de la liberación & Unidad I (este documento)\\
+Planificación y estimación (9) & 7. Crear historias de usuario · 8. Estimar historias de usuario · 9. Comprometer historias de usuario · 10. Identificar tareas · 11. Estimar tareas · 12. Actualizar el backlog del sprint & 7 y 8 en la Unidad I; 9 a 12 al inicio de cada sprint\\
+Implementación (10) & 13. Crear entregables · 14. Realizar el Daily Standup · 15. Refinar el backlog priorizado del producto & Durante cada sprint\\
+Revisión y retrospectiva (11) & 16. Demostrar y validar el sprint · 17. Retrospectiva del sprint & Al cierre de cada sprint\\
+Liberación (12) & 18. Enviar entregables · 19. Retrospectiva de la liberación & Al cierre del proyecto (FGAP090)\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{Adaptado de la tabla 1-1 de la Guía SBOK \parencitep{sbok}{p.~15}.}
+\end{table}
+
+\subsubsection{Reuniones y time-boxes}
+
+Cada reunión de Scrum tiene una duración máxima fija que depende de la duración del sprint \parencitep{sbok}{pp.~35--37}. La Tabla~\ref{tab:timebox} muestra las reglas de la guía y su valor para los sprints de dos semanas de NewBit.
+
+\begin{table}[!htbp]
+\caption{Reuniones de Scrum, su time-box y su aplicación en NewBit}\label{tab:timebox}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{3.4cm} P{3.6cm} P{2.6cm} L}
+\toprule
+Reunión & Regla de la Guía SBOK & En NewBit & Propósito\\
+\midrule
+Sprint & De una a cuatro semanas & 2 semanas & Iteración que produce un incremento revisable\\
+Planificación del sprint & 2 h por semana de sprint & 4 h & Comprometer historias, identificar y estimar tareas\\
+Daily Standup & 15 min al día & 15 min & ¿Qué hice?, ¿qué haré?, ¿qué impedimentos tengo?\\
+Revisión del sprint & 1 h por semana de sprint & 2 h & Demostrar el incremento; el Product Owner acepta o rechaza\\
+Retrospectiva del sprint & 1 h por semana de sprint & 2 h & Acordar mejoras accionables para el siguiente sprint\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{Reglas tomadas de la Guía SBOK \parencitep{sbok}{pp.~35--37}.}
+\end{table}
+
+\FloatBarrier
+\subsection{Ingeniería de requisitos ágil}
+
+En Scrum, los requisitos se expresan como \textit{historias de usuario}: descripciones breves de una funcionalidad desde el punto de vista de quien la necesita \parencite{cohn2004,menzinsky2018}. La guía las define como respuesta a tres preguntas, quién, qué y por qué, con el formato «Como <rol>, yo debería <requerimiento>, a fin de <beneficio>» \parencitep{sbok}{p.~185}. Las \textit{épicas} son historias grandes y aún sin refinar que se descomponen en historias que quepan en un sprint; se desarrollan en el proceso 8.4 junto con los \textit{personajes}, que son su salida obligatoria \parencitep{sbok}{pp.~158--164}. En el curso, el docente usa el formato de la guía para las épicas y «Como…, quiero…, para…» para las historias.
+
+Cada historia lleva \textit{criterios de aceptación} objetivos, que define el Product Owner. En la revisión del sprint, una historia está terminada o no lo está: si se completa en parte, se rechaza y vuelve al backlog \parencitep{sbok}{p.~94}. Además, la guía exige dos acuerdos comunes a todas las historias, ambos salidas obligatorias del proceso 8.5 \parencitep{sbok}{p.~172}. La \textit{definición de listo} indica cuándo una historia está lista para estimarse y comprometerse. Los \textit{criterios de terminado} fijan las condiciones de calidad que debe cumplir toda historia para considerarse terminada \parencitep{sbok}{p.~92}.
+
+\FloatBarrier
+\subsection{Priorización y estimación}
+
+La guía prioriza el backlog según tres factores: valor, riesgo o incertidumbre, y dependencias \parencitep{sbok}{pp.~166--172}. Entre sus técnicas de priorización figuran los esquemas simples, la comparación por pares, el análisis de Kano, la técnica \textbf{MoSCoW}, que clasifica los requisitos en los que el producto debe, debería, podría y no tendrá \parencite{clegg1994}, y el \textbf{método de los 100 puntos}, en el que cada persona reparte 100 puntos entre las historias \parencitep{sbok}{pp.~76--78}.
+
+La estimación la hace el Equipo Scrum con apoyo del Scrum Master, en \textit{puntos de historia}, una medida relativa que combina esfuerzo, complejidad y riesgo \parencitep{sbok}{pp.~191--195}. Entre las técnicas que propone están Wideband Delphi, Planning Poker, la estimación por afinidad y el \textbf{puño de cinco} (\textit{Fist of Five}): cada integrante muestra a la vez de uno a cinco dedos y quienes votaron en los extremos explican sus razones antes de volver a votar \parencitep{sbok}{p.~194}.
+
 \FloatBarrier
 \subsection{Seguridad y salud en el trabajo: actos inseguros}
 
 Un \textit{acto inseguro} es una acción u omisión de la persona que la expone a ella o a otros a un riesgo, como transitar fuera de la vía peatonal o dejar abierto un tablero eléctrico. Se diferencia de la \textit{condición insegura}, que es un estado peligroso del entorno, como un piso resbaladizo o una guarda faltante. \textcite{heinrich} formuló esta distinción y sostuvo que la mayor parte de los accidentes se explica por actos inseguros, de modo que la prevención debe actuar sobre la conducta. En el Perú, la Ley N.\textsuperscript{o}~29783 establece el principio de prevención y obliga al empleador a garantizar condiciones que protejan la vida y la salud de los trabajadores \parencite{ley29783}. NewBit se plantea como una herramienta de apoyo a ese deber: no reemplaza al supervisor ni certifica el cumplimiento de la norma, sino que le entrega evidencia oportuna.
 
-\FloatBarrier
-\subsection{Scrum y la Guía SBOK}
-
-Scrum es un marco de trabajo ágil para desarrollar productos complejos de forma iterativa e incremental \parencite{scrumguide}. La Guía SBOK organiza Scrum en principios, aspectos y procesos \parencite{sbok}. Sus seis principios son el control del proceso empírico (transparencia, inspección y adaptación), la autoorganización, la colaboración, la priorización basada en el valor, el \textit{time-boxing} y el desarrollo iterativo.
-
-Los roles centrales son tres. El \textit{Product Owner} maximiza el valor del producto, gestiona el backlog y acepta o rechaza los entregables. El \textit{Scrum Master} facilita el proceso y elimina impedimentos. El \textit{Equipo Scrum} construye el incremento. El trabajo avanza en \textit{sprints} de duración fija, de una a cuatro semanas, con eventos acotados en el tiempo: planificación del sprint, reunión diaria de 15 minutos, revisión y retrospectiva \parencite{sbok}. Antes de los sprints, la fase de inicio produce la visión, el acta del proyecto, la identificación de los interesados, las épicas y el backlog priorizado.
-
-\FloatBarrier
-\subsection{Ingeniería de requisitos ágil}
-
-En Scrum, los requisitos se expresan como \textit{historias de usuario}: descripciones breves de una funcionalidad desde el punto de vista de quien la necesita, con la forma «Como [rol], quiero [funcionalidad], para [beneficio]» \parencite{cohn2004,menzinsky2018}. Las \textit{épicas} agrupan historias relacionadas que todavía son demasiado grandes para un sprint. Cada historia lleva \textit{criterios de aceptación}, que son condiciones específicas y verificables que el Product Owner usa para aceptarla. Por encima de ellos, los \textit{criterios de terminado} (\textit{Definition of Done}) son comunes a todas las historias y fijan el nivel mínimo de calidad del incremento, como pruebas, revisión de pares y documentación \parencite{sbok}.
-
-\FloatBarrier
-\subsection{Priorización y estimación}
-
-La técnica \textbf{MoSCoW} clasifica los requisitos en cuatro grupos: los que el producto debe tener (\textit{Must have}), debería tener (\textit{Should have}), podría tener (\textit{Could have}) y no tendrá en esta versión (\textit{Won't have}) \parencite{clegg1994}. El \textbf{método de los 100 puntos} reparte 100 puntos por integrante entre las historias, lo que convierte la importancia relativa en un número que se puede sumar \parencite{sbok}. Para estimar, el \textbf{puño de cinco} (\textit{Fist of Five}) pide que cada integrante muestre a la vez de uno a cinco dedos; si hay diferencias grandes, quienes votaron en los extremos explican sus razones y se vuelve a votar \parencite{sbok}. El resultado se expresa en \textit{puntos de historia}, una medida relativa del esfuerzo.
 
 \FloatBarrier
 \subsection{Visión artificial y aprendizaje profundo}
@@ -319,12 +403,13 @@ F_1 = 2\cdot\frac{\mathrm{Precisión}\cdot\mathrm{Sensibilidad}}{\mathrm{Precisi
 \end{equation}
 La exactitud puede agregarse de dos formas: \textit{micro}, sobre el total de clips, o \textit{macro}, como promedio de la exactitud de cada clase. Unsafe-Net reporta el promedio por clase; por eso NewBit reportará ambas, además de la matriz de confusión.
 
+
 % =====================================================================
 \FloatBarrier
 \section{Desarrollo}\label{sec:desarrollo}
 % =====================================================================
 
-Esta sección comienza por la evolución de la propuesta y luego desarrolla los formatos del proyecto en el orden que fija la secuencia de avances del curso \parencite{daza2026secuencia}, representada en la Figura~\ref{fig:secuencia}. La Tabla~\ref{tab:formatos} indica el estado de cada formato al cierre de la Unidad~I.
+Esta sección presenta el trabajo de la Unidad~I en el orden en que el docente lo pidió, de la semana~2 a la semana~5, y lo completa con lo elaborado en la semana~6. Antes de los entregables se describe cómo evolucionó la propuesta. Cada entregable se vincula con el proceso de la Guía SBOK que lo produce y con las salidas obligatorias que aporta (Tabla~\ref{tab:formatos}); la Figura~\ref{fig:secuencia} muestra la secuencia de formatos que guía el curso \parencite{daza2026secuencia}.
 
 \begin{figure}[!htbp]
 \caption{Secuencia de formatos del proyecto y avance al cierre de la Unidad I}\label{fig:secuencia}
@@ -352,24 +437,29 @@ Esta sección comienza por la evolución de la propuesta y luego desarrolla los 
 \end{figure}
 
 \begin{table}[!htbp]
-\caption{Formatos del proyecto y su estado al 19 de octubre de 2026}\label{tab:formatos}
+\caption{Entregables de la Unidad I y su vínculo con los procesos de la Guía SBOK}\label{tab:formatos}
 \begin{tablaapa}
-\begin{tabularx}{\textwidth}{P{1.9cm} L C{1.5cm} P{4.4cm}}
+\begin{tabularx}{\textwidth}{C{0.9cm} P{3.7cm} P{4.0cm} L}
 \toprule
-Formato & Documento & Semana & Estado\\
+Sem. & Entregable & Proceso de la Guía SBOK (pág.) & Salidas obligatorias que aporta\\
 \midrule
-FGAP010 & Acta de constitución del proyecto & 2 & Versión 2.0 aprobada\\
-FGAP020 & Registro de interesados & 6 & Versión 1.0, elaborada en este producto\\
-FGAP030 & Roles y prototipos & 3 & Versión 2.0 aprobada\\
-EGAP015 & Justificación del proyecto & 4 & Versión 2.0 aprobada\\
-FGAP040 & Épicas e historias de usuario & 4 & Versión 2.0: 6 épicas y 12 historias\\
-FGAP060 & Backlog priorizado del producto & 5 & Versión 2.0: MoSCoW, 100 puntos y estimación\\
-FGAP070 & Criterios de terminado & 5 & Versión 1.0 aprobada\\
-FGAP090 & Cierre del proyecto & — & Previsto para diciembre de 2026\\
+2 & Cuadro comparativo de los principios & Cap.~2, Principios (21--40) & Comprensión común del marco de trabajo\\
+2 & FGAP010 Acta de constitución & 8.1 Crear la visión del proyecto (139--144) & Product Owner identificado; declaración de la visión\\
+3 & FGAP030 Roles y prototipos & 8.3 Formar el Equipo Scrum (151--156); 8.4 (158--164) & Equipo Scrum identificado; personajes\\
+3 & Infografía, diagrama de arquitectura y presentación & Apoyo a 8.1: reunión de la visión del proyecto (141--144) & Visión comunicada a los interesados\\
+4 & EGAP015 Justificación & Cap.~4 (67--86); entrada de 8.1 (141) & Caso de negocio del proyecto (entrada obligatoria de 8.1)\\
+4 & FGAP040 Épicas e historias & 8.4 Desarrollar épicas (158--164); 9.1 Crear historias (185--189) & Historias de usuario; criterios de aceptación\\
+5 & FGAP060 Backlog priorizado & 8.5 Crear el backlog priorizado (166--172) & Backlog priorizado del producto\\
+5 & Estimación con el puño de cinco & 9.2 Estimar historias (191--195) & Historias de usuario estimadas\\
+5 & Tablero Kanban del Sprint 1 & 9.3 Comprometer historias (196--199) & Scrumboard y backlog del sprint (propuestos)\\
+5 & FGAP070 Criterios de terminado & 8.5 (172); 5.4.3 (92) & Criterios de terminado\\
+6 & FGAP020 Registro de interesados & 8.2 Identificar al Scrum Master y a los interesados (145--150) & Scrum Master e interesados identificados\\
+6 & Definición de listo & 8.5 (172); 5.4.2 (92) & Definición de listo\\
+6 & Planificación de la liberación & 8.6 Realizar la planificación de la liberación (173--178) & Cronograma de liberación; duración del sprint\\
 \bottomrule
 \end{tabularx}
 \end{tablaapa}
-\nota{La columna Semana indica la semana del curso en que se elaboró el formato.}
+\nota{Páginas de la Guía SBOK \parencite{sbok}. Las salidas listadas son las que la guía marca como obligatorias en cada proceso. Los entregables de la semana~6 se elaboraron para este producto.}
 \end{table}
 
 % ---------------------------------------------------------------------
@@ -408,12 +498,32 @@ Presupuesto & S/ 30\,820 & S/ 20\,768 & Menor alcance y sin hardware nuevo\\
 
 Lo que se conservó entre versiones también es significativo: el análisis de video sin reconocimiento facial, la decisión final en manos de una persona y la evaluación del evento completo antes que del fotograma aislado.
 
+
 % ---------------------------------------------------------------------
 \FloatBarrier
-\subsection{FGAP010: Acta de constitución del proyecto}
+\subsection{Semana 2: principios de Scrum y acta de constitución}
 % ---------------------------------------------------------------------
 
-El acta define el proyecto y autoriza su inicio. Su visión es transformar el registro pasivo de las cámaras de una planta de manufactura metalmecánica en un sistema que detecte y registre actos inseguros a partir de video grabado, con alertas oportunas para el área de SST y sin reconocimiento facial. La organización es un caso académico propuesto, equivalente al entorno del conjunto de datos; los nombres de sus representantes son ficticios. La Tabla~\ref{tab:acta} resume sus campos.
+En la semana~2 el docente presentó los principios de Scrum y el formato del acta de constitución. El equipo entregó dos productos: un cuadro comparativo que explica cada principio con un ejemplo de NewBit y el acta del proyecto.
+
+\FloatBarrier
+\subsubsection{Cuadro comparativo de los principios de Scrum}
+
+El cuadro explica con palabras propias los seis principios de la Guía SBOK y les asocia un ejemplo práctico del proyecto; su contenido coincide con la Tabla~\ref{tab:principios} del marco teórico. La Figura~\ref{fig:cuadro} reproduce la primera de sus dos diapositivas de contenido.
+
+\begin{figure}[!htbp]
+\caption{Cuadro comparativo de los principios de Scrum aplicados a NewBit (extracto)}\label{fig:cuadro}
+\centering
+\includegraphics[width=0.92\textwidth,page=2]{../../../semana-02-scrum-y-acta/nuestras-entregas/Cuadro_Principios_Scrum_NewBit/Cuadro_Principios_Scrum_NewBit.pdf}
+\nota{Diapositiva 2 de 3 del entregable de la semana~2 (versión 2.0). Los otros tres principios están en la diapositiva~3.}
+\end{figure}
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsubsection{FGAP010: Acta de constitución del proyecto}
+% ---------------------------------------------------------------------
+
+El acta define el proyecto y autoriza su inicio. En la Guía SBOK corresponde al proceso 8.1, Crear la visión del proyecto, cuyas salidas obligatorias son el Product Owner identificado y la declaración de la visión; el acta y el presupuesto son salidas complementarias \parencitep{sbok}{p.~144}. Su visión es transformar el registro pasivo de las cámaras de una planta de manufactura metalmecánica en un sistema que detecte y registre actos inseguros a partir de video grabado, con alertas oportunas para el área de SST y sin reconocimiento facial. La organización es un caso académico propuesto, equivalente al entorno del conjunto de datos; los nombres de sus representantes son ficticios. La Tabla~\ref{tab:acta} resume sus campos.
 
 \begin{table}[!htbp]
 \caption{Síntesis del acta de constitución (FGAP010)}\label{tab:acta}
@@ -534,12 +644,268 @@ Reserva de contingencia & 10~\% del subtotal & 1\,888.00\\
 \nota{Base: 20 horas por semana por Developer y 10 por el Product Owner durante 10 semanas (500 horas). Importes referenciales al 12/10/2026, sin cotización formal.}
 \end{table}
 
+
 % ---------------------------------------------------------------------
 \FloatBarrier
-\subsection{FGAP020: Registro de interesados}
+\subsection{Semana 3: roles, prototipos y visión del producto}
 % ---------------------------------------------------------------------
 
-El registro de interesados identifica a las personas que influyen en el proyecto o se ven afectadas por él, y define cómo involucrarlas. Se elaboró en este producto, en su versión 1.0, a partir de la lista de interesados del acta y de los roles del FGAP030. La Tabla~\ref{tab:interesados} lo presenta y la Figura~\ref{fig:poderinteres} ubica a cada interesado en una matriz de poder e interés.
+En la semana~3 se trabajó la organización del proyecto: quiénes usarán el sistema y cómo es cada uno. Además del formato de roles y prototipos, el equipo preparó tres piezas para comunicar la visión del producto: una infografía, un diagrama de arquitectura y una presentación. En términos de la Guía SBOK, estas piezas apoyan la reunión de la visión del proyecto, herramienta obligatoria del proceso 8.1, donde la visión se comparte con los interesados \parencitep{sbok}{pp.~141--144}.
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsubsection{FGAP030: Roles y prototipos}
+% ---------------------------------------------------------------------
+
+El FGAP030 describe a los usuarios del sistema mediante perfiles (\textit{personas}). En la Guía SBOK, los \textit{personajes} son la salida obligatoria del proceso 8.4: personas ficticias con nombre, contexto, intereses y metas que representan a los usuarios \parencitep{sbok}{p.~164}; el equipo que los atenderá se identifica en el proceso 8.3 \parencitep{sbok}{p.~156}. Cada rol se caracteriza por su frecuencia de uso, su experiencia en el tema, su dominio de la computadora y del software, y su meta al usar NewBit (Tabla~\ref{tab:roles}). Los cinco roles son los actores de las seis épicas del backlog.
+
+\begin{table}[!htbp]
+\caption{Roles de usuario de NewBit (FGAP030)}\label{tab:roles}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{2.8cm} P{2.1cm} C{1.75cm} C{1.6cm} L}
+\toprule
+Rol (persona) & Frecuencia de uso & Experiencia en el tema & Dominio del software & Meta principal\\
+\midrule
+Administrador de la plataforma (Jorge Ponce, 35) & Diaria, al ingresar lotes & Alta & Alto & Cargar videos, configurar la selección de fotogramas y el umbral de confianza, y vigilar el rendimiento.\\
+Supervisora de SST (Mariana Torres, 32) & Diaria y ante cada alerta & Alta & Medio & Revisar alertas con su clip de evidencia, confirmarlas o descartarlas y priorizar inspecciones.\\
+Supervisor de turno (César Vásquez, 41) & Diaria, en su turno & Alta & Medio & Consultar las alertas de su área de mecanizado y registrar la acción tomada.\\
+Operadora de monitoreo (Lucía Ramos, 29) & Permanente en su turno & Media & Alto & Atender alertas visuales y sonoras, verificar el clip y marcar falsas alarmas.\\
+Gerente general y sponsor (Ricardo Salcedo, 48) & Semanal & Alta & Bajo & Consultar reportes por tipo, zona y semana para decidir recursos y capacitación.\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{Perfiles ficticios para fines académicos. La experiencia en el tema se refiere al dominio de cada persona: infraestructura en TI, prevención en SST y operaciones en los demás.}
+\end{table}
+
+Los prototipos completan cada perfil con una breve historia personal. Mariana Torres, por ejemplo, reparte su día entre recorridos de planta y reportes; quiere enterarse de una conducta insegura cuando todavía puede intervenir y saber en qué zonas se repite, sin revisar horas de video. Lucía Ramos vigila muchas cámaras a la vez y sabe que es fácil pasar algo por alto; quiere que NewBit le señale solo lo importante. Estas necesidades se traducen directamente en historias de usuario: la alerta con evidencia (HU10) y la vista del video con el recuadro de riesgo (HU09).
+
+
+\FloatBarrier
+\subsubsection{Infografía de los pasos del proyecto}
+
+La infografía resume en doce paneles cómo se construye la primera versión de NewBit: del problema y los objetivos al diseño del pipeline, la tecnología, el entrenamiento, la validación y la evaluación comparativa (Figuras~\ref{fig:infografia} y~\ref{fig:infografia2}). Se presenta tal como se entregó en la semana~3, cuando el detector previsto todavía era YOLOv4; en la semana~5 se actualizó a YOLOv8 (Tabla~\ref{tab:evolucion}).
+
+\begin{figure}[!htbp]
+\caption{Infografía «Pasos para desarrollar NewBit», versión de la semana 3 (pasos 1 a 6)}\label{fig:infografia}
+\centering
+\includegraphics[width=\textwidth,trim=0 1260 0 0,clip]{../../../semana-03-roles-y-prototipos/nuestras-entregas/Infografias_NewBit/01-pasos-proyecto.pdf}
+\end{figure}
+
+\begin{figure}[!htbp]
+\caption{Infografía «Pasos para desarrollar NewBit», versión de la semana 3 (pasos 7 a 12)}\label{fig:infografia2}
+\centering
+\includegraphics[width=\textwidth,trim=0 0 0 1190,clip]{../../../semana-03-roles-y-prototipos/nuestras-entregas/Infografias_NewBit/01-pasos-proyecto.pdf}
+\nota{Página web exportada a PDF y dividida en dos partes para su lectura. Las fotografías son de Wikimedia Commons con licencia libre; las cajas de detección y los gráficos son ilustrativos, no salidas de un modelo.}
+\end{figure}
+
+\FloatBarrier
+\subsubsection{Diagrama de arquitectura y presentación del proyecto}
+
+El diagrama de arquitectura explica el flujo principal en siete etapas, del video a la alerta validada por una persona, e indica en cada una el requisito funcional y el rol que interviene (Figura~\ref{fig:diagrama}). La presentación de doce diapositivas expuso el problema, la propuesta, las conductas priorizadas, los cinco perfiles de usuario, el equipo y el plan en cuatro sprints. La arquitectura vigente, que actualiza este diagrama con el detector YOLOv8 y el sprint en que se construye cada etapa, se presenta en la sección~\ref{sec:liberacion}.
+
+\begin{figure}[!htbp]
+\caption{Diagrama de arquitectura de NewBit entregado en la semana 3 (primera página)}\label{fig:diagrama}
+\centering
+\includegraphics[width=0.78\textwidth,page=1]{../../../semana-03-roles-y-prototipos/nuestras-entregas/Diagrama_Arquitectura_NewBit/Diagrama_Arquitectura_NewBit.pdf}
+\nota{El documento completo tiene cuatro páginas: flujo principal, conductas, entrenamiento y evaluación, usuarios, sprints y tecnología.}
+\end{figure}
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsection{Semana 4: justificación, épicas e historias de usuario}
+% ---------------------------------------------------------------------
+
+En el Laboratorio~4 se pidieron dos formatos: la justificación del proyecto y sus épicas con historias de usuario. La justificación cumple el papel del \textit{caso de negocio}, entrada obligatoria del proceso 8.1, porque los interesados necesitan entender los beneficios esperados y los patrocinadores deben confirmar los recursos \parencitep{sbok}{p.~141}. Las épicas y las historias corresponden a los procesos 8.4 y 9.1.
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsubsection{EGAP015: Justificación del proyecto}
+% ---------------------------------------------------------------------
+
+La justificación argumenta por qué conviene ejecutar el proyecto; en la guía, el Product Owner es su principal responsable y debe mantenerla durante todo el ciclo de vida \parencitep{sbok}{pp.~70--72}. Sigue los diez apartados del formato del docente \parencite{daza2026justificacion} y se resume en la Tabla~\ref{tab:justificacion}. En coherencia con el acta, el monto es el mismo, S/~20\,768, y no se prometen ahorros ni reducciones de accidentes que no estén demostrados.
+
+\begin{table}[!htbp]
+\caption{Síntesis de la justificación del proyecto (EGAP015)}\label{tab:justificacion}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{3.3cm} L}
+\toprule
+Apartado & Síntesis\\
+\midrule
+Necesidad & Las inspecciones de SST son intermitentes y las cámaras graban sin emitir alertas; los actos inseguros se identifican tarde.\\
+Tecnológica & Arquitectura de dos etapas: YOLOv8 detecta a los operarios y permite descartar fotogramas sin actividad; ConvLSTM clasifica la secuencia. Pila abierta: Python, FastAPI y OpenCV.\\
+Operativa & El flujo se reparte entre roles reales: TI administra la ingesta y los umbrales, SST analiza los incidentes y monitoreo atiende las alertas. El sistema apoya la decisión humana, no la reemplaza.\\
+Económica & S/ 20\,768, idéntico al acta: S/ 18\,600 de dedicación valorizada, S/ 280 de gastos directos y S/ 1\,888 de contingencia.\\
+Social y de SST & Prevención de atrapamientos y accidentes en zonas de mecanizado; cultura preventiva; privacidad por diseño.\\
+Académica & Aplicación de Scrum según la guía SBOK, ingeniería de requisitos, aprendizaje profundo, desarrollo web y pruebas.\\
+Beneficios & Tangibles: plataforma web, pipeline de reducción de fotogramas, detector calibrado y registro de métricas. Intangibles: menos fatiga de revisión visual y mayor disciplina operativa.\\
+Viabilidad & Técnica, operativa y económica, con las restricciones declaradas: procesamiento por lotes y dos conductas priorizadas.\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{Se omiten los apartados de datos generales y conclusión, que repiten información de la Tabla~\ref{tab:acta}.}
+\end{table}
+
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsubsection{FGAP040: Épicas e historias de usuario}
+% ---------------------------------------------------------------------
+
+Las épicas se desarrollan en el proceso 8.4 a partir de la visión del proyecto y se descomponen en historias en el proceso 9.1, cuyas salidas obligatorias son las historias de usuario y sus criterios de aceptación \parencitep{sbok}{pp.~158--189}. El backlog de NewBit se organiza en seis épicas que siguen el recorrido del dato: del video cargado a la alerta (Tabla~\ref{tab:epicas}). Las épicas se descomponen en doce historias de usuario, cada una con dos criterios de aceptación verificables (Tabla~\ref{tab:historias}).
+
+\begin{table}[!htbp]
+\caption{Épicas del proyecto (FGAP040)}\label{tab:epicas}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{C{1.1cm} P{4.2cm} P{3.0cm} L}
+\toprule
+ID & Épica & Rol & Historias\\
+\midrule
+EP01 & Ingestión y preprocesamiento de video & Administrador & HU01, HU02\\
+EP02 & Detección espacial de operarios (YOLOv8) & Supervisora de SST & HU03\\
+EP03 & Segmentación y reducción de secuencias & Administrador, SST & HU04, HU05, HU06\\
+EP04 & Clasificación espacio-temporal (ConvLSTM) & Supervisora de SST & HU07, HU08\\
+EP05 & Monitoreo y visualización de alertas & Operadora de monitoreo & HU09, HU10\\
+EP06 & Administración, calibración y trazabilidad & Administrador, gerente & HU11, HU12\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\end{table}
+
+\begingroup\small\singlespacing\renewcommand{\arraystretch}{1.25}
+\begin{longtable}{C{1.1cm} P{6.4cm} P{6.9cm}}
+\caption{Historias de usuario y criterios de aceptación}\label{tab:historias}\\
+\toprule
+HU & Historia de usuario & Criterios de aceptación\\
+\midrule
+\endfirsthead
+\multicolumn{3}{l}{\normalsize\textit{Tabla \thetable{} (continuación)}}\\[2pt]
+\toprule
+HU & Historia de usuario & Criterios de aceptación\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+HU01 & Como administrador de la plataforma, quiero cargar un video industrial (.mp4 o .avi), para iniciar el procesamiento visual. & Acepta .mp4 y .avi y rechaza otros formatos con un mensaje claro. Muestra nombre, duración, resolución y FPS.\\
+HU02 & Como administrador, quiero que el sistema fragmente el video en fotogramas normalizados, para prepararlos para la inferencia espacial. & Almacena fotogramas numerados en secuencia. Normaliza el tamaño al requerido por YOLOv8.\\
+HU03 & Como supervisora de SST, quiero que el sistema detecte a los operarios en cada fotograma con YOLOv8, para localizar la actividad humana. & Infiere cajas de la clase «persona» con su confianza. Muestra el fotograma con las cajas superpuestas.\\
+HU04 & Como administrador, quiero que se descarten los fotogramas sin trabajadores, para reducir la carga de cómputo. & Excluye los fotogramas sin detecciones. Registra fotogramas de entrada, conservados y porcentaje de reducción.\\
+HU05 & Como supervisora de SST, quiero agrupar los fotogramas activos en clips de tamaño fijo, para estructurar la entrada del modelo temporal. & Genera secuencias de N fotogramas consecutivos (configurable). Produce un tensor compatible con ConvLSTM.\\
+HU06 & Como supervisora de SST, quiero descartar los clips más cortos que una ventana mínima, para evitar alertas por movimientos fugaces. & Descarta los clips bajo el umbral de duración. Registra cuántos fragmentos se descartaron.\\
+HU07 & Como supervisora de SST, quiero procesar el clip con ConvLSTM, para extraer las dependencias temporales del movimiento. & Ejecuta la inferencia sobre la división oficial de prueba. Devuelve un vector de probabilidades por secuencia.\\
+HU08 & Como supervisora de SST, quiero que el modelo clasifique la conducta como segura o insegura y la tipifique, para registrar un diagnóstico claro. & Asigna etiqueta y tipo de conducta por clip. Calcula exactitud, precisión, sensibilidad y F1 por clase.\\
+HU09 & Como operadora de monitoreo, quiero ver el video con un recuadro de color según el riesgo, para validar la inferencia. & Recuadro verde (seguro) o rojo (inseguro) superpuesto. Permite reproducir, pausar y revisar los clips del lote.\\
+HU10 & Como operadora de monitoreo, quiero una alerta inmediata con hora y evidencia ante una conducta insegura, para intervenir a tiempo. & Notificación visual y sonora. Guarda fecha, marca de tiempo, clip y probabilidad.\\
+HU11 & Como administrador, quiero modificar el umbral de confianza de YOLOv8 desde la interfaz, para calibrar la sensibilidad según la iluminación. & Ajuste gráfico en el rango de 0 a 1 con validación de límites. Registra cada cambio en un log de auditoría.\\
+HU12 & Como gerente y administrador, quiero ver el log de tiempos y la aceleración obtenida, para evaluar la eficiencia técnica. & Muestra tiempos por fase (ingesta, YOLOv8, ConvLSTM). Compara el tiempo total con y sin reducción.\\
+\end{longtable}
+\endgroup
+
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsection{Semana 5: backlog priorizado, estimación y criterios de terminado}
+% ---------------------------------------------------------------------
+
+En la semana~5 el docente entregó la secuencia de avances del proyecto y el equipo trabajó la fase de inicio hasta su cierre: priorizó el backlog, estimó las historias, armó el tablero del primer sprint y acordó los criterios de terminado.
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsubsection{FGAP060: Backlog priorizado del producto}
+% ---------------------------------------------------------------------
+
+El backlog priorizado es la salida principal del proceso 8.5: un único documento de requisitos que desarrolla el Product Owner, ordenado por valor, riesgo y dependencias \parencitep{sbok}{pp.~166--172}. La priorización de NewBit combinó tres criterios en este orden. Primero, la técnica MoSCoW fijó la criticidad de cada historia: ocho \textit{Must}, tres \textit{Should} y una \textit{Could}. Segundo, cada integrante repartió 100 puntos entre las historias, lo que ordenó la importancia dentro de cada grupo. Tercero, se respetaron las dependencias técnicas del pipeline, porque ninguna etapa puede probarse sin la anterior. La estimación se hizo con el puño de cinco y se expresa en puntos de historia del 1 al 5. La Tabla~\ref{tab:backlog} muestra el resultado.
+
+\begin{table}[!htbp]
+\caption{Backlog priorizado del producto (FGAP060)}\label{tab:backlog}
+\begin{tablaapa}
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\textwidth}{C{0.95cm} L C{1.35cm} C{0.6cm} C{0.6cm} C{0.6cm} C{0.85cm} C{1.25cm} C{1.25cm}}
+\toprule
+HU & Historia (resumen) & MoSCoW & PO & SM & Dev & Total & Depende de & Sprint (pts)\\
+\midrule
+HU01 & Cargar video & Must & 6 & 8 & 5 & 19 & — & 1 (1)\\
+HU02 & Extraer fotogramas & Must & 5 & 8 & 7 & 20 & HU01 & 1 (2)\\
+HU03 & Detectar operarios & Must & 12 & 12 & 13 & 37 & HU02 & 1 (4)\\
+HU04 & Descartar fotogramas vacíos & Must & 8 & 10 & 10 & 28 & HU03 & 2 (2)\\
+HU05 & Agrupar en clips & Must & 6 & 9 & 10 & 25 & HU04 & 2 (3)\\
+HU06 & Descartar clips cortos & Should & 3 & 4 & 5 & 12 & HU05 & 2 (2)\\
+HU11 & Calibrar umbral & Could & 2 & 3 & 3 & 8 & HU03 & 2 (1)\\
+HU07 & Procesar con ConvLSTM & Must & 15 & 14 & 18 & 47 & HU05 & 3 (5)\\
+HU08 & Clasificar y tipificar & Must & 14 & 12 & 12 & 38 & HU07 & 3 (3)\\
+HU09 & Ver video con recuadro & Must & 13 & 9 & 8 & 30 & HU08 & 4 (4)\\
+HU10 & Alerta de riesgo & Should & 10 & 6 & 5 & 21 & HU08 & 4 (2)\\
+HU12 & Ver log de tiempos & Should & 6 & 5 & 4 & 15 & HU04 & 4 (2)\\
+\midrule
+ & \textbf{Total} & & 100 & 100 & 100 & 300 & & 31 pts\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{PO = Albert Chumacero; SM = Anthony Lopez; Dev = Luis Salazar. Las columnas PO, SM y Dev son los puntos que cada integrante asignó con el método de los 100 puntos. \textit{Won't have} en esta versión: cámaras en vivo por RTSP, alertas físicas en la maquinaria y reconocimiento facial.}
+\end{table}
+
+Dos historias se adelantan a pesar de su baja votación. HU11 (\textit{Could}) entra al Sprint~2 porque calibra el detector de HU03 y el filtro de HU04; sin ella no se pueden ajustar las pruebas de los sprints 2 y 3. HU06 (\textit{Should}) también entra al Sprint~2, porque filtra los clips insuficientes antes de entrenar el modelo temporal en el Sprint~3. La carga queda equilibrada: 7, 8, 8 y 8 puntos por sprint.
+
+
+\FloatBarrier
+\subsubsection{Estimación con el puño de cinco}
+
+La estimación corresponde al proceso 9.2, en el que el Equipo Scrum, con apoyo del Scrum Master, asigna un tamaño relativo a cada historia; el Product Owner solo aclara dudas \parencitep{sbok}{pp.~191--195}. El equipo usó el puño de cinco, con la lectura de los dedos como tamaño relativo: de 1, una historia muy pequeña, a 5, una muy grande. El resultado son las estimaciones de la Tabla~\ref{tab:backlog}: 31 puntos en total, y la épica EP04, la clasificación con ConvLSTM, como la más grande. En la presentación de la semana~5 la técnica se mostró con la historia HU07 como ejemplo de dos rondas de votación.
+
+\FloatBarrier
+\subsubsection{Tablero Kanban del Sprint 1}
+
+El proceso 9.3 convierte las historias comprometidas en el backlog del sprint y las sigue en un \textit{Scrumboard} con columnas por estado \parencitep{sbok}{pp.~196--199}. El tablero de la semana~5 reúne el backlog con sus criterios de aceptación y propone el Scrumboard del Sprint~1, con las tareas de HU01, HU02 y HU03 (Figura~\ref{fig:scrumboard}). Las tareas son una propuesta del equipo y se confirmarán en la planificación del sprint.
+
+\begin{figure}[!htbp]
+\caption{Scrumboard propuesto para el Sprint 1}\label{fig:scrumboard}
+\centering
+\includegraphics[width=0.85\textwidth,page=5]{../../../semana-05-rsu-y-backlog/nuestras-entregas/Tablero_Kanban_NewBit/Tablero_Kanban_NewBit.pdf}
+\nota{Diapositiva 5 de 6 del tablero Kanban de la semana~5. Columnas: por hacer, en progreso, en prueba y terminada. El tablero indica el 01/11 como fin del Sprint~1; prevalece la fecha del acta, 30/10/2026 (Tabla~\ref{tab:hitos}).}
+\end{figure}
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsubsection{FGAP070: Criterios de terminado}
+% ---------------------------------------------------------------------
+
+Los criterios de terminado son una salida obligatoria del proceso 8.5 y se aplican a todas las historias por igual \parencitep{sbok}{pp.~92, 172}. Los de NewBit (CT-NB-001) se resumen a continuación. Una historia no pasa a la columna \textit{Terminado} del tablero si no cumple cada uno de los criterios de la Tabla~\ref{tab:dod}. A diferencia de los criterios de aceptación, que define el Product Owner para cada historia, estos criterios no se negocian por historia.
+
+\begin{table}[!htbp]
+\caption{Criterios de terminado del incremento (FGAP070)}\label{tab:dod}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{3.0cm} L}
+\toprule
+Criterio & Condición para dar una historia por terminada\\
+\midrule
+Prueba unitaria & Módulos nuevos o modificados con pruebas automatizadas ejecutadas; ninguna falla bloqueante o de regresión abierta.\\
+Prueba integrada & Flujo verificado de extremo a extremo: interfaz web, API de carga, almacenamiento y motor de detección; manejo de videos corruptos, formatos no admitidos y parámetros fuera de rango.\\
+Revisión de pares & Revisión del código entre los dos Developers: legibilidad, arquitectura modular, PEP~8 y ausencia de credenciales en el código.\\
+Certificación & No aplica. Es un prototipo académico; no constituye certificación de SST ni sustituye al supervisor.\\
+Documentación & Historias y criterios actualizados; manual de instalación y README; trazabilidad del conjunto de datos, versión de pesos, hiperparámetros y métricas.\\
+Aprobación técnica & Los Developers confirman pruebas exitosas, ausencia de defectos graves y el incremento disponible en el entorno de demostración.\\
+Aprobación administrativa & El Product Owner valida los criterios de aceptación en la revisión del sprint; su aceptación no sustituye los criterios técnicos.\\
+Ética y privacidad & Licencia CC BY 4.0 respetada; sin reconocimiento facial ni biometría; alertas de carácter preventivo.\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\end{table}
+
+
+
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsection{Semana 6: formatos que completan la fase de inicio}
+% ---------------------------------------------------------------------
+
+Al contrastar los entregables con la Guía SBOK quedaron dos salidas obligatorias de la fase de inicio sin formato propio: el registro de interesados, que la secuencia del curso ubica entre el acta y los roles, y la definición de listo. El equipo las elaboró en esta semana a partir del acta, del FGAP030 y de la guía.
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsubsection{FGAP020: Registro de interesados}
+% ---------------------------------------------------------------------
+
+El registro de interesados identifica a las personas que influyen en el proyecto o se ven afectadas por él, y define cómo involucrarlas. Corresponde al proceso 8.2, cuyas salidas obligatorias son el Scrum Master y los interesados del negocio identificados \parencitep{sbok}{pp.~145--150}; el docente no entregó un formato para él. Se elaboró en este producto, en su versión 1.0, a partir de la lista de interesados del acta y de los roles del FGAP030. La Tabla~\ref{tab:interesados} lo presenta y la Figura~\ref{fig:poderinteres} ubica a cada interesado en una matriz de poder e interés.
 
 \begin{table}[!htbp]
 \caption{Registro de interesados (FGAP020)}\label{tab:interesados}
@@ -591,185 +957,39 @@ Trabajadores de planta & Personas observadas & Privacidad: sin rostro ni identif
 
 La matriz orienta cómo se involucra a cada grupo. A quienes se \textit{gestiona de cerca}, es decir, el Product Owner, el docente, los Developers y los usuarios de SST y de TI, se les convoca a la revisión de cada sprint, donde validan el incremento. Al sponsor se le \textit{mantiene satisfecho} con un resumen breve al cierre de cada sprint, centrado en avance, riesgos y presupuesto. A la operadora de monitoreo y al supervisor de turno se les \textit{mantiene informados}: prueban la interfaz en el Sprint~4, cuando se construye la parte que usarán. Los trabajadores de planta se \textit{monitorean} a través de un compromiso explícito de privacidad: el sistema no reconoce rostros ni identifica a nadie.
 
-% ---------------------------------------------------------------------
-\FloatBarrier
-\subsection{FGAP030: Roles y prototipos}
-% ---------------------------------------------------------------------
 
-El FGAP030 describe a los usuarios del sistema mediante perfiles (\textit{personas}). Cada rol se caracteriza por su frecuencia de uso, su experiencia en el tema, su dominio de la computadora y del software, y su meta al usar NewBit (Tabla~\ref{tab:roles}). Los cinco roles son los actores de las seis épicas del backlog.
+\FloatBarrier
+\subsubsection{Definición de listo}
+
+Los criterios de terminado (FGAP070) tienen una contraparte que la Guía SBOK también exige como salida obligatoria del proceso 8.5 y que el equipo no había formalizado: la \textit{definición de listo}, que establece cuándo una historia puede estimarse y comprometerse en un sprint \parencitep{sbok}{p.~92}. La Tabla~\ref{tab:dor} la propone para NewBit.
 
 \begin{table}[!htbp]
-\caption{Roles de usuario de NewBit (FGAP030)}\label{tab:roles}
+\caption{Definición de listo propuesta para las historias de NewBit}\label{tab:dor}
 \begin{tablaapa}
-\begin{tabularx}{\textwidth}{P{2.8cm} P{2.1cm} C{1.75cm} C{1.6cm} L}
+\begin{tabularx}{\textwidth}{C{0.8cm} L}
 \toprule
-Rol (persona) & Frecuencia de uso & Experiencia en el tema & Dominio del software & Meta principal\\
+N.\textsuperscript{o} & Una historia está lista para un sprint cuando…\\
 \midrule
-Administrador de la plataforma (Jorge Ponce, 35) & Diaria, al ingresar lotes & Alta & Alto & Cargar videos, configurar la selección de fotogramas y el umbral de confianza, y vigilar el rendimiento.\\
-Supervisora de SST (Mariana Torres, 32) & Diaria y ante cada alerta & Alta & Medio & Revisar alertas con su clip de evidencia, confirmarlas o descartarlas y priorizar inspecciones.\\
-Supervisor de turno (César Vásquez, 41) & Diaria, en su turno & Alta & Medio & Consultar las alertas de su área de mecanizado y registrar la acción tomada.\\
-Operadora de monitoreo (Lucía Ramos, 29) & Permanente en su turno & Media & Alto & Atender alertas visuales y sonoras, verificar el clip y marcar falsas alarmas.\\
-Gerente general y sponsor (Ricardo Salcedo, 48) & Semanal & Alta & Bajo & Consultar reportes por tipo, zona y semana para decidir recursos y capacitación.\\
+1 & Está redactada con su rol, funcionalidad y beneficio, y el Product Owner la explicó al equipo.\\
+2 & Tiene criterios de aceptación objetivos y verificables.\\
+3 & Sus dependencias están resueltas o planificadas en un sprint anterior.\\
+4 & Está estimada en puntos de historia y cabe en un sprint de dos semanas.\\
+5 & Se conocen los datos que necesita, como los clips del conjunto de datos y sus etiquetas, cuando aplica.\\
 \bottomrule
 \end{tabularx}
 \end{tablaapa}
-\nota{Perfiles ficticios para fines académicos. La experiencia en el tema se refiere al dominio de cada persona: infraestructura en TI, prevención en SST y operaciones en los demás.}
-\end{table}
-
-Los prototipos completan cada perfil con una breve historia personal. Mariana Torres, por ejemplo, reparte su día entre recorridos de planta y reportes; quiere enterarse de una conducta insegura cuando todavía puede intervenir y saber en qué zonas se repite, sin revisar horas de video. Lucía Ramos vigila muchas cámaras a la vez y sabe que es fácil pasar algo por alto; quiere que NewBit le señale solo lo importante. Estas necesidades se traducen directamente en historias de usuario: la alerta con evidencia (HU10) y la vista del video con el recuadro de riesgo (HU09).
-
-% ---------------------------------------------------------------------
-\FloatBarrier
-\subsection{EGAP015: Justificación del proyecto}
-% ---------------------------------------------------------------------
-
-La justificación argumenta por qué conviene ejecutar el proyecto. Sigue los diez apartados del formato del docente \parencite{daza2026justificacion} y se resume en la Tabla~\ref{tab:justificacion}. En coherencia con el acta, el monto es el mismo, S/~20\,768, y no se prometen ahorros ni reducciones de accidentes que no estén demostrados.
-
-\begin{table}[!htbp]
-\caption{Síntesis de la justificación del proyecto (EGAP015)}\label{tab:justificacion}
-\begin{tablaapa}
-\begin{tabularx}{\textwidth}{P{3.3cm} L}
-\toprule
-Apartado & Síntesis\\
-\midrule
-Necesidad & Las inspecciones de SST son intermitentes y las cámaras graban sin emitir alertas; los actos inseguros se identifican tarde.\\
-Tecnológica & Arquitectura de dos etapas: YOLOv8 detecta a los operarios y permite descartar fotogramas sin actividad; ConvLSTM clasifica la secuencia. Pila abierta: Python, FastAPI y OpenCV.\\
-Operativa & El flujo se reparte entre roles reales: TI administra la ingesta y los umbrales, SST analiza los incidentes y monitoreo atiende las alertas. El sistema apoya la decisión humana, no la reemplaza.\\
-Económica & S/ 20\,768, idéntico al acta: S/ 18\,600 de dedicación valorizada, S/ 280 de gastos directos y S/ 1\,888 de contingencia.\\
-Social y de SST & Prevención de atrapamientos y accidentes en zonas de mecanizado; cultura preventiva; privacidad por diseño.\\
-Académica & Aplicación de Scrum según la guía SBOK, ingeniería de requisitos, aprendizaje profundo, desarrollo web y pruebas.\\
-Beneficios & Tangibles: plataforma web, pipeline de reducción de fotogramas, detector calibrado y registro de métricas. Intangibles: menos fatiga de revisión visual y mayor disciplina operativa.\\
-Viabilidad & Técnica, operativa y económica, con las restricciones declaradas: procesamiento por lotes y dos conductas priorizadas.\\
-\bottomrule
-\end{tabularx}
-\end{tablaapa}
-\nota{Se omiten los apartados de datos generales y conclusión, que repiten información de la Tabla~\ref{tab:acta}.}
+\nota{Propuesta del equipo, elaborada en la semana~6 a partir de la Guía SBOK \parencitep{sbok}{p.~92}. Se validará en la planificación del Sprint~1.}
 \end{table}
 
 % ---------------------------------------------------------------------
 \FloatBarrier
-\subsection{FGAP040: Épicas e historias de usuario}
+\subsection{Planificación de la liberación y de los sprints}\label{sec:liberacion}
 % ---------------------------------------------------------------------
 
-El backlog se organiza en seis épicas que siguen el recorrido del dato: del video cargado a la alerta (Tabla~\ref{tab:epicas}). Las épicas se descomponen en doce historias de usuario, cada una con dos criterios de aceptación verificables (Tabla~\ref{tab:historias}).
+El último proceso de la fase de inicio, 8.6, fija dos salidas obligatorias: el cronograma de planificación de la liberación y la duración del sprint, que deciden el Product Owner y el Equipo Scrum y que en general se mantiene durante todo el proyecto \parencitep{sbok}{p.~178}. En NewBit, la duración del sprint es de dos semanas, dentro del rango de dos a tres semanas que la guía señala como el más usado \parencitep{sbok}{p.~178}. Se propone una sola liberación al cierre del proyecto, guiada por fecha: la entrega del 14 al 18 de diciembre de 2026, con un incremento revisable al final de cada sprint.
 
-\begin{table}[!htbp]
-\caption{Épicas del proyecto (FGAP040)}\label{tab:epicas}
-\begin{tablaapa}
-\begin{tabularx}{\textwidth}{C{1.1cm} P{4.2cm} P{3.0cm} L}
-\toprule
-ID & Épica & Rol & Historias\\
-\midrule
-EP01 & Ingestión y preprocesamiento de video & Administrador & HU01, HU02\\
-EP02 & Detección espacial de operarios (YOLOv8) & Supervisora de SST & HU03\\
-EP03 & Segmentación y reducción de secuencias & Administrador, SST & HU04, HU05, HU06\\
-EP04 & Clasificación espacio-temporal (ConvLSTM) & Supervisora de SST & HU07, HU08\\
-EP05 & Monitoreo y visualización de alertas & Operadora de monitoreo & HU09, HU10\\
-EP06 & Administración, calibración y trazabilidad & Administrador, gerente & HU11, HU12\\
-\bottomrule
-\end{tabularx}
-\end{tablaapa}
-\end{table}
 
-\begingroup\small\singlespacing\renewcommand{\arraystretch}{1.25}
-\begin{longtable}{C{1.1cm} P{6.4cm} P{6.9cm}}
-\caption{Historias de usuario y criterios de aceptación}\label{tab:historias}\\
-\toprule
-HU & Historia de usuario & Criterios de aceptación\\
-\midrule
-\endfirsthead
-\multicolumn{3}{l}{\normalsize\textit{Tabla \thetable{} (continuación)}}\\[2pt]
-\toprule
-HU & Historia de usuario & Criterios de aceptación\\
-\midrule
-\endhead
-\bottomrule
-\endfoot
-HU01 & Como administrador de la plataforma, quiero cargar un video industrial (.mp4 o .avi), para iniciar el procesamiento visual. & Acepta .mp4 y .avi y rechaza otros formatos con un mensaje claro. Muestra nombre, duración, resolución y FPS.\\
-HU02 & Como administrador, quiero que el sistema fragmente el video en fotogramas normalizados, para prepararlos para la inferencia espacial. & Almacena fotogramas numerados en secuencia. Normaliza el tamaño al requerido por YOLOv8.\\
-HU03 & Como supervisora de SST, quiero que el sistema detecte a los operarios en cada fotograma con YOLOv8, para localizar la actividad humana. & Infiere cajas de la clase «persona» con su confianza. Muestra el fotograma con las cajas superpuestas.\\
-HU04 & Como administrador, quiero que se descarten los fotogramas sin trabajadores, para reducir la carga de cómputo. & Excluye los fotogramas sin detecciones. Registra fotogramas de entrada, conservados y porcentaje de reducción.\\
-HU05 & Como supervisora de SST, quiero agrupar los fotogramas activos en clips de tamaño fijo, para estructurar la entrada del modelo temporal. & Genera secuencias de N fotogramas consecutivos (configurable). Produce un tensor compatible con ConvLSTM.\\
-HU06 & Como supervisora de SST, quiero descartar los clips más cortos que una ventana mínima, para evitar alertas por movimientos fugaces. & Descarta los clips bajo el umbral de duración. Registra cuántos fragmentos se descartaron.\\
-HU07 & Como supervisora de SST, quiero procesar el clip con ConvLSTM, para extraer las dependencias temporales del movimiento. & Ejecuta la inferencia sobre la división oficial de prueba. Devuelve un vector de probabilidades por secuencia.\\
-HU08 & Como supervisora de SST, quiero que el modelo clasifique la conducta como segura o insegura y la tipifique, para registrar un diagnóstico claro. & Asigna etiqueta y tipo de conducta por clip. Calcula exactitud, precisión, sensibilidad y F1 por clase.\\
-HU09 & Como operadora de monitoreo, quiero ver el video con un recuadro de color según el riesgo, para validar la inferencia. & Recuadro verde (seguro) o rojo (inseguro) superpuesto. Permite reproducir, pausar y revisar los clips del lote.\\
-HU10 & Como operadora de monitoreo, quiero una alerta inmediata con hora y evidencia ante una conducta insegura, para intervenir a tiempo. & Notificación visual y sonora. Guarda fecha, marca de tiempo, clip y probabilidad.\\
-HU11 & Como administrador, quiero modificar el umbral de confianza de YOLOv8 desde la interfaz, para calibrar la sensibilidad según la iluminación. & Ajuste gráfico en el rango de 0 a 1 con validación de límites. Registra cada cambio en un log de auditoría.\\
-HU12 & Como gerente y administrador, quiero ver el log de tiempos y la aceleración obtenida, para evaluar la eficiencia técnica. & Muestra tiempos por fase (ingesta, YOLOv8, ConvLSTM). Compara el tiempo total con y sin reducción.\\
-\end{longtable}
-\endgroup
-
-% ---------------------------------------------------------------------
-\FloatBarrier
-\subsection{FGAP060: Backlog priorizado del producto}
-% ---------------------------------------------------------------------
-
-La priorización combinó tres criterios en este orden. Primero, la técnica MoSCoW fijó la criticidad de cada historia: ocho \textit{Must}, tres \textit{Should} y una \textit{Could}. Segundo, cada integrante repartió 100 puntos entre las historias, lo que ordenó la importancia dentro de cada grupo. Tercero, se respetaron las dependencias técnicas del pipeline, porque ninguna etapa puede probarse sin la anterior. La estimación se hizo con el puño de cinco y se expresa en puntos de historia del 1 al 5. La Tabla~\ref{tab:backlog} muestra el resultado.
-
-\begin{table}[!htbp]
-\caption{Backlog priorizado del producto (FGAP060)}\label{tab:backlog}
-\begin{tablaapa}
-\setlength{\tabcolsep}{4pt}
-\begin{tabularx}{\textwidth}{C{0.95cm} L C{1.35cm} C{0.6cm} C{0.6cm} C{0.6cm} C{0.85cm} C{1.25cm} C{1.25cm}}
-\toprule
-HU & Historia (resumen) & MoSCoW & PO & SM & Dev & Total & Depende de & Sprint (pts)\\
-\midrule
-HU01 & Cargar video & Must & 6 & 8 & 5 & 19 & — & 1 (1)\\
-HU02 & Extraer fotogramas & Must & 5 & 8 & 7 & 20 & HU01 & 1 (2)\\
-HU03 & Detectar operarios & Must & 12 & 12 & 13 & 37 & HU02 & 1 (4)\\
-HU04 & Descartar fotogramas vacíos & Must & 8 & 10 & 10 & 28 & HU03 & 2 (2)\\
-HU05 & Agrupar en clips & Must & 6 & 9 & 10 & 25 & HU04 & 2 (3)\\
-HU06 & Descartar clips cortos & Should & 3 & 4 & 5 & 12 & HU05 & 2 (2)\\
-HU11 & Calibrar umbral & Could & 2 & 3 & 3 & 8 & HU03 & 2 (1)\\
-HU07 & Procesar con ConvLSTM & Must & 15 & 14 & 18 & 47 & HU05 & 3 (5)\\
-HU08 & Clasificar y tipificar & Must & 14 & 12 & 12 & 38 & HU07 & 3 (3)\\
-HU09 & Ver video con recuadro & Must & 13 & 9 & 8 & 30 & HU08 & 4 (4)\\
-HU10 & Alerta de riesgo & Should & 10 & 6 & 5 & 21 & HU08 & 4 (2)\\
-HU12 & Ver log de tiempos & Should & 6 & 5 & 4 & 15 & HU04 & 4 (2)\\
-\midrule
- & \textbf{Total} & & 100 & 100 & 100 & 300 & & 31 pts\\
-\bottomrule
-\end{tabularx}
-\end{tablaapa}
-\nota{PO = Albert Chumacero; SM = Anthony Lopez; Dev = Luis Salazar. Las columnas PO, SM y Dev son los puntos que cada integrante asignó con el método de los 100 puntos. \textit{Won't have} en esta versión: cámaras en vivo por RTSP, alertas físicas en la maquinaria y reconocimiento facial.}
-\end{table}
-
-Dos historias se adelantan a pesar de su baja votación. HU11 (\textit{Could}) entra al Sprint~2 porque calibra el detector de HU03 y el filtro de HU04; sin ella no se pueden ajustar las pruebas de los sprints 2 y 3. HU06 (\textit{Should}) también entra al Sprint~2, porque filtra los clips insuficientes antes de entrenar el modelo temporal en el Sprint~3. La carga queda equilibrada: 7, 8, 8 y 8 puntos por sprint.
-
-% ---------------------------------------------------------------------
-\FloatBarrier
-\subsection{FGAP070: Criterios de terminado}
-% ---------------------------------------------------------------------
-
-Los criterios de terminado (CT-NB-001) se aplican a todas las historias. Una historia no pasa a la columna \textit{Terminado} del tablero si no cumple cada uno de los criterios de la Tabla~\ref{tab:dod}. A diferencia de los criterios de aceptación, que define el Product Owner para cada historia, estos criterios no se negocian por historia.
-
-\begin{table}[!htbp]
-\caption{Criterios de terminado del incremento (FGAP070)}\label{tab:dod}
-\begin{tablaapa}
-\begin{tabularx}{\textwidth}{P{3.0cm} L}
-\toprule
-Criterio & Condición para dar una historia por terminada\\
-\midrule
-Prueba unitaria & Módulos nuevos o modificados con pruebas automatizadas ejecutadas; ninguna falla bloqueante o de regresión abierta.\\
-Prueba integrada & Flujo verificado de extremo a extremo: interfaz web, API de carga, almacenamiento y motor de detección; manejo de videos corruptos, formatos no admitidos y parámetros fuera de rango.\\
-Revisión de pares & Revisión del código entre los dos Developers: legibilidad, arquitectura modular, PEP~8 y ausencia de credenciales en el código.\\
-Certificación & No aplica. Es un prototipo académico; no constituye certificación de SST ni sustituye al supervisor.\\
-Documentación & Historias y criterios actualizados; manual de instalación y README; trazabilidad del conjunto de datos, versión de pesos, hiperparámetros y métricas.\\
-Aprobación técnica & Los Developers confirman pruebas exitosas, ausencia de defectos graves y el incremento disponible en el entorno de demostración.\\
-Aprobación administrativa & El Product Owner valida los criterios de aceptación en la revisión del sprint; su aceptación no sustituye los criterios técnicos.\\
-Ética y privacidad & Licencia CC BY 4.0 respetada; sin reconocimiento facial ni biometría; alertas de carácter preventivo.\\
-\bottomrule
-\end{tabularx}
-\end{tablaapa}
-\end{table}
-
-% ---------------------------------------------------------------------
-\FloatBarrier
-\subsection{Arquitectura propuesta y plan de sprints}
-% ---------------------------------------------------------------------
-
-La Figura~\ref{fig:arquitectura} muestra el pipeline propuesto. Adapta la arquitectura de Unsafe-Net \parencite{onal2025} con un detector más reciente, YOLOv8n \parencite{yolov8}, y la organiza en dos etapas. La \textit{etapa espacial} trabaja fotograma por fotograma: valida el video, lo fragmenta, detecta a los operarios y conserva solo los fotogramas con actividad, que agrupa en clips. La \textit{etapa temporal} clasifica cada clip con ConvLSTM y, si la conducta es insegura, registra la detección y emite la alerta. Al final, una persona de SST confirma o descarta la alerta. Separar ambas etapas permite evaluarlas por su cuenta, como exige el acta, y medir cuánto aporta la reducción de fotogramas al tiempo de procesamiento y a la exactitud.
+La Figura~\ref{fig:arquitectura} muestra la arquitectura vigente, que actualiza el diagrama de la semana~3 (Figura~\ref{fig:diagrama}). Adapta la arquitectura de Unsafe-Net \parencite{onal2025} con un detector más reciente, YOLOv8n \parencite{yolov8}, y la organiza en dos etapas. La \textit{etapa espacial} trabaja fotograma por fotograma: valida el video, lo fragmenta, detecta a los operarios y conserva solo los fotogramas con actividad, que agrupa en clips. La \textit{etapa temporal} clasifica cada clip con ConvLSTM y, si la conducta es insegura, registra la detección y emite la alerta. Al final, una persona de SST confirma o descarta la alerta. Separar ambas etapas permite evaluarlas por su cuenta, como exige el acta, y medir cuánto aporta la reducción de fotogramas al tiempo de procesamiento y a la exactitud.
 
 \begin{figure}[!htbp]
 \caption{Arquitectura propuesta del pipeline de NewBit}\label{fig:arquitectura}
@@ -822,6 +1042,29 @@ La Figura~\ref{fig:sprints} ubica los cuatro sprints en el calendario del semest
 \end{figure}
 
 El orden de los sprints sigue el recorrido del dato. Los sprints 1 y 2 construyen la etapa espacial, que no depende de ningún modelo entrenado por el equipo. El Sprint~3 concentra el mayor riesgo técnico: entrenar y evaluar el modelo ConvLSTM sobre la división oficial del conjunto de datos y comparar la clasificación directa con el pipeline completo. Las metas de desempeño se fijarán con la línea base que se obtenga en ese sprint; por eso este documento no adelanta cifras propias. El Sprint~4 lleva el resultado al usuario: visualización con recuadro de riesgo, alerta y log de tiempos.
+
+
+En cada sprint se repiten los procesos de las fases de planificación, implementación y revisión, con las reuniones de la Tabla~\ref{tab:timebox}. La Tabla~\ref{tab:ciclo} resume qué produce cada momento del sprint según las salidas obligatorias de la guía; al cierre del proyecto, los procesos de liberación dan lugar al formato FGAP090.
+
+\begin{table}[!htbp]
+\caption{Ciclo de cada sprint de NewBit y sus salidas obligatorias según la Guía SBOK}\label{tab:ciclo}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{3.4cm} P{4.4cm} L C{1.2cm}}
+\toprule
+Momento & Procesos & Salidas obligatorias & Pág.\\
+\midrule
+Planificación del sprint~(4~h) & 9.3 a 9.6: comprometer historias, identificar y estimar tareas, actualizar el backlog del sprint & Historias comprometidas, backlog del sprint, lista de tareas, Scrumboard y Sprint Burndown Chart & 199--214\\
+Durante el sprint & 10.1 a 10.3: crear entregables, Daily Standup (15 min) y refinar el backlog & Entregables del sprint, lista de impedimentos y backlog priorizado actualizados & 227--239\\
+Revisión del sprint~(2~h) & 11.1 Demostrar y validar el sprint & Historias de usuario aceptadas por el Product Owner & 248\\
+Retrospectiva del sprint~(2~h) & 11.2 Retrospectiva del sprint & Mejoras accionables acordadas & 254\\
+Cierre del proyecto & 12.1 Enviar entregables y 12.2 Retrospectiva de la liberación (FGAP090) & Acuerdo de entregables funcionales, liberación del producto y mejoras accionables & 263--269\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{Páginas de la Guía SBOK \parencite{sbok}. Los time-boxes corresponden a sprints de dos semanas.}
+\end{table}
+
+
 
 % =====================================================================
 \FloatBarrier
