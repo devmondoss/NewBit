@@ -3,8 +3,32 @@
 - **Fuente:** `libro-guia-sbok.pdf` (llegó como `libro 4 edicion.pdf`). 413 págs., 74 MB, **escaneado** ("Microsoft Print to PDF", sin texto que se pueda copiar ni buscar).
 - **De quién:** SCRUMstudy™ (VMEdu), © 2022. Versión en español de *A Guide to the Scrum Body of Knowledge (SBOK® Guide)*.
 - **Semana:** 5 (llegó el 12/10/2026). **Vale para todo el curso:** es el **libro en el que el docente basa sus clases**.
-- **Tipo de `.md`:** **Ficha rápida: no leído completo.** Se hojearon la portada, el índice y la pág. 1. **Excepción:** se leyeron completas las secciones de épicas, historias, backlog, aceptación, priorización y estimación (ver *Resumen leído*, más abajo).
+- **Tipo de `.md`:** ficha + **texto completo** en [`texto-completo/`](texto-completo/) (OCR de las 413 páginas, 19/10/2026), un archivo por capítulo. **Para cualquier consulta, leer el capítulo en Markdown, nunca el PDF.**
 - **Páginas:** la pág. 1 del libro es la **pág. 18 del PDF**: pág. del PDF = pág. del libro + 17.
+
+## Texto completo (un archivo por capítulo)
+Cada página lleva la marca `<!-- pág. libro N · PDF M -->` para citar con precisión. El OCR puede tener errores menores y las figuras solo conservan su texto.
+
+| Capítulo | Pág. del libro |
+|---|---|
+| [Preliminares e índice general](texto-completo/00-preliminares.md) | — |
+| [1. Introducción](texto-completo/01-introduccion.md) | 1 |
+| [2. Principios](texto-completo/02-principios.md) | 21 |
+| [3. Organización (roles)](texto-completo/03-organizacion.md) | 41 |
+| [4. Justificación del negocio](texto-completo/04-justificacion-del-negocio.md) | 67 |
+| [5. Calidad (criterios de aceptación, DoD)](texto-completo/05-calidad.md) | 87 |
+| [6. Cambio](texto-completo/06-cambio.md) | 101 |
+| [7. Riesgo](texto-completo/07-riesgo.md) | 119 |
+| [8. Inicio (visión, interesados, equipo, épicas, backlog, liberaciones)](texto-completo/08-inicio.md) | 135 |
+| [9. Planificación y estimación (historias, estimación, sprint)](texto-completo/09-planificacion-y-estimacion.md) | 181 |
+| [10. Implementación (daily, refinamiento)](texto-completo/10-implementacion.md) | 217 |
+| [11. Revisión y retrospectiva](texto-completo/11-revision-y-retrospectiva.md) | 241 |
+| [12. Liberación](texto-completo/12-liberacion.md) | 257 |
+| [13. Escalamiento para grandes proyectos](texto-completo/13-escalamiento-grandes-proyectos.md) | 271 |
+| [14. Escalamiento para la empresa](texto-completo/14-escalamiento-para-la-empresa.md) | 295 |
+| [Apéndices A–C y referencias](texto-completo/15-apendices-y-referencias.md) | 333 |
+| [Glosario](texto-completo/16-glosario.md) | 355 |
+| [Índice temático](texto-completo/17-indice-tematico.md) | 392 |
 
 ## Estructura (capítulo → pág. del libro)
 Intro 1 · Principios 2 → 21 · Aspectos 3–7 → 41 · Procesos 8–12 → 135 · Escalamiento 13–14 → 271 · Apéndices, glosario e índice temático → 333–392.
@@ -85,6 +109,6 @@ El libro no menciona una escala concreta (como Fibonacci) en estas páginas.
 - **FGAP060** = backlog priorizado. **FGAP070** = DoD común. No mezclar los criterios de aceptación de cada historia con la DoD.
 
 ## Análisis
-- Es la **referencia teórica** de los formatos EGAP/FGAP. Para responder preguntas de teoría o sustentar un apartado, buscar la sección en la tabla de arriba y abrir el PDF solo en esas páginas (+17).
+- Es la **referencia teórica** de los formatos EGAP/FGAP. Para responder preguntas de teoría o sustentar un apartado, buscar la sección en la tabla de arriba y leer ese capítulo en `texto-completo/` (el PDF ya no hace falta).
 - Usa el vocabulario del SBOK: "backlog priorizado del producto", "Daily Standup", "Equipo Scrum", "liberación", "Scrum Guidance Body". Conviene usar los mismos términos en los entregables de NewBit.
 - El SBOK (SCRUMstudy) **no es la Scrum Guide** de Schwaber y Sutherland: tiene más procesos, roles y documentos. Si un término no coincide con otra fuente, en este curso vale el del SBOK.

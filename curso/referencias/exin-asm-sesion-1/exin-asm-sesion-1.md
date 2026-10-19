@@ -4,6 +4,7 @@
 - **De quién:** BMT (trainer acreditado por EXIN), basado en el material EXIN Agile Scrum Master (2017) y Agile Scrum Foundation (2016).
 - **Semana:** llegó el 19/10/2026. **Material de referencia general** sobre Scrum, no ligado a una entrega.
 - **Tipo de `.md`:** Ficha rápida: no leído completo. Se leyeron la portada, la agenda y los títulos.
+- **Texto completo:** [`exin-asm-sesion-1.texto-completo.md`](exin-asm-sesion-1.texto-completo.md) (convertido el 19/10/2026). Para consultar el contenido, leer ese archivo y no el PDF.
 
 ## Agenda
 Introducción al programa de certificación · pensamiento ágil (manifiesto, principios) · prácticas Scrum (3 pilares, artefactos y roles: Scrum Master, equipo de desarrollo) · planificación en Scrum (modelo de desarrollo, sprint backlog) · monitoreo (burndown chart, Niko calendar).

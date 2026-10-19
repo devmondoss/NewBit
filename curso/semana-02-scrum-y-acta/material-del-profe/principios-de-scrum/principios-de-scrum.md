@@ -3,6 +3,7 @@
 - **Fuente:** `principios-de-scrum.pdf` (30 diapositivas)
 - **Curso:** Ingeniería de Software II · 2026-II · Dr. Alfredo Daza Vergaray (UNS, Facultad de Ingeniería)
 - **Tipo:** teoría + actividad
+- **Texto completo:** [`principios-de-scrum.texto-completo.md`](principios-de-scrum.texto-completo.md) (convertido el 19/10/2026). Para consultar el contenido, leer ese archivo y no el PDF.
 - **Referencia:** SCRUMstudy (2017), *Guía de los Fundamentos de Scrum (SBOK® Guide)*, 4.ª ed. español.
 
 ## Temas

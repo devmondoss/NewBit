@@ -4,6 +4,7 @@
 - **De quién:** BMT (trainer acreditado por EXIN), mismo programa que la sesión 1.
 - **Semana:** llegó el 19/10/2026. **Material de referencia general**, no ligado a una entrega.
 - **Tipo de `.md`:** Ficha rápida: no leído completo. Se leyeron la portada, la agenda y los títulos.
+- **Texto completo:** [`exin-asm-sesion-2.texto-completo.md`](exin-asm-sesion-2.texto-completo.md) (convertido el 19/10/2026). Para consultar el contenido, leer ese archivo y no el PDF.
 
 ## Agenda
 Conceptos ágiles (modelos de desarrollo de software, tipos de contrato) · mejora continua · Scrum y otras metodologías (DSDM con priorización MoSCoW, prácticas de XP, alineamiento de objetivos) · principios ágiles en la gestión de servicios de TI (ITIL y Scrum).

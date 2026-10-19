@@ -18,6 +18,7 @@ Estructura (reorganizada el 12/10/2026):
 - `herramientas/` — `indice-de-archivos.md` y `verificar-indice.sh`.
 
 Ahorro de tokens (importante):
+- **Teoría de Scrum:** los libros y diapositivas del profe están convertidos a Markdown. Guía del SBOK: `curso/referencias/libro-guia-sbok/texto-completo/<capítulo>.md` (tabla de capítulos en `libro-guia-sbok.md`). Scrum Manager, EXIN, Principios de Scrum y Justificación de negocio: `<nombre>.texto-completo.md` junto a su PDF. Leer solo el capítulo o la diapositiva necesaria; no abrir los PDF.
 - **Nunca abrir un PDF/DOCX/PPTX/imagen si tiene `.md`.** Buscarlo en `herramientas/indice-de-archivos.md` y leer ese `.md`. Abrir el original solo si el `.md` dice que algo no está cubierto o el usuario lo pide.
 - Orden de lectura: `README.md` → `curso/contexto-del-curso.md` o `proyecto-newbit/README.md` → el `.md` puntual. No leer semanas enteras.
 - Todo archivo nuevo no-Markdown lleva un `.md`, pero **con el mínimo de lectura**:

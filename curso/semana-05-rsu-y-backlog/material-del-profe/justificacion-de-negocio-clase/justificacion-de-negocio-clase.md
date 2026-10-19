@@ -4,6 +4,7 @@
 - **De quién:** Dr. Ing. Alfredo Daza Vergaray, Ingeniería de Software II, 2026-2. Basado en el cap. 4 de la Guía del SBOK (SCRUMstudy).
 - **Semana:** 5 (el nombre del archivo lleva la fecha 12/10/2026). El tema es el de la semana 4 (Justificación, EGAP015); aquí está la clase que lo explica.
 - **Tipo de `.md`:** Ficha rápida: no leído completo. Se leyeron las diapositivas 1–5 y los títulos de las demás.
+- **Texto completo:** [`justificacion-de-negocio-clase.texto-completo.md`](justificacion-de-negocio-clase.texto-completo.md) (convertido el 19/10/2026). Para consultar el contenido, leer ese archivo y no el PDF.
 
 ## Estructura
 Reto de apertura (¿financiarías este proyecto? clínica con DL, S/ 60 000, 6 meses; producto: decisión argumentada + 3 indicadores) · activación de conocimientos · teoría 4.1–4.8:
