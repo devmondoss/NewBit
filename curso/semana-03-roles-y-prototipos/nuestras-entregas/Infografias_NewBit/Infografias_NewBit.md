@@ -17,3 +17,5 @@ Nuevas: `almacen-barandas`, `montacargas-pasillo`, `centro-distribucion`, `elect
 
 ## Exportar
 Imprimir → Guardar como PDF (A3 vertical), o captura de página completa.
+
+- `02-metodologia.png` (19/10/2026): captura de página completa de `02-metodologia.html`, 3200×3277 px (ventana de 1600 px, escala 2×, Brave headless). Incluye el bloque 3, «Arquitectura del pipeline de NewBit».
