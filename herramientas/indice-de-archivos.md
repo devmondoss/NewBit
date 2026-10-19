@@ -13,6 +13,9 @@ Rutas relativas a la raíz del repo. `S2…S5` = `curso/semana-02-scrum-y-acta`,
 | Semana | Carpeta | Tipo de `.md` | De qué trata |
 |---|---|---|---|
 | todas | `curso/libro-guia-sbok/` | Ficha rápida (escaneado, 413 págs.) + resumen de épicas, backlog, aceptación, prioridad y estimación | **Libro base del curso:** Guía del SBOK, 4.ª ed. (SCRUMstudy); dónde está cada formato |
+| todas | `curso/historias-de-usuario-scrum-manager/` | Ficha rápida (38 págs.) | Libro de referencia: historias de usuario, ingeniería de requisitos ágil (Scrum Manager v2.0) |
+| todas | `curso/exin-asm-sesion-1/` | Ficha rápida (34 diap.) | Referencia: EXIN Agile Scrum Master, sesión 1 (pensamiento ágil, prácticas Scrum, planificación, monitoreo) |
+| todas | `curso/exin-asm-sesion-2/` | Ficha rápida (33 diap.) | Referencia: EXIN Agile Scrum Master, sesión 2 (modelos, mejora continua, MoSCoW, XP, ITIL) |
 | 2 | `principios-de-scrum/` | Resumen | Teoría de Scrum, 30 diapositivas |
 | 2 | `acta-formato-y-ejemplo-bigfarma/` | Resumen | Formato del Acta con ejemplo BigFarma (2018) |
 | 2 | `acta-ejemplo-retinopatia/` | Resumen | Acta de ejemplo (Retinopatía) |
@@ -22,6 +25,8 @@ Rutas relativas a la raíz del repo. `S2…S5` = `curso/semana-02-scrum-y-acta`,
 | 4 | `justificacion-formato-y-ejemplo/` (DOCX + PDF, mismo contenido) | Resumen | Formato EGAP015 de Justificación + ejemplo |
 | 4 | `epicas-ejemplo-retinopatia/` (PDF + DOCX) | Resumen | Épicas de ejemplo (Retinopatía) |
 | 5 | `secuencia-de-avances/` | Transcripción | Hoja de ruta FGAP010 → FGAP090 |
+| 5 | `justificacion-de-negocio-clase/` | Ficha rápida (57 diap.) | Clase del 12/10: Justificación de negocio en Scrum (cap. 4 SBOK) |
+| 5 | `backlog-priorizado-ejemplo-retinopatia/` | Resumen (3 págs.) | FGAP060 Backlog Priorizado v1.1, ejemplo Retinopatía |
 | 5 | `criterios-de-terminado-ejemplo-retinopatia/` | Transcripción (1 pág.) | FGAP070 Criterios de Terminado, ejemplo Retinopatía |
 | 5 | `rsu-resolucion-448-2023/` | Resumen | Resolución 448-2023 que aprueba el reglamento RSU |
 | 5 | `rsu-reglamento-uns/` | Resumen detallado (escaneado; no reabrir) | Reglamento RSU de la UNS + anexos |

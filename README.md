@@ -10,6 +10,8 @@ NewBit/
 │   ├── README.md                  calendario y temas por semana
 │   ├── contexto-del-curso.md      convenciones del profe y lista de entregables
 │   ├── libro-guia-sbok/           libro base del profe (Guía del SBOK, 4.ª ed.)
+│   ├── historias-de-usuario-scrum-manager/, exin-asm-sesion-1/, exin-asm-sesion-2/
+│   │                              lecturas de referencia generales (llegaron el 19/10)
 │   └── semana-XX-<tema>/
 │       ├── material-del-profe/    lo que mandó el profe (formatos, ejemplos, reglamentos)
 │       └── nuestras-entregas/     lo que entregamos esa semana (Word, PDF, PPT…)
