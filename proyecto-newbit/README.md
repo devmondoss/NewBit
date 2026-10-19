@@ -45,7 +45,7 @@ NewBit/
 ├── .venv/                              # Entorno virtual de Python 3.12+ (excluido de git)
 ├── run.bat                             # Script de arranque de un clic para Windows (Batch)
 ├── run.ps1                             # Script de arranque nativo para Windows (PowerShell)
-├── ROADMAP_REESTRUCTURACION_NEWBIT.md  # Hoja de ruta canónica de gobernanza y auditoría
+├── gestion/roadmap-reestructuracion.md  # Hoja de ruta canónica de gobernanza y auditoría
 ├── curso/                              # Entregables de gestión académica (Semanas 2 a 5)
 └── proyecto-newbit/                    # Código fuente del software
     ├── app/                            # Capa de aplicación web (FastAPI)
@@ -188,7 +188,7 @@ Los entregables de gestión ágil aprobados se encuentran normalizados en la car
 * **Semana 3:** Registro de Roles y Prototipos (`FGAP030`), Presentación del Proyecto (`PPT_Presentacion_NewBit`) y Diagrama de Arquitectura.
 * **Semana 4:** Justificación Técnica y Presupuestaria (`EGAP015`) y Catálogo Canónico de Épicas (`FGAP040`).
 * **Semana 5:** Tablero Kanban oficial de 12 HU (`Tablero_Kanban_NewBit`), Priorización MoSCoW (`Priorizacion_MoSCoW_100_Puntos_NewBit`), Presentación Puño de Cinco (`Presentacion_Fist_of_Five`) y Criterios de Terminado (`FGAP070`).
-* **Hoja de Ruta Canónica:** [`ROADMAP_REESTRUCTURACION_NEWBIT.md`](../ROADMAP_REESTRUCTURACION_NEWBIT.md).
+* **Hoja de Ruta Canónica:** [`gestion/roadmap-reestructuracion.md`](gestion/roadmap-reestructuracion.md).
 
 ---
 

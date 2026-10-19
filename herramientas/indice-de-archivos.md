@@ -12,10 +12,10 @@ Rutas relativas a la raíz del repo. `S2…S5` = `curso/semana-02-scrum-y-acta`,
 ## Curso: material del profe (`S*/material-del-profe/`)
 | Semana | Carpeta | Tipo de `.md` | De qué trata |
 |---|---|---|---|
-| todas | `curso/libro-guia-sbok/` | Ficha rápida (escaneado, 413 págs.) + resumen de épicas, backlog, aceptación, prioridad y estimación | **Libro base del curso:** Guía del SBOK, 4.ª ed. (SCRUMstudy); dónde está cada formato |
-| todas | `curso/historias-de-usuario-scrum-manager/` | Ficha rápida (38 págs.) | Libro de referencia: historias de usuario, ingeniería de requisitos ágil (Scrum Manager v2.0) |
-| todas | `curso/exin-asm-sesion-1/` | Ficha rápida (34 diap.) | Referencia: EXIN Agile Scrum Master, sesión 1 (pensamiento ágil, prácticas Scrum, planificación, monitoreo) |
-| todas | `curso/exin-asm-sesion-2/` | Ficha rápida (33 diap.) | Referencia: EXIN Agile Scrum Master, sesión 2 (modelos, mejora continua, MoSCoW, XP, ITIL) |
+| todas | `curso/referencias/libro-guia-sbok/` | Ficha rápida (escaneado, 413 págs.) + resumen de épicas, backlog, aceptación, prioridad y estimación | **Libro base del curso:** Guía del SBOK, 4.ª ed. (SCRUMstudy); dónde está cada formato |
+| todas | `curso/referencias/historias-de-usuario-scrum-manager/` | Ficha rápida (38 págs.) | Libro de referencia: historias de usuario, ingeniería de requisitos ágil (Scrum Manager v2.0) |
+| todas | `curso/referencias/exin-asm-sesion-1/` | Ficha rápida (34 diap.) | Referencia: EXIN Agile Scrum Master, sesión 1 (pensamiento ágil, prácticas Scrum, planificación, monitoreo) |
+| todas | `curso/referencias/exin-asm-sesion-2/` | Ficha rápida (33 diap.) | Referencia: EXIN Agile Scrum Master, sesión 2 (modelos, mejora continua, MoSCoW, XP, ITIL) |
 | 2 | `principios-de-scrum/` | Resumen | Teoría de Scrum, 30 diapositivas |
 | 2 | `acta-formato-y-ejemplo-bigfarma/` | Resumen | Formato del Acta con ejemplo BigFarma (2018) |
 | 2 | `acta-ejemplo-retinopatia/` | Resumen | Acta de ejemplo (Retinopatía) |

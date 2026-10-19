@@ -6,7 +6,7 @@ Resumen para consulta rápida. Cada semana tiene su carpeta `semana-XX-<tema>/` 
 - **Asignatura:** Ingeniería de Software II · Escuela de Ing. de Sistemas e Informática · Facultad de Ingeniería · Universidad Nacional del Santa (UNS)
 - **Semestre:** 2026-II · **Docente:** Dr. Ing. Alfredo Daza Vergaray
 - **Enfoque:** Scrum aplicado a un proyecto de software del equipo. Los documentos de gestión se entregan en formatos con código (EGAP/FGAP).
-- **Libro base:** *Guía de los Fundamentos de Scrum (Guía del SBOK®)*, 4.ª ed., SCRUMstudy (2022). El docente basa sus clases en él. Ficha, capítulos y dónde está cada formato: `libro-guia-sbok/`.
+- **Libro base:** *Guía de los Fundamentos de Scrum (Guía del SBOK®)*, 4.ª ed., SCRUMstudy (2022). El docente basa sus clases en él. Ficha, capítulos y dónde está cada formato: `referencias/libro-guia-sbok/`.
 
 ## Calendario y material por semana
 | Semana | Fechas | Qué se vio / pidió | Material del profe |
@@ -37,7 +37,7 @@ Los archivos de **BigFarma** (Acta, Roles, de 2018), de **Retinopatía Diabétic
 - El ejemplo asume un Scrum Team de **1 Product Owner + 1 Scrum Master + 3 Developers**.
 
 ## Entregables que pide el curso
-El avance de cada entregable **para NewBit** se sigue en [`proyecto-newbit/README.md`](../proyecto-newbit/README.md) y en la hoja de ruta central [`ROADMAP_REESTRUCTURACION_NEWBIT.md`](../../ROADMAP_REESTRUCTURACION_NEWBIT.md). Estado actual consolidado:
+El avance de cada entregable **para NewBit** se sigue en [`proyecto-newbit/README.md`](../proyecto-newbit/README.md) y en la hoja de ruta central [`roadmap-reestructuracion.md`](../proyecto-newbit/gestion/roadmap-reestructuracion.md). Estado actual consolidado:
 
 | Entregable | Semana | Estado para NewBit |
 |---|---|---|

@@ -8,7 +8,7 @@
   - `Carlito-*.woff2` (4): la fuente que el generador incrusta en el HTML. Carlito tiene licencia OFL y mide igual que Calibri.
 - **Equipo:** **Grupo D3** (laboratorio D, equipo 3). En la portada van los 3 integrantes con su rol; el pie de cada diapositiva dice "Puño de cinco · Grupo D3".
 - **Fecha:** 12/10/2026 (act. 17/10/2026) · versión 2.0 · **8 diapositivas**, unos 12–14 min más una votación con el aula. Versión 2.0: sincronizada con las 12 historias canónicas del equipo en [`FGAP040_Epicas_NewBit`](../../../semana-04-justificacion-y-epicas/nuestras-entregas/FGAP040_Epicas_NewBit/FGAP040_Epicas_NewBit.md) (roles reales de planta, detección espacial YOLOv8 y HU11 adelantada al Sprint 2).
-- **Fuente teórica:** *Guía del SBOK*, 4.ª ed., **9.2.2.1 Métodos de estimación, pág. 193–195** (PDF 210–212). Resumen en [`curso/libro-guia-sbok/`](../../../libro-guia-sbok/libro-guia-sbok.md).
+- **Fuente teórica:** *Guía del SBOK*, 4.ª ed., **9.2.2.1 Métodos de estimación, pág. 193–195** (PDF 210–212). Resumen en [`curso/referencias/libro-guia-sbok/`](../../../referencias/libro-guia-sbok/libro-guia-sbok.md).
 - **Estilo:** minimalista y propio, sin relación con el PPT de NewBit de la semana 3. Fondo blanco, tinta casi negra y acento naranja. Los votos usan rojo (no), ámbar (duda) y verde (sí). Las manos se dibujan con formas simples: en el PPT se pueden editar. Fuente: Calibri en el PPTX. En el HTML va Carlito **incrustada**, así que se ve igual sin internet y con los mismos cortes de línea que el PPTX.
 - **POR CONFIRMAR con el docente:** duración, si es por equipo, si se puede votar con el aula y si hay que entregar el PPT.
 

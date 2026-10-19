@@ -1,5 +1,7 @@
 # NewBit – Ingeniería de Software II (UNS, 2026-II)
 
+👉 **Para ubicar algo rápido, abre [`INDICE.md`](INDICE.md)** (tabla por semana: profe · entrega · avance).
+
 Repositorio del **Grupo D3** (laboratorio D, equipo 3): **Albert Sebastian Chumacero Chávarry** (Product Owner), **Anthony Gabriel Lopez Yrribarren** (Scrum Master y Developer) y **Luis Fernando Salazar Diaz** (Developer).  
 Proyecto: **PY-NB-001 – Sistema web con Visión Artificial para la detección de actos inseguros en áreas operativas de manufactura metalmecánica** (Nombre comercial: **NewBit**).
 
@@ -9,14 +11,13 @@ NewBit/
 ├── curso/                         ← TODO LO DE CLASE
 │   ├── README.md                  calendario y temas por semana
 │   ├── contexto-del-curso.md      convenciones del profe y lista de entregables
-│   ├── libro-guia-sbok/           libro base del profe (Guía del SBOK, 4.ª ed.)
-│   ├── historias-de-usuario-scrum-manager/, exin-asm-sesion-1/, exin-asm-sesion-2/
-│   │                              lecturas de referencia generales (llegaron el 19/10)
-│   └── semana-XX-<tema>/
+│   ├── referencias/               libro SBOK, historias de usuario, EXIN ASM (valen para todo el curso)
+│   └── semana-XX-<tema>/         (cada una con su README.md-ficha)
 │       ├── material-del-profe/    lo que mandó el profe (formatos, ejemplos, reglamentos)
 │       └── nuestras-entregas/     lo que entregamos esa semana (Word, PDF, PPT…)
 ├── proyecto-newbit/               ← EL PROYECTO EN SÍ (no va por semanas)
 │   ├── README.md                  estado, decisiones y hoja de ruta de entregables
+│   ├── gestion/                   roadmap y sprints
 │   └── investigacion/             paper Unsafe-Net, research pack, guía de investigación
 │                                  (el código va aquí en monorepo: app/, ml/)
 ├── descartado/                    ← solo consulta: proyecto anterior (VIGIA) y borradores obsoletos

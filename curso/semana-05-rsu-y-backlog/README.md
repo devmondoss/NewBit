@@ -1,10 +1,20 @@
 # Semana 5 (12–18/10/2026)
 
+**Tema:** RSU, secuencia de avances y backlog (priorización, estimación, Kanban, criterios de terminado).
+
+| Qué | Dónde |
+|---|---|
+| Lo que mandó el profe | [material-del-profe/](material-del-profe/) |
+| Lo que entregamos | [nuestras-entregas/](nuestras-entregas/): FGAP070, Puño de cinco, MoSCoW + 100 puntos, Kanban |
+| Avance del proyecto | Sprints 1 y 2 implementados: [gestion/sprints](../../proyecto-newbit/gestion/sprints/README.md) |
+
+Vista global: [INDICE.md](../../INDICE.md).
+
 Material recibido el 12/10. Cada documento está en su carpeta (original + `.md`).
 
 | Carpeta | Qué es |
 |---|---|
-| `../libro-guia-sbok/` | **Libro base del curso:** *Guía de los Fundamentos de Scrum (Guía del SBOK®)*, 4.ª ed., SCRUMstudy. Sirve para todas las semanas |
+| `../referencias/libro-guia-sbok/` | **Libro base del curso:** *Guía de los Fundamentos de Scrum (Guía del SBOK®)*, 4.ª ed., SCRUMstudy. Sirve para todas las semanas |
 | `material-del-profe/criterios-de-terminado-ejemplo-retinopatia/` | **FGAP070 Criterios de Terminado** (Definition of Done), ejemplo Retinopatía |
 | `material-del-profe/secuencia-de-avances/` | **Hoja de ruta del curso:** FGAP010 → FGAP020 → FGAP030 → FGAP040 → FGAP060/070 → Sprints → FGAP090 |
 | `material-del-profe/rsu-resolucion-448-2023/` | Resolución que aprueba el reglamento de RSU (2023) |

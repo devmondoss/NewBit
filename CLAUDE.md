@@ -12,7 +12,7 @@ Estructura (reorganizada el 12/10/2026):
 - `curso/` — **todo lo de clase**. Índice de semanas: `curso/README.md`.
   - `curso/semana-XX-<tema>/material-del-profe/` — **solo material del docente** (**una carpeta por archivo** con el mismo nombre: original + `<mismo nombre>.md`). Nombres cortos en minúsculas (p. ej. `acta-ejemplo-retinopatia/`).
   - `curso/semana-XX-<tema>/nuestras-entregas/<ENTREGABLE>/` — **tareas del curso** hechas para NewBit, **en la semana en que se pidieron** (`.docx`/`.pdf`/`.pptx`/`.html` + `.md`). Conservan su nombre de entrega (p. ej. `FGAP010_Acta_Constitucion_NewBit`). Los Word se editan directo (descomprimir → editar `word/document.xml` → comprimir); lo pendiente va resaltado en amarillo con "POR CONFIRMAR".
-  - `curso/libro-guia-sbok/` — libro base del docente (vale para todas las semanas).
+  - `curso/referencias/` — libro base del docente (`libro-guia-sbok/`) y lecturas generales (vale para todas las semanas).
 - `proyecto-newbit/` — **el proyecto en sí, no va por semanas**: `README.md` (estado, decisiones, hoja de ruta de entregables) e `investigacion/` (Top 3, guía de investigación, UnsafeNet Research Pack). El código, cuando exista, va aquí (p. ej. `ml/`, `app/`).
 - `descartado/` — proyecto anterior (VIGIA) y borradores que no se usan.
 - `herramientas/` — `indice-de-archivos.md` y `verificar-indice.sh`.
