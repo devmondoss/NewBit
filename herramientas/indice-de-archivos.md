@@ -7,7 +7,7 @@ Tipos de `.md`:
 - **Resumen:** contenido útil (estructura, datos, cifras), no cada palabra.
 - **Transcripción:** todo el texto; solo para documentos cortos o formatos a llenar.
 
-Rutas relativas a la raíz del repo. `S2…S5` = `curso/semana-02-scrum-y-acta`, `curso/semana-03-roles-y-prototipos`, `curso/semana-04-justificacion-y-epicas`, `curso/semana-05-rsu-y-backlog`.
+Rutas relativas a la raíz del repo. `S2…S6` = `curso/semana-02-scrum-y-acta`, `curso/semana-03-roles-y-prototipos`, `curso/semana-04-justificacion-y-epicas`, `curso/semana-05-rsu-y-backlog`, `curso/semana-06-producto-unidad-1`.
 
 ## Curso: material del profe (`S*/material-del-profe/`)
 | Semana | Carpeta | Tipo de `.md` | De qué trata |
@@ -47,6 +47,8 @@ Rutas relativas a la raíz del repo. `S2…S5` = `curso/semana-02-scrum-y-acta`,
 | 5 | `Presentacion_Fist_of_Five/` | Resumen | Estimación con el Puño de cinco aplicada a las historias (HTML + PPTX + PDF + generador, 8 diapositivas) |
 | 5 | `Priorizacion_MoSCoW_100_Puntos_NewBit/` | Resumen + datos | Priorización con MoSCoW y 100 puntos de las 12 HU (PDF + PPTX + HTML + generador) |
 | 5 | `Tablero_Kanban_NewBit/` | Resumen + backlog completo | Tablero Kanban: 12 HU con criterios, prioridad, puntos y sprint; Scrumboard del Sprint 1 (HTML + PPTX + PDF + generador) |
+| 6 | `Producto_Unidad_1_NewBit/` | Resumen | Producto de la Unidad I: informe en LaTeX con normas APA 7 (PDF de 25 págs. + `.tex`) |
+| 6 | `PPT_Producto_Unidad_1_NewBit/` | Resumen | Presentación del Producto de la Unidad I en Beamer (PDF de 17 diapositivas + `.tex`) |
 
 ## Proyecto (`proyecto-newbit/investigacion/`)
 | Carpeta | Tipo de `.md` | De qué trata |

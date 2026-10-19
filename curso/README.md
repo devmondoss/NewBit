@@ -8,8 +8,10 @@ El libro base del docente está en [`referencias/libro-guia-sbok/`](referencias/
 
 **Reglas:** una carpeta por archivo, con el original y su `.md` del mismo nombre; se lee el `.md`, no el original. La semana de un material es la de su llegada; la de una entrega, la semana en que se pidió. La semana 1 (14–20/09) no tuvo actividad.
 
-## Semana 6 · 19–25/10 (actual) → [`semana-06-por-definir/`](semana-06-por-definir/README.md)
-Tema por definir; aún sin material.
+## Semana 6 · 19–25/10 (actual) · Producto de la Unidad I → [`semana-06-producto-unidad-1/`](semana-06-producto-unidad-1/README.md)
+| Material del profe | Nuestras entregas |
+|---|---|
+| Pedido por mensaje (19/10): carátula, índice, introducción, antecedentes, marco teórico, desarrollo con todos los formatos, referencias y PPT | [Informe del Producto de la Unidad I](semana-06-producto-unidad-1/nuestras-entregas/Producto_Unidad_1_NewBit/Producto_Unidad_1_NewBit.md) · [Presentación](semana-06-producto-unidad-1/nuestras-entregas/PPT_Producto_Unidad_1_NewBit/PPT_Producto_Unidad_1_NewBit.md) |
 
 ## Semana 2 · 21–27/09 · Scrum y Acta → [`semana-02-scrum-y-acta/`](semana-02-scrum-y-acta/)
 | Material del profe | Nuestras entregas |

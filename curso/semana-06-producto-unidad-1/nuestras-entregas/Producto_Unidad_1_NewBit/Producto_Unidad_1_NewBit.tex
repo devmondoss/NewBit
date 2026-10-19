@@ -1,0 +1,881 @@
+% =====================================================================
+% Producto de la Unidad I — NewBit (PY-NB-001)
+% Ingeniería de Software II · Universidad Nacional del Santa · 2026-II
+% Grupo D3. Compilar con XeLaTeX o Tectonic:  tectonic Producto_Unidad_1_NewBit.tex
+% Formato: normas APA 7.ª ed. (títulos, tablas, figuras, citas y referencias).
+% =====================================================================
+\documentclass[12pt,a4paper]{article}
+
+% --- Idioma y tipografía ---------------------------------------------
+\usepackage[spanish,es-tabla,es-noquoting,es-nolists,es-nodecimaldot]{babel}
+\usepackage{fontspec}
+% TeX Gyre Termes: equivalente libre de Times New Roman (declarada por archivo)
+\setmainfont{texgyretermes}[Extension=.otf, UprightFont=*-regular, BoldFont=*-bold,
+  ItalicFont=*-italic, BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf, UprightFont=*-regular, BoldFont=*-bold,
+  ItalicFont=*-italic, BoldItalicFont=*-bolditalic, Scale=MatchLowercase]
+\usepackage{unicode-math}
+\setmathfont{texgyretermes-math.otf}
+\usepackage{microtype}
+\usepackage{csquotes}
+
+% --- Página (APA: márgenes de 2.54 cm, número arriba a la derecha) ----
+\usepackage[margin=2.54cm,headheight=15pt]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\setlength{\parindent}{1.27cm}
+\usepackage{indentfirst}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyhead[R]{\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+% --- Títulos con niveles APA ------------------------------------------
+% Nivel 1: centrado, negrita · Nivel 2: izquierda, negrita · Nivel 3: izquierda, negrita cursiva
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\normalsize\bfseries\filcenter}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries\itshape}{\thesubsubsection.}{0.5em}{}
+\titlespacing*{\section}{0pt}{18pt}{10pt}
+\titlespacing*{\subsection}{0pt}{14pt}{6pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{4pt}
+\newcommand{\seccionsinnumero}[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
+
+% --- Tablas y figuras (APA: número en negrita, título en cursiva, arriba) --
+\usepackage{array,booktabs,tabularx,longtable,multirow,makecell}
+\usepackage[table]{xcolor}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{placeins}
+\captionsetup{labelfont=bf,textfont=it,labelsep=newline,justification=raggedright,
+  singlelinecheck=false,skip=6pt,font={normalsize,singlespacing}}
+\captionsetup[longtable]{labelfont=bf,textfont=it,labelsep=newline,justification=raggedright,singlelinecheck=false}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcommand{\nota}[1]{\par\vspace{3pt}{\small\singlespacing\raggedright\noindent\textit{Nota.} #1\par}}
+\newenvironment{tablaapa}{\small\singlespacing\renewcommand{\arraystretch}{1.25}}{}
+
+% --- Colores (sobrios, para diagramas) -------------------------------
+\definecolor{tinta}{HTML}{1F2937}
+\definecolor{gris}{HTML}{6B7280}
+\definecolor{grisclaro}{HTML}{E5E7EB}
+\definecolor{acento}{HTML}{1D4ED8}
+\definecolor{acentoclaro}{HTML}{DBEAFE}
+\definecolor{hecho}{HTML}{047857}
+\definecolor{hechoclaro}{HTML}{D1FAE5}
+\definecolor{pendiente}{HTML}{B45309}
+\definecolor{pendienteclaro}{HTML}{FEF3C7}
+
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.7}
+\makeatletter
+\setlength{\@fptop}{0pt}
+\setlength{\@fpbot}{0pt plus 1fil}
+\makeatother
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,calc,babel}
+
+% --- Listas, índices y enlaces ---------------------------------------
+\usepackage{enumitem}
+\setlist{itemsep=2pt,topsep=4pt}
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cfttabpresnum}{Tabla~}
+\renewcommand{\cftfigpresnum}{Figura~}
+\setlength{\cfttabnumwidth}{5.2em}
+\setlength{\cftfignumwidth}{5.6em}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+\urlstyle{same}
+\hypersetup{pdftitle={Producto de la Unidad I: NewBit (PY-NB-001)},
+  pdfauthor={Grupo D3: Chumacero Chávarry, Lopez Yrribarren, Salazar Diaz},
+  pdfsubject={Ingeniería de Software II, Universidad Nacional del Santa}}
+
+% --- Referencias APA con sangría francesa ----------------------------
+\newenvironment{referencias}{\par\setlength{\parindent}{0pt}\singlespacing
+  \setlength{\parskip}{8pt}\everypar{\hangindent=1.27cm\hangafter=1}}{\par}
+
+% --- Citas APA 7 (autor, año). Una clave no definida detiene la compilación --
+\usepackage{etoolbox}
+\makeatletter
+\newcommand{\citadef}[3]{\csdef{ca@#1}{#2}\csdef{cy@#1}{#3}}
+\newcommand{\cita@revisar}[1]{\ifcsdef{ca@#1}{}{\PackageError{citas}{Cita no definida: #1}{}}}
+\newcommand{\cita@par}[1]{\cita@revisar{#1}\cita@sep\csuse{ca@#1}, \csuse{cy@#1}\def\cita@sep{; }}
+\newcommand{\parencite}[1]{(\def\cita@sep{}\forcsvlist{\cita@par}{#1})}
+\newcommand{\textcite}[1]{\cita@revisar{#1}\csuse{ca@#1} (\csuse{cy@#1})}
+\makeatother
+\citadef{bochkovskiy2020}{Bochkovskiy et al.}{2020}
+\citadef{clegg1994}{Clegg y Barker}{1994}
+\citadef{cohn2004}{Cohn}{2004}
+\citadef{ley29783}{Congreso de la República del Perú}{2011}
+\citadef{daza2026justificacion}{Daza Vergaray}{2026a}
+\citadef{daza2026secuencia}{Daza Vergaray}{2026b}
+\citadef{gutierrez2022}{Gutiérrez Torres}{2022}
+\citadef{heinrich}{Heinrich}{1931}
+\citadef{hochreiter1997}{Hochreiter y Schmidhuber}{1997}
+\citadef{yolov8}{Jocher et al.}{2023}
+\citadef{lecun2015}{LeCun et al.}{2015}
+\citadef{leon2024}{León León y León Montero}{2024}
+\citadef{machaca2019}{Machaca Arcana}{2019}
+\citadef{menzinsky2018}{Menzinsky et al.}{2018}
+\citadef{onal2021}{Önal y Dandıl}{2021}
+\citadef{onal2024dataset}{Önal y Dandıl}{2024a}
+\citadef{onal2024dib}{Önal y Dandıl}{2024b}
+\citadef{onal2025}{Önal y Dandıl}{2025}
+\citadef{paucara2024}{Paucara Guadalupe y Rodríguez Enciso}{2024}
+\citadef{redmon2016}{Redmon et al.}{2016}
+\citadef{scrumguide}{Schwaber y Sutherland}{2020}
+\citadef{sbok}{SCRUMstudy}{2022}
+\citadef{shi2015}{Shi et al.}{2015}
+
+\newcommand{\proyecto}{Sistema web con visión artificial para la detección de actos inseguros en áreas operativas de manufactura metalmecánica}
+
+\begin{document}
+
+% =====================================================================
+% CARÁTULA
+% =====================================================================
+\begin{titlepage}
+\centering\singlespacing
+{\large\bfseries UNIVERSIDAD NACIONAL DEL SANTA\par}
+\vspace{4pt}
+{\bfseries Facultad de Ingeniería\par}
+{Escuela Profesional de Ingeniería de Sistemas e Informática\par}
+\vspace{2.2cm}
+{\bfseries Curso: Ingeniería de Software II\par}
+\vspace{0.4cm}
+{Producto de la Unidad I\par}
+\vspace{1.6cm}
+{\Large\bfseries NewBit\par}
+\vspace{0.4cm}
+{\large\bfseries \proyecto\par}
+\vspace{0.3cm}
+{Código del proyecto: PY-NB-001\par}
+\vspace{2cm}
+{\bfseries Integrantes (Grupo D3)\par}
+\vspace{6pt}
+\begin{tabular}{ll}
+Chumacero Chávarry, Albert Sebastian & \textit{Product Owner}\\
+Lopez Yrribarren, Anthony Gabriel & \textit{Scrum Master} y \textit{Developer}\\
+Salazar Diaz, Luis Fernando & \textit{Developer}\\
+\end{tabular}
+\vspace{1.4cm}
+
+{\bfseries Docente\par}
+{Dr. Ing. Alfredo Daza Vergaray\par}
+\vfill
+{Nuevo Chimbote, Perú\par}
+{Octubre de 2026\par}
+\end{titlepage}
+
+% =====================================================================
+% ÍNDICES
+% =====================================================================
+\pagenumbering{arabic}
+\setcounter{page}{2}
+\begingroup\singlespacing
+\renewcommand{\contentsname}{Índice}
+\tableofcontents
+\newpage
+\listoftables
+\vspace{1cm}
+\listoffigures
+\endgroup
+\newpage
+
+% =====================================================================
+\FloatBarrier
+\section{Introducción}
+% =====================================================================
+
+En las plantas de manufactura metalmecánica conviven máquinas herramienta, tableros eléctricos, pasillos peatonales y equipos de transporte interno. En ese entorno, una parte importante de los accidentes no se origina en una falla del equipo, sino en una conducta de la persona: cruzar fuera de la vía peatonal señalizada o dejar abierto un tablero de control después de intervenirlo. La teoría clásica de prevención distingue entre \textit{actos inseguros} y \textit{condiciones inseguras} y ubica a los primeros como causa frecuente de accidentes \parencite{heinrich}. En el Perú, la Ley N.\textsuperscript{o}~29783 exige al empleador un enfoque preventivo de la seguridad y salud en el trabajo (SST) \parencite{ley29783}.
+
+La supervisión de estas conductas, sin embargo, sigue siendo intermitente: el inspector de SST recorre la planta por turnos y las cámaras de videovigilancia graban horas de video que casi nadie revisa. El resultado es que el acto inseguro se detecta tarde o no se detecta. La visión artificial ofrece una alternativa: analizar el video ya grabado para identificar automáticamente las secuencias en las que ocurre una conducta de riesgo y presentar la evidencia a la persona responsable.
+
+NewBit (PY-NB-001) es el proyecto del Grupo D3 que aborda ese problema. Se trata de un sistema web que recibe videos industriales por lotes, detecta a los operarios con un modelo de detección de objetos (YOLOv8), descarta los fotogramas sin actividad, agrupa los restantes en secuencias y las clasifica con una red convolucional recurrente (ConvLSTM) como conductas seguras o inseguras. Su base científica es Unsafe-Net, la arquitectura de dos etapas propuesta por \textcite{onal2025}, y su fuente de datos es el conjunto público que esos autores publicaron con licencia CC~BY~4.0 \parencite{onal2024dataset}. El proyecto se gestiona con Scrum, siguiendo la \textit{Guía de los fundamentos de Scrum} \parencite{sbok}, en cuatro sprints de dos semanas.
+
+La propuesta no nació en su forma actual. Comenzó como una plataforma para verificar el uso de casco y chaleco con cámaras en vivo y, tras dos iteraciones, se convirtió en un sistema que reconoce conductas a partir de video grabado. Ese recorrido, y las razones de cada cambio, forman parte de este documento.
+
+Este documento es el producto de la Unidad~I del curso. Su \textbf{objetivo general} es presentar de manera integrada la fase de inicio y planificación de NewBit, desde la definición del proyecto hasta el backlog priorizado y los criterios de terminado. Sus objetivos específicos son:
+
+\begin{enumerate}[label=\alph*)]
+  \item Revisar los antecedentes nacionales e internacionales que sustentan el uso de visión artificial para la seguridad laboral.
+  \item Exponer el marco teórico de Scrum, de la ingeniería de requisitos ágil y de los modelos de visión artificial que emplea el proyecto.
+  \item Describir cómo evolucionó la propuesta y qué motivó cada cambio.
+  \item Desarrollar, en el orden de la secuencia de avances del curso, los formatos FGAP010, FGAP020, FGAP030, EGAP015, FGAP040, FGAP060 y FGAP070 aplicados a NewBit, junto con la arquitectura propuesta y el plan de sprints.
+\end{enumerate}
+
+El documento se organiza en cuatro partes. La sección~\ref{sec:antecedentes} revisa los antecedentes; la sección~\ref{sec:marco}, el marco teórico; la sección~\ref{sec:desarrollo} desarrolla los formatos de gestión y el estado del proyecto, y al final se listan las referencias en formato APA.
+
+% =====================================================================
+\FloatBarrier
+\section{Antecedentes}\label{sec:antecedentes}
+% =====================================================================
+
+\FloatBarrier
+\subsection{Antecedentes internacionales}
+
+\textcite{onal2021} aplicaron YOLOv4 para detectar elementos de seguridad y equipos de protección personal en entornos de trabajo. Reportaron un mAP de 91.18~\%, una precisión de 0.89, una sensibilidad (\textit{recall}) de 0.91 y un F1 de 0.90. Su aporte para este proyecto es mostrar el punto de partida de la línea de investigación: la detección espacial, cuadro por cuadro, de objetos asociados a la seguridad. Un único fotograma, sin embargo, no basta para describir una acción, y esa fue la limitación que la línea abordó después.
+
+Esa limitación motivó Unsafe-Net \parencite{onal2025}, un sistema de dos etapas para detectar en tiempo real conductas inseguras en una fábrica. En la primera etapa, YOLOv4 identifica los fotogramas relevantes y reduce cada clip; en la segunda, una red ConvLSTM clasifica la secuencia reducida. Los autores trabajaron con 39 días de video, aproximadamente 4\,000 horas, grabado con dos cámaras IP en una planta metalmecánica y de plásticos de Eskişehir (Turquía). El detector alcanzó un mAP de 95.66~\% con un umbral de IoU de 0.5. La clasificación temporal obtuvo una exactitud promedio por clase de 85.78~\% sin reducción de fotogramas y de 95.81~\% con el pipeline completo, y el tiempo medio de reconocimiento sobre el clip ya reducido fue de 0.14~s. Los autores aclaran que este último valor no es la latencia total: en un ejemplo que incluye la reducción con YOLO estiman cerca de 1.34~s. También reportan un piloto en planta con validación de un experto en SST.
+
+El conjunto de datos de ese estudio se documenta en \textcite{onal2024dib} y se publica en Mendeley Data \parencite{onal2024dataset}. Contiene 691 clips (566 de entrenamiento y 125 de prueba) a 1920\,×\,1080 píxeles y 24 cuadros por segundo, distribuidos en ocho clases: cuatro conductas inseguras (tránsito fuera de la vía peatonal, intervención no autorizada, tapa de panel abierta y sobrecarga con montacargas) y sus cuatro contrapartes seguras. Su aporte es doble: permite reproducir el problema con datos reales y ofrece una división oficial de entrenamiento y prueba que NewBit respeta sin modificar.
+
+\FloatBarrier
+\subsection{Antecedentes nacionales}
+
+\textcite{gutierrez2022}, en la Pontificia Universidad Católica del Perú, evaluó si el aprendizaje profundo puede reconocer equipos de seguridad en obras de construcción para alertar a los supervisores sobre su uso inadecuado. Construyó un conjunto de imágenes con variaciones de postura, iluminación, oclusión y aglomeración, y comparó VGG-16, ResNet-18 e Inception-V3; el mejor prototipo, con Inception-V3, alcanzó una exactitud de 84~\%. Su aporte es metodológico: muestra la importancia de un conjunto de datos variado y de comparar arquitecturas antes de elegir una.
+
+\textcite{machaca2019}, en la Universidad Nacional de San Agustín de Arequipa, desarrolló un sistema para reconocer eventos anómalos en videos de cámaras de vigilancia sin intervención humana. Empleó redes convolucionales para detectar personas, analizar acciones y seguir sus patrones de movimiento, y revisó detectores como YOLO, R-CNN y SSD. Es el antecedente nacional más cercano al enfoque de NewBit, porque trabaja con video y con acciones, no con imágenes aisladas.
+
+\textcite{paucara2024}, en la Universidad César Vallejo, propusieron un sistema inteligente basado en aprendizaje profundo para detectar el uso correcto del casco como equipo de protección personal. Con un diseño experimental de preprueba y posprueba, concluyeron que el sistema identifica el casco con mayor exactitud que los métodos convencionales de supervisión. Su aporte es mostrar cómo evaluar el efecto de un sistema de visión en la tarea del supervisor y no solo la métrica del modelo.
+
+\textcite{leon2024}, de la Universidad Privada del Norte, desarrollaron un algoritmo de visión artificial con YOLOv8, Python y OpenCV para verificar en tiempo real el uso correcto de mascarilla y gorro. Entrenaron con más de 1\,500 imágenes etiquetadas y reportaron una tasa de validación de 96.57~\%. Su aporte es confirmar la viabilidad de YOLOv8, la misma familia de modelos que usa NewBit, con herramientas abiertas y en un contexto peruano.
+
+\FloatBarrier
+\subsection{Síntesis de los antecedentes}
+
+La Tabla~\ref{tab:antecedentes} resume los trabajos revisados. Los estudios nacionales se concentran en detectar objetos, sobre todo equipos de protección, en imágenes. Unsafe-Net, en cambio, reconoce conductas a lo largo del tiempo. NewBit se ubica en ese segundo grupo: no pregunta si el operario lleva casco, sino qué hace durante una secuencia, y lo hace en un contexto de manufactura metalmecánica con un pipeline que separa la etapa espacial de la temporal.
+
+\begin{table}[!htbp]
+\caption{Síntesis de los antecedentes revisados}\label{tab:antecedentes}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{3.3cm} P{1.3cm} L P{1.5cm} P{3.4cm}}
+\toprule
+Autor (año) & Ámbito & Técnica principal & Unidad & Resultado reportado\\
+\midrule
+\textcite{onal2021} & Turquía & YOLOv4, detección de EPP & Imagen & mAP 91.18~\%\\
+\textcite{onal2025} & Turquía & YOLOv4 + ConvLSTM, conductas inseguras & Video & Exactitud por clase 95.81~\%\\
+\textcite{onal2024dib} & Turquía & Conjunto de datos de conductas seguras e inseguras & Video & 691 clips, 8 clases\\
+\textcite{gutierrez2022} & Perú & VGG-16, ResNet-18, Inception-V3 & Imagen & Exactitud 84~\%\\
+\textcite{machaca2019} & Perú & Redes convolucionales, eventos anómalos & Video & No se consigna cifra en el resumen\\
+\textcite{paucara2024} & Perú & Aprendizaje profundo, detección de casco & Imagen & Mejora frente al método convencional\\
+\textcite{leon2024} & Perú & YOLOv8, mascarilla y gorro & Imagen & Validación 96.57~\%\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{EPP = equipo de protección personal. Las cifras son las que reporta cada autor en su propio conjunto de datos y no son comparables entre sí.}
+\end{table}
+
+% =====================================================================
+\FloatBarrier
+\section{Marco teórico}\label{sec:marco}
+% =====================================================================
+
+\FloatBarrier
+\subsection{Seguridad y salud en el trabajo: actos inseguros}
+
+Un \textit{acto inseguro} es una acción u omisión de la persona que la expone a ella o a otros a un riesgo, como transitar fuera de la vía peatonal o dejar abierto un tablero eléctrico. Se diferencia de la \textit{condición insegura}, que es un estado peligroso del entorno, como un piso resbaladizo o una guarda faltante. \textcite{heinrich} formuló esta distinción y sostuvo que la mayor parte de los accidentes se explica por actos inseguros, de modo que la prevención debe actuar sobre la conducta. En el Perú, la Ley N.\textsuperscript{o}~29783 establece el principio de prevención y obliga al empleador a garantizar condiciones que protejan la vida y la salud de los trabajadores \parencite{ley29783}. NewBit se plantea como una herramienta de apoyo a ese deber: no reemplaza al supervisor ni certifica el cumplimiento de la norma, sino que le entrega evidencia oportuna.
+
+\FloatBarrier
+\subsection{Scrum y la Guía SBOK}
+
+Scrum es un marco de trabajo ágil para desarrollar productos complejos de forma iterativa e incremental \parencite{scrumguide}. La Guía SBOK organiza Scrum en principios, aspectos y procesos \parencite{sbok}. Sus seis principios son el control del proceso empírico (transparencia, inspección y adaptación), la autoorganización, la colaboración, la priorización basada en el valor, el \textit{time-boxing} y el desarrollo iterativo.
+
+Los roles centrales son tres. El \textit{Product Owner} maximiza el valor del producto, gestiona el backlog y acepta o rechaza los entregables. El \textit{Scrum Master} facilita el proceso y elimina impedimentos. El \textit{Equipo Scrum} construye el incremento. El trabajo avanza en \textit{sprints} de duración fija, de una a cuatro semanas, con eventos acotados en el tiempo: planificación del sprint, reunión diaria de 15 minutos, revisión y retrospectiva \parencite{sbok}. Antes de los sprints, la fase de inicio produce la visión, el acta del proyecto, la identificación de los interesados, las épicas y el backlog priorizado.
+
+\FloatBarrier
+\subsection{Ingeniería de requisitos ágil}
+
+En Scrum, los requisitos se expresan como \textit{historias de usuario}: descripciones breves de una funcionalidad desde el punto de vista de quien la necesita, con la forma «Como [rol], quiero [funcionalidad], para [beneficio]» \parencite{cohn2004,menzinsky2018}. Las \textit{épicas} agrupan historias relacionadas que todavía son demasiado grandes para un sprint. Cada historia lleva \textit{criterios de aceptación}, que son condiciones específicas y verificables que el Product Owner usa para aceptarla. Por encima de ellos, los \textit{criterios de terminado} (\textit{Definition of Done}) son comunes a todas las historias y fijan el nivel mínimo de calidad del incremento, como pruebas, revisión de pares y documentación \parencite{sbok}.
+
+\FloatBarrier
+\subsection{Priorización y estimación}
+
+La técnica \textbf{MoSCoW} clasifica los requisitos en cuatro grupos: los que el producto debe tener (\textit{Must have}), debería tener (\textit{Should have}), podría tener (\textit{Could have}) y no tendrá en esta versión (\textit{Won't have}) \parencite{clegg1994}. El \textbf{método de los 100 puntos} reparte 100 puntos por integrante entre las historias, lo que convierte la importancia relativa en un número que se puede sumar \parencite{sbok}. Para estimar, el \textbf{puño de cinco} (\textit{Fist of Five}) pide que cada integrante muestre a la vez de uno a cinco dedos; si hay diferencias grandes, quienes votaron en los extremos explican sus razones y se vuelve a votar \parencite{sbok}. El resultado se expresa en \textit{puntos de historia}, una medida relativa del esfuerzo.
+
+\FloatBarrier
+\subsection{Visión artificial y aprendizaje profundo}
+
+El aprendizaje profundo emplea redes neuronales con muchas capas que aprenden representaciones de los datos directamente a partir de ejemplos \parencite{lecun2015}. Para imágenes, las redes neuronales convolucionales (CNN) aplican filtros que detectan bordes, texturas y formas cada vez más complejas.
+
+La \textit{detección de objetos} localiza y clasifica objetos en una imagen mediante cajas delimitadoras. La familia YOLO (\textit{You Only Look Once}) resuelve la detección como un único problema de regresión sobre la imagen completa, lo que la hace rápida y adecuada para video \parencite{redmon2016}. YOLOv4 incorporó mejoras de entrenamiento y arquitectura para equilibrar velocidad y precisión \parencite{bochkovskiy2020}, y es la versión que usó Unsafe-Net. YOLOv8, de Ultralytics, es una implementación más reciente y de código abierto, con modelos preentrenados de varios tamaños; NewBit usa su variante más liviana, YOLOv8n \parencite{yolov8}.
+
+\FloatBarrier
+\subsection{Modelado temporal: LSTM y ConvLSTM}
+
+Una conducta no se reconoce en un solo fotograma, sino en la evolución de varios. Las redes LSTM (\textit{Long Short-Term Memory}) son redes recurrentes con compuertas que deciden qué información conservar u olvidar, lo que les permite aprender dependencias de largo plazo en secuencias \parencite{hochreiter1997}. La ConvLSTM sustituye las multiplicaciones matriciales internas de la LSTM por convoluciones, de modo que conserva la estructura espacial de cada fotograma mientras modela su evolución en el tiempo \parencite{shi2015}. Esa propiedad la hace adecuada para clasificar clips de video, como en Unsafe-Net.
+
+\FloatBarrier
+\subsection{Métricas de evaluación}
+
+Para la detección se usa la intersección sobre la unión (IoU), que mide el solapamiento entre la caja predicha $B_p$ y la real $B_r$, y la precisión media (mAP) a un umbral de IoU dado:
+\begin{equation}
+\mathrm{IoU} = \frac{|B_p \cap B_r|}{|B_p \cup B_r|}
+\end{equation}
+Para la clasificación de conductas, con VP, FP y FN como verdaderos positivos, falsos positivos y falsos negativos:
+\begin{equation}
+\mathrm{Precisión}=\frac{VP}{VP+FP},\qquad
+\mathrm{Sensibilidad}=\frac{VP}{VP+FN}
+\end{equation}
+\begin{equation}
+F_1 = 2\cdot\frac{\mathrm{Precisión}\cdot\mathrm{Sensibilidad}}{\mathrm{Precisión}+\mathrm{Sensibilidad}}
+\end{equation}
+La exactitud puede agregarse de dos formas: \textit{micro}, sobre el total de clips, o \textit{macro}, como promedio de la exactitud de cada clase. Unsafe-Net reporta el promedio por clase; por eso NewBit reportará ambas, además de la matriz de confusión.
+
+% =====================================================================
+\FloatBarrier
+\section{Desarrollo}\label{sec:desarrollo}
+% =====================================================================
+
+Esta sección comienza por la evolución de la propuesta y luego desarrolla los formatos del proyecto en el orden que fija la secuencia de avances del curso \parencite{daza2026secuencia}, representada en la Figura~\ref{fig:secuencia}. La Tabla~\ref{tab:formatos} indica el estado de cada formato al cierre de la Unidad~I.
+
+\begin{figure}[!htbp]
+\caption{Secuencia de formatos del proyecto y avance al cierre de la Unidad I}\label{fig:secuencia}
+\centering
+\begin{tikzpicture}[
+  font=\small\sffamily,
+  paso/.style={draw=#1, fill=#1!12, rounded corners=3pt, font=\footnotesize\sffamily, minimum height=1.45cm, align=center, text width=1.62cm, inner sep=2pt, line width=0.7pt},
+  flecha/.style={-{Stealth[length=2.2mm]}, line width=0.7pt, draw=gris}]
+  \node[paso=hecho]     (a) {\textbf{FGAP010}\\Acta};
+  \node[paso=hecho,     right=0.3cm of a] (b) {\textbf{FGAP020}\\Interesados};
+  \node[paso=hecho,     right=0.3cm of b] (c) {\textbf{FGAP030}\\Roles};
+  \node[paso=hecho,     right=0.3cm of c] (d) {\textbf{FGAP040}\\Épicas};
+  \node[paso=hecho,     right=0.3cm of d] (e) {\textbf{FGAP060}\\\textbf{FGAP070}\\Backlog y DoD};
+  \node[paso=pendiente, right=0.3cm of e] (f) {\textbf{Sprints}\\1 a 4};
+  \node[paso=gris,      right=0.3cm of f] (g) {\textbf{FGAP090}\\Cierre};
+  \foreach \x/\y in {a/b,b/c,c/d,d/e,e/f,f/g} \draw[flecha] (\x) -- (\y);
+  \draw[flecha, dashed] ([xshift=4mm]f.south) .. controls +(0.2,-0.9) and +(-0.2,-0.9) .. ([xshift=-4mm]f.south)
+    node[pos=0.5, below=1pt, font=\scriptsize\sffamily, text=gris] {se repite por sprint};
+  \node[below=1.15cm of d, anchor=north, font=\scriptsize\sffamily, text=gris] {%
+    \tikz\fill[hecho!12, draw=hecho] (0,0) rectangle (0.3,0.2); Elaborado en la Unidad I \quad
+    \tikz\fill[pendiente!12, draw=pendiente] (0,0) rectangle (0.3,0.2); Inicia el 19/10/2026 \quad
+    \tikz\fill[gris!12, draw=gris] (0,0) rectangle (0.3,0.2); Al final del proyecto};
+\end{tikzpicture}
+\nota{Elaboración propia a partir de la secuencia de trabajo del proyecto entregada por el docente \parencite{daza2026secuencia}. La Justificación (EGAP015) acompaña a la secuencia como documento de apoyo.}
+\end{figure}
+
+\begin{table}[!htbp]
+\caption{Formatos del proyecto y su estado al 19 de octubre de 2026}\label{tab:formatos}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{1.9cm} L C{1.5cm} P{4.4cm}}
+\toprule
+Formato & Documento & Semana & Estado\\
+\midrule
+FGAP010 & Acta de constitución del proyecto & 2 & Versión 2.0 aprobada\\
+FGAP020 & Registro de interesados & 6 & Versión 1.0, elaborada en este producto\\
+FGAP030 & Roles y prototipos & 3 & Versión 2.0 aprobada\\
+EGAP015 & Justificación del proyecto & 4 & Versión 2.0 aprobada\\
+FGAP040 & Épicas e historias de usuario & 4 & Versión 2.0: 6 épicas y 12 historias\\
+FGAP060 & Backlog priorizado del producto & 5 & Versión 2.0: MoSCoW, 100 puntos y estimación\\
+FGAP070 & Criterios de terminado & 5 & Versión 1.0 aprobada\\
+FGAP090 & Cierre del proyecto & — & Previsto para diciembre de 2026\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{La columna Semana indica la semana del curso en que se elaboró el formato.}
+\end{table}
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsection{Evolución de la propuesta}
+% ---------------------------------------------------------------------
+
+Scrum asume que el producto se descubre inspeccionando y adaptando \parencite{sbok}. La propuesta de NewBit siguió ese principio desde antes del primer sprint: pasó por tres versiones, y cada cambio respondió a un problema concreto detectado en la anterior.
+
+\textbf{Primera versión: VIGIA Industrial (semanas 2 y 3).} El equipo, entonces de dos integrantes, propuso una plataforma que convirtiera las cámaras existentes de una planta siderúrgica en sensores configurables. El primer caso de uso era verificar el uso de casco y chaleco y el ingreso a zonas restringidas en cuatro cámaras en vivo, con un detector YOLO, seguimiento de personas y reglas por zona. Al revisarla se identificaron dos problemas. El primero, que detectaba \textit{objetos} (si hay o no casco) y no \textit{conductas}. El segundo, que dependía de un piloto en planta y de video local que el equipo no tenía garantizados.
+
+\textbf{Segunda versión: elección de Unsafe-Net (semana 4).} El equipo comparó tres investigaciones de visión artificial aplicada a la seguridad industrial y eligió Unsafe-Net \parencite{onal2025} el 5 de octubre de 2026. La razón fue doble: reconoce conductas a lo largo del tiempo, no objetos aislados, y su conjunto de datos es público \parencite{onal2024dataset}, lo que eliminaba el mayor riesgo de la versión anterior. El equipo quedó conformado por tres integrantes, y el rol de Product Owner, antes asignado a una persona externa ficticia, pasó a uno de ellos.
+
+\textbf{Tercera versión: NewBit normalizado (semana 5).} Una revisión cruzada de todos los formatos encontró inconsistencias que se corrigieron en cascada. El entorno siderúrgico no correspondía al video del conjunto de datos, grabado en un taller metalmecánico, y se cambió. Las cámaras en vivo no eran demostrables y se reemplazaron por procesamiento de video por lotes. Las 26 historias preliminares, sin criterios ni prioridad, se consolidaron en 12 historias con criterios de aceptación. Los roles de laboratorio («investigador», «evaluador») se sustituyeron por usuarios de planta. La Tabla~\ref{tab:evolucion} resume el cambio.
+
+\begin{table}[!htbp]
+\caption{Evolución de la propuesta, de VIGIA Industrial a NewBit}\label{tab:evolucion}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{2.6cm} P{3.6cm} P{3.6cm} L}
+\toprule
+Aspecto & VIGIA Industrial (semanas 2--3) & NewBit (versión actual) & Motivo del cambio\\
+\midrule
+Qué detecta & Objetos: casco, chaleco, ingreso a zona & Conductas: tránsito fuera de la vía peatonal y tablero abierto & Un acto inseguro se reconoce en una secuencia, no en un fotograma\\
+Entrada & Cuatro cámaras en vivo (RTSP) & Video grabado, procesado por lotes & Alcance demostrable sin acceso a planta\\
+Datos & Video local por conseguir & Conjunto público con licencia CC BY 4.0 & Elimina el mayor riesgo del proyecto\\
+Modelo & YOLO con seguimiento y reglas por zona & YOLOv8 + ConvLSTM, en dos etapas & Separar lo espacial de lo temporal\\
+Entorno & Planta siderúrgica & Taller de manufactura metalmecánica & Coherencia con el video del conjunto de datos\\
+Backlog & 26 historias sin criterios & 12 historias con criterios, prioridad y estimación & Historias verificables y planificables\\
+Equipo & Dos integrantes; PO externo & Tres integrantes; PO del equipo & Ajuste a los roles de Scrum\\
+Presupuesto & S/ 30\,820 & S/ 20\,768 & Menor alcance y sin hardware nuevo\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{Elaboración propia a partir de las versiones del acta y de la bitácora de decisiones del equipo.}
+\end{table}
+
+Lo que se conservó entre versiones también es significativo: el análisis de video sin reconocimiento facial, la decisión final en manos de una persona y la evaluación del evento completo antes que del fotograma aislado.
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsection{FGAP010: Acta de constitución del proyecto}
+% ---------------------------------------------------------------------
+
+El acta define el proyecto y autoriza su inicio. Su visión es transformar el registro pasivo de las cámaras de una planta de manufactura metalmecánica en un sistema que detecte y registre actos inseguros a partir de video grabado, con alertas oportunas para el área de SST y sin reconocimiento facial. La organización es un caso académico propuesto, equivalente al entorno del conjunto de datos; los nombres de sus representantes son ficticios. La Tabla~\ref{tab:acta} resume sus campos.
+
+\begin{table}[!htbp]
+\caption{Síntesis del acta de constitución (FGAP010)}\label{tab:acta}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{3.6cm} L}
+\toprule
+Campo & Contenido\\
+\midrule
+Código y nombre & PY-NB-001: \proyecto{} (nombre comercial: NewBit)\\
+Alcance & Dos conductas de la primera versión: tránsito fuera de la vía peatonal y tablero eléctrico abierto, con sus casos seguros de contraste. Datos: conjunto de \textcite{onal2024dataset}, con su división oficial. Evaluación: clasificación temporal directa frente al pipeline completo YOLOv8 + ConvLSTM.\\
+Fuera del alcance & Instalación en planta, cámaras en vivo (RTSP), alertas físicas en la máquina, reconocimiento facial e identificación de trabajadores, y certificación oficial de SST.\\
+Entregables clave & Formatos de gestión, frames anotados y modelo YOLOv8, modelo ConvLSTM evaluado, plataforma web con registro y alerta, e informe técnico.\\
+Criterios de aprobación & Pipeline completo en funcionamiento; etapas espacial y temporal evaluables por separado; reducción de fotogramas demostrada con datos; métricas por clase y tiempos; resultados reproducibles.\\
+Product Owner & Albert Sebastian Chumacero Chávarry, que reporta al sponsor.\\
+Sponsor & Ricardo Salcedo Paredes, gerente general de la empresa del caso.\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\end{table}
+
+Los requisitos se dividen en funcionales y no funcionales (Tabla~\ref{tab:requisitos}). Los no funcionales responden a la naturaleza experimental del proyecto: un resultado de visión artificial solo es defendible si se puede reproducir y si el conjunto de prueba no se toca.
+
+\begin{table}[!htbp]
+\caption{Requisitos del proyecto}\label{tab:requisitos}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{1.6cm} L}
+\toprule
+Código & Requisito\\
+\midrule
+\multicolumn{2}{l}{\textit{Funcionales}}\\
+RF-01 & Cargar clips de video industrial.\\
+RF-02 & Detectar personas y objetos de interés fotograma a fotograma con YOLOv8.\\
+RF-03 & Conservar solo los fotogramas relevantes según una regla explícita y configurable.\\
+RF-04 & Agrupar los fotogramas conservados en secuencias.\\
+RF-05 & Clasificar cada secuencia con ConvLSTM como conducta segura o insegura.\\
+RF-06 & Registrar por clip el archivo, la clase, la confianza, el tiempo de proceso y los fotogramas originales y conservados.\\
+RF-07 & Mostrar una alerta visual y sonora ante una conducta insegura.\\
+\midrule
+\multicolumn{2}{l}{\textit{No funcionales}}\\
+RNF-01 & Reproducibilidad: configuración versionada, semillas fijas y puntos de control del modelo.\\
+RNF-02 & Separación estricta entre entrenamiento y prueba con la división oficial del conjunto de datos.\\
+RNF-03 & Métricas por clase y registro de tiempos de procesamiento.\\
+RNF-04 & Uso del conjunto de datos con atribución, según la licencia CC BY 4.0.\\
+RNF-05 & Privacidad por diseño: sin reconocimiento facial ni identificación de personas.\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{Los códigos RNF se asignan en este documento para referenciar los requisitos no funcionales del acta.}
+\end{table}
+
+La Tabla~\ref{tab:riesgos} recoge los riesgos y su respuesta. El de mayor impacto es técnico: el ajuste del modelo temporal. El último es organizativo: el equipo tiene tres integrantes y el Scrum Master también desarrolla.
+
+\begin{table}[!htbp]
+\caption{Riesgos generales y respuesta prevista}\label{tab:riesgos}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{5.2cm} L}
+\toprule
+Riesgo & Respuesta\\
+\midrule
+Ajuste del modelo temporal (longitud de secuencia, capas, hiperparámetros) & Experimentación controlada y registro de cada configuración.\\
+Implementación propia del pipeline completo & Bibliotecas abiertas y probadas; revisión de código entre pares.\\
+GPU y tiempo de entrenamiento limitados & Priorizar las dos conductas; usar Colab o GPU local con una bolsa de cómputo en la nube.\\
+Etiquetado de fotogramas más lento de lo previsto & Muestreo representativo y priorización de las clases elegidas.\\
+Espacio en disco (30 a 50 GB entre videos, fotogramas y modelos) & Almacenamiento externo o en la nube.\\
+Cambio de entorno: una planta y dos cámaras & La adaptación a otras plantas se planifica como evolución del producto.\\
+Equipo de tres integrantes; el Scrum Master también es Developer & \textit{Time-boxing} estricto y revisión de pares entre los dos Developers.\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\end{table}
+
+Los riesgos se revisan en cada reunión diaria y en cada retrospectiva. Si uno se materializa, el acta prevé un cierre con alcance reducido: entregar una sola conducta con su evaluación documentada, en lugar de dos.
+
+El cronograma (Tabla~\ref{tab:hitos}) abarca once semanas calendario, del 5 de octubre al 18 de diciembre de 2026. Las dos primeras semanas corresponden a la fase de inicio, en la que se elaboraron los formatos de este documento; le siguen cuatro sprints de dos semanas, separados por un fin de semana que sirve de margen para la revisión y la retrospectiva, y una semana final de entrega y cierre.
+
+\begin{table}[!htbp]
+\caption{Cronograma de hitos}\label{tab:hitos}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{L C{2.1cm} C{2.1cm}}
+\toprule
+Hito y resultado verificable & Inicio & Fin\\
+\midrule
+Inicio del proyecto: acta y formatos de gestión iniciales & 05/10/2026 & 16/10/2026\\
+Sprint 1: datos, conductas de la primera versión, entorno de trabajo, ingesta y detección & 19/10/2026 & 30/10/2026\\
+Sprint 2: reducción de fotogramas, segmentación de clips y configuración de umbrales & 02/11/2026 & 13/11/2026\\
+Sprint 3: modelo ConvLSTM, pipeline completo y evaluación comparativa & 16/11/2026 & 27/11/2026\\
+Sprint 4: interfaz, registro, alerta, pruebas integradas e informe técnico & 30/11/2026 & 11/12/2026\\
+Entrega, revisión final y cierre & 14/12/2026 & 18/12/2026\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{Los objetivos de cada sprint se expresan según el backlog priorizado (Tabla~\ref{tab:backlog}), que es posterior al acta y prevalece sobre ella.}
+\end{table}
+
+El presupuesto (Tabla~\ref{tab:presupuesto}) asciende a S/~20\,768. El 90~\% corresponde a la dedicación valorizada de los tres integrantes, calculada con tarifas referenciales por hora. El gasto en efectivo previsto es pequeño, S/~280, porque el conjunto de datos y el software son abiertos y el equipo usa sus propias computadoras. La contingencia del 10~\% sirve de margen ante imprevistos, como necesitar más horas de GPU durante el entrenamiento del Sprint~3.
+
+\begin{table}[!htbp]
+\caption{Presupuesto estimado del proyecto}\label{tab:presupuesto}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{L P{3.4cm} r}
+\toprule
+Concepto & Base de cálculo & Monto (S/)\\
+\midrule
+Product Owner (Albert Chumacero) & 100 h × S/ 40 & 4\,000.00\\
+Scrum Master y Developer (Anthony Lopez) & 200 h × S/ 38 & 7\,600.00\\
+Developer (Luis Salazar) & 200 h × S/ 35 & 7\,000.00\\
+Cómputo GPU en la nube & 2 meses × S/ 40 & 80.00\\
+Almacenamiento de videos, fotogramas y modelos & 1 lote & 150.00\\
+Impresión y anillado de entregables & 1 lote & 50.00\\
+Conjunto de datos (CC BY 4.0) y software abierto & Sin costo & 0.00\\
+\midrule
+Subtotal & & 18\,880.00\\
+Reserva de contingencia & 10~\% del subtotal & 1\,888.00\\
+\textbf{Total estimado} & & \textbf{20\,768.00}\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{Base: 20 horas por semana por Developer y 10 por el Product Owner durante 10 semanas (500 horas). Importes referenciales al 12/10/2026, sin cotización formal.}
+\end{table}
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsection{FGAP020: Registro de interesados}
+% ---------------------------------------------------------------------
+
+El registro de interesados identifica a las personas que influyen en el proyecto o se ven afectadas por él, y define cómo involucrarlas. Se elaboró en este producto, en su versión 1.0, a partir de la lista de interesados del acta y de los roles del FGAP030. La Tabla~\ref{tab:interesados} lo presenta y la Figura~\ref{fig:poderinteres} ubica a cada interesado en una matriz de poder e interés.
+
+\begin{table}[!htbp]
+\caption{Registro de interesados (FGAP020)}\label{tab:interesados}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{3.1cm} P{3.1cm} L C{1.2cm} C{1.2cm}}
+\toprule
+Interesado & Rol en el proyecto & Expectativa principal & Poder & Interés\\
+\midrule
+Ricardo Salcedo Paredes & Sponsor, gerente general & Indicadores claros para decidir inversión y capacitación & Alto & Medio\\
+Albert Chumacero Chávarry & Product Owner & Un backlog que entregue valor en cada sprint & Alto & Alto\\
+Dr. Alfredo Daza Vergaray & Docente del curso & Coherencia de los entregables con Scrum y la guía SBOK & Alto & Alto\\
+Anthony Lopez Yrribarren & Scrum Master y Developer & Proceso sin impedimentos; integración y pruebas estables & Medio & Alto\\
+Luis Salazar Diaz & Developer & Pipeline de visión reproducible y evaluado & Medio & Alto\\
+Mariana Torres Cárdenas & Supervisora de SST & Alertas útiles con evidencia breve & Medio & Alto\\
+Jorge Ponce Aguilar & Administrador de TI & Ingesta automática y configuración sin código & Medio & Alto\\
+Lucía Ramos Villena & Operadora de monitoreo & Ver solo lo importante y confirmar en un clic & Bajo & Alto\\
+César Vásquez Lozano & Supervisor de turno & Saber qué pasó, dónde y cuándo, sin alertas repetidas & Bajo & Alto\\
+Trabajadores de planta & Personas observadas & Privacidad: sin rostro ni identificación & Bajo & Medio\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{Los interesados de la empresa son perfiles ficticios de un caso académico; no expresan un vínculo real con ninguna organización.}
+\end{table}
+
+\begin{figure}[!htbp]
+\caption{Matriz de poder e interés de los interesados}\label{fig:poderinteres}
+\centering
+\begin{tikzpicture}[font=\small\sffamily, x=1.1cm, y=0.72cm,
+  q/.style={font=\scriptsize\sffamily\bfseries, text=gris},
+  p/.style={circle, fill=acento, inner sep=1.6pt},
+  e/.style={font=\scriptsize\sffamily, text=tinta, align=left}]
+  \fill[acentoclaro!60] (5,3.5) rectangle (10,7);
+  \fill[grisclaro!50] (0,0) rectangle (5,3.5);
+  \draw[gris, line width=0.6pt] (0,0) rectangle (10,7);
+  \draw[gris, dashed] (5,0) -- (5,7) (0,3.5) -- (10,3.5);
+  \node[q, anchor=north west] at (0.1,6.9) {MANTENER SATISFECHO};
+  \node[q, anchor=north east] at (9.9,6.9) {GESTIONAR DE CERCA};
+  \node[q, anchor=south west] at (0.1,0.1) {MONITOREAR};
+  \node[q, anchor=south east] at (9.9,0.1) {MANTENER INFORMADO};
+  \foreach \x/\y/\t in {3.9/5.6/{Sponsor (gerente general)}, 9.0/6.2/{Docente}, 8.6/5.5/{Product Owner},
+      8.8/4.8/{Scrum Master y Developer}, 7.6/3.95/{Supervisora de SST\\y administrador de TI},
+      8.8/2.6/{Operadora de monitoreo}, 8.2/1.8/{Supervisor de turno}, 3.9/1.6/{Trabajadores de planta}}
+    {\node[p] at (\x,\y) {}; \node[e, anchor=east] at (\x-0.15,\y) {\t};}
+  \draw[-{Stealth}, tinta] (0,-0.35) -- (10,-0.35) node[midway, below, font=\small\sffamily] {Interés};
+  \draw[-{Stealth}, tinta] (-0.35,0) -- (-0.35,7) node[midway, above, rotate=90, font=\small\sffamily] {Poder};
+\end{tikzpicture}
+\nota{Elaboración propia a partir de la Tabla~\ref{tab:interesados}.}
+\end{figure}
+
+La matriz orienta cómo se involucra a cada grupo. A quienes se \textit{gestiona de cerca}, es decir, el Product Owner, el docente, los Developers y los usuarios de SST y de TI, se les convoca a la revisión de cada sprint, donde validan el incremento. Al sponsor se le \textit{mantiene satisfecho} con un resumen breve al cierre de cada sprint, centrado en avance, riesgos y presupuesto. A la operadora de monitoreo y al supervisor de turno se les \textit{mantiene informados}: prueban la interfaz en el Sprint~4, cuando se construye la parte que usarán. Los trabajadores de planta se \textit{monitorean} a través de un compromiso explícito de privacidad: el sistema no reconoce rostros ni identifica a nadie.
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsection{FGAP030: Roles y prototipos}
+% ---------------------------------------------------------------------
+
+El FGAP030 describe a los usuarios del sistema mediante perfiles (\textit{personas}). Cada rol se caracteriza por su frecuencia de uso, su experiencia en el tema, su dominio de la computadora y del software, y su meta al usar NewBit (Tabla~\ref{tab:roles}). Los cinco roles son los actores de las seis épicas del backlog.
+
+\begin{table}[!htbp]
+\caption{Roles de usuario de NewBit (FGAP030)}\label{tab:roles}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{2.8cm} P{2.1cm} C{1.75cm} C{1.6cm} L}
+\toprule
+Rol (persona) & Frecuencia de uso & Experiencia en el tema & Dominio del software & Meta principal\\
+\midrule
+Administrador de la plataforma (Jorge Ponce, 35) & Diaria, al ingresar lotes & Alta & Alto & Cargar videos, configurar la selección de fotogramas y el umbral de confianza, y vigilar el rendimiento.\\
+Supervisora de SST (Mariana Torres, 32) & Diaria y ante cada alerta & Alta & Medio & Revisar alertas con su clip de evidencia, confirmarlas o descartarlas y priorizar inspecciones.\\
+Supervisor de turno (César Vásquez, 41) & Diaria, en su turno & Alta & Medio & Consultar las alertas de su área de mecanizado y registrar la acción tomada.\\
+Operadora de monitoreo (Lucía Ramos, 29) & Permanente en su turno & Media & Alto & Atender alertas visuales y sonoras, verificar el clip y marcar falsas alarmas.\\
+Gerente general y sponsor (Ricardo Salcedo, 48) & Semanal & Alta & Bajo & Consultar reportes por tipo, zona y semana para decidir recursos y capacitación.\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{Perfiles ficticios para fines académicos. La experiencia en el tema se refiere al dominio de cada persona: infraestructura en TI, prevención en SST y operaciones en los demás.}
+\end{table}
+
+Los prototipos completan cada perfil con una breve historia personal. Mariana Torres, por ejemplo, reparte su día entre recorridos de planta y reportes; quiere enterarse de una conducta insegura cuando todavía puede intervenir y saber en qué zonas se repite, sin revisar horas de video. Lucía Ramos vigila muchas cámaras a la vez y sabe que es fácil pasar algo por alto; quiere que NewBit le señale solo lo importante. Estas necesidades se traducen directamente en historias de usuario: la alerta con evidencia (HU10) y la vista del video con el recuadro de riesgo (HU09).
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsection{EGAP015: Justificación del proyecto}
+% ---------------------------------------------------------------------
+
+La justificación argumenta por qué conviene ejecutar el proyecto. Sigue los diez apartados del formato del docente \parencite{daza2026justificacion} y se resume en la Tabla~\ref{tab:justificacion}. En coherencia con el acta, el monto es el mismo, S/~20\,768, y no se prometen ahorros ni reducciones de accidentes que no estén demostrados.
+
+\begin{table}[!htbp]
+\caption{Síntesis de la justificación del proyecto (EGAP015)}\label{tab:justificacion}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{3.3cm} L}
+\toprule
+Apartado & Síntesis\\
+\midrule
+Necesidad & Las inspecciones de SST son intermitentes y las cámaras graban sin emitir alertas; los actos inseguros se identifican tarde.\\
+Tecnológica & Arquitectura de dos etapas: YOLOv8 detecta a los operarios y permite descartar fotogramas sin actividad; ConvLSTM clasifica la secuencia. Pila abierta: Python, FastAPI y OpenCV.\\
+Operativa & El flujo se reparte entre roles reales: TI administra la ingesta y los umbrales, SST analiza los incidentes y monitoreo atiende las alertas. El sistema apoya la decisión humana, no la reemplaza.\\
+Económica & S/ 20\,768, idéntico al acta: S/ 18\,600 de dedicación valorizada, S/ 280 de gastos directos y S/ 1\,888 de contingencia.\\
+Social y de SST & Prevención de atrapamientos y accidentes en zonas de mecanizado; cultura preventiva; privacidad por diseño.\\
+Académica & Aplicación de Scrum según la guía SBOK, ingeniería de requisitos, aprendizaje profundo, desarrollo web y pruebas.\\
+Beneficios & Tangibles: plataforma web, pipeline de reducción de fotogramas, detector calibrado y registro de métricas. Intangibles: menos fatiga de revisión visual y mayor disciplina operativa.\\
+Viabilidad & Técnica, operativa y económica, con las restricciones declaradas: procesamiento por lotes y dos conductas priorizadas.\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{Se omiten los apartados de datos generales y conclusión, que repiten información de la Tabla~\ref{tab:acta}.}
+\end{table}
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsection{FGAP040: Épicas e historias de usuario}
+% ---------------------------------------------------------------------
+
+El backlog se organiza en seis épicas que siguen el recorrido del dato: del video cargado a la alerta (Tabla~\ref{tab:epicas}). Las épicas se descomponen en doce historias de usuario, cada una con dos criterios de aceptación verificables (Tabla~\ref{tab:historias}).
+
+\begin{table}[!htbp]
+\caption{Épicas del proyecto (FGAP040)}\label{tab:epicas}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{C{1.1cm} P{4.2cm} P{3.0cm} L}
+\toprule
+ID & Épica & Rol & Historias\\
+\midrule
+EP01 & Ingestión y preprocesamiento de video & Administrador & HU01, HU02\\
+EP02 & Detección espacial de operarios (YOLOv8) & Supervisora de SST & HU03\\
+EP03 & Segmentación y reducción de secuencias & Administrador, SST & HU04, HU05, HU06\\
+EP04 & Clasificación espacio-temporal (ConvLSTM) & Supervisora de SST & HU07, HU08\\
+EP05 & Monitoreo y visualización de alertas & Operadora de monitoreo & HU09, HU10\\
+EP06 & Administración, calibración y trazabilidad & Administrador, gerente & HU11, HU12\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\end{table}
+
+\begingroup\small\singlespacing\renewcommand{\arraystretch}{1.25}
+\begin{longtable}{C{1.1cm} P{6.4cm} P{6.9cm}}
+\caption{Historias de usuario y criterios de aceptación}\label{tab:historias}\\
+\toprule
+HU & Historia de usuario & Criterios de aceptación\\
+\midrule
+\endfirsthead
+\multicolumn{3}{l}{\normalsize\textit{Tabla \thetable{} (continuación)}}\\[2pt]
+\toprule
+HU & Historia de usuario & Criterios de aceptación\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+HU01 & Como administrador de la plataforma, quiero cargar un video industrial (.mp4 o .avi), para iniciar el procesamiento visual. & Acepta .mp4 y .avi y rechaza otros formatos con un mensaje claro. Muestra nombre, duración, resolución y FPS.\\
+HU02 & Como administrador, quiero que el sistema fragmente el video en fotogramas normalizados, para prepararlos para la inferencia espacial. & Almacena fotogramas numerados en secuencia. Normaliza el tamaño al requerido por YOLOv8.\\
+HU03 & Como supervisora de SST, quiero que el sistema detecte a los operarios en cada fotograma con YOLOv8, para localizar la actividad humana. & Infiere cajas de la clase «persona» con su confianza. Muestra el fotograma con las cajas superpuestas.\\
+HU04 & Como administrador, quiero que se descarten los fotogramas sin trabajadores, para reducir la carga de cómputo. & Excluye los fotogramas sin detecciones. Registra fotogramas de entrada, conservados y porcentaje de reducción.\\
+HU05 & Como supervisora de SST, quiero agrupar los fotogramas activos en clips de tamaño fijo, para estructurar la entrada del modelo temporal. & Genera secuencias de N fotogramas consecutivos (configurable). Produce un tensor compatible con ConvLSTM.\\
+HU06 & Como supervisora de SST, quiero descartar los clips más cortos que una ventana mínima, para evitar alertas por movimientos fugaces. & Descarta los clips bajo el umbral de duración. Registra cuántos fragmentos se descartaron.\\
+HU07 & Como supervisora de SST, quiero procesar el clip con ConvLSTM, para extraer las dependencias temporales del movimiento. & Ejecuta la inferencia sobre la división oficial de prueba. Devuelve un vector de probabilidades por secuencia.\\
+HU08 & Como supervisora de SST, quiero que el modelo clasifique la conducta como segura o insegura y la tipifique, para registrar un diagnóstico claro. & Asigna etiqueta y tipo de conducta por clip. Calcula exactitud, precisión, sensibilidad y F1 por clase.\\
+HU09 & Como operadora de monitoreo, quiero ver el video con un recuadro de color según el riesgo, para validar la inferencia. & Recuadro verde (seguro) o rojo (inseguro) superpuesto. Permite reproducir, pausar y revisar los clips del lote.\\
+HU10 & Como operadora de monitoreo, quiero una alerta inmediata con hora y evidencia ante una conducta insegura, para intervenir a tiempo. & Notificación visual y sonora. Guarda fecha, marca de tiempo, clip y probabilidad.\\
+HU11 & Como administrador, quiero modificar el umbral de confianza de YOLOv8 desde la interfaz, para calibrar la sensibilidad según la iluminación. & Ajuste gráfico en el rango de 0 a 1 con validación de límites. Registra cada cambio en un log de auditoría.\\
+HU12 & Como gerente y administrador, quiero ver el log de tiempos y la aceleración obtenida, para evaluar la eficiencia técnica. & Muestra tiempos por fase (ingesta, YOLOv8, ConvLSTM). Compara el tiempo total con y sin reducción.\\
+\end{longtable}
+\endgroup
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsection{FGAP060: Backlog priorizado del producto}
+% ---------------------------------------------------------------------
+
+La priorización combinó tres criterios en este orden. Primero, la técnica MoSCoW fijó la criticidad de cada historia: ocho \textit{Must}, tres \textit{Should} y una \textit{Could}. Segundo, cada integrante repartió 100 puntos entre las historias, lo que ordenó la importancia dentro de cada grupo. Tercero, se respetaron las dependencias técnicas del pipeline, porque ninguna etapa puede probarse sin la anterior. La estimación se hizo con el puño de cinco y se expresa en puntos de historia del 1 al 5. La Tabla~\ref{tab:backlog} muestra el resultado.
+
+\begin{table}[!htbp]
+\caption{Backlog priorizado del producto (FGAP060)}\label{tab:backlog}
+\begin{tablaapa}
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\textwidth}{C{0.95cm} L C{1.35cm} C{0.6cm} C{0.6cm} C{0.6cm} C{0.85cm} C{1.25cm} C{1.25cm}}
+\toprule
+HU & Historia (resumen) & MoSCoW & PO & SM & Dev & Total & Depende de & Sprint (pts)\\
+\midrule
+HU01 & Cargar video & Must & 6 & 8 & 5 & 19 & — & 1 (1)\\
+HU02 & Extraer fotogramas & Must & 5 & 8 & 7 & 20 & HU01 & 1 (2)\\
+HU03 & Detectar operarios & Must & 12 & 12 & 13 & 37 & HU02 & 1 (4)\\
+HU04 & Descartar fotogramas vacíos & Must & 8 & 10 & 10 & 28 & HU03 & 2 (2)\\
+HU05 & Agrupar en clips & Must & 6 & 9 & 10 & 25 & HU04 & 2 (3)\\
+HU06 & Descartar clips cortos & Should & 3 & 4 & 5 & 12 & HU05 & 2 (2)\\
+HU11 & Calibrar umbral & Could & 2 & 3 & 3 & 8 & HU03 & 2 (1)\\
+HU07 & Procesar con ConvLSTM & Must & 15 & 14 & 18 & 47 & HU05 & 3 (5)\\
+HU08 & Clasificar y tipificar & Must & 14 & 12 & 12 & 38 & HU07 & 3 (3)\\
+HU09 & Ver video con recuadro & Must & 13 & 9 & 8 & 30 & HU08 & 4 (4)\\
+HU10 & Alerta de riesgo & Should & 10 & 6 & 5 & 21 & HU08 & 4 (2)\\
+HU12 & Ver log de tiempos & Should & 6 & 5 & 4 & 15 & HU04 & 4 (2)\\
+\midrule
+ & \textbf{Total} & & 100 & 100 & 100 & 300 & & 31 pts\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{PO = Albert Chumacero; SM = Anthony Lopez; Dev = Luis Salazar. Las columnas PO, SM y Dev son los puntos que cada integrante asignó con el método de los 100 puntos. \textit{Won't have} en esta versión: cámaras en vivo por RTSP, alertas físicas en la maquinaria y reconocimiento facial.}
+\end{table}
+
+Dos historias se adelantan a pesar de su baja votación. HU11 (\textit{Could}) entra al Sprint~2 porque calibra el detector de HU03 y el filtro de HU04; sin ella no se pueden ajustar las pruebas de los sprints 2 y 3. HU06 (\textit{Should}) también entra al Sprint~2, porque filtra los clips insuficientes antes de entrenar el modelo temporal en el Sprint~3. La carga queda equilibrada: 7, 8, 8 y 8 puntos por sprint.
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsection{FGAP070: Criterios de terminado}
+% ---------------------------------------------------------------------
+
+Los criterios de terminado (CT-NB-001) se aplican a todas las historias. Una historia no pasa a la columna \textit{Terminado} del tablero si no cumple cada uno de los criterios de la Tabla~\ref{tab:dod}. A diferencia de los criterios de aceptación, que define el Product Owner para cada historia, estos criterios no se negocian por historia.
+
+\begin{table}[!htbp]
+\caption{Criterios de terminado del incremento (FGAP070)}\label{tab:dod}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{3.0cm} L}
+\toprule
+Criterio & Condición para dar una historia por terminada\\
+\midrule
+Prueba unitaria & Módulos nuevos o modificados con pruebas automatizadas ejecutadas; ninguna falla bloqueante o de regresión abierta.\\
+Prueba integrada & Flujo verificado de extremo a extremo: interfaz web, API de carga, almacenamiento y motor de detección; manejo de videos corruptos, formatos no admitidos y parámetros fuera de rango.\\
+Revisión de pares & Revisión del código entre los dos Developers: legibilidad, arquitectura modular, PEP~8 y ausencia de credenciales en el código.\\
+Certificación & No aplica. Es un prototipo académico; no constituye certificación de SST ni sustituye al supervisor.\\
+Documentación & Historias y criterios actualizados; manual de instalación y README; trazabilidad del conjunto de datos, versión de pesos, hiperparámetros y métricas.\\
+Aprobación técnica & Los Developers confirman pruebas exitosas, ausencia de defectos graves y el incremento disponible en el entorno de demostración.\\
+Aprobación administrativa & El Product Owner valida los criterios de aceptación en la revisión del sprint; su aceptación no sustituye los criterios técnicos.\\
+Ética y privacidad & Licencia CC BY 4.0 respetada; sin reconocimiento facial ni biometría; alertas de carácter preventivo.\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\end{table}
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsection{Arquitectura propuesta y plan de sprints}
+% ---------------------------------------------------------------------
+
+La Figura~\ref{fig:arquitectura} muestra el pipeline propuesto. Adapta la arquitectura de Unsafe-Net \parencite{onal2025} con un detector más reciente, YOLOv8n \parencite{yolov8}, y la organiza en dos etapas. La \textit{etapa espacial} trabaja fotograma por fotograma: valida el video, lo fragmenta, detecta a los operarios y conserva solo los fotogramas con actividad, que agrupa en clips. La \textit{etapa temporal} clasifica cada clip con ConvLSTM y, si la conducta es insegura, registra la detección y emite la alerta. Al final, una persona de SST confirma o descarta la alerta. Separar ambas etapas permite evaluarlas por su cuenta, como exige el acta, y medir cuánto aporta la reducción de fotogramas al tiempo de procesamiento y a la exactitud.
+
+\begin{figure}[!htbp]
+\caption{Arquitectura propuesta del pipeline de NewBit}\label{fig:arquitectura}
+\centering
+\begin{tikzpicture}[font=\small\sffamily,
+  et/.style={draw=#1, fill=#1!10, rounded corners=3pt, line width=0.7pt, minimum height=1.75cm, text width=2.35cm, align=center},
+  fl/.style={-{Stealth[length=2.2mm]}, line width=0.7pt, draw=gris},
+  sp/.style={font=\scriptsize\sffamily, text=gris},
+  grupo/.style={draw=#1, dashed, rounded corners=5pt, inner sep=8pt, line width=0.5pt}]
+  % Etapa espacial
+  \node[et=acento] (v) {Carga y validación\\[-1pt]{\scriptsize RF-01\\Sprint 1}};
+  \node[et=acento, right=0.45cm of v] (f) {Fotogramas normalizados\\[-1pt]{\scriptsize HU02\\Sprint 1}};
+  \node[et=acento, right=0.45cm of f] (y) {Detección de operarios (YOLOv8n)\\[-1pt]{\scriptsize RF-02\\Sprint 1}};
+  \node[et=acento, right=0.45cm of y] (r) {Reducción y clips\\[-1pt]{\scriptsize RF-03, RF-04\\Sprint 2}};
+  % Etapa temporal y salida
+  \node[et=pendiente, below=1.3cm of r] (c) {Clasificación de la conducta (ConvLSTM)\\[-1pt]{\scriptsize RF-05\\Sprint 3}};
+  \node[et=pendiente, left=0.45cm of c] (g) {Registro de la detección\\[-1pt]{\scriptsize RF-06\\Sprint 3}};
+  \node[et=pendiente, left=0.45cm of g] (a) {Alerta visual y sonora\\[-1pt]{\scriptsize RF-07\\Sprint 4}};
+  \node[et=gris, left=0.45cm of a] (h) {Confirmación por SST\\[-1pt]{\scriptsize decisión humana}};
+  \draw[fl] (v) -- (f); \draw[fl] (f) -- (y); \draw[fl] (y) -- (r); \draw[fl] (r) -- (c);
+  \draw[fl] (c) -- (g); \draw[fl] (g) -- (a); \draw[fl] (a) -- (h);
+  \node[grupo=acento, fit=(v)(r), label={[font=\scriptsize\sffamily\bfseries, text=acento]above:Etapa espacial}] {};
+  \node[grupo=pendiente, fit=(a)(c), label={[font=\scriptsize\sffamily\bfseries, text=pendiente]below:Etapa temporal y salida}] {};
+\end{tikzpicture}
+\nota{Elaboración propia. Los códigos RF remiten a la Tabla~\ref{tab:requisitos}; el sprint indica cuándo se construye cada etapa según el backlog priorizado.}
+\end{figure}
+
+La Figura~\ref{fig:sprints} ubica los cuatro sprints en el calendario del semestre, con las épicas y la carga de cada uno. El Sprint~1 empieza el 19 de octubre de 2026, al cierre de la Unidad~I.
+
+\begin{figure}[!htbp]
+\caption{Plan de sprints de NewBit, octubre a diciembre de 2026}\label{fig:sprints}
+\centering
+\begin{tikzpicture}[font=\small\sffamily, x=0.142cm, y=0.6cm]
+  % Eje horizontal: 0 = 05/10/2026, una unidad = un día
+  \foreach \d/\t in {0/05 oct,14/19 oct,28/02 nov,42/16 nov,56/30 nov,70/14 dic} {
+    \draw[grisclaro] (\d,0.45) -- (\d,-5.6);
+    \node[font=\scriptsize\sffamily, text=gris, above] at (\d,0.45) {\t};}
+  \foreach \fila/\ini/\fin/\col/\nom/\det in {
+      0/0/11/gris/Inicio/{Formatos FGAP010 a FGAP070},
+      1/14/25/acento/Sprint 1/{EP01, EP02 · 7 pts},
+      2/28/39/acento/Sprint 2/{EP03 y HU11 · 8 pts},
+      3/42/53/pendiente/Sprint 3/{EP04 · 8 pts},
+      4/56/67/pendiente/Sprint 4/{EP05 y HU12 · 8 pts},
+      5/70/74/gris/Cierre/{FGAP090}} {
+    \fill[\col!18, draw=\col, rounded corners=2pt] (\ini,-\fila+0.3) rectangle (\fin,-\fila-0.3);
+    \node[anchor=east, font=\scriptsize\sffamily, align=right, text=tinta] at (-1.2,-\fila) {\textbf{\nom}\enspace\textcolor{gris}{\det}};}
+  \draw[tinta, line width=0.9pt] (14,0.45) -- (14,-5.75) node[below, font=\scriptsize\sffamily\bfseries, text=tinta] {19/10: inicio del Sprint 1};
+\end{tikzpicture}
+\nota{Fechas según el cronograma del acta (Tabla~\ref{tab:hitos}). En azul, la etapa espacial; en ámbar, la temporal y la interfaz.}
+\end{figure}
+
+El orden de los sprints sigue el recorrido del dato. Los sprints 1 y 2 construyen la etapa espacial, que no depende de ningún modelo entrenado por el equipo. El Sprint~3 concentra el mayor riesgo técnico: entrenar y evaluar el modelo ConvLSTM sobre la división oficial del conjunto de datos y comparar la clasificación directa con el pipeline completo. Las metas de desempeño se fijarán con la línea base que se obtenga en ese sprint; por eso este documento no adelanta cifras propias. El Sprint~4 lleva el resultado al usuario: visualización con recuadro de riesgo, alerta y log de tiempos.
+
+% =====================================================================
+\FloatBarrier
+\newpage
+\seccionsinnumero{Referencias}
+% =====================================================================
+\begin{referencias}
+
+Bochkovskiy, A., Wang, C.-Y. y Liao, H.-Y. M. (2020). \textit{YOLOv4: Optimal speed and accuracy of object detection} (arXiv:2004.10934). arXiv. \url{https://doi.org/10.48550/arXiv.2004.10934}
+
+Clegg, D. y Barker, R. (1994). \textit{Case method fast-track: A RAD approach}. Addison-Wesley.
+
+Cohn, M. (2004). \textit{User stories applied: For agile software development}. Addison-Wesley.
+
+Congreso de la República del Perú. (2011, 20 de agosto). \textit{Ley N.\textsuperscript{o} 29783, Ley de Seguridad y Salud en el Trabajo}. Diario Oficial El Peruano.
+
+Daza Vergaray, A. (2026a). \textit{Justificación de negocio} [Diapositivas de clase]. Ingeniería de Software II, Universidad Nacional del Santa.
+
+Daza Vergaray, A. (2026b). \textit{Secuencia de trabajo del proyecto: Desde la definición del proyecto hasta la entrega final} [Material de clase]. Ingeniería de Software II, Universidad Nacional del Santa.
+
+Gutiérrez Torres, M. M. (2022). \textit{Visión computacional en la industria de la construcción: Identificación de equipos de seguridad en obras mediante el uso de deep learning} [Tesis de licenciatura, Pontificia Universidad Católica del Perú]. Repositorio de Tesis PUCP. \url{http://hdl.handle.net/20.500.12404/23766}
+
+Heinrich, H. W. (1931). \textit{Industrial accident prevention: A scientific approach}. McGraw-Hill.
+
+Hochreiter, S. y Schmidhuber, J. (1997). Long short-term memory. \textit{Neural Computation}, \textit{9}(8), 1735--1780. \url{https://doi.org/10.1162/neco.1997.9.8.1735}
+
+Jocher, G., Chaurasia, A. y Qiu, J. (2023). \textit{Ultralytics YOLOv8} (Versión 8.0.0) [Software]. \url{https://github.com/ultralytics/ultralytics}
+
+LeCun, Y., Bengio, Y. y Hinton, G. (2015). Deep learning. \textit{Nature}, \textit{521}(7553), 436--444. \url{https://doi.org/10.1038/nature14539}
+
+León León, R. A. y León Montero, J. A. (2024). Development of an artificial vision algorithm for the recognition of the correct use of EPP. En \textit{Proceedings of the 4th LACCEI International Multiconference on Entrepreneurship, Innovation and Regional Development (LEIRD 2024)}. LACCEI. \url{https://doi.org/10.18687/LEIRD2024.1.1.874}
+
+Machaca Arcana, L. A. (2019). \textit{Reconocimiento de eventos anómalos en videos obtenidos de cámaras de vigilancia, usando redes convolucionales} [Tesis de licenciatura, Universidad Nacional de San Agustín de Arequipa]. Repositorio Institucional UNSA. \url{http://repositorio.unsa.edu.pe/handle/UNSA/10849}
+
+Menzinsky, A., López, G. y Palacio, J. (2018). \textit{Historias de usuario: Ingeniería de requisitos ágil} (Versión 2.0). Scrum Manager.
+
+Önal, O. y Dandıl, E. (2021). Object detection for safe working environments using YOLOv4 deep learning model. \textit{Avrupa Bilim ve Teknoloji Dergisi}, (26), 343--351. \url{https://doi.org/10.31590/ejosat.951733}
+
+Önal, O. y Dandıl, E. (2024a). \textit{Video dataset for safe and unsafe behaviours} (Versión 1) [Conjunto de datos]. Mendeley Data. \url{https://doi.org/10.17632/xjmtb22pff.1}
+
+Önal, O. y Dandıl, E. (2024b). Video dataset for the detection of safe and unsafe behaviours in workplaces. \textit{Data in Brief}, \textit{56}, Artículo 110791. \url{https://doi.org/10.1016/j.dib.2024.110791}
+
+Önal, O. y Dandıl, E. (2025). Unsafe-Net: YOLO v4 and ConvLSTM based computer vision system for real-time detection of unsafe behaviours in workplace. \textit{Multimedia Tools and Applications}, \textit{84}, 34967--34993. \url{https://doi.org/10.1007/s11042-024-19276-8}
+
+Paucara Guadalupe, C. E. R. y Rodríguez Enciso, S. P. (2024). \textit{Sistema inteligente basado en deep learning para la detección del uso correcto de equipos de protección personal} [Tesis de licenciatura, Universidad César Vallejo]. Repositorio Digital Institucional UCV. \url{https://hdl.handle.net/20.500.12692/149042}
+
+Redmon, J., Divvala, S., Girshick, R. y Farhadi, A. (2016). You only look once: Unified, real-time object detection. En \textit{Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition} (pp. 779--788). IEEE. \url{https://doi.org/10.1109/CVPR.2016.91}
+
+Schwaber, K. y Sutherland, J. (2020). \textit{La guía Scrum: La guía definitiva de Scrum: Las reglas del juego}. \url{https://scrumguides.org}
+
+SCRUMstudy. (2022). \textit{Guía de los fundamentos de Scrum (Guía SBOK)} (4.\textsuperscript{a} ed.). VMEdu.
+
+Shi, X., Chen, Z., Wang, H., Yeung, D.-Y., Wong, W.-K. y Woo, W.-C. (2015). Convolutional LSTM network: A machine learning approach for precipitation nowcasting. En C. Cortes, N. Lawrence, D. Lee, M. Sugiyama y R. Garnett (Eds.), \textit{Advances in Neural Information Processing Systems 28} (pp. 802--810). Curran Associates.
+
+\end{referencias}
+
+\end{document}

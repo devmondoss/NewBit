@@ -1,0 +1,491 @@
+% =====================================================================
+% Presentación del Producto de la Unidad I — NewBit (PY-NB-001)
+% Ingeniería de Software II · Universidad Nacional del Santa · 2026-II · Grupo D3
+% Compilar con XeLaTeX o Tectonic:  tectonic PPT_Producto_Unidad_1_NewBit.tex
+% Acompaña al informe Producto_Unidad_1_NewBit.pdf (mismas cifras, tablas y diagramas).
+% =====================================================================
+\documentclass[aspectratio=169,11pt]{beamer}
+
+\usepackage[spanish,es-noquoting,es-nolists,es-nodecimaldot]{babel}
+\usepackage{fontspec}
+\setsansfont{texgyreheros}[Extension=.otf, UprightFont=*-regular, BoldFont=*-bold,
+  ItalicFont=*-italic, BoldItalicFont=*-bolditalic]
+\setmainfont{texgyretermes}[Extension=.otf, UprightFont=*-regular, BoldFont=*-bold,
+  ItalicFont=*-italic, BoldItalicFont=*-bolditalic]
+\usepackage{booktabs,array,tabularx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,calc,babel}
+
+% --- Paleta (la misma del informe) -----------------------------------
+\definecolor{tinta}{HTML}{1F2937}
+\definecolor{gris}{HTML}{6B7280}
+\definecolor{grisclaro}{HTML}{E5E7EB}
+\definecolor{acento}{HTML}{1D4ED8}
+\definecolor{acentoclaro}{HTML}{DBEAFE}
+\definecolor{hecho}{HTML}{047857}
+\definecolor{pendiente}{HTML}{B45309}
+
+% --- Tema sobrio propio -----------------------------------------------
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{normal text}{fg=tinta,bg=white}
+\setbeamercolor{frametitle}{fg=tinta}
+\setbeamercolor{structure}{fg=acento}
+\setbeamercolor{alerted text}{fg=acento}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamertemplate{frametitle}{\vspace{6pt}\insertframetitle\par
+  {\color{acento}\rule{1.4cm}{2pt}}\vspace{-2pt}}
+\setbeamertemplate{itemize items}{\color{acento}\textbullet}
+\setbeamertemplate{footline}{\hspace{0.6cm}{\color{gris}\scriptsize NewBit · Producto de la Unidad I · Grupo D3}\hfill
+  {\color{gris}\scriptsize\insertframenumber}\hspace{0.6cm}\vspace{0.35cm}}
+\setlength{\leftmargini}{1.1em}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcommand{\fuente}[1]{\par\vfill{\color{gris}\scriptsize #1}}
+
+\begin{document}
+
+% ---------------------------------------------------------------------
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[acento] (current page.north west) rectangle ([xshift=0.35cm]current page.south west);
+\end{tikzpicture}
+\vspace{0.6cm}
+{\color{gris}\small Universidad Nacional del Santa · Ingeniería de Software II · Producto de la Unidad I}\par
+\vspace{0.9cm}
+{\fontsize{34}{38}\selectfont\bfseries NewBit\par}
+\vspace{0.25cm}
+{\large Sistema web con visión artificial para la detección de actos inseguros\\ en áreas operativas de manufactura metalmecánica\par}
+\vspace{0.2cm}
+{\color{gris}\small Código del proyecto: PY-NB-001\par}
+\vfill
+\begin{columns}[T]
+\begin{column}{0.6\textwidth}\small
+\textbf{Grupo D3}\\
+Albert Chumacero Chávarry · \textit{Product Owner}\\
+Anthony Lopez Yrribarren · \textit{Scrum Master y Developer}\\
+Luis Salazar Diaz · \textit{Developer}
+\end{column}
+\begin{column}{0.38\textwidth}\small
+\textbf{Docente}\\ Dr. Ing. Alfredo Daza Vergaray\\[4pt]
+{\color{gris}Nuevo Chimbote, octubre de 2026}
+\end{column}
+\end{columns}
+\vspace{0.3cm}
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}{El problema: el acto inseguro se detecta tarde}
+\begin{columns}[T]
+\begin{column}{0.56\textwidth}
+\begin{itemize}\setlength{\itemsep}{8pt}
+  \item En un taller metalmecánico, muchos accidentes nacen de una \textbf{conducta}: cruzar fuera de la vía peatonal o dejar abierto un tablero eléctrico (Heinrich, 1931).
+  \item La supervisión de SST es \textbf{intermitente}: el inspector recorre la planta por turnos.
+  \item Las cámaras graban horas de video que \textbf{casi nadie revisa}.
+  \item La Ley N.º 29783 exige un enfoque \textbf{preventivo} (Congreso de la República del Perú, 2011).
+\end{itemize}
+\end{column}
+\begin{column}{0.4\textwidth}
+\begin{tikzpicture}[font=\small\sffamily]
+  \node[draw=grisclaro, fill=grisclaro!40, rounded corners=4pt, text width=4.7cm, inner sep=10pt, align=left] {%
+    \hyphenpenalty=10000\exhyphenpenalty=10000
+    {\color{gris}\scriptsize PREGUNTA QUE GUÍA EL PROYECTO}\\[4pt]
+    \normalsize\bfseries ¿Cómo convertir el video que ya se graba en evidencia oportuna de actos inseguros, sin vigilar a las personas?};
+\end{tikzpicture}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}[fragile]{La propuesta: NewBit}
+\begin{center}
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[font=\small\sffamily,
+  b/.style={draw=#1, fill=#1!10, rounded corners=4pt, line width=0.8pt, text width=3.1cm, minimum height=1.9cm, align=center},
+  fl/.style={-{Stealth[length=2.6mm]}, line width=0.8pt, draw=gris}]
+  \node[b=gris] (v) {\textbf{Video grabado}\\[2pt]{\scriptsize clips .mp4 / .avi por lotes}};
+  \node[b=acento, right=0.6cm of v] (y) {\textbf{YOLOv8}\\[2pt]{\scriptsize detecta operarios y descarta fotogramas sin actividad}};
+  \node[b=pendiente, right=0.6cm of y] (c) {\textbf{ConvLSTM}\\[2pt]{\scriptsize clasifica la secuencia: conducta segura o insegura}};
+  \node[b=hecho, right=0.6cm of c] (a) {\textbf{Alerta con evidencia}\\[2pt]{\scriptsize la persona de SST confirma o descarta}};
+  \draw[fl] (v) -- (y); \draw[fl] (y) -- (c); \draw[fl] (c) -- (a);
+\end{tikzpicture}}
+\end{center}
+\vspace{0.4cm}
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}\small
+\textbf{\color{acento}Dos conductas}\\ Tránsito fuera de la vía peatonal y tablero eléctrico abierto.
+\end{column}
+\begin{column}{0.32\textwidth}\small
+\textbf{\color{acento}Base científica}\\ Unsafe-Net (Önal y Dandıl, 2025) y su conjunto de datos público, CC BY 4.0.
+\end{column}
+\begin{column}{0.32\textwidth}\small
+\textbf{\color{acento}Privacidad por diseño}\\ Sin reconocimiento facial ni identificación de personas.
+\end{column}
+\end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}[fragile]{Cómo evolucionó la propuesta}
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[font=\small\sffamily,
+  v/.style={draw=#1, fill=#1!8, rounded corners=4pt, line width=0.8pt, text width=4.25cm, minimum height=3.7cm, align=left, inner sep=7pt},
+  fl/.style={-{Stealth[length=2.6mm]}, line width=0.8pt, draw=gris}]
+  \node[v=gris] (a) {{\scriptsize\color{gris}SEMANAS 2--3}\\ \textbf{VIGIA Industrial}\\[3pt]\scriptsize
+    Casco, chaleco e ingreso a zonas en 4 cámaras en vivo.\\[3pt]
+    {\color{pendiente}Problema:} detectaba objetos, no conductas, y dependía de un piloto en planta sin garantizar.};
+  \node[v=acento, right=0.5cm of a] (b) {{\scriptsize\color{gris}SEMANA 4 · 05/10}\\ \textbf{Elección de Unsafe-Net}\\[3pt]\scriptsize
+    Se comparan tres investigaciones y se elige la que reconoce conductas en el tiempo.\\[3pt]
+    {\color{hecho}Ganancia:} conjunto de datos público; desaparece el mayor riesgo.};
+  \node[v=hecho, right=0.5cm of b] (c) {{\scriptsize\color{gris}SEMANA 5}\\ \textbf{NewBit normalizado}\\[3pt]\scriptsize
+    Taller metalmecánico, video por lotes, YOLOv8 + ConvLSTM, 12 historias con criterios y roles de planta.\\[3pt]
+    {\color{hecho}Resultado:} formatos coherentes entre sí.};
+  \draw[fl] (a) -- (b); \draw[fl] (b) -- (c);
+\end{tikzpicture}}
+\vspace{0.3cm}
+
+\small Se conservó en las tres versiones: \textbf{sin reconocimiento facial}, \textbf{decisión final humana} y \textbf{evaluar el evento completo}, no el fotograma.
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}{Antecedentes: de objetos a conductas}
+\scriptsize\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{4.2cm} L >{\raggedright\arraybackslash}p{1.2cm} >{\raggedright\arraybackslash}p{3.6cm}}
+\toprule
+Autor (año) & Técnica & Unidad & Resultado reportado\\
+\midrule
+Önal y Dandıl (2021), Turquía & YOLOv4, detección de EPP & Imagen & mAP 91.18~\%\\
+\textbf{Önal y Dandıl (2025), Turquía} & \textbf{YOLOv4 + ConvLSTM, conductas inseguras} & \textbf{Video} & \textbf{95.81~\% por clase}\\
+Gutiérrez Torres (2022), PUCP & VGG-16, ResNet-18, Inception-V3 & Imagen & Exactitud 84~\%\\
+Machaca Arcana (2019), UNSA & Redes convolucionales, eventos anómalos & Video & —\\
+Paucara y Rodríguez (2024), UCV & Aprendizaje profundo, casco & Imagen & Mejor que el método convencional\\
+León y León (2024), UPN & YOLOv8, mascarilla y gorro & Imagen & Validación 96.57~\%\\
+\bottomrule
+\end{tabularx}
+\vspace{0.25cm}
+
+\small Nacionales: \textbf{objetos} en \textbf{imágenes}. NewBit, como Unsafe-Net: \textbf{conductas} en \textbf{secuencias}.\\[2pt]
+{\color{gris}\scriptsize Cada cifra corresponde al conjunto de datos de su autor; no son comparables entre sí.}
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}{Marco teórico}
+\begin{columns}[T]
+\begin{column}{0.31\textwidth}
+\textbf{\color{acento}Scrum (SBOK)}\\[4pt]\small
+Seis principios: control empírico, autoorganización, colaboración, priorización por valor, \textit{time-boxing} y desarrollo iterativo.\\[4pt]
+Roles: Product Owner, Scrum Master y Equipo Scrum (SCRUMstudy, 2022).
+\end{column}
+\begin{column}{0.31\textwidth}
+\textbf{\color{acento}Requisitos ágiles}\\[4pt]\small
+Épicas → historias «Como… quiero… para…» con criterios de aceptación (Cohn, 2004).\\[4pt]
+Priorización MoSCoW y 100 puntos; estimación con el puño de cinco; criterios de terminado comunes.
+\end{column}
+\begin{column}{0.31\textwidth}
+\textbf{\color{acento}Visión artificial}\\[4pt]\small
+YOLO detecta objetos en una sola pasada (Redmon et al., 2016); NewBit usa YOLOv8n.\\[4pt]
+ConvLSTM conserva la estructura espacial mientras modela el tiempo (Shi et al., 2015).\\[4pt]
+Métricas: IoU, mAP, precisión, sensibilidad y F1.
+\end{column}
+\end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}[fragile]{Desarrollo: la secuencia de formatos}
+\begin{center}
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[
+  font=\small\sffamily,
+  paso/.style={draw=#1, fill=#1!12, rounded corners=3pt, font=\small\sffamily, minimum height=1.6cm, align=center, text width=1.8cm, inner sep=3pt, line width=0.7pt},
+  flecha/.style={-{Stealth[length=2.2mm]}, line width=0.7pt, draw=gris}]
+  \node[paso=hecho]     (a) {\textbf{FGAP010}\\Acta};
+  \node[paso=hecho,     right=0.35cm of a] (b) {\textbf{FGAP020}\\Interesados};
+  \node[paso=hecho,     right=0.35cm of b] (c) {\textbf{FGAP030}\\Roles};
+  \node[paso=hecho,     right=0.35cm of c] (d) {\textbf{FGAP040}\\Épicas};
+  \node[paso=hecho,     right=0.35cm of d] (e) {\textbf{FGAP060}\\\textbf{FGAP070}\\Backlog y DoD};
+  \node[paso=pendiente, right=0.35cm of e] (f) {\textbf{Sprints}\\1 a 4};
+  \node[paso=gris,      right=0.35cm of f] (g) {\textbf{FGAP090}\\Cierre};
+  \foreach \x/\y in {a/b,b/c,c/d,d/e,e/f,f/g} \draw[flecha] (\x) -- (\y);
+  \draw[flecha, dashed] ([xshift=4mm]f.south) .. controls +(0.2,-0.9) and +(-0.2,-0.9) .. ([xshift=-4mm]f.south)
+    node[pos=0.5, below=1pt, font=\scriptsize\sffamily, text=gris] {se repite por sprint};
+\end{tikzpicture}}
+\end{center}
+\vspace{0.3cm}
+\small
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textcolor{hecho}{\textbf{Elaborado en la Unidad I}}: FGAP010, FGAP020, FGAP030, EGAP015 (apoyo), FGAP040, FGAP060 y FGAP070.
+\end{column}
+\begin{column}{0.48\textwidth}
+\textcolor{pendiente}{\textbf{Desde el 19/10/2026}}: cuatro sprints de dos semanas; cierre con FGAP090 en diciembre.
+\end{column}
+\end{columns}
+\fuente{Elaboración propia a partir de la secuencia de trabajo del proyecto del docente (Daza Vergaray, 2026b).}
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}{FGAP010 · Acta de constitución}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}\small
+\textbf{\color{acento}Alcance}
+\begin{itemize}
+  \item Dos conductas y sus casos seguros de contraste.
+  \item Conjunto de datos público, con su división oficial.
+  \item Comparar clasificación directa frente al pipeline completo.
+\end{itemize}
+\vspace{4pt}
+\textbf{\color{pendiente}Fuera del alcance}
+\begin{itemize}
+  \item Instalación en planta y cámaras en vivo.
+  \item Reconocimiento facial.
+  \item Certificación oficial de SST.
+\end{itemize}
+\end{column}
+\begin{column}{0.46\textwidth}\small
+\textbf{\color{acento}Presupuesto: S/ 20\,768}\\[4pt]
+\begin{tabular}{@{}lr@{}}
+Dedicación valorizada (500 h) & 18\,600\\
+Gastos directos & 280\\
+Contingencia (10~\%) & 1\,888\\
+\midrule
+\textbf{Total} & \textbf{20\,768}\\
+\end{tabular}\\[10pt]
+\textbf{\color{acento}Siete riesgos} con respuesta prevista; el mayor, el ajuste del modelo temporal.\\[4pt]
+\textbf{\color{acento}Cronograma}: 05/10 al 18/12/2026.
+\end{column}
+\end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}[fragile]{FGAP020 · Registro de interesados}
+\begin{columns}[c]
+\begin{column}{0.56\textwidth}
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[font=\small\sffamily, x=1.1cm, y=0.72cm,
+  q/.style={font=\scriptsize\sffamily\bfseries, text=gris},
+  p/.style={circle, fill=acento, inner sep=1.6pt},
+  e/.style={font=\scriptsize\sffamily, text=tinta, align=left}]
+  \fill[acentoclaro!60] (5,3.5) rectangle (10,7);
+  \fill[grisclaro!50] (0,0) rectangle (5,3.5);
+  \draw[gris, line width=0.6pt] (0,0) rectangle (10,7);
+  \draw[gris, dashed] (5,0) -- (5,7) (0,3.5) -- (10,3.5);
+  \node[q, anchor=north west] at (0.1,6.9) {MANTENER SATISFECHO};
+  \node[q, anchor=north east] at (9.9,6.9) {GESTIONAR DE CERCA};
+  \node[q, anchor=south west] at (0.1,0.1) {MONITOREAR};
+  \node[q, anchor=south east] at (9.9,0.1) {MANTENER INFORMADO};
+  \foreach \x/\y/\t in {3.9/5.6/{Sponsor (gerente general)}, 9.0/6.2/{Docente}, 8.6/5.5/{Product Owner},
+      8.8/4.8/{Scrum Master y Developer}, 7.6/3.95/{Supervisora de SST\\y administrador de TI},
+      8.8/2.6/{Operadora de monitoreo}, 8.2/1.8/{Supervisor de turno}, 3.9/1.6/{Trabajadores de planta}}
+    {\node[p] at (\x,\y) {}; \node[e, anchor=east] at (\x-0.15,\y) {\t};}
+  \draw[-{Stealth}, tinta] (0,-0.35) -- (10,-0.35) node[midway, below, font=\small\sffamily] {Interés};
+  \draw[-{Stealth}, tinta] (-0.35,0) -- (-0.35,7) node[midway, above, rotate=90, font=\small\sffamily] {Poder};
+\end{tikzpicture}}
+\end{column}
+\begin{column}{0.4\textwidth}\small
+\begin{itemize}\setlength{\itemsep}{6pt}
+  \item \textbf{Gestionar de cerca}: PO, docente, Developers, SST y TI asisten a cada revisión de sprint.
+  \item \textbf{Mantener satisfecho}: resumen al sponsor al cierre de cada sprint.
+  \item \textbf{Mantener informados}: monitoreo y supervisor de turno prueban la interfaz en el Sprint 4.
+  \item \textbf{Monitorear}: compromiso de privacidad con los trabajadores.
+\end{itemize}
+\end{column}
+\end{columns}
+\fuente{Perfiles ficticios de un caso académico; no expresan un vínculo real con ninguna organización.}
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}{FGAP030 · Roles y prototipos}
+\footnotesize
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{4.3cm} >{\raggedright\arraybackslash}p{2.6cm} L}
+\toprule
+Rol (persona) & Uso & Qué necesita de NewBit\\
+\midrule
+Administrador de la plataforma (Jorge Ponce, TI) & Diario, al ingresar lotes & Cargar videos y calibrar umbrales sin tocar código\\
+Supervisora de SST (Mariana Torres) & Diario y ante cada alerta & Alertas con clip de evidencia para confirmar o descartar\\
+Supervisor de turno (César Vásquez) & Diario, en su turno & Saber qué pasó, dónde y cuándo, sin alertas repetidas\\
+Operadora de monitoreo (Lucía Ramos) & Permanente en su turno & Ver solo lo importante y confirmar en un clic\\
+Gerente general y sponsor (Ricardo Salcedo) & Semanal & Reportes por tipo, zona y semana para decidir recursos\\
+\bottomrule
+\end{tabularx}
+\vspace{0.4cm}
+
+\small Cada necesidad se convierte en una historia: la alerta con evidencia (HU10) responde a Lucía; el recuadro de riesgo (HU09), a Mariana.
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}{EGAP015 · Justificación}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}\small
+\begin{itemize}\setlength{\itemsep}{6pt}
+  \item \textbf{Necesidad}: inspecciones intermitentes y cámaras que graban sin alertar.
+  \item \textbf{Tecnológica}: dos etapas, YOLOv8 + ConvLSTM, con software abierto.
+  \item \textbf{Operativa}: apoya la decisión del supervisor, no la reemplaza.
+  \item \textbf{Económica}: S/ 20\,768, idéntico al acta.
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}\small
+\begin{itemize}\setlength{\itemsep}{6pt}
+  \item \textbf{Social y de SST}: cultura preventiva y privacidad por diseño.
+  \item \textbf{Académica}: Scrum según SBOK, requisitos, aprendizaje profundo y pruebas.
+  \item \textbf{Viabilidad}: técnica, operativa y económica, con restricciones declaradas.
+\end{itemize}
+\vspace{6pt}
+\begin{tikzpicture}\node[draw=acento, fill=acentoclaro!50, rounded corners=3pt, text width=6.2cm, inner sep=6pt, font=\small]{No se prometen ahorros ni reducción de accidentes sin evidencia.};\end{tikzpicture}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}[fragile]{FGAP040 · Seis épicas, doce historias}
+\begin{center}
+\begin{tikzpicture}[font=\small\sffamily,
+  ep/.style={draw=#1, fill=#1!8, rounded corners=4pt, line width=0.8pt, text width=4.1cm, minimum height=1.3cm, align=left, inner sep=5pt}]
+  \node[ep=acento] (e1) {\textbf{EP01} Ingestión y preprocesamiento\\{\scriptsize\color{gris}HU01, HU02 · Administrador}};
+  \node[ep=acento, right=0.35cm of e1] (e2) {\textbf{EP02} Detección de operarios (YOLOv8)\\{\scriptsize\color{gris}HU03 · Supervisora de SST}};
+  \node[ep=acento, right=0.35cm of e2] (e3) {\textbf{EP03} Segmentación y reducción\\{\scriptsize\color{gris}HU04--HU06 · Administrador, SST}};
+  \node[ep=pendiente, below=0.35cm of e1] (e4) {\textbf{EP04} Clasificación con ConvLSTM\\{\scriptsize\color{gris}HU07, HU08 · Supervisora de SST}};
+  \node[ep=pendiente, right=0.35cm of e4] (e5) {\textbf{EP05} Monitoreo y alertas\\{\scriptsize\color{gris}HU09, HU10 · Operadora de monitoreo}};
+  \node[ep=gris, right=0.35cm of e5] (e6) {\textbf{EP06} Calibración y trazabilidad\\{\scriptsize\color{gris}HU11, HU12 · Administrador, gerente}};
+\end{tikzpicture}
+\end{center}
+\vspace{0.25cm}
+\small Ejemplo, HU10: \textit{Como operadora de monitoreo, quiero una alerta inmediata con hora y evidencia ante una conducta insegura, para intervenir a tiempo.}\\[3pt]
+{\color{gris}\footnotesize Criterios: notificación visual y sonora; guarda fecha, hora, clip y probabilidad.}
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}{FGAP060 · Backlog priorizado}
+\begin{columns}[T]
+\begin{column}{0.58\textwidth}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{@{}l l c c c@{}}
+\toprule
+HU & Historia & MoSCoW & 100 pts & Sprint (pts)\\
+\midrule
+HU01 & Cargar video & Must & 19 & 1 (1)\\
+HU02 & Extraer fotogramas & Must & 20 & 1 (2)\\
+HU03 & Detectar operarios & Must & 37 & 1 (4)\\
+HU04 & Descartar fotogramas vacíos & Must & 28 & 2 (2)\\
+HU05 & Agrupar en clips & Must & 25 & 2 (3)\\
+HU06 & Descartar clips cortos & Should & 12 & 2 (2)\\
+HU11 & Calibrar umbral & Could & 8 & 2 (1)\\
+HU07 & Procesar con ConvLSTM & Must & 47 & 3 (5)\\
+HU08 & Clasificar y tipificar & Must & 38 & 3 (3)\\
+HU09 & Ver video con recuadro & Must & 30 & 4 (4)\\
+HU10 & Alerta de riesgo & Should & 21 & 4 (2)\\
+HU12 & Ver log de tiempos & Should & 15 & 4 (2)\\
+\bottomrule
+\end{tabular}}
+\end{column}
+\begin{column}{0.38\textwidth}\small
+\textbf{\color{acento}Tres criterios, en orden}
+\begin{enumerate}\setlength{\itemsep}{3pt}
+  \item MoSCoW: 8 \textit{Must}, 3 \textit{Should}, 1 \textit{Could}.
+  \item 100 puntos por integrante (300 en total).
+  \item Dependencias del pipeline.
+\end{enumerate}
+\vspace{4pt}
+HU11 y HU06 se adelantan al Sprint 2: calibran y filtran antes de entrenar el modelo temporal.\\[4pt]
+\textbf{31 puntos}: 7 · 8 · 8 · 8 por sprint.
+\end{column}
+\end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}{FGAP070 · Criterios de terminado}
+\small
+Una historia pasa a \textit{Terminado} solo si cumple \textbf{todos} estos criterios; no se negocian por historia.\\[8pt]
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\begin{itemize}\setlength{\itemsep}{6pt}
+  \item \textbf{Prueba unitaria}: sin fallas bloqueantes ni de regresión.
+  \item \textbf{Prueba integrada}: de extremo a extremo, con videos corruptos y parámetros fuera de rango.
+  \item \textbf{Revisión de pares} entre los dos Developers (PEP 8, sin credenciales en el código).
+  \item \textbf{Documentación}: conjunto de datos, pesos, hiperparámetros y métricas.
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{itemize}\setlength{\itemsep}{6pt}
+  \item \textbf{Aprobación técnica} de los Developers.
+  \item \textbf{Aprobación administrativa} del PO en la revisión del sprint; no sustituye lo técnico.
+  \item \textbf{Ética y privacidad}: licencia CC BY 4.0 y sin biometría.
+  \item \textbf{Certificación}: no aplica; es un prototipo académico.
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}[fragile]{Arquitectura propuesta}
+\begin{center}
+\resizebox{0.64\linewidth}{!}{%
+\begin{tikzpicture}[font=\small\sffamily,
+  et/.style={draw=#1, fill=#1!10, rounded corners=3pt, line width=0.7pt, minimum height=1.75cm, text width=2.35cm, align=center},
+  fl/.style={-{Stealth[length=2.2mm]}, line width=0.7pt, draw=gris},
+  grupo/.style={draw=#1, dashed, rounded corners=5pt, inner sep=8pt, line width=0.5pt}]
+  \node[et=acento] (v) {Carga y validación\\[-1pt]{\scriptsize RF-01\\Sprint 1}};
+  \node[et=acento, right=0.45cm of v] (f) {Fotogramas normalizados\\[-1pt]{\scriptsize HU02\\Sprint 1}};
+  \node[et=acento, right=0.45cm of f] (y) {Detección de operarios (YOLOv8n)\\[-1pt]{\scriptsize RF-02\\Sprint 1}};
+  \node[et=acento, right=0.45cm of y] (r) {Reducción y clips\\[-1pt]{\scriptsize RF-03, RF-04\\Sprint 2}};
+  \node[et=pendiente, below=1.3cm of r] (c) {Clasificación de la conducta (ConvLSTM)\\[-1pt]{\scriptsize RF-05\\Sprint 3}};
+  \node[et=pendiente, left=0.45cm of c] (g) {Registro de la detección\\[-1pt]{\scriptsize RF-06\\Sprint 3}};
+  \node[et=pendiente, left=0.45cm of g] (a) {Alerta visual y sonora\\[-1pt]{\scriptsize RF-07\\Sprint 4}};
+  \node[et=gris, left=0.45cm of a] (h) {Confirmación por SST\\[-1pt]{\scriptsize decisión humana}};
+  \draw[fl] (v) -- (f); \draw[fl] (f) -- (y); \draw[fl] (y) -- (r); \draw[fl] (r) -- (c);
+  \draw[fl] (c) -- (g); \draw[fl] (g) -- (a); \draw[fl] (a) -- (h);
+  \node[grupo=acento, fit=(v)(r), label={[font=\scriptsize\sffamily\bfseries, text=acento]above:Etapa espacial}] {};
+  \node[grupo=pendiente, fit=(a)(c), label={[font=\scriptsize\sffamily\bfseries, text=pendiente]below:Etapa temporal y salida}] {};
+\end{tikzpicture}}
+\end{center}
+\small Etapas separadas: se evalúan por su cuenta y se mide cuánto aporta la reducción de fotogramas.\\[2pt]
+{\color{gris}\scriptsize Adapta Unsafe-Net (Önal y Dandıl, 2025), con YOLOv8n en lugar de YOLOv4.}
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}[fragile]{Plan de sprints}
+\begin{center}
+\resizebox{0.92\linewidth}{!}{%
+\begin{tikzpicture}[font=\small\sffamily, x=0.155cm, y=0.62cm]
+  \foreach \d/\t in {0/05 oct,14/19 oct,28/02 nov,42/16 nov,56/30 nov,70/14 dic} {
+    \draw[grisclaro] (\d,0.45) -- (\d,-5.6);
+    \node[font=\scriptsize\sffamily, text=gris, above] at (\d,0.45) {\t};}
+  \foreach \fila/\ini/\fin/\col/\nom/\det in {
+      0/0/11/gris/Inicio/{Formatos FGAP010 a FGAP070},
+      1/14/25/acento/Sprint 1/{EP01, EP02 · 7 pts},
+      2/28/39/acento/Sprint 2/{EP03 y HU11 · 8 pts},
+      3/42/53/pendiente/Sprint 3/{EP04 · 8 pts},
+      4/56/67/pendiente/Sprint 4/{EP05 y HU12 · 8 pts},
+      5/70/74/gris/Cierre/{FGAP090}} {
+    \fill[\col!18, draw=\col, rounded corners=2pt] (\ini,-\fila+0.3) rectangle (\fin,-\fila-0.3);
+    \node[anchor=east, font=\scriptsize\sffamily, align=right, text=tinta] at (-1.2,-\fila) {\textbf{\nom}\enspace\textcolor{gris}{\det}};}
+  \draw[tinta, line width=0.9pt] (14,0.45) -- (14,-5.75) node[below, font=\scriptsize\sffamily\bfseries, text=tinta] {19/10: inicio del Sprint 1};
+\end{tikzpicture}}
+\end{center}
+\vspace{0.1cm}
+\small El Sprint 3 concentra el mayor riesgo técnico: entrenar y evaluar ConvLSTM. Las metas de desempeño se fijarán con la línea base de ese sprint; hoy no se adelantan cifras propias.
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}{Síntesis}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{\color{hecho}Lo que deja la Unidad I}
+\begin{itemize}\setlength{\itemsep}{5pt}\small
+  \item Un problema y una propuesta claros, con base científica y datos públicos.
+  \item Siete formatos coherentes entre sí: mismo código, alcance, equipo y presupuesto.
+  \item Un backlog de 12 historias priorizado, estimado y repartido en 4 sprints.
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{\color{pendiente}Lo que viene}
+\begin{itemize}\setlength{\itemsep}{5pt}\small
+  \item Sprints 1 y 2: etapa espacial.
+  \item Sprint 3: modelo temporal y evaluación comparativa.
+  \item Sprint 4: interfaz, alerta y log de tiempos.
+  \item Cierre con FGAP090: 14 al 18 de diciembre.
+\end{itemize}
+\end{column}
+\end{columns}
+\vfill
+\begin{center}\large\bfseries Gracias. ¿Preguntas?\end{center}
+\fuente{Referencias completas en formato APA en el informe del Producto de la Unidad I.}
+\end{frame}
+
+\end{document}

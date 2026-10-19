@@ -28,6 +28,6 @@ Ahorro de tokens (importante):
 
 Reglas:
 - Los documentos de **Retinopatía Diabética**, **BigFarma** y los **proyectos RSU de 2025** son **ejemplos/plantillas del docente**, no del equipo.
-- **Semanas:** 1 = 14–20/09 (sin actividad) · 2 = 21–27/09 (Scrum, Acta) · 3 = 28/09–04/10 (Roles, infografía) · 4 = 05–11/10 (Justificación y Épicas) · **5 = 12–18/10, actual (RSU y Secuencia de avances FGAP010→FGAP090)**. Cada semana empieza el lunes; la semana de un archivo se decide por su fecha de llegada.
+- **Semanas:** 1 = 14–20/09 (sin actividad) · 2 = 21–27/09 (Scrum, Acta) · 3 = 28/09–04/10 (Roles, infografía) · 4 = 05–11/10 (Justificación y Épicas) · 5 = 12–18/10 (RSU y Secuencia de avances FGAP010→FGAP090) · **6 = 19–25/10, actual (Producto de la Unidad I)**. Cada semana empieza el lunes; la semana de un archivo se decide por su fecha de llegada.
 - Material nuevo del docente → `curso/semana-XX-<tema>/material-del-profe/` (crear la carpeta de la semana con su tema si no existe) + actualizar `curso/README.md`, `curso/contexto-del-curso.md` y la tabla del `README.md` raíz. Tareas del equipo → `curso/semana-XX-<tema>/nuestras-entregas/`; investigación o código → `proyecto-newbit/`. En ambos casos actualizar `proyecto-newbit/README.md`.
 - No afirmar resultados no demostrados; marcar como propuesta lo que sea diseño nuevo.
