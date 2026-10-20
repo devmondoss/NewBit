@@ -821,28 +821,28 @@ El backlog priorizado es la salida principal del proceso 8.5: un único document
 \caption{Backlog priorizado del producto (FGAP060)}\label{tab:backlog}
 \begin{tablaapa}
 \setlength{\tabcolsep}{4pt}
-\begin{tabularx}{\textwidth}{C{0.95cm} L C{1.35cm} C{0.6cm} C{0.6cm} C{0.6cm} C{0.85cm} C{1.25cm} C{1.25cm}}
+\begin{tabularx}{\textwidth}{C{0.95cm} L C{1.35cm} C{0.55cm} C{0.55cm} C{0.55cm} C{0.8cm} C{1.2cm} C{1.15cm} C{1.65cm}}
 \toprule
-HU & Historia (resumen) & MoSCoW & PO & SM & Dev & Total & Depende de & Sprint (pts)\\
+HU & Historia (resumen) & MoSCoW & PO & SM & Dev & Total & Depende de & Sprint (pts) & Estado al 20/10\\
 \midrule
-HU01 & Cargar video & Must & 6 & 8 & 5 & 19 & — & 1 (1)\\
-HU02 & Extraer fotogramas & Must & 5 & 8 & 7 & 20 & HU01 & 1 (2)\\
-HU03 & Detectar operarios & Must & 12 & 12 & 13 & 37 & HU02 & 1 (4)\\
-HU04 & Descartar fotogramas vacíos & Must & 8 & 10 & 10 & 28 & HU03 & 2 (2)\\
-HU05 & Agrupar en clips & Must & 6 & 9 & 10 & 25 & HU04 & 2 (3)\\
-HU06 & Descartar clips cortos & Should & 3 & 4 & 5 & 12 & HU05 & 2 (2)\\
-HU11 & Calibrar umbral & Could & 2 & 3 & 3 & 8 & HU03 & 2 (1)\\
-HU07 & Procesar con ConvLSTM & Must & 15 & 14 & 18 & 47 & HU05 & 3 (5)\\
-HU08 & Clasificar y tipificar & Must & 14 & 12 & 12 & 38 & HU07 & 3 (3)\\
-HU09 & Ver video con recuadro & Must & 13 & 9 & 8 & 30 & HU08 & 4 (4)\\
-HU10 & Alerta de riesgo & Should & 10 & 6 & 5 & 21 & HU08 & 4 (2)\\
-HU12 & Ver log de tiempos & Should & 6 & 5 & 4 & 15 & HU04 & 4 (2)\\
+HU01 & Cargar video & Must & 6 & 8 & 5 & 19 & — & 1 (1) & \textbf{Hecha}\\
+HU02 & Extraer fotogramas & Must & 5 & 8 & 7 & 20 & HU01 & 1 (2) & \textbf{Hecha}\\
+HU03 & Detectar operarios & Must & 12 & 12 & 13 & 37 & HU02 & 1 (4) & \textbf{Hecha}\\
+HU04 & Descartar fotogramas vacíos & Must & 8 & 10 & 10 & 28 & HU03 & 2 (2) & \textbf{Hecha}\\
+HU05 & Agrupar en clips & Must & 6 & 9 & 10 & 25 & HU04 & 2 (3) & \textbf{En cierre}\\
+HU06 & Descartar clips cortos & Should & 3 & 4 & 5 & 12 & HU05 & 2 (2) & \textbf{Hecha}\\
+HU11 & Calibrar umbral & Could & 2 & 3 & 3 & 8 & HU03 & 2 (1) & \textbf{Hecha}\\
+HU07 & Procesar con ConvLSTM & Must & 15 & 14 & 18 & 47 & HU05 & 3 (5) & Por hacer\\
+HU08 & Clasificar y tipificar & Must & 14 & 12 & 12 & 38 & HU07 & 3 (3) & Por hacer\\
+HU09 & Ver video con recuadro & Must & 13 & 9 & 8 & 30 & HU08 & 4 (4) & Por hacer\\
+HU10 & Alerta de riesgo & Should & 10 & 6 & 5 & 21 & HU08 & 4 (2) & Por hacer\\
+HU12 & Ver log de tiempos & Should & 6 & 5 & 4 & 15 & HU04 & 4 (2) & Por hacer\\
 \midrule
- & \textbf{Total} & & 100 & 100 & 100 & 300 & & 31 pts\\
+ & \textbf{Total} & & 100 & 100 & 100 & 300 & & 31 pts & 15 construidos\\
 \bottomrule
 \end{tabularx}
 \end{tablaapa}
-\nota{PO = Albert Chumacero; SM = Anthony Lopez; Dev = Luis Salazar. Las columnas PO, SM y Dev son los puntos que cada integrante asignó con el método de los 100 puntos. \textit{Won't have} en esta versión: cámaras en vivo por RTSP, alertas físicas en la maquinaria y reconocimiento facial.}
+\nota{PO = Albert Chumacero; SM = Anthony Lopez; Dev = Luis Salazar. Las columnas PO, SM y Dev son los puntos que cada integrante asignó con el método de los 100 puntos. La columna Estado se actualizó el 20/10/2026: \textit{hecha} significa construida y probada, a la espera de la aceptación del Product Owner en la revisión del sprint; \textit{en cierre}, construida en parte (sección~\ref{sec:estado}). \textit{Won't have} en esta versión: cámaras en vivo por RTSP, alertas físicas en la maquinaria y reconocimiento facial.}
 \end{table}
 
 Dos historias se adelantan a pesar de su baja votación. HU11 (\textit{Could}) entra al Sprint~2 porque calibra el detector de HU03 y el filtro de HU04; sin ella no se pueden ajustar las pruebas de los sprints 2 y 3. HU06 (\textit{Should}) también entra al Sprint~2, porque filtra los clips insuficientes antes de entrenar el modelo temporal en el Sprint~3. La carga queda equilibrada: 7, 8, 8 y 8 puntos por sprint.
@@ -856,10 +856,10 @@ La estimación corresponde al proceso 9.2, en el que el Equipo Scrum, con apoyo 
 \FloatBarrier
 \subsubsection{Tablero Kanban del Sprint 1}
 
-El proceso 9.3 convierte las historias comprometidas en el backlog del sprint y las sigue en un \textit{Scrumboard} con columnas por estado \parencitep{sbok}{pp.~196--199}. El tablero de la semana~5 reúne el backlog con sus criterios de aceptación y propone el Scrumboard del Sprint~1, con las tareas de HU01, HU02 y HU03 (Figura~\ref{fig:scrumboard}). Las tareas son una propuesta del equipo y se confirmarán en la planificación del sprint.
+El proceso 9.3 convierte las historias comprometidas en el backlog del sprint y las sigue en un \textit{Scrumboard} con columnas por estado \parencitep{sbok}{pp.~196--199}. El tablero de la semana~5 reúne el backlog con sus criterios de aceptación y propone el Scrumboard del Sprint~1, con las tareas de HU01, HU02 y HU03 (Figura~\ref{fig:scrumboard}). Así quedó al cierre de la semana~5, con todas las tareas por hacer; su estado actualizado al 20 de octubre se muestra en la Figura~\ref{fig:scrumboard-hoy} (sección~\ref{sec:estado}). El tablero completo, con el backlog y su estado, se actualizó en una nueva versión del 20 de octubre que acompaña a este documento.
 
 \begin{figure}[!htbp]
-\caption{Scrumboard propuesto para el Sprint 1}\label{fig:scrumboard}
+\caption{Scrumboard propuesto para el Sprint 1 en la semana 5}\label{fig:scrumboard}
 \centering
 \includegraphics[width=0.85\textwidth,page=5]{../../../semana-05-rsu-y-backlog/nuestras-entregas/Tablero_Kanban_NewBit/Tablero_Kanban_NewBit.pdf}
 \nota{Diapositiva 5 de 6 del tablero Kanban de la semana~5. Columnas: por hacer, en progreso, en prueba y terminada. El tablero indica el 01/11 como fin del Sprint~1; prevalece la fecha del acta, 30/10/2026 (Tabla~\ref{tab:hitos}).}
@@ -1073,7 +1073,30 @@ Cierre del proyecto & 12.1 Enviar entregables y 12.2 Retrospectiva de la liberac
 
 El trabajo no se detuvo en la planificación. El 17 de octubre de 2026 los Developers construyeron la etapa espacial completa: las siete historias que el backlog asigna a los sprints 1 y 2, que suman 15 de los 31 puntos de historia. En términos de la guía, es el proceso 10.1, Crear entregables, cuya salida obligatoria es el entregable del sprint, que «debe incluir todas las características y funcionalidades definidas en las historias de usuario que se incluyen en el sprint y debe haber sido evaluado satisfactoriamente» \parencitep{sbok}{p.~227}.
 
-Para este documento el equipo verificó ese avance de forma independiente el 20 de octubre: ejecutó las 43 pruebas automatizadas del repositorio, que pasaron todas, y recorrió el flujo completo en la aplicación web con un clip de prueba de cinco segundos. El sistema validó el video, lo redujo de 24 a 5 fotogramas por segundo (80\,\% menos imágenes por analizar), detectó a los operarios, descartó las imágenes sin personas y generó un clip de 2,4~s con solo los segundos de actividad. La Tabla~\ref{tab:estado} contrasta cada historia con sus criterios de aceptación.
+Para este documento el equipo verificó ese avance de forma independiente el 20 de octubre: ejecutó las 43 pruebas automatizadas del repositorio, que pasaron todas, y recorrió el flujo completo en la aplicación web con un clip de prueba de cinco segundos. El sistema validó el video, lo redujo de 24 a 5 fotogramas por segundo (80\,\% menos imágenes por analizar), detectó a los operarios, descartó las imágenes sin personas y generó un clip de 2,4~s con solo los segundos de actividad. La Figura~\ref{fig:scrumboard-hoy} actualiza el Scrumboard, otra salida obligatoria del mismo proceso \parencitep{sbok}{p.~227}, y la Tabla~\ref{tab:estado} contrasta cada historia con sus criterios de aceptación.
+
+\begin{figure}[!htbp]
+\caption{Scrumboard actualizado al 20 de octubre de 2026}\label{fig:scrumboard-hoy}
+\centering
+\begin{tikzpicture}[font=\scriptsize\sffamily,
+  cab/.style={fill=tinta, text=white, rounded corners=6pt, minimum width=3.6cm, minimum height=0.55cm, font=\footnotesize\sffamily\bfseries},
+  hu/.style={draw=#1, fill=#1!10, rounded corners=2pt, line width=0.5pt, minimum height=0.78cm, text width=3.25cm, align=left, inner sep=3pt}]
+  \foreach \x/\t in {0/Por hacer, 3.9/En progreso, 7.8/En prueba, 11.7/Terminada}
+    \node[cab] at (\x,0) {\t};
+  \foreach \i/\h/\p/\t in {0/HU07/5/Procesar con ConvLSTM, 1/HU08/3/Clasificar la conducta, 2/HU09/4/Recuadro de riesgo,
+                           3/HU10/2/Alerta de riesgo, 4/HU12/2/Log de tiempos}
+    \node[hu=gris] at (0,-0.95-0.9*\i) {\textbf{\h} · \p~pts\\\t};
+  \node[hu=pendiente] at (3.9,-0.95) {\textbf{HU05} · 3~pts\\Agrupar en clips};
+  \node[text width=3.3cm, align=left, text=gris] at (3.9,-1.95) {Falta la ventana fija de N fotogramas y el tensor de ConvLSTM.};
+  \node[text width=3.3cm, align=left, text=gris] at (7.8,-1.1) {Sin historias. La prueba integrada se hizo con un clip sintético; falta con video real.};
+  \foreach \i/\h/\p/\t in {0/HU01/1/Cargar video, 1/HU02/2/Extraer fotogramas, 2/HU03/4/Detectar operarios,
+                           3/HU04/2/Descartar fotogramas vacíos, 4/HU06/2/Descartar clips cortos, 5/HU11/1/Calibrar umbral}
+    \node[hu=hecho] at (11.7,-0.95-0.9*\i) {\textbf{\h} · \p~pts\\\t};
+  \foreach \x/\t in {0/16 pts, 3.9/3 pts, 7.8/0 pts, 11.7/12 pts · por aceptar}
+    \node[text=gris] at (\x,-6.0) {\t};
+\end{tikzpicture}
+\nota{Elaboración propia con las columnas del tablero de la semana~5 (Figura~\ref{fig:scrumboard}) y las historias y puntos del backlog priorizado (Tabla~\ref{tab:backlog}). Las historias terminadas esperan la aceptación del Product Owner en la revisión del sprint.}
+\end{figure}
 
 \begin{table}[!htbp]
 \caption{Estado de las historias de los sprints 1 y 2 frente a sus criterios de aceptación}\label{tab:estado}

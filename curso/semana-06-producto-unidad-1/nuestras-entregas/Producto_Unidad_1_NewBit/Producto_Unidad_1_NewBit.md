@@ -1,6 +1,6 @@
 # Producto de la Unidad I: NewBit (informe en LaTeX, APA 7) · versión 3
 
-- **Archivos** (esta carpeta): `Producto_Unidad_1_NewBit.pdf` (39 págs., para entregar), `Producto_Unidad_1_NewBit.tex` (fuente) y `logo-uns.png` (sello de la UNS para la carátula, tomado del material del docente).
+- **Archivos** (esta carpeta): `Producto_Unidad_1_NewBit.pdf` (40 págs., para entregar), `Producto_Unidad_1_NewBit.tex` (fuente) y `logo-uns.png` (sello de la UNS para la carátula, tomado del material del docente).
 - **Semana:** 6 (pedido el 19/10/2026). **Estructura pedida:** carátula, índice, introducción, antecedentes, marco teórico, desarrollo con todos los formatos (semanas 2 a 5) y referencias. La PPT está en [`PPT_Producto_Unidad_1_NewBit`](../PPT_Producto_Unidad_1_NewBit/PPT_Producto_Unidad_1_NewBit.md).
 - **Compilar:** `tectonic Producto_Unidad_1_NewBit.tex` (o XeLaTeX). Incrusta como figuras los PDF reales de las entregas (rutas relativas a `curso/semana-0X/...`): no mover esas carpetas.
 - **Enfoque (v2):** todo anclado a la **Guía SBOK** con número de página: cada entregable se vincula al proceso que lo produce y a sus salidas obligatorias. Presenta la idea y su evolución, y no adelanta métricas propias del modelo.
@@ -9,7 +9,7 @@
 ## Contenido
 | Sección | Qué tiene |
 |---|---|
-| Carátula, índices | Sello UNS · índice general · 22 tablas · 9 figuras |
+| Carátula, índices | Sello UNS · índice general · 22 tablas · 10 figuras |
 | 1. Introducción | Problema, propuesta, objetivo general y 5 específicos (incluye el enfoque Scrum y el estado real) |
 | 2. Antecedentes | 3 internacionales (Önal y Dandıl) y 4 nacionales verificados (PUCP, UNSA, UCV, UPN), con tabla síntesis |
 | 3. Marco teórico | **3.1 Scrum según la Guía SBOK:** principios (tabla con pág.), aspectos, roles, 19 procesos en 5 fases (tabla), reuniones y time-boxes (tabla) · requisitos ágiles · priorización y estimación · SST · YOLO · ConvLSTM · métricas |
@@ -23,3 +23,4 @@
 - **Unsafe-Net** citado como 2025 (volumen 84), según APA 7.
 - **Escuela:** «Escuela Profesional de Ingeniería de Sistemas e Informática» (POR CONFIRMAR).
 - **Estado del incremento (v3):** las historias de S1–S2 figuran como «hechas, por aceptar», porque el SBOK solo las da por aceptadas en la revisión del sprint con el PO (p. 248). HU05 figura «en cierre»: agrupa secuencias continuas, pero le faltan la ventana fija de N fotogramas y el tensor de ConvLSTM que piden sus criterios. Además, la prueba integrada se hizo con un clip sintético y la revisión de pares no está registrada.
+- **Backlog al día (20/10):** la Tabla 16 (FGAP060) tiene una columna «Estado al 20/10» (hecha / en cierre / por hacer). Hay una nueva **Figura 10, Scrumboard actualizado al 20/10**, con las mismas columnas del tablero de la semana 5. El Scrumboard de la semana 5 (Figura 6) se conserva como plan, con una nota que remite a la Figura 10. Los archivos de la semana 5 (Kanban, MoSCoW) quedan como se entregaron.

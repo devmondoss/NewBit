@@ -62,6 +62,10 @@ function base(oscura, antetitulo, titulo, notas, o = {}) {
 const clara = (a, t, n, o) => base(false, a, t, n, o);
 const oscura = (a, t, n, o) => base(true, a, t, n, o);
 const fuente = (s, txt, oscuro = false) => T(s, txt, M, 6.55, W - 2 * M, 0.3, { fontSize: 10, color: oscuro ? C.claro2 : C.gris });
+const chip = (s, txt, x, y, w, col, fondo) => {
+  s.addShape(pptx.ShapeType.roundRect, { x, y, w, h: 0.32, rectRadius: 0.16, fill: { color: fondo }, line: { color: fondo } });
+  T(s, txt, x, y + 0.05, w, 0.24, { fontSize: 11, bold: true, color: col, align: "center" });
+};
 
 // ===================================================================== PARTE 1 · EL PITCH
 // 01 · Portada
@@ -432,7 +436,7 @@ const fuente = (s, txt, oscuro = false) => T(s, txt, M, 6.55, W - 2 * M, 0.3, { 
 // 22 · Semana 5: backlog
 {
   const s = clara("Semana 5 · Backlog priorizado (FGAP060)", "Qué se construye primero, y por qué",
-    "Proceso 8.5: el backlog se ordena por valor, riesgo y dependencias. Tres pasos: MoSCoW, 100 puntos por integrante y dependencias. Resultado: 31 puntos en cuatro sprints.");
+    "Proceso 8.5: el backlog se ordena por valor, riesgo y dependencias. Tres pasos: MoSCoW, 100 puntos por integrante y dependencias. Resultado: 31 puntos en cuatro sprints. Al 20/10 ya están construidas las historias de los sprints 1 y 2 (15 puntos); el detalle va en la parte 4.");
   [["1", "MoSCoW", "8 debe, 3 debería, 1 podría."], ["2", "100 puntos", "Cada integrante reparte 100 puntos entre las historias."],
    ["3", "Dependencias", "Ninguna etapa se prueba sin la anterior; por eso HU11 y HU06 se adelantan."]].forEach(([n, t, d], i) => {
     const y = 2.0 + i * 1.3;
@@ -445,19 +449,20 @@ const fuente = (s, txt, oscuro = false) => T(s, txt, M, 6.55, W - 2 * M, 0.3, { 
   T(s, "puntos de historia en cuatro sprints", 7.75, 2.2, 4.5, 0.5, { fontSize: 16, color: C.tinta2 });
   [["Sprint 1", "HU01–HU03 · subir video y detectar personas", 7], ["Sprint 2", "HU04–HU06 y HU11 · filtrar y armar clips", 8],
    ["Sprint 3", "HU07–HU08 · reconocer la conducta", 8], ["Sprint 4", "HU09, HU10 y HU12 · alertas y reportes", 8]].forEach(([sp, d, pts], i) => {
-    const y = 3.15 + i * 0.78, col = i < 2 ? C.azul : C.ambar;
+    const y = 3.15 + i * 0.78, col = i < 2 ? C.verde : C.ambar;
     T(s, sp, 6.5, y, 1.2, 0.35, { fontSize: 14, bold: true });
-    s.addShape(pptx.ShapeType.rect, { x: 7.75, y: y + 0.05, w: pts * 0.42, h: 0.26, fill: { color: col }, line: { color: col } });
-    T(s, String(pts), 7.75 + pts * 0.42 + 0.1, y, 0.5, 0.35, { fontSize: 14, bold: true });
+    s.addShape(pptx.ShapeType.rect, { x: 7.75, y: y + 0.05, w: pts * 0.36, h: 0.26, fill: { color: col }, line: { color: col } });
+    T(s, String(pts), 7.75 + pts * 0.36 + 0.1, y, 0.5, 0.35, { fontSize: 14, bold: true });
+    if (i < 2) chip(s, "Construido", 11.25, y + 0.01, 1.25, C.verde, C.verdeSuave);
     T(s, d, 7.75, y + 0.36, 4.8, 0.3, { fontSize: 11.5, color: C.gris });
   });
-  fuente(s, "Fuente del método: SCRUMstudy (2022), pp. 76–78 y 166–172.");
+  fuente(s, "Fuente del método: SCRUMstudy (2022), pp. 76–78 y 166–172. Estado al 20/10/2026; la aceptación del PO es en la revisión del sprint.");
 }
 
 // 23 · Semana 5: estimación y tablero
 {
   const s = clara("Semana 5 · Estimación y tablero", "Estimamos con los dedos y seguimos con un tablero",
-    "Puño de cinco (proceso 9.2, p. 194): todos votan a la vez de 1 a 5; los extremos explican y se vota otra vez. A la derecha, el tablero del Sprint 1 con sus tareas propuestas (proceso 9.3).");
+    "Puño de cinco (proceso 9.2, p. 194): todos votan a la vez de 1 a 5; los extremos explican y se vota otra vez. A la derecha, el tablero del Sprint 1 tal como se planificó en la semana 5, con todo por hacer (proceso 9.3). Aclarar que ya avanzó: su estado de hoy está en la lámina 28.");
   icono(s, "mano", "ink", M, 2.05, 0.6);
   T(s, "Puño de cinco", M + 0.8, 2.1, 4, 0.5, { fontSize: 22, bold: true });
   ["Todos muestran de 1 a 5 dedos a la vez: 1 es muy pequeña y 5, muy grande.", "Quienes votaron en los extremos explican por qué.",
@@ -468,7 +473,7 @@ const fuente = (s, txt, oscuro = false) => T(s, txt, M, 6.55, W - 2 * M, 0.3, { 
   T(s, "La épica más grande resultó la EP04: reconocer la conducta.", M, 5.6, 5, 0.6, { fontSize: 14, bold: true });
   s.addImage({ path: IMG("scrumboard-sprint1.png"), x: 6.25, y: 2.0, w: 6.28, h: 3.53 });
   s.addShape(pptx.ShapeType.rect, { x: 6.25, y: 2.0, w: 6.28, h: 3.53, fill: { type: "none" }, line: { color: C.borde, width: 0.75 } });
-  T(s, "Scrumboard del Sprint 1: por hacer, en progreso, en prueba y terminada.", 6.25, 5.62, 6.3, 0.3, { fontSize: 12, color: C.gris });
+  T(s, "Scrumboard del Sprint 1 como se planificó en la semana 5. Su estado de hoy: lámina 28.", 6.25, 5.62, 6.3, 0.3, { fontSize: 12, color: C.gris });
 }
 
 // 24 · Semana 5: terminado
@@ -508,10 +513,6 @@ const fuente = (s, txt, oscuro = false) => T(s, txt, M, 6.55, W - 2 * M, 0.3, { 
 
 // ===================================================================== PARTE 4 · AVANCE REAL Y LO QUE VIENE
 // Estado verificado el 20/10/2026: 43 pruebas automatizadas en verde; código del 17/10/2026 (historial de git).
-const chip = (s, txt, x, y, w, col, fondo) => {
-  s.addShape(pptx.ShapeType.roundRect, { x, y, w, h: 0.32, rectRadius: 0.16, fill: { color: fondo }, line: { color: fondo } });
-  T(s, txt, x, y + 0.05, w, 0.24, { fontSize: 11, bold: true, color: col, align: "center" });
-};
 
 // 26 · Dónde estamos hoy
 {
@@ -560,19 +561,19 @@ const chip = (s, txt, x, y, w, col, fondo) => {
 
 // 28 · El tablero hoy
 {
-  const s = clara("Parte 4 · Avance real", "El tablero, hoy",
-    "El estado de las 12 historias del backlog. Seis están hechas y esperan la aceptación del PO. HU05 agrupa los clips, pero le falta el formato de entrada del modelo temporal; se cierra junto con HU07. A la derecha, lo que exigen los criterios de terminado (FGAP070) y lo que todavía falta registrar.");
+  const s = clara("Parte 4 · Avance real", "El Scrumboard, hoy",
+    "El mismo tablero de la semana 5 (lámina 23), actualizado al 20/10 con las 12 historias. Seis están terminadas y esperan la aceptación del PO. La columna En prueba está vacía y no se muestra. HU05 agrupa los clips, pero le falta el formato de entrada del modelo temporal; se cierra junto con HU07. A la derecha, lo que exigen los criterios de terminado (FGAP070) y lo que todavía falta registrar.");
   const cols = [
-    ["HECHO · POR ACEPTAR", C.verde, C.verdeSuave, "C7E6D4", [["HU01", "Cargar video", 1], ["HU02", "Extraer fotogramas", 2], ["HU03", "Detectar operarios", 4],
-      ["HU04", "Quitar imágenes vacías", 2], ["HU06", "Descartar clips cortos", 2], ["HU11", "Calibrar sensibilidad", 1]]],
-    ["EN CIERRE", C.ambar, C.ambarSuave, "F5D0BD", [["HU05", "Agrupar en clips", 3]]],
     ["POR HACER", C.gris, C.tarjeta, C.borde, [["HU07", "Procesar con ConvLSTM", 5], ["HU08", "Clasificar la conducta", 3], ["HU09", "Recuadro de riesgo", 4],
       ["HU10", "Alerta de riesgo", 2], ["HU12", "Log de tiempos", 2]]],
+    ["EN PROGRESO", C.ambar, C.ambarSuave, "F5D0BD", [["HU05", "Agrupar en clips", 3]]],
+    ["TERMINADA · POR ACEPTAR", C.verde, C.verdeSuave, "C7E6D4", [["HU01", "Cargar video", 1], ["HU02", "Extraer fotogramas", 2], ["HU03", "Detectar operarios", 4],
+      ["HU04", "Quitar imágenes vacías", 2], ["HU06", "Descartar clips cortos", 2], ["HU11", "Calibrar sensibilidad", 1]]],
   ];
   cols.forEach(([t, col, fondo, borde, hus], c) => {
     const x = M + c * 2.7, pts = hus.reduce((a, h) => a + h[2], 0);
-    T(s, t, x, 1.95, 2.0, 0.3, { fontSize: 11, bold: true, color: col, charSpacing: 1 });
-    T(s, pts + " pts", x + 1.75, 1.95, 0.8, 0.3, { fontSize: 11, color: C.gris, align: "right" });
+    T(s, t, x, 1.95, 2.2, 0.3, { fontSize: 11, bold: true, color: col, charSpacing: 1 });
+    T(s, pts + " pts", x + 2.0, 1.95, 0.55, 0.3, { fontSize: 11, color: C.gris, align: "right" });
     hus.forEach(([id, n, p], i) => {
       const y = 2.35 + i * 0.62;
       tarjeta(s, x, y, 2.55, 0.52, { fill: fondo, borde });

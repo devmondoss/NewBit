@@ -1,5 +1,7 @@
 # Tablero Kanban de NewBit: historias con criterios de aceptación, prioridad y estimación (Versión Oficial Normalizada)
 
+> **Estado actual:** este es el tablero tal como se entregó en la semana 5 (todo «por hacer»). La versión con el avance al 20/10/2026 está en [`Tablero_Kanban_NewBit_Actualizado`](../../../semana-06-producto-unidad-1/nuestras-entregas/Tablero_Kanban_NewBit_Actualizado/Tablero_Kanban_NewBit_Actualizado.md).
+
 - **Tarea (Semana 5):** Tablero Kanban con criterios de aceptación, prioridad y estimación según los procesos 8.5, 9.1, 9.2 y 9.3 del SBOK (4.ª ed.).
 - **Archivos** (esta carpeta):
   - `Tablero_Kanban_NewBit.html`: Para presentar interactivamente desde el navegador (funciona sin conexión).
