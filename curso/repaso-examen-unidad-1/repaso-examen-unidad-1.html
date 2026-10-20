@@ -1,0 +1,1275 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Recall SBOK</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: una sola pantalla que ocupa todo el viewport. Barra fina arriba, escenario central de una columna (≤ 860px) y barra de atajos abajo. */
+:root {
+  --bg: #F3F4F7;
+  --surface: #FFFFFF;
+  --ink: #12141A;
+  --muted: #5B6271;
+  --line: #DADDE5;
+  --soft: #E9EBF0;
+  --accent: #2B45D4;
+  --accent-soft: #E4E8FB;
+  --on-accent: #FFFFFF;
+  --ok: #157347;
+  --ok-soft: #E1F2E8;
+  --bad: #BF3328;
+  --bad-soft: #FAE6E3;
+  --f-ui: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --f-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D0F13; --surface: #15181E; --ink: #E7E9EE; --muted: #99A0AD; --line: #272B34; --soft: #1C2028;
+    --accent: #8394FF; --accent-soft: #1E2547; --on-accent: #0D0F13;
+    --ok: #45C58A; --ok-soft: #12291E; --bad: #FF7A6B; --bad-soft: #2E1614;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D0F13; --surface: #15181E; --ink: #E7E9EE; --muted: #99A0AD; --line: #272B34; --soft: #1C2028;
+  --accent: #8394FF; --accent-soft: #1E2547; --on-accent: #0D0F13;
+  --ok: #45C58A; --ok-soft: #12291E; --bad: #FF7A6B; --bad-soft: #2E1614;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 400 16px/1.5 var(--f-ui); -webkit-font-smoothing: antialiased;
+}
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+#app { height: 100%; display: grid; grid-template-rows: auto auto 1fr auto; }
+
+/* Barra superior */
+.bar {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding-block: 10px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  border-bottom: 1px solid var(--line); background: var(--surface);
+}
+.brand {
+  display: flex; align-items: baseline; gap: 8px; background: none; border: 0; padding: 4px 0; cursor: pointer;
+  font: 600 15px/1 var(--f-ui); letter-spacing: -0.01em;
+}
+.brand small { font: 500 11px/1 var(--f-mono); color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+.crumb { font: 500 12px/1 var(--f-mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.spacer { flex: 1; }
+.meter { font: 500 13px/1 var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; display: flex; gap: 14px; }
+.meter b { color: var(--ink); font-weight: 500; }
+.meter .t-warn { color: var(--bad); }
+.icon-btn {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 8px;
+  height: 32px; padding: 0 10px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+  font: 500 12px/1 var(--f-mono); color: var(--muted);
+}
+.icon-btn:hover { color: var(--ink); border-color: var(--muted); }
+
+.progress { height: 3px; background: var(--soft); }
+.progress i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .25s ease; }
+
+/* Escenario */
+.stage { overflow-y: auto; overflow-x: hidden; }
+.wrap {
+  max-width: 860px; margin: 0 auto; min-height: 100%;
+  display: flex; flex-direction: column; justify-content: center; gap: 24px;
+  padding-block: 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap.top { justify-content: flex-start; }
+
+.eyebrow { font: 500 12px/1.3 var(--f-mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; display: flex; gap: 10px; flex-wrap: wrap; }
+.eyebrow .tag { color: var(--accent); }
+.eyebrow .case { color: var(--ink); border: 1px solid var(--line); border-radius: 4px; padding: 2px 6px; }
+h1 { font: 650 clamp(30px, 4.6vw, 46px)/1.08 var(--f-ui); letter-spacing: -0.03em; margin: 0; text-wrap: balance; }
+.lede { margin: 0; color: var(--muted); max-width: 60ch; font-size: 17px; }
+.q { font: 560 clamp(21px, 2.6vw, 29px)/1.32 var(--f-ui); letter-spacing: -0.015em; margin: 0; text-wrap: balance; }
+.ref { font: 500 12px/1 var(--f-mono); color: var(--muted); }
+
+/* Home: lista de modos */
+.modes { display: grid; border-top: 1px solid var(--line); }
+.mode {
+  display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 16px;
+  padding: 18px 4px; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: left; cursor: pointer;
+}
+.mode:hover { background: var(--surface); }
+.mode .k { font: 500 13px/1 var(--f-mono); color: var(--muted); border: 1px solid var(--line); border-radius: 6px; width: 28px; height: 28px; display: grid; place-items: center; }
+.mode:hover .k { border-color: var(--accent); color: var(--accent); }
+.mode .t { font: 600 19px/1.2 var(--f-ui); letter-spacing: -0.01em; }
+.mode .d { color: var(--muted); font-size: 14.5px; margin-top: 3px; }
+.mode .n { font: 500 13px/1 var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; }
+.mode > div { min-width: 0; }
+
+.section-h { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.section-h h2 { font: 600 13px/1 var(--f-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0; }
+.linkish { background: none; border: 0; padding: 0; color: var(--accent); cursor: pointer; font: 500 13px/1 var(--f-mono); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 7px 12px; cursor: pointer;
+  font-size: 13.5px; color: var(--muted); display: inline-flex; gap: 8px; align-items: center;
+}
+.chip i { font-style: normal; font: 500 11px/1 var(--f-mono); color: var(--muted); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.chip[aria-pressed="true"] i { color: var(--bg); opacity: .7; }
+
+.mastery { width: 100%; border-collapse: collapse; font-size: 14px; }
+.mastery th { font: 500 11px/1 var(--f-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); text-align: left; padding: 0 8px 8px 0; font-weight: 500; }
+.mastery td { padding: 9px 8px 9px 0; border-top: 1px solid var(--line); font-variant-numeric: tabular-nums; vertical-align: middle; }
+.mastery td.num { font-family: var(--f-mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+.bar-mini { height: 6px; background: var(--soft); border-radius: 3px; overflow: hidden; min-width: 60px; }
+.bar-mini i { display: block; height: 100%; background: var(--accent); }
+.table-scroll { overflow-x: auto; }
+
+/* Opciones */
+.opts { display: grid; gap: 10px; }
+.opt {
+  display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start; text-align: left;
+  border: 1px solid var(--line); background: var(--surface); border-radius: var(--r); padding: 14px 16px; cursor: pointer;
+  font-size: 16.5px; line-height: 1.4; transition: border-color .12s ease, background .12s ease;
+}
+.opt:hover:not(:disabled) { border-color: var(--accent); }
+.opt .k { font: 500 12px/1 var(--f-mono); color: var(--muted); border: 1px solid var(--line); border-radius: 6px; height: 24px; display: grid; place-items: center; margin-top: 1px; }
+.opt.sel { border-color: var(--accent); background: var(--accent-soft); }
+.opt.sel .k { border-color: var(--accent); color: var(--accent); }
+.opt.ok { border-color: var(--ok); background: var(--ok-soft); }
+.opt.ok .k { border-color: var(--ok); color: var(--ok); }
+.opt.bad { border-color: var(--bad); background: var(--bad-soft); }
+.opt.bad .k { border-color: var(--bad); color: var(--bad); }
+.opt:disabled { cursor: default; }
+.opt.dim { opacity: .55; }
+
+.feedback { border-radius: var(--r); background: var(--surface); border: 1px solid var(--line); padding: 16px 18px; display: grid; gap: 6px; }
+.feedback .verdict { font: 600 13px/1 var(--f-mono); text-transform: uppercase; letter-spacing: 0.08em; }
+.feedback .verdict.ok { color: var(--ok); }
+.feedback .verdict.bad { color: var(--bad); }
+.feedback p { margin: 0; max-width: 68ch; }
+
+.actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.btn {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 10px 16px; cursor: pointer;
+  font: 500 15px/1.2 var(--f-ui); display: inline-flex; align-items: center; gap: 10px;
+}
+.btn:hover:not(:disabled) { border-color: var(--muted); }
+.btn kbd, .opt kbd { font: 500 11px/1 var(--f-mono); color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 3px 5px; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn.primary kbd { color: var(--on-accent); border-color: color-mix(in srgb, var(--on-accent) 45%, transparent); }
+.btn:disabled { opacity: .45; cursor: default; }
+.btn.g1 { border-color: var(--bad); color: var(--bad); }
+.btn.g2 { border-color: var(--line); }
+.btn.g3 { border-color: var(--ok); color: var(--ok); }
+
+/* Recall */
+.answer { border-top: 1px solid var(--line); padding-top: 20px; display: grid; gap: 10px; }
+.answer p { margin: 0; font-size: 19px; line-height: 1.5; max-width: 66ch; }
+.answer ul { margin: 0; padding-left: 20px; font-size: 18px; line-height: 1.5; display: grid; gap: 4px; }
+.think { color: var(--muted); font-size: 15px; margin: 0; }
+.boxes { display: flex; gap: 4px; align-items: center; }
+.boxes i { width: 18px; height: 4px; border-radius: 2px; background: var(--soft); }
+.boxes i.on { background: var(--accent); }
+
+/* Ordenar */
+.order-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+.order-col { display: grid; gap: 8px; min-width: 0; }
+.col-h { font: 500 11px/1 var(--f-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); padding-bottom: 4px; }
+.item {
+  display: grid; grid-template-columns: 26px 1fr; gap: 10px; align-items: start; text-align: left;
+  border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 10px 12px; cursor: pointer; font-size: 15px; line-height: 1.35;
+}
+.item:hover:not(:disabled) { border-color: var(--accent); }
+.item .k { font: 500 12px/1.4 var(--f-mono); color: var(--muted); }
+.item.placed .k { color: var(--accent); }
+.item.ok { border-color: var(--ok); background: var(--ok-soft); }
+.item.bad { border-color: var(--bad); background: var(--bad-soft); }
+.item .hint { display: block; font: 500 11.5px/1.3 var(--f-mono); color: var(--bad); margin-top: 4px; }
+.slot { border: 1px dashed var(--line); border-radius: 8px; padding: 10px 12px; font: 500 12px/1.35 var(--f-mono); color: var(--muted); }
+.solution { display: grid; gap: 4px; margin: 0; padding-left: 22px; }
+
+/* Clasificar */
+.buckets { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.bucket {
+  border: 1px solid var(--line); background: var(--surface); border-radius: var(--r); padding: 14px; cursor: pointer; text-align: left;
+  display: grid; gap: 6px; font: 600 15px/1.25 var(--f-ui); min-height: 70px; align-content: start;
+}
+.bucket .k { font: 500 11px/1 var(--f-mono); color: var(--muted); }
+.bucket:hover:not(:disabled) { border-color: var(--accent); }
+.bucket.ok { border-color: var(--ok); background: var(--ok-soft); }
+.bucket.bad { border-color: var(--bad); background: var(--bad-soft); }
+.bucket:disabled { cursor: default; }
+.flash { font-size: clamp(22px, 3vw, 32px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; margin: 0; text-wrap: balance; }
+
+/* Picker de sets */
+.sets { display: grid; border-top: 1px solid var(--line); }
+.set { display: grid; grid-template-columns: 1fr auto; gap: 12px; padding: 14px 4px; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: left; cursor: pointer; align-items: center; }
+.set:hover { background: var(--surface); }
+.set b { font-weight: 600; font-size: 16px; }
+.set span { color: var(--muted); font-size: 14px; display: block; }
+.set em { font: 500 12px/1 var(--f-mono); font-style: normal; color: var(--muted); }
+.set > div { min-width: 0; }
+
+/* Resultados */
+.score { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.score .big { font: 650 clamp(56px, 9vw, 92px)/1 var(--f-ui); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.score .big small { font-size: .4em; color: var(--muted); letter-spacing: 0; }
+.score .meta { font: 500 14px/1.5 var(--f-mono); color: var(--muted); }
+.miss { display: grid; gap: 14px; }
+.miss-item { border-top: 1px solid var(--line); padding-top: 14px; display: grid; gap: 6px; }
+.miss-item .qq { font-weight: 600; }
+.miss-item .ans { font-size: 14.5px; }
+.miss-item .ans .y { color: var(--bad); }
+.miss-item .ans .c { color: var(--ok); }
+.miss-item .ex { color: var(--muted); font-size: 14.5px; }
+.navdots { display: flex; flex-wrap: wrap; gap: 6px; }
+.navdots button { width: 30px; height: 30px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font: 500 12px/1 var(--f-mono); color: var(--muted); }
+.navdots button.done { background: var(--soft); color: var(--ink); }
+.navdots button.cur { border-color: var(--accent); color: var(--accent); }
+
+.toggle { display: inline-flex; gap: 8px; align-items: center; font-size: 14px; color: var(--muted); cursor: pointer; }
+.toggle input { accent-color: var(--accent); width: 16px; height: 16px; }
+
+/* Barra de atajos */
+.keys {
+  display: flex; gap: 18px; flex-wrap: wrap; align-items: center;
+  padding-block: 8px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  border-top: 1px solid var(--line); background: var(--surface);
+  font: 500 12px/1.4 var(--f-mono); color: var(--muted);
+}
+.keys kbd { font: inherit; color: var(--ink); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px; margin-right: 4px; }
+
+@media (max-width: 640px) {
+  .order-grid { grid-template-columns: 1fr; }
+  .keys { display: none; }
+  .wrap { padding-block: 24px; gap: 20px; }
+  .mode { grid-template-columns: 1fr auto; }
+  .mode .k { display: none; }
+  .meter { gap: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="bar">
+    <button class="brand" id="home-btn" type="button" title="Inicio (H)">Recall SBOK <small>Unidad I</small></button>
+    <span class="crumb" id="crumb"></span>
+    <span class="spacer"></span>
+    <span class="meter" id="meter"></span>
+    <button class="icon-btn" id="theme-btn" type="button" title="Cambiar tema">Tema</button>
+    <button class="icon-btn" id="fs-btn" type="button" title="Pantalla completa (F)">Pantalla completa</button>
+  </header>
+  <div class="progress"><i id="prog"></i></div>
+  <main class="stage" id="stage">
+    <div class="wrap" id="view"></div>
+  </main>
+  <footer class="keys" id="keys"></footer>
+</div>
+
+<script>
+/* ============================================================
+   Banco de contenido. Fuente: Guía del SBOK 4.ª ed. (SCRUMstudy, 2022)
+   y formatos del curso (FGAP/EGAP). Las referencias usan la sección del libro.
+   ============================================================ */
+const TOPICS = {
+  marco: "Marco SBOK",
+  principios: "Principios",
+  org: "Organización",
+  just: "Justificación",
+  cal: "Calidad",
+  cambio: "Cambio",
+  riesgo: "Riesgo",
+  inicio: "Inicio",
+  plan: "Planificación y estimación",
+  impl: "Implementación",
+  rev: "Revisión y retrospectiva",
+  lib: "Liberación",
+  curso: "Formatos del curso"
+};
+
+/* Tarjetas de recall: [tema, pregunta, respuesta, referencia]. "·" separa elementos de una lista. */
+const CARDS = [
+  ["marco", "¿En qué tres áreas se divide la Guía del SBOK y qué capítulos ocupa cada una?", "Principios (cap. 2) · Aspectos (caps. 3–7) · Procesos (caps. 8–12) · Los caps. 13–14 tratan el escalamiento", "§1.4"],
+  ["marco", "¿Cuántos principios, aspectos y procesos fundamentales define el SBOK?", "6 principios · 5 aspectos · 19 procesos fundamentales en 5 fases", "§1.4"],
+  ["marco", "¿Quiénes propusieron el enfoque «rugby» que dio origen a Scrum?", "Hirotaka Takeuchi e Ikujiro Nonaka, a mediados de los 80. El equipo avanza como una unidad, pasando el balón, no como una carrera de relevos.", "§1.1.1"],
+  ["marco", "¿Qué indica un asterisco (*) en una entrada, herramienta o salida?", "Que es obligatoria o importante para el éxito. Sin asterisco es opcional.", "§1.4.1"],
+  ["marco", "¿Qué se puede adaptar y qué no: principios, aspectos o procesos?", "Los principios no se discuten ni se modifican · Los aspectos y los procesos sí se adaptan al proyecto u organización", "§1.4.2"],
+  ["marco", "¿Cuál es el criterio clave para considerar «grande» un proyecto Scrum?", "Que requiera múltiples Scrum Masters o múltiples Product Owners (en la práctica, cuatro o más Equipos Scrum).", "§1.4.5"],
+  ["marco", "Scrum vs. gestión tradicional: énfasis, documentación, estilo de proceso y planificación por adelantado.", "Scrum: personas · documentación mínima · iterativo · baja planificación por adelantado · Tradicional: procesos · documentación integral · lineal · alta planificación", "§1.5"],
+  ["marco", "Scrum vs. gestión tradicional: liderazgo, medición del rendimiento y retorno de la inversión.", "Scrum: liderazgo colaborativo y servicial · se mide el valor del negocio · ROI al comienzo y a lo largo del proyecto · Tradicional: mando y control · cumplimiento del plan · ROI al final", "§1.5"],
+
+  ["principios", "Nombra los 6 principios de Scrum.", "Control del proceso empírico · Autoorganización · Colaboración · Priorización basada en valor · Time-boxing · Desarrollo iterativo", "§1.4.2"],
+  ["principios", "¿Cuáles son las tres ideas del control del proceso empírico?", "Transparencia · Inspección · Adaptación", "§2.3"],
+  ["principios", "¿Cuáles son las tres dimensiones de la colaboración?", "Conciencia: conocer el trabajo de los demás · Articulación: dividir el trabajo en unidades, repartirlo y reintegrarlo · Apropiación: adaptar la tecnología a la situación", "§2.5"],
+  ["principios", "¿En qué se diferencian cooperación y colaboración?", "Cooperación: el resultado es la suma de esfuerzos individuales. Colaboración: el equipo trabaja junto y combina los aportes de cada uno para producir algo mayor.", "§2.5"],
+  ["principios", "¿Qué tres factores se consideran al priorizar el backlog?", "Valor · Riesgo o incertidumbre · Dependencias", "§2.6"],
+  ["principios", "Time-boxes de Scrum.", "Sprint: 1 a 4 semanas · Planificación del sprint: 2 h por semana de sprint · Daily Standup: 15 min · Revisión del sprint: 1 h por semana · Retrospectiva del sprint: 1 h por semana", "§2.7.1"],
+  ["principios", "¿Cuáles son las tres preguntas del Daily Standup?", "¿Qué he hecho desde la última reunión? · ¿Qué tengo planeado hacer antes de la siguiente reunión? · ¿Qué impedimentos u obstáculos estoy enfrentando?", "§2.7.1"],
+  ["principios", "¿Cuáles son los dos objetivos de la reunión de planificación del sprint?", "Definición del objetivo: el PO explica las historias de mayor prioridad y el equipo se compromete (meta del sprint) · Identificación y estimación de tareas: el equipo decide cómo hacerlo", "§2.7.1"],
+  ["principios", "Además de ordenar el tiempo, ¿qué evita el time-boxing? ¿Qué riesgo tiene?", "Evita el gold-plating (mejorar de más un elemento). Un time-box arbitrario desmotiva y crea un ambiente tenso.", "§2.7"],
+  ["principios", "Beneficios de la autoorganización.", "Compromiso y responsabilidad compartida · Motivación y mejor rendimiento · Ambiente innovador y creativo · Elegir el método mejor y más sencillo", "§2.4.1"],
+  ["principios", "Beneficios de la colaboración.", "Se reducen las solicitudes de cambio · Se identifican y mitigan riesgos · Aumenta la eficiencia · Se incorpora la mejora continua", "§2.5.1"],
+  ["principios", "Beneficios de la coubicación.", "Las preguntas se contestan rápido · Los problemas se resuelven en el momento · Menos fricción · La confianza se gana más rápido", "§2.5.2"],
+
+  ["org", "Roles principales y roles secundarios de Scrum.", "Principales: Product Owner, Scrum Master y Equipo Scrum · Secundarios: interesados del negocio (cliente, usuarios, patrocinador), Scrum Guidance Body y proveedores", "§1.4.3.1"],
+  ["org", "¿Qué diferencia hay entre «Equipo Scrum» y «equipo principal de Scrum»?", "Equipo Scrum: quienes crean los entregables · Equipo principal de Scrum: Product Owner + Scrum Master + Equipo Scrum", "§1.4.3.1"],
+  ["org", "Tamaño óptimo del Equipo Scrum.", "De 6 a 10 miembros. Con más de 10 se forman varios Equipos Scrum.", "§3.6.2"],
+  ["org", "Responsabilidad central del Product Owner.", "Lograr el máximo valor de negocio · Articular los requisitos del cliente · Mantener la justificación del negocio · Es la voz del cliente", "§1.4.3.1"],
+  ["org", "Responsabilidad central del Scrum Master.", "Líder de apoyo y facilitador: asegura un ambiente propicio, enseña Scrum, elimina impedimentos y hace cumplir los procesos.", "§3.5"],
+  ["org", "¿Qué es el Scrum Guidance Body (SGB)?", "Un rol opcional: un conjunto de documentos o un grupo de expertos que define objetivos de calidad, regulaciones, seguridad y otros parámetros clave de la organización.", "§1.4.3.1"],
+  ["org", "Etapas del modelo de Tuckman.", "Formación · Enfrentamiento · Normalización · Desempeño", "§3.10.1"],
+  ["org", "Cuatro técnicas de gestión de conflictos.", "Ganar-ganar (la recomendada) · Perder-ganar · Perder-perder · Ganar-perder (no recomendable en Scrum)", "§3.10.3"],
+  ["org", "Estilo de liderazgo preferido en Scrum.", "El liderazgo de apoyo (servant leadership): escucha, empatía, comparte el poder. Es la personificación del Scrum Master.", "§3.10.4"],
+  ["org", "Teoría X, Teoría Y y Teoría Z.", "X: los empleados evitan el trabajo → estilo autoritario · Y: son automotivados → estilo participativo · Z: Maslow (deseo de trascender) y Ouchi (estabilidad y seguridad laboral) · En Scrum, los líderes siguen Y y Z", "§3.10.6"],
+  ["org", "¿Para qué usa el Scrum Master la pirámide de Maslow?", "Para entender en qué nivel está cada persona, motivarla y ayudarle a ascender en la jerarquía.", "§3.10.5"],
+  ["org", "¿Quién selecciona a los miembros del Equipo Scrum?", "Normalmente el Product Owner, en colaboración con el Scrum Master (proceso Formar el Equipo Scrum).", "§1.4.4.1"],
+
+  ["just", "¿En qué concepto se basa la justificación del negocio en Scrum?", "En la entrega basada en el valor (value-driven delivery): entregar resultados, y por tanto valor, lo antes posible.", "§1.4.3.2"],
+  ["just", "Fórmula del ROI y ejemplo del libro.", "ROI = (Ingresos − Costo) / Costo · Ej.: (300 000 − 125 000) / 125 000 = 1,4 (140 %)", "§4.5.1"],
+  ["just", "Con NPV o IRR, ¿qué proyecto se elige? ¿Importa la duración?", "El de mayor NPV o mayor IRR. La duración no se considera aparte: el tiempo ya está dentro del cálculo.", "§4.5.1"],
+  ["just", "Siete factores para determinar la justificación del negocio.", "Razonamiento del proyecto · Necesidades del negocio · Beneficios · Costo de oportunidad · Riesgos mayores · Plazos · Costos", "§4.4.1"],
+  ["just", "¿Qué es el costo de oportunidad?", "El valor de la siguiente mejor opción de negocio o proyecto que se descartó en favor del proyecto elegido.", "§4.4.1"],
+  ["just", "Tres pasos de la justificación del negocio en el ciclo de vida.", "Evaluar y presentar un caso de negocio · Justificación continua de valor · Confirmar la realización de beneficios", "§4.4.2"],
+  ["just", "Categorías del análisis de Kano.", "Atractiva (delighters) · Unidimensional (satisfiers) · Requerida (dissatisfiers) · Indiferente (se elimina)", "§4.5.2"],
+  ["just", "¿Qué significa MoSCoW?", "Must: debe tener · Should: debería tener · Could: podría tener · Won't: no tendrá (en prioridad decreciente)", "§4.5.2"],
+  ["just", "Fórmulas del análisis del valor ganado (EVA).", "SV = EV − PV · CV = EV − AC · SPI = EV / PV · CPI = EV / AC · % completado = EV / BAC × 100 · Negativo o menor que 1 = atraso o sobrecosto", "§4.6.1"],
+  ["just", "¿Qué son las MMF?", "Características mínimas de mercado: van con prioridad alta para liberar cuanto antes y aumentar el ROI.", "§4.5.3"],
+  ["just", "¿Qué es el mapeo de historias (Patton, 2005)?", "Un esquema visual que ordena las historias por prioridad y las corta en liberaciones 1, 2, 3…", "§4.5.4"],
+  ["just", "¿Quién es el responsable principal de la justificación del negocio?", "El Product Owner. Los demás roles contribuyen.", "§4.3"],
+
+  ["cal", "¿Cómo define el SBOK la calidad?", "Como la capacidad del producto o de los entregables para cumplir los criterios de aceptación y alcanzar el valor de negocio que espera el cliente.", "§1.4.3.3"],
+  ["cal", "Criterios de aceptación vs. criterios de terminado (DoD).", "Aceptación: propios de cada historia; los define el PO · DoD: reglas comunes a todas las historias (prueba unitaria, revisión por pares, documentación…) · Para darla por terminada se cumplen ambos", "§5.4"],
+  ["cal", "¿Qué pide la definición de listo (DoR)?", "Historias con detalle suficiente · Criterios de aceptación definidos · Documentación de apoyo · Tamaño que quepa en un sprint", "§5.4.2"],
+  ["cal", "Tres actividades de la gestión de calidad en Scrum.", "Planificación de calidad · Control de calidad · Garantía de calidad", "§5.5"],
+  ["cal", "Garantía de calidad vs. control de calidad.", "Garantía: evaluar procesos y estándares para que sigan siendo relevantes · Control: ejecutar las actividades de calidad planeadas al crear los entregables", "§5.5.2"],
+  ["cal", "¿Hasta cuándo puede arrastrarse la deuda técnica?", "No más allá de un sprint.", "§5.5.1"],
+  ["cal", "¿Qué es el ciclo PDCA y quién lo propuso?", "Planificar · Hacer · Verificar · Actuar. Deming y Shewhart. Deming lo renombró PDSA: «estudiar» en vez de «verificar».", "§5.5.3"],
+  ["cal", "¿Se acepta una historia que cumple el 90 % de sus criterios?", "No. Está terminada o no terminada: si es parcial se rechaza y vuelve al backlog. Solo el PO acepta o rechaza.", "§5.4.5"],
+
+  ["cambio", "¿Quién aprueba los cambios?", "Pequeños: el PO · Por encima de su tolerancia: los interesados del negocio · Sustanciales: la alta gerencia (patrocinador, Portfolio, Program o Chief PO)", "§6.3.1"],
+  ["cambio", "¿En qué procesos se aprueban las solicitudes de cambio?", "Desarrollar épicas · Crear el backlog priorizado del producto · Refinar el backlog priorizado del producto", "§6.3.1"],
+  ["cambio", "¿Puede cambiar el alcance de un sprint ya iniciado?", "No. Si el cambio es tan importante que el sprint pierde valor sin él, el sprint se termina y se planifica uno nuevo. Si no, entra en un sprint posterior.", "§6.5.1"],
+  ["cambio", "¿Cuál es la única excepción a no tocar el alcance del sprint?", "Si el equipo sobrestimó mucho y tiene capacidad de reserva, puede preguntar al PO qué historias adicionales incorporar.", "§6.5.1"],
+  ["cambio", "¿Cómo influye el cambio esperado en la duración del sprint?", "Requisitos poco definidos o cambios cercanos: 1 a 3 semanas · Requisitos estables: puede alargarse a 4–6 semanas · Lo habitual es 2–3 semanas, y la duración debe ser consistente", "§6.5.1.1"],
+
+  ["riesgo", "Riesgo vs. problema.", "Riesgo: incertidumbre futura; positiva = oportunidad, negativa = amenaza · Problema: una certeza que ya ocurre; se atiende y no se le estima probabilidad", "§7.3.1"],
+  ["riesgo", "Tres factores de la actitud de riesgo.", "Apetito de riesgo · Tolerancia al riesgo · Umbral de riesgo", "§7.3.2"],
+  ["riesgo", "Categorías de la función de utilidad.", "Aversión al riesgo · Neutral al riesgo · Búsqueda de riesgos", "§7.3.2"],
+  ["riesgo", "Cinco pasos de la gestión de riesgos.", "Identificación · Evaluación · Priorización · Mitigación · Comunicación", "§7.4"],
+  ["riesgo", "Técnicas de identificación de riesgos.", "Lecciones aprendidas · Listas de verificación · Listas cortas · Tormenta de ideas · Estructura de desglose de riesgos (RBS) · Entrevistas", "§7.4.1"],
+  ["riesgo", "Técnicas de evaluación de riesgos.", "Reunión de riesgos · Árboles de probabilidad · Análisis de Pareto · Matriz de probabilidad e impacto · Valor monetario esperado (EMV)", "§7.4.2"],
+  ["riesgo", "Fórmula del valor monetario esperado.", "EMV = impacto monetario × probabilidad · Ej.: $1 000 × 0,5 = $500", "§7.4.2"],
+  ["riesgo", "¿Quién es el dueño del riesgo?", "El Product Owner, para los riesgos del negocio. El Equipo Scrum implementa las respuestas durante el sprint.", "§7.4.4"],
+  ["riesgo", "¿Qué es un spike basado en riesgo?", "Un experimento intenso de 2 a 3 días (investigación o prototipo) para entender un riesgo, de preferencia al inicio del proyecto.", "§7.4.4"],
+  ["riesgo", "¿Qué muestra el Risk Burndown Chart?", "La severidad acumulada del riesgo del proyecto en el tiempo, sprint a sprint. La herramienta preferida para evaluarlo es el EMV.", "§7.4.5"],
+  ["riesgo", "¿Qué es el backlog priorizado ajustado al riesgo?", "El backlog que ya incorpora como historias priorizadas los riesgos que se pueden mitigar.", "§7.4.3"],
+
+  ["inicio", "Seis procesos de la fase de inicio.", "Crear la visión del proyecto · Identificar al Scrum Master y a los interesados del negocio · Formar el Equipo Scrum · Desarrollar épicas · Crear el backlog priorizado del producto · Realizar la planificación de la liberación", "§1.4.4.1"],
+  ["inicio", "Crear la visión: entrada obligatoria y salidas obligatorias.", "Entrada*: caso de negocio del proyecto · Salidas*: Product Owner identificado y declaración de la visión del proyecto · El acta de constitución y el presupuesto son opcionales", "§8.1"],
+  ["inicio", "Herramientas de Crear la visión del proyecto.", "Reunión de la visión del proyecto* · Sesiones JAD · Análisis FODA · Análisis de brecha", "§8.1.2"],
+  ["inicio", "Salidas obligatorias de Desarrollar épicas.", "Épicas* · Personajes* (personas ficticias con nombre, foto, edad, ambiente y metas)", "§8.4.3"],
+  ["inicio", "Salidas obligatorias de Crear el backlog priorizado del producto.", "Backlog priorizado del producto* · Criterios de terminado* · Definición de listo*", "§8.5.3"],
+  ["inicio", "Salidas obligatorias de Realizar la planificación de la liberación.", "Cronograma de planificación de la liberación* · Duración del sprint*", "§8.6.3"],
+  ["inicio", "Salidas de Formar el Equipo Scrum.", "Equipo Scrum identificado* · Substitutos · Plan de colaboración · Plan de desarrollo del equipo", "§8.3.3"],
+
+  ["plan", "Seis procesos de planificación y estimación.", "Crear historias de usuario · Estimar historias de usuario · Comprometer historias de usuario · Identificar tareas · Estimar tareas · Actualizar el backlog del sprint", "§1.4.4.2"],
+  ["plan", "Formato de historia de usuario en el libro.", "Como <rol o personaje>, yo debería <requerimiento>, a fin de <beneficio>. Responde quién, qué y por qué.", "§9.1"],
+  ["plan", "Técnicas de estimación.", "Wideband Delphi (rondas anónimas) · Planning Poker (cartas) · Puño de cinco · Afinidad (tallas de camiseta)", "§9.2.2.1"],
+  ["plan", "Puño de cinco: ¿qué significa cada dedo?", "1: en desacuerdo, grandes inquietudes · 2: en desacuerdo, asuntos menores · 3: no estoy seguro, me sumo al consenso · 4: de acuerdo, con asuntos por discutir · 5: totalmente de acuerdo", "§9.2.2.1"],
+  ["plan", "¿Qué miden los puntos de historia?", "Tamaño relativo: esfuerzo + complejidad + riesgo, calibrado por cada equipo.", "§9.2"],
+  ["plan", "¿Con qué datos se eligen las historias del sprint?", "Prioridad · Estimación · Velocidad del sprint anterior · Duración del sprint", "§9.3"],
+  ["plan", "Salidas obligatorias de Comprometer historias de usuario.", "Historias de usuario comprometidas* · Backlog del sprint* · Scrumboard*", "§9.3.3"],
+  ["plan", "Columnas básicas del Scrumboard.", "Por hacer · En progreso · Terminada · Variante: una columna «En prueba»", "§9.3.3.3"],
+  ["plan", "Burndown vs. burnup.", "Burndown: trabajo pendiente vs. tiempo restante · Burnup: trabajo terminado · El Sprint Burndown Chart es salida* de Actualizar el backlog del sprint", "§9.6.3.3"],
+
+  ["impl", "Tres procesos de la fase de implementación.", "Crear entregables · Realizar el Daily Standup · Refinar el backlog priorizado del producto", "§1.4.4.3"],
+  ["impl", "¿Se cancela el Daily Standup si falta alguien?", "No. No se cancela ni se retrasa. Las discusiones largas se hacen después de la reunión.", "§10.2.2.1"],
+  ["impl", "¿Qué es la sala de guerra?", "El lugar donde trabaja el equipo coubicado, sin cubículos, con comunicación cara a cara. Ideal para el Daily Standup.", "§10.2.2.3"],
+  ["impl", "¿Qué es la lista de impedimentos y dónde aparece?", "El registro de problemas que enfrenta el equipo · Entrada* de Crear entregables y del Daily Standup · Salida* del Daily Standup", "§10.1–10.2"],
+  ["impl", "¿Quién conduce el refinamiento del backlog y cuánto adelanta?", "El PO, en reuniones de revisión del backlog con SM, equipo e interesados. Refina lo de los próximos 2 o 3 sprints.", "§6.5.1.2"],
+
+  ["rev", "Dos procesos de la fase de revisión y retrospectiva.", "Demostrar y validar el sprint · Retrospectiva del sprint", "§1.4.4.4"],
+  ["rev", "Salida obligatoria de Demostrar y validar el sprint.", "Historias de usuario aceptadas* · Además: historias rechazadas, riesgos actualizados, resultados del valor ganado, cronograma de liberación actualizado", "§11.1.3"],
+  ["rev", "¿Qué es ESVP?", "Explorador: quiere aprender todo · Comprador: elige lo que le sirve · Vacacionista: va de turista · Prisionero: asiste por obligación · Se responde de forma anónima al inicio de la retrospectiva", "§11.2.2.2"],
+  ["rev", "¿Qué es la lancha rápida (speed boat)?", "Una técnica de retrospectiva: la isla es la visión del proyecto, los «motores» ayudan a llegar y las «anclas» frenan.", "§11.2.2.3"],
+  ["rev", "Salida obligatoria de la Retrospectiva del sprint.", "Mejoras accionables acordadas*", "§11.2.3"],
+
+  ["lib", "Dos procesos de la fase de liberación.", "Enviar entregables · Retrospectiva de la liberación (cierra el proyecto)", "§1.4.4.5"],
+  ["lib", "Salidas obligatorias de Enviar entregables.", "Acuerdo de entregables funcionales* · Entregables funcionales* · Liberación del producto*", "§12.1.3"],
+  ["lib", "Herramienta obligatoria de Enviar entregables.", "Métodos de despliegue organizacional*", "§12.1.2"],
+
+  ["curso", "Doce secciones del Acta de Constitución (EGAP010).", "Código y nombre · Visión · Requisitos · Alcance, límites y entregables · Riesgos · Cronograma de hitos · Recursos financieros · Interesados · Requisitos de aprobación · Criterios de culminación · Product Owner · Sponsor", "Curso, semana 2"],
+  ["curso", "Secuencia de avances del curso.", "FGAP010 Acta · FGAP020 Registro de Stakeholders · FGAP030 Roles y Prototipos · FGAP040 Épicas · FGAP060 Backlog priorizado + FGAP070 Criterios de terminado · Sprints · FGAP090 Cierre", "Curso, semana 5"],
+  ["curso", "Campos de un rol o prototipo (FGAP030).", "Rol · Frecuencia de uso · Experticia con el tema · Proficiencia con computadoras y con el software · Metas · Prototipo (quién es, qué hace, estilo de vida)", "Curso, semana 3"],
+  ["curso", "Formatos del docente para épica e historia.", "Épica: Como [rol], yo debería [requerimiento], a fin de [beneficio] · Historia: Como [rol], quiero [funcionalidad], para [beneficio] · El libro usa el primero para historias", "Curso, semana 4"],
+  ["curso", "Diez apartados de la Justificación (EGAP015).", "Datos generales · Necesidad · Justificación tecnológica · Operativa · Económica · Social · Académica · Beneficios · Viabilidad · Conclusión", "Curso, semana 4"],
+  ["curso", "¿Con qué proceso o sección del SBOK se relaciona cada formato?", "FGAP010 → 8.1 Crear la visión · FGAP020 → 8.2 · FGAP030 → cap. 3 y 8.3 · FGAP040 → 8.4 · FGAP060 → 8.5 · FGAP070 → 5.4.3 · FGAP090 → 12.2", "Curso, semana 5"]
+];
+
+/* Preguntas para marcar: [tema, esCasuística(1/0), pregunta, [correcta, distractor, distractor, distractor], explicación, referencia] */
+const MCQ = [
+  ["marco", 0, "¿Cuántos procesos fundamentales de Scrum define la Guía del SBOK?", ["19", "12", "6", "23"], "Son 19 procesos fundamentales agrupados en 5 fases (caps. 8–12).", "§1.4.4"],
+  ["marco", 0, "¿Cuál de estos NO es un aspecto de Scrum?", ["Time-boxing", "Organización", "Riesgo", "Cambio"], "Time-boxing es un principio. Los 5 aspectos son organización, justificación del negocio, calidad, cambio y riesgo.", "§1.4.3"],
+  ["marco", 0, "Según el SBOK, ¿qué no puede modificarse al aplicar Scrum?", ["Los principios", "Los procesos", "Los aspectos", "Las entradas opcionales"], "Los principios no están abiertos a discusión. Aspectos y procesos se adaptan al proyecto u organización.", "§1.4.2"],
+  ["marco", 0, "En la comparación Scrum vs. gestión tradicional, ¿cuándo se obtiene el retorno de la inversión en Scrum?", ["Al comienzo y a lo largo del proyecto", "Solo al final del proyecto", "Solo en la retrospectiva de la liberación", "Cuando se firma el acta"], "Scrum entrega valor desde los primeros sprints; en la gestión tradicional el ROI llega al final.", "§1.5"],
+  ["marco", 1, "Un proyecto tiene 5 Equipos Scrum, 3 Product Owners y 4 Scrum Masters. ¿Cómo lo clasifica el SBOK?", ["Proyecto grande: se aplican las consideraciones del cap. 13", "Proyecto pequeño", "Un portafolio", "Un proyecto que ya no puede usar Scrum"], "El criterio clave para un proyecto grande es que necesite múltiples SM o múltiples PO.", "§1.4.5"],
+  ["marco", 0, "En Scrum, ¿cómo se gestiona el cambio frente a la gestión tradicional?", ["Con actualizaciones al backlog priorizado del producto", "Con un sistema formal de gestión del cambio", "Con una adenda al acta de constitución", "Solo a través del Scrum Guidance Body"], "La tabla 1-3 compara: Scrum actualiza el backlog; la gestión tradicional usa un sistema formal de cambios.", "§1.5"],
+  ["marco", 0, "¿Qué analogía dio nombre a Scrum según Takeuchi y Nonaka?", ["El rugby: el equipo avanza como una unidad", "Una carrera de relevos", "Una línea de ensamblaje", "Un partido de ajedrez"], "Propusieron que el desarrollo de productos no sea una carrera de relevos secuencial, sino como el rugby.", "§1.1.1"],
+
+  ["principios", 1, "En NewBit no saben si YOLOv8 detectará bien los cascos con poca luz. Deciden probar con un prototipo, mirar los resultados y ajustar. ¿Qué principio aplican?", ["Control del proceso empírico", "Time-boxing", "Priorización basada en valor", "Colaboración"], "Decidir por observación y experimentación (transparencia, inspección, adaptación) cuando no hay una solución clara.", "§2.3"],
+  ["principios", 0, "¿Cuáles son las tres ideas del control del proceso empírico?", ["Transparencia, inspección y adaptación", "Conciencia, articulación y apropiación", "Valor, riesgo y dependencias", "Planificar, hacer y verificar"], "Conciencia/articulación/apropiación es colaboración; valor/riesgo/dependencias es priorización.", "§2.3"],
+  ["principios", 0, "Conciencia, articulación y apropiación son dimensiones del principio de…", ["Colaboración", "Autoorganización", "Control del proceso empírico", "Desarrollo iterativo"], "Son las tres dimensiones básicas del trabajo colaborativo.", "§2.5"],
+  ["principios", 1, "Un developer divide el módulo de alertas en unidades, las reparte con su compañero y luego las integran. ¿Qué dimensión de la colaboración es?", ["Articulación", "Conciencia", "Apropiación", "Adaptación"], "Articulación: distribuir el trabajo en unidades, dividirlo entre el equipo y reintegrarlo.", "§2.5"],
+  ["principios", 0, "¿Qué tres factores considera el Product Owner al priorizar historias?", ["Valor, riesgo o incertidumbre y dependencias", "Costo, tiempo y alcance", "Esfuerzo, complejidad y riesgo", "Urgencia, impacto y probabilidad"], "Esfuerzo, complejidad y riesgo es lo que miden los puntos de historia, no la priorización.", "§2.6"],
+  ["principios", 1, "El sprint dura 3 semanas. ¿Cuál es el time-box de la reunión de planificación del sprint?", ["6 horas", "3 horas", "8 horas", "2 horas"], "2 horas por cada semana de sprint: 3 × 2 = 6 h.", "§2.7.1"],
+  ["principios", 1, "El sprint dura 2 semanas. ¿Cuál es el time-box de la revisión y de la retrospectiva del sprint?", ["2 horas cada una", "4 horas cada una", "1 hora cada una", "15 minutos cada una"], "Ambas tienen 1 hora por cada semana de sprint.", "§2.7.1"],
+  ["principios", 1, "Sprint de 4 semanas. ¿Cuánto dura como máximo la planificación del sprint?", ["8 horas", "4 horas", "2 horas", "16 horas"], "Es el ejemplo del libro: en un sprint de un mes, la planificación tiene un time-box de 8 h.", "§2.7.1"],
+  ["principios", 0, "¿Cuál es el time-box del Daily Standup?", ["15 minutos", "30 minutos", "1 hora por semana de sprint", "5 minutos por persona"], "Es una reunión breve y diaria de 15 minutos.", "§2.7.1"],
+  ["principios", 0, "¿Cuál NO es una de las tres preguntas del Daily Standup?", ["¿Qué historias debe priorizar el Product Owner?", "¿Qué he hecho desde la última reunión?", "¿Qué tengo planeado hacer antes de la siguiente reunión?", "¿Qué impedimentos estoy enfrentando?"], "Las tres preguntas son sobre lo hecho, lo planeado y los impedimentos.", "§2.7.1"],
+  ["principios", 1, "El equipo pule durante días una pantalla que ya cumple sus criterios de aceptación. ¿Qué ayuda a evitar el time-boxing?", ["El gold-plating", "La deuda técnica", "El costo de oportunidad", "La baja velocidad"], "El time-boxing evita la mejora excesiva de un elemento (gold-plating).", "§2.7"],
+  ["principios", 0, "¿Qué estilo de liderazgo prefiere Scrum?", ["Liderazgo de apoyo o colaborativo", "Autocrático", "Laissez faire", "Directivo"], "Se enfoca en las necesidades del equipo para lograr resultados.", "§2.4 · §3.10.4"],
+  ["principios", 1, "El jefe de planta quiere asignar las tareas a cada developer de NewBit. Según el SBOK, ¿quién decide qué trabajo hará cada miembro?", ["Cada miembro del Equipo Scrum", "El Product Owner", "El Scrum Master", "El patrocinador"], "Autoorganización: en Identificar y Estimar tareas cada miembro determina qué trabajo hará. El SM protege al equipo de influencias externas.", "§2.4"],
+  ["principios", 0, "¿Qué distingue a la colaboración de la cooperación?", ["En la colaboración el equipo combina sus aportes para producir algo mayor que la suma", "La cooperación exige coubicación", "La colaboración solo ocurre con el cliente", "El SBOK no las distingue"], "Cooperación = suma de esfuerzos individuales. Colaboración = trabajar juntos para producir algo más grande.", "§2.5"],
+  ["principios", 1, "En la retrospectiva el equipo decide cambiar su forma de revisar código para el próximo sprint. ¿Qué idea del control empírico se ve?", ["Adaptación", "Transparencia", "Inspección", "Articulación"], "Aprender de lo inspeccionado y hacer mejoras al trabajo es adaptación.", "§2.3.3"],
+  ["principios", 0, "¿Cuál de estos es un radiador de información según el SBOK?", ["El Scrumboard y el Burndown Chart", "El acta de constitución", "El caso de negocio", "Los contratos aplicables"], "Los radiadores de información hacen visible el progreso del equipo (transparencia).", "§2.3.1"],
+  ["principios", 0, "¿Cuál NO es un beneficio de la colaboración según el SBOK?", ["Elimina la necesidad de un Product Owner", "Reduce las solicitudes de cambio", "Ayuda a identificar y mitigar riesgos", "Aumenta la eficiencia"], "Los beneficios son: menos cambios, riesgos mitigados, más eficiencia y mejora continua.", "§2.5.1"],
+  ["principios", 1, "El PO de NewBit decide hacer primero la detección de casco porque da más valor y además reduce el riesgo técnico. ¿Qué principio aplica?", ["Priorización basada en valor", "Autoorganización", "Time-boxing", "Colaboración"], "La prioridad considera valor, riesgo o incertidumbre y dependencias.", "§2.6"],
+
+  ["org", 0, "¿Cuáles son los roles principales de Scrum?", ["Product Owner, Scrum Master y Equipo Scrum", "Product Owner, Scrum Master y patrocinador", "Scrum Master, Scrum Guidance Body y proveedores", "Cliente, usuarios y patrocinador"], "Los demás son roles secundarios.", "§1.4.3.1"],
+  ["org", 0, "¿Qué rol es opcional y puede ser solo un conjunto de documentos?", ["Scrum Guidance Body", "Chief Product Owner", "Equipo Scrum", "Product Owner"], "El SGB puede ser documentos o un grupo de expertos que definen calidad, regulaciones y seguridad.", "§1.4.3.1"],
+  ["org", 0, "¿Cuál es el tamaño óptimo de un Equipo Scrum según el SBOK?", ["De 6 a 10 miembros", "De 3 a 5 miembros", "De 10 a 15 miembros", "Exactamente 9 miembros"], "Lo bastante grande para tener las habilidades y lo bastante pequeño para colaborar.", "§3.6.2"],
+  ["org", 1, "Albert es el PO de NewBit y representa la voz del cliente. ¿Cuál es su responsabilidad principal?", ["Lograr el máximo valor de negocio y mantener la justificación del negocio", "Eliminar los impedimentos del equipo", "Crear los entregables", "Facilitar el Daily Standup"], "Eliminar impedimentos y facilitar son del SM; crear entregables es del Equipo Scrum.", "§1.4.3.1"],
+  ["org", 1, "Un developer de NewBit no puede usar el servidor con GPU porque TI no le da permisos. ¿Quién debe eliminar ese impedimento?", ["El Scrum Master", "El Product Owner", "El patrocinador", "El mismo developer, sin ayuda"], "El SM elimina los impedimentos y protege al equipo para que tenga un ambiente productivo.", "§3.5"],
+  ["org", 0, "El «equipo principal de Scrum» está formado por…", ["Product Owner, Scrum Master y Equipo Scrum", "Solo los developers", "Product Owner y patrocinador", "Scrum Master y Scrum Guidance Body"], "«Equipo Scrum» son los que crean entregables; el equipo principal suma al PO y al SM.", "§1.4.3.1"],
+  ["org", 1, "Un equipo nuevo tiene conflictos de poder y confusión sobre quién hace qué. ¿En qué etapa de Tuckman está?", ["Enfrentamiento", "Formación", "Normalización", "Desempeño"], "Enfrentamiento: el equipo intenta trabajar, pero hay conflictos de poder y caos.", "§3.10.1"],
+  ["org", 1, "El equipo ya resolvió sus diferencias y empieza a encontrar cómo trabajar junto; es un período de ajuste. ¿Etapa de Tuckman?", ["Normalización", "Desempeño", "Enfrentamiento", "Formación"], "Normalización: el equipo madura y resuelve sus diferencias.", "§3.10.1"],
+  ["org", 1, "Un developer siente que no valoran sus ideas y termina aceptando todo aunque no esté de acuerdo. ¿Qué enfoque de conflicto es?", ["Perder-ganar", "Ganar-ganar", "Perder-perder", "Ganar-perder"], "Perder-ganar: deja de contribuir y acepta lo que le piden.", "§3.10.3.2"],
+  ["org", 1, "El Scrum Master impone su punto de vista sin escuchar al equipo. ¿Qué enfoque de conflicto es?", ["Ganar-perder, no recomendable en Scrum", "Ganar-ganar", "Perder-ganar", "Perder-perder"], "Actuar como manager de facto e imponer criterio es competitivo y choca con la autoorganización.", "§3.10.3.4"],
+  ["org", 1, "Para cerrar una discusión cada parte cede algo y queda una solución subóptima. ¿Qué enfoque es?", ["Perder-perder", "Ganar-ganar", "Ganar-perder", "Perder-ganar"], "Negociar soluciones parciales o temporales «dando para recibir» es perder-perder.", "§3.10.3.3"],
+  ["org", 0, "¿Qué técnica de gestión de conflictos recomienda el SBOK?", ["Ganar-ganar", "Ganar-perder", "Perder-perder", "Evitar el conflicto"], "Enfrentar el problema con cooperación y diálogo hasta lograr consenso.", "§3.10.3.1"],
+  ["org", 1, "Un líder deja al equipo sin supervisión y no interviene en nada; aparece la anarquía. ¿Qué estilo es?", ["Laissez faire", "Líder que delega", "Líder de apoyo", "Líder asertivo"], "El laissez faire no interfiere en las actividades diarias y suele llevar a la anarquía.", "§3.10.4"],
+  ["org", 1, "Un gerente asume que los developers evitarán trabajar si nadie los vigila. ¿Qué teoría aplica?", ["Teoría X, incompatible con Scrum", "Teoría Y", "Teoría Z de Ouchi", "Liderazgo de apoyo"], "Es improbable que un proyecto Scrum tenga éxito con líderes de Teoría X.", "§3.10.6"],
+  ["org", 0, "¿Qué teorías deben seguir los líderes de proyectos Scrum?", ["Teoría Y y Teoría Z", "Solo la Teoría X", "Teoría X y Teoría Y", "Ninguna en particular"], "Ven a las personas como activos importantes y las empoderan.", "§3.10.6"],
+  ["org", 0, "¿Quién selecciona normalmente a los miembros del Equipo Scrum?", ["El Product Owner, en colaboración con el Scrum Master", "El patrocinador", "El Scrum Guidance Body", "Los interesados del negocio"], "Ocurre en el proceso Formar el Equipo Scrum.", "§1.4.4.1"],
+  ["org", 0, "Los interesados del negocio incluyen a…", ["Clientes, usuarios y patrocinadores", "PO, SM y Equipo Scrum", "Solo los proveedores", "El Scrum Guidance Body"], "Es un término colectivo; son un subconjunto de los interesados del proyecto.", "§1.4.3.1"],
+  ["org", 1, "Un Equipo Scrum tiene 14 personas. ¿Qué recomienda el SBOK?", ["Formar varios Equipos Scrum", "Mantenerlo así para ganar velocidad", "Prescindir del Scrum Master", "Duplicar la duración del sprint"], "Con más de 10 personas se forman varios equipos que se coordinan.", "§1.2.1"],
+  ["org", 1, "En la planta hay un operario con baja motivación que solo se preocupa por su estabilidad laboral. ¿Qué herramienta usa el SM para entender cómo motivarlo?", ["La jerarquía de necesidades de Maslow", "El modelo de Tuckman", "El análisis de Kano", "El ciclo PDCA"], "El SM identifica en qué nivel de la pirámide está cada persona para motivarla.", "§3.10.5"],
+
+  ["just", 1, "El proyecto cuesta S/ 20 000 y se esperan beneficios de S/ 50 000. ¿Cuál es el ROI?", ["1,5 (150 %)", "2,5 (250 %)", "0,4 (40 %)", "S/ 30 000"], "(50 000 − 20 000) / 20 000 = 1,5.", "§4.5.1"],
+  ["just", 1, "Proyecto A: NPV de $1 500 en 5 años. Proyecto B: NPV de $1 000 en 1 año. ¿Cuál conviene?", ["A, porque su NPV es mayor", "B, porque dura menos", "Son equivalentes", "No se puede decidir sin la IRR"], "El tiempo ya está considerado en el NPV; se elige el mayor.", "§4.5.1"],
+  ["just", 1, "Proyecto A: IRR de 15 % en 5 años. Proyecto B: IRR de 10 % en 1 año. ¿Cuál conviene?", ["A, porque su IRR es mayor", "B, porque dura menos", "Ninguno", "Son equivalentes"], "Igual que con el NPV, la duración ya está incluida en el cálculo.", "§4.5.1"],
+  ["just", 1, "El valor de la mejor alternativa que la empresa descartó para financiar NewBit se llama…", ["Costo de oportunidad", "Costo hundido", "Valor presente neto", "Valor ganado"], "Es uno de los 7 factores de la justificación del negocio.", "§4.4.1"],
+  ["just", 0, "¿Quién es el principal responsable de la justificación del negocio?", ["El Product Owner", "El Scrum Master", "El Equipo Scrum", "El Scrum Guidance Body"], "Los demás roles contribuyen, pero el responsable es el PO.", "§4.3"],
+  ["just", 1, "PV = 200 000, EV = 100 000, AC = 300 000. ¿Cuánto valen SPI y CPI?", ["SPI = 0,5 y CPI = 0,33", "SPI = 2 y CPI = 3", "SPI = 0,33 y CPI = 0,5", "SPI = −100 000 y CPI = −200 000"], "SPI = EV/PV = 0,5; CPI = EV/AC = 0,33. Las variaciones (SV, CV) son las restas.", "§4.6.1"],
+  ["just", 1, "EV = 40 000, PV = 50 000, AC = 45 000. ¿Cómo va el proyecto?", ["Atrasado y por encima del presupuesto", "Adelantado y bajo el presupuesto", "Atrasado pero bajo el presupuesto", "A tiempo y en presupuesto"], "SV = EV − PV = −10 000 (atraso); CV = EV − AC = −5 000 (sobrecosto).", "§4.6.1"],
+  ["just", 1, "BAC = 400 000 y EV = 100 000. ¿Qué porcentaje del proyecto está completado?", ["25 %", "40 %", "75 %", "50 %"], "% completado = EV / BAC × 100.", "§4.6.1"],
+  ["just", 1, "Se le da al cliente dinero falso por el monto del presupuesto para que lo reparta entre las historias. ¿Qué técnica es?", ["Dinero de Monopoly", "Método de los 100 puntos", "MoSCoW", "Análisis de Kano"], "El cliente prioriza según lo que estaría dispuesto a pagar por cada historia.", "§4.5.2"],
+  ["just", 1, "En NewBit el cliente reparte 100 puntos entre las 12 historias. ¿Qué técnica es y de quién?", ["Método de los 100 puntos, de Leffingwell y Widrig", "Planning Poker, de Grenning", "Puño de cinco, de SCRUMstudy", "Dinero de Monopoly, de Kano"], "Es una técnica de priorización (no de estimación).", "§4.5.2"],
+  ["just", 1, "La cámara en el celular sorprendía al inicio; hoy, si falta, el cliente se molesta. ¿Cómo se movió en Kano?", ["De atractiva a requerida", "De requerida a atractiva", "De indiferente a unidimensional", "No cambió de categoría"], "Con el tiempo las características bajan en la clasificación: lo que deleitaba pasa a esperarse.", "§4.5.2"],
+  ["just", 0, "En el análisis de Kano, una característica que no afecta en nada al cliente…", ["Es indiferente y debe eliminarse", "Es atractiva", "Es unidimensional", "Es requerida"], "La calidad indiferente no influye en la satisfacción.", "§4.5.2"],
+  ["just", 1, "El cliente marca las 12 historias como prioridad 1. ¿Qué hace el PO?", ["Las prioriza también dentro de esa lista; los esquemas simples tienden a dejar todo en «1»", "Las deja así porque lo pidió el cliente", "Le pide al SM que decida", "Las estima todas con el mismo valor"], "Aun una lista de alta prioridad debe ordenarse de mayor a menor.", "§2.6 · §4.5.2"],
+  ["just", 0, "¿Cuál es el orden de MoSCoW de mayor a menor prioridad?", ["Debe, debería, podría, no tendrá", "Podría, debería, debe, no tendrá", "Debe, podría, debería, no tendrá", "No tendrá, podría, debería, debe"], "Must, Should, Could, Won't.", "§4.5.2"],
+  ["just", 0, "¿Qué técnica ubica las historias por prioridad y las corta en liberaciones 1, 2 y 3?", ["Mapeo de historias", "Mapeo de flujo de valor", "Diagrama de flujo acumulado", "Análisis de Kano"], "Formulada por Jeff Patton (2005).", "§4.5.4"],
+  ["just", 0, "¿Qué técnica usa diagramas de flujo para eliminar pasos que no agregan valor?", ["Mapeo de flujo de valor", "Mapeo de historias", "Análisis de Pareto", "Árbol de probabilidad"], "Value Stream Mapping, parte de planificar según el valor.", "§4.5.2"],
+  ["just", 0, "¿Cuál es el orden de la justificación del negocio en el ciclo de vida?", ["Evaluar y presentar el caso de negocio → Justificación continua de valor → Confirmar la realización de beneficios", "Crear la visión → Desarrollar épicas → Crear el backlog", "Identificar → Evaluar → Mitigar", "Planificar → Hacer → Verificar → Actuar"], "Se evalúa antes del inicio, se valida durante todo el proyecto y se confirma al entregar.", "§4.4.2"],
+  ["just", 0, "¿Cuándo se lleva a cabo generalmente el análisis del valor ganado?", ["Al final de cada sprint", "Solo al cierre del proyecto", "En cada Daily Standup", "Antes de redactar el caso de negocio"], "Se hace al terminar las historias y el backlog del sprint.", "§4.6.1"],
+  ["just", 0, "¿Qué son las MMF y qué prioridad llevan?", ["Características mínimas de mercado; prioridad alta", "Métricas de mejora futura; prioridad baja", "Mejoras de mantenimiento; sin prioridad", "Modelos de flujo financiero; prioridad media"], "Permiten liberar la primera versión cuanto antes y elevar el ROI.", "§4.5.3"],
+
+  ["cal", 1, "«Toda historia debe tener prueba unitaria, revisión por pares y documentación.» ¿Qué es?", ["Criterios de terminado (DoD)", "Criterios de aceptación", "Definición de listo", "Caso de negocio"], "La DoD son reglas comunes a todas las historias (FGAP070).", "§5.4.3"],
+  ["cal", 1, "«La alerta por no usar casco aparece en el panel del supervisor.» ¿Qué es?", ["Un criterio de aceptación de una historia", "La definición de terminado", "La definición de listo", "La declaración de la visión"], "Es propio de una historia y verificable; lo define el PO.", "§5.4.1"],
+  ["cal", 1, "Una historia no tiene criterios de aceptación y es demasiado grande para un sprint. ¿Qué pasa?", ["No cumple la definición de listo y todavía no se estima", "Se estima igual con Planning Poker", "Se acepta en la revisión del sprint", "Pasa directo al Scrumboard"], "Solo se estiman historias que cumplen la DoR.", "§5.4.2"],
+  ["cal", 1, "En la revisión, una historia cumple 4 de sus 5 criterios y el patrocinador quiere aceptarla. ¿Qué ocurre?", ["Se rechaza: solo el PO acepta y no existe término medio", "Se acepta parcialmente", "La acepta el patrocinador", "Se acepta al 80 %"], "Se recoge la opinión de todos, pero solo el PO tiene la autoridad. Lo parcial vuelve al backlog.", "§5.4.5"],
+  ["cal", 0, "¿Quién tiene la autoridad para aceptar o rechazar historias en la revisión del sprint?", ["Solo el Product Owner", "El cliente", "El Scrum Master", "Todos, por votación"], "Los interesados opinan, pero decide el PO.", "§5.4.5"],
+  ["cal", 0, "Según el SBOK, ¿hasta cuándo puede llevarse la deuda técnica?", ["No más allá de un sprint", "Hasta la liberación", "Hasta el cierre del proyecto", "Indefinidamente si el PO lo aprueba"], "Con criterios de aceptación y de terminado bien definidos no debe arrastrarse.", "§5.5.1"],
+  ["cal", 0, "La garantía de calidad consiste en…", ["Evaluar los procesos y estándares para que sigan siendo relevantes", "Ejecutar las pruebas de cada entregable", "Redactar los criterios de aceptación", "Aprobar las solicitudes de cambio"], "Ejecutar las actividades de calidad planeadas es el control de calidad.", "§5.5.2"],
+  ["cal", 0, "¿Quiénes desarrollaron el ciclo PDCA?", ["Deming y Shewhart", "Takeuchi y Nonaka", "Tuckman y Maslow", "Leffingwell y Widrig"], "Deming lo cambió después a PDSA (estudiar).", "§5.5.3"],
+  ["cal", 0, "¿Quién establece los criterios mínimos de terminado de todo el portafolio?", ["El Portfolio Product Owner", "El Scrum Master", "El Equipo Scrum", "El Chief Scrum Master"], "Los criterios bajan en cascada: portafolio → programa → proyecto.", "§5.4.4"],
+  ["cal", 0, "¿Qué tres actividades componen la gestión de calidad en Scrum?", ["Planificación, control y garantía de calidad", "Identificación, evaluación y mitigación", "Transparencia, inspección y adaptación", "Prueba unitaria, integrada y de aceptación"], "Están interrelacionadas.", "§5.5"],
+  ["cal", 0, "¿Cuándo se demuestra generalmente la garantía de calidad?", ["En la reunión de revisión del sprint", "En el Daily Standup", "En la reunión de la visión", "En la retrospectiva de la liberación"], "Un entregable no está completo sin una garantía de calidad adecuada.", "§5.5.2"],
+
+  ["cambio", 1, "A mitad del sprint 2, el gerente de planta pide agregar la detección de guantes. No es urgente. ¿Qué se hace?", ["Se agrega al backlog priorizado para un sprint posterior", "Se mete en el sprint actual", "El SM rechaza el cambio para siempre", "Se cancela el sprint"], "El alcance del sprint no cambia una vez iniciado; el cambio se prioriza para después.", "§6.5.1"],
+  ["cambio", 1, "Cambia una norma de seguridad y sin ese cambio el sprint actual no tendría ningún valor. ¿Qué se hace?", ["El PO, tras consultar a los interesados, termina el sprint y se planifica uno nuevo", "Se sigue igual hasta el final", "El equipo decide solo qué hacer", "Se alarga el sprint dos semanas"], "Si el cambio es urgente y el sprint pierde valor, se termina y se replanifica.", "§6.5.1"],
+  ["cambio", 1, "A mitad del sprint, el equipo nota que sobrestimó mucho y le sobra capacidad. ¿Qué puede hacer?", ["Preguntar al PO qué historias adicionales incorporar", "Terminar el sprint antes de tiempo", "Esperar sin hacer nada", "Agregar historias por su cuenta"], "Es la única excepción a no modificar el alcance del sprint.", "§6.5.1"],
+  ["cambio", 1, "Los requisitos de NewBit todavía son poco claros y se esperan cambios pronto. ¿Qué duración de sprint conviene?", ["Corta, de 1 a 3 semanas", "Larga, de 4 a 6 semanas", "Variable en cada sprint", "8 semanas"], "Con mucho cambio esperado, sprints cortos. Con requisitos estables se puede alargar.", "§6.5.1.1"],
+  ["cambio", 0, "Sin un proceso formal, ¿quién aprueba un cambio pequeño sin impacto considerable?", ["El Product Owner", "La alta gerencia", "El Scrum Master", "El Scrum Guidance Body"], "Los cambios grandes suben a interesados del negocio o a la alta gerencia.", "§6.3.1"],
+  ["cambio", 0, "¿En qué procesos se discuten y aprueban las solicitudes de cambio?", ["Desarrollar épicas, Crear el backlog y Refinar el backlog", "Realizar el Daily Standup", "Retrospectiva del sprint", "Enviar entregables"], "Luego se priorizan junto a las demás historias.", "§6.3.1"],
+  ["cambio", 0, "¿Es recomendable alternar sprints de 3, 2 y 4 semanas?", ["No, la duración del sprint debe ser consistente", "Sí, da flexibilidad", "Solo en proyectos grandes", "Solo si el PO lo decide"], "Cambiar la duración altera la velocidad de referencia del equipo.", "§6.5.1.1"],
+  ["cambio", 0, "¿Cuál es el estado de una solicitud de cambio hasta que se obtiene aprobación formal?", ["No aprobada", "Aprobada provisionalmente", "En el backlog del sprint", "Rechazada"], "Permanece como no aprobada hasta la aprobación formal.", "§6.3.1"],
+
+  ["riesgo", 1, "«No se autorizó el financiamiento del servidor.» ¿Qué es?", ["Un problema: ya ocurrió y se atiende", "Un riesgo positivo", "Un riesgo negativo", "Una oportunidad"], "Los problemas son certezas; no se les evalúa probabilidad.", "§7.3.1"],
+  ["riesgo", 1, "«Las cámaras de la planta podrían no tener resolución suficiente.» ¿Qué es?", ["Un riesgo (amenaza)", "Un problema", "Una oportunidad", "Un impedimento ya resuelto"], "Es una incertidumbre futura con impacto negativo.", "§7.3"],
+  ["riesgo", 1, "Un riesgo tiene probabilidad de 0,4 e impacto de S/ 5 000. ¿Cuál es su valor monetario esperado?", ["S/ 2 000", "S/ 12 500", "S/ 5 400", "S/ 4 600"], "EMV = impacto × probabilidad = 5 000 × 0,4.", "§7.4.2"],
+  ["riesgo", 1, "En la matriz de probabilidad e impacto, un riesgo tiene probabilidad 0,5 e impacto 0,6. ¿Cuál es su puntuación?", ["0,3", "1,1", "0,83", "0,1"], "Se multiplican: 0,5 × 0,6 = 0,3.", "§7.4.2"],
+  ["riesgo", 1, "Un interesado no acepta ningún riesgo, sin importar el beneficio. ¿Qué categoría de la función de utilidad es?", ["Aversión al riesgo", "Neutral al riesgo", "Búsqueda de riesgos", "Umbral alto de riesgo"], "Neutral: le da igual; búsqueda: acepta riesgo por un beneficio marginal.", "§7.3.2"],
+  ["riesgo", 0, "¿Cuál es el orden de los pasos de la gestión de riesgos?", ["Identificación, evaluación, priorización, mitigación y comunicación", "Evaluación, identificación, mitigación, priorización y comunicación", "Identificación, mitigación, evaluación, comunicación y priorización", "Comunicación, identificación, evaluación, priorización y mitigación"], "Se repiten de forma iterativa durante el proyecto.", "§7.4"],
+  ["riesgo", 1, "El equipo agrupa los riesgos de NewBit en técnicos, financieros y de seguridad. ¿Qué herramienta usa?", ["Estructura de desglose de riesgos (RBS)", "Análisis de Pareto", "Árbol de probabilidad", "Lista corta de riesgos"], "La RBS agrupa los riesgos por categorías.", "§7.4.1"],
+  ["riesgo", 1, "Antes de crear el backlog, el equipo dedica 2 a 3 días a un prototipo para saber si el modelo corre sin internet. ¿Qué es?", ["Un spike basado en riesgo", "Un sprint cero", "Una sesión JAD", "Una sala de guerra"], "Es un experimento corto para entender un riesgo potencial; se agrega al backlog.", "§7.4.4"],
+  ["riesgo", 0, "¿Quién es el dueño del riesgo en Scrum?", ["El Product Owner", "El Scrum Master", "El Equipo Scrum", "El Scrum Guidance Body"], "El equipo implementa las respuestas durante el sprint.", "§7.4.4"],
+  ["riesgo", 0, "¿Qué gráfica comunica la severidad acumulada de los riesgos sprint a sprint?", ["Risk Burndown Chart", "Sprint Burndown Chart", "Diagrama de flujo acumulado", "Scrumboard"], "Se construye preferentemente con el EMV.", "§7.4.5"],
+  ["riesgo", 0, "¿Qué técnica evalúa los riesgos por magnitud para atender primero el de mayor impacto?", ["Análisis de Pareto", "Estructura de desglose de riesgos", "Tormenta de ideas", "Listas de verificación"], "Las otras tres son de identificación.", "§7.4.2"],
+  ["riesgo", 0, "¿Cuál NO es una técnica de identificación de riesgos?", ["Valor monetario esperado", "Tormenta de ideas", "Listas de verificación", "Entrevistas"], "El EMV es una técnica de evaluación.", "§7.4.1"],
+  ["riesgo", 0, "Un backlog que incluye como historias los riesgos que se pueden mitigar se llama…", ["Backlog priorizado del producto ajustado al riesgo", "Backlog del sprint", "Lista de impedimentos", "Registro de riesgos"], "Se arma en Crear o Refinar el backlog priorizado.", "§7.4.3"],
+  ["riesgo", 0, "¿Cuáles son los tres factores de la actitud de riesgo?", ["Apetito, tolerancia y umbral", "Probabilidad, impacto y proximidad", "Aversión, neutralidad y búsqueda", "Amenaza, oportunidad y problema"], "Aversión/neutral/búsqueda son la función de utilidad; probabilidad/impacto/proximidad, la evaluación.", "§7.3.2"],
+
+  ["inicio", 0, "¿En qué proceso se identifica al Product Owner?", ["Crear la visión del proyecto", "Identificar al Scrum Master y a los interesados del negocio", "Formar el Equipo Scrum", "Desarrollar épicas"], "«Product Owner identificado» es salida obligatoria de Crear la visión.", "§8.1.3"],
+  ["inicio", 0, "¿Cuál es la entrada obligatoria de Crear la visión del proyecto?", ["El caso de negocio del proyecto", "El backlog priorizado del producto", "Las épicas", "Los personajes"], "Se revisa el caso de negocio para crear la declaración de la visión.", "§8.1.1"],
+  ["inicio", 1, "El equipo de NewBit hace un análisis FODA y un análisis de brecha para definir hacia dónde va el producto. ¿En qué proceso están?", ["Crear la visión del proyecto", "Desarrollar épicas", "Realizar la planificación de la liberación", "Retrospectiva del sprint"], "Sus herramientas: reunión de la visión*, JAD, FODA y análisis de brecha.", "§8.1.2"],
+  ["inicio", 0, "Los personajes (personas) son salida obligatoria de…", ["Desarrollar épicas", "Crear historias de usuario", "Formar el Equipo Scrum", "Crear la visión del proyecto"], "Junto con las épicas. En el curso se trabajaron en FGAP030.", "§8.4.3"],
+  ["inicio", 0, "Los criterios de terminado y la definición de listo son salidas obligatorias de…", ["Crear el backlog priorizado del producto", "Crear historias de usuario", "Demostrar y validar el sprint", "Comprometer historias de usuario"], "Junto con el propio backlog priorizado.", "§8.5.3"],
+  ["inicio", 0, "¿En qué proceso se determina la duración del sprint?", ["Realizar la planificación de la liberación", "Comprometer historias de usuario", "Crear la visión del proyecto", "Actualizar el backlog del sprint"], "Sus salidas obligatorias: cronograma de liberación y duración del sprint.", "§8.6.3"],
+  ["inicio", 0, "¿Cuál es la herramienta obligatoria de Desarrollar épicas?", ["Reuniones con grupos de usuarios", "Planning Poker", "ESVP", "Métodos de despliegue organizacional"], "También se usan talleres, focus groups, entrevistas y cuestionarios.", "§8.4.2"],
+  ["inicio", 0, "En el SBOK, el acta de constitución del proyecto es…", ["Una salida opcional de Crear la visión del proyecto", "Una salida obligatoria de Crear el backlog", "Una entrada de Enviar entregables", "Una herramienta del Daily Standup"], "Las salidas obligatorias son el PO identificado y la declaración de la visión.", "§8.1.3"],
+  ["inicio", 0, "¿Cuál es la herramienta obligatoria de Identificar al Scrum Master y a los interesados?", ["Criterios de selección", "Sesiones JAD", "Planning Poker", "Mapeo de historias"], "También se usan asesoría de RR. HH., capacitación y costo de recursos.", "§8.2.2"],
+
+  ["plan", 0, "¿Quién escribe normalmente las historias de usuario?", ["El Product Owner", "El Scrum Master", "El Equipo Scrum", "El cliente"], "Puede haber talleres con el equipo, pero las escribe el PO.", "§9.1"],
+  ["plan", 0, "¿Quién estima las historias de usuario?", ["El Equipo Scrum, con apoyo del SM; el PO solo aclara", "Solo el Product Owner", "El cliente", "El Scrum Guidance Body"], "El PO explica las historias para que el equipo estime el esfuerzo.", "§9.2"],
+  ["plan", 1, "Votan con los dedos y un «1» significa «en desacuerdo, con grandes inquietudes». ¿Qué técnica es?", ["Puño de cinco", "Planning Poker", "Wideband Delphi", "Estimación por afinidad"], "Se usa para estimar y para lograr consenso.", "§9.2.2.1"],
+  ["plan", 1, "Estiman en rondas anónimas hasta llegar al consenso. ¿Qué técnica es?", ["Wideband Delphi", "Puño de cinco", "Planning Poker", "Estimación por afinidad"], "El anonimato evita que el grupo influya en cada estimación.", "§9.2.2.1"],
+  ["plan", 1, "En silencio, ubican las historias en la pared de menor a mayor y luego las agrupan por tallas. ¿Qué técnica es?", ["Estimación por afinidad", "Mapeo de historias", "Wideband Delphi", "Dinero de Monopoly"], "Luego el PO marca las categorías (tallas de camiseta).", "§9.2.2.1"],
+  ["plan", 1, "En el puño de cinco, un developer muestra 1 dedo y el resto muestra 4 o 5. ¿Qué se hace?", ["Explica su motivo y se repite la ronda o se decide en grupo", "Se ignora su voto", "Se promedian los votos", "El PO decide solo"], "Quienes dan valores atípicos explican su motivo.", "§9.2.2.1"],
+  ["plan", 0, "¿Con qué datos el equipo elige las historias que comprometerá en el sprint?", ["Prioridad, estimación, velocidad del sprint anterior y duración del sprint", "Solo la opinión del PO", "El presupuesto restante", "La lista de riesgos"], "Así se arma el backlog del sprint.", "§9.3"],
+  ["plan", 0, "¿En qué proceso se obtiene el Sprint Burndown Chart como salida obligatoria?", ["Actualizar el backlog del sprint", "Crear entregables", "Realizar el Daily Standup", "Demostrar y validar el sprint"], "Luego se actualiza en el Daily Standup.", "§9.6.3.3"],
+  ["plan", 0, "Historias comprometidas, backlog del sprint y Scrumboard son salidas obligatorias de…", ["Comprometer historias de usuario", "Identificar tareas", "Estimar tareas", "Crear historias de usuario"], "Identificar tareas da la lista de tareas; Estimar tareas, la lista actualizada.", "§9.3.3"],
+  ["plan", 0, "¿Qué muestra un gráfico burnup?", ["El trabajo terminado frente al tiempo", "El trabajo pendiente frente al tiempo", "Los riesgos acumulados", "El flujo acumulado del portafolio"], "El burndown muestra lo pendiente; el burnup, lo terminado.", "§9.6.3.3"],
+  ["plan", 0, "¿Qué miden los puntos de historia?", ["El tamaño relativo: esfuerzo, complejidad y riesgo", "Las horas exactas de trabajo", "El valor de negocio", "La prioridad de la historia"], "Cada equipo los calibra.", "§9.2"],
+  ["plan", 0, "Recién comprometido el sprint, ¿qué muestra el primer Sprint Burndown en el último día?", ["Nada pendiente", "La mitad del trabajo pendiente", "Todo el trabajo pendiente", "La velocidad del sprint anterior"], "Refleja el compromiso de terminar todo para el último día.", "§9.6.3.3"],
+  ["plan", 0, "¿En qué proceso se desglosan las historias comprometidas en tareas específicas?", ["Identificar tareas", "Estimar historias de usuario", "Crear entregables", "Refinar el backlog priorizado"], "La salida obligatoria es la lista de tareas.", "§9.4"],
+
+  ["impl", 1, "Luis no puede asistir hoy al Daily Standup. ¿Qué pasa con la reunión?", ["Se hace igual", "Se cancela", "Se retrasa hasta que llegue", "El SM responde por él"], "El Daily Standup no se cancela ni se retrasa si falta alguien.", "§10.2.2.1"],
+  ["impl", 1, "En el daily, dos developers empiezan a debatir 20 minutos sobre la arquitectura del modelo. ¿Qué corresponde?", ["Llevar la discusión a una reunión aparte después del daily", "Extender el daily hasta resolverlo", "Que el PO decida en ese momento", "Cancelar el sprint"], "El daily dura 15 minutos; los temas largos se tratan después.", "§10.2.2.2"],
+  ["impl", 0, "La lista de impedimentos actualizada es salida obligatoria de…", ["Realizar el Daily Standup", "Crear la visión del proyecto", "Retrospectiva de la liberación", "Enviar entregables"], "Junto con el Scrumboard y el burndown actualizados.", "§10.2.3"],
+  ["impl", 0, "Las historias rechazadas en la revisión son entrada de…", ["Refinar el backlog priorizado del producto", "Enviar entregables", "Realizar el Daily Standup", "Formar el Equipo Scrum"], "Vuelven al backlog para priorizarse otra vez.", "§10.3.1"],
+  ["impl", 0, "¿Quién facilita el Daily Standup?", ["El Scrum Master", "El Product Owner", "El cliente", "El gerente funcional"], "Las tres preguntas diarias las facilita el SM.", "§10.2.2.2"],
+  ["impl", 0, "¿Qué es la «sala de guerra»?", ["El espacio coubicado del equipo, sin cubículos", "Una reunión de crisis del PO", "La matriz de riesgos", "Una técnica de retrospectiva"], "Ideal para el Daily Standup y la comunicación cara a cara.", "§10.2.2.3"],
+  ["impl", 0, "¿Para cuántos sprints refina normalmente el PO el backlog con anticipación?", ["Los próximos 2 o 3 sprints", "Todo el proyecto en detalle", "Solo el sprint actual", "Diez sprints"], "Así el equipo llega a la planificación con historias bien analizadas.", "§6.5.1.2"],
+  ["impl", 0, "¿Cuál es la salida obligatoria principal de Crear entregables?", ["Entregables del sprint", "Historias aceptadas", "Acuerdo de entregables funcionales", "Cronograma de la liberación"], "También el Scrumboard actualizado.", "§10.1.3"],
+
+  ["rev", 0, "¿En qué proceso se realiza la reunión de revisión del sprint?", ["Demostrar y validar el sprint", "Retrospectiva del sprint", "Enviar entregables", "Refinar el backlog priorizado"], "El equipo muestra los entregables al PO y a los interesados.", "§11.1"],
+  ["rev", 1, "En la retrospectiva, alguien indica de forma anónima que «quiere estar en otro lugar y vino porque es obligatorio». ¿Qué perfil de ESVP es?", ["Prisionero", "Vacacionista", "Comprador", "Explorador"], "El vacacionista quiere relajarse; el prisionero asiste por obligación.", "§11.2.2.2"],
+  ["rev", 1, "En la retrospectiva dibujan una isla (la visión) y anotan motores y anclas. ¿Qué técnica es?", ["Lancha rápida", "ESVP", "Análisis de Pareto", "Mapeo de historias"], "Los motores ayudan a llegar y las anclas frenan.", "§11.2.2.3"],
+  ["rev", 0, "¿Cuál es la salida obligatoria de la Retrospectiva del sprint?", ["Mejoras accionables acordadas", "Historias de usuario aceptadas", "Acuerdo de entregables funcionales", "Backlog del sprint"], "Las historias aceptadas salen de Demostrar y validar.", "§11.2.3"],
+  ["rev", 0, "¿Cuándo se lleva a cabo la retrospectiva del sprint?", ["Después de la revisión, el último día del sprint", "Antes de la planificación del primer sprint", "Cada día después del daily", "Solo después de la liberación"], "Su time-box es de 1 hora por semana de sprint.", "§2.3.1 · §2.7.1"],
+  ["rev", 0, "¿Quiénes son entradas obligatorias de la Retrospectiva del sprint?", ["El Scrum Master y el Equipo Scrum (el PO es opcional)", "Solo el Product Owner", "El patrocinador y el cliente", "Solo el Scrum Guidance Body"], "También la salida de Demostrar y validar el sprint.", "§11.2.1"],
+  ["rev", 0, "¿Contra qué compara el PO los entregables en la revisión del sprint?", ["Contra los criterios de aceptación acordados", "Contra el presupuesto", "Contra la velocidad del equipo", "Contra la lista de impedimentos"], "Acepta o rechaza cada historia completada.", "§2.7.1"],
+
+  ["lib", 0, "El acuerdo de entregables funcionales es salida de…", ["Enviar entregables", "Demostrar y validar el sprint", "Retrospectiva de la liberación", "Comprometer historias de usuario"], "Documenta la conclusión satisfactoria.", "§12.1.3"],
+  ["lib", 0, "¿Qué proceso concluye el proyecto?", ["Retrospectiva de la liberación", "Enviar entregables", "Retrospectiva del sprint", "Demostrar y validar el sprint"], "Se documentan e internalizan las lecciones aprendidas.", "§1.4.4.5"],
+  ["lib", 0, "¿Cuál es la herramienta obligatoria de Enviar entregables?", ["Métodos de despliegue organizacional", "Planning Poker", "ESVP", "Sesiones JAD"], "El despliegue puede ser remoto o físico, según la organización.", "§12.1.2"],
+  ["lib", 0, "¿Qué entrada obligatoria necesita Enviar entregables?", ["Entregables aceptados", "Entregables del sprint sin revisar", "Lista de impedimentos", "Caso de negocio"], "Solo se envía lo que el PO aceptó.", "§12.1.1"],
+
+  ["curso", 0, "¿Qué formato del curso corresponde al proceso Crear la visión del proyecto?", ["FGAP010 Acta de Constitución", "FGAP040 Épicas", "FGAP070 Criterios de terminado", "FGAP090 Cierre"], "El acta es salida opcional de 8.1.", "Curso · §8.1"],
+  ["curso", 0, "En la secuencia de avances, ¿qué formato va después de FGAP030 Roles y Prototipos?", ["FGAP040 Épicas", "FGAP010 Acta", "FGAP090 Cierre", "FGAP020 Stakeholders"], "FGAP010 → 020 → 030 → 040 → 060 + 070 → Sprints → 090.", "Curso, semana 5"],
+  ["curso", 0, "¿Qué documento NO figura en la secuencia FGAP010 → FGAP090?", ["EGAP015 Justificación", "FGAP020 Registro de Stakeholders", "FGAP060 Backlog priorizado", "FGAP070 Criterios de terminado"], "La justificación se pidió en la semana 4 pero no está en la secuencia.", "Curso, semana 5"],
+  ["curso", 0, "¿Qué formato usa el docente para las épicas?", ["Como [rol], yo debería [requerimiento], a fin de [beneficio]", "Como [rol], quiero [funcionalidad], para [beneficio]", "Dado [contexto], cuando [acción], entonces [resultado]", "El sistema deberá [requerimiento]"], "Para historias usa «Como…, quiero…, para…».", "Curso, semana 4"],
+  ["curso", 0, "FGAP070 corresponde en el SBOK a…", ["La definición de terminado (5.4.3)", "Los criterios de aceptación de una historia", "La definición de listo", "El cronograma de liberación"], "Es la DoD común a todas las historias.", "Curso · §5.4.3"],
+  ["curso", 1, "En FGAP070, ¿la aprobación administrativa del PO reemplaza a la DoD?", ["No: la aceptación del PO y la DoD se cumplen ambas", "Sí, la aprobación del PO basta", "Solo en el Sprint 1", "Solo si hay certificación"], "Aceptación ≠ terminado: para darla por terminada se cumplen las dos.", "Curso · §5.4"],
+  ["curso", 0, "¿Qué campo NO pertenece a un rol o prototipo (FGAP030)?", ["Presupuesto del proyecto", "Frecuencia de uso", "Proficiencia con computadoras", "Metas"], "El presupuesto va en el acta (recursos financieros).", "Curso, semana 3"],
+  ["curso", 0, "En el acta (EGAP010), ¿qué sección NO está entre las 12?", ["Velocidad del equipo", "Cronograma de hitos", "Criterios de culminación", "Requisitos de aprobación"], "La velocidad es un dato de sprint, no del acta.", "Curso, semana 2"]
+];
+
+/* Secuencias para ordenar */
+const ORDERS = [
+  { t: "marco", n: "Las 5 fases de Scrum", p: "Ordena las fases de los procesos fundamentales.", i: ["Inicio", "Planificación y estimación", "Implementación", "Revisión y retrospectiva", "Liberación"], r: "§1.4.4" },
+  { t: "inicio", n: "Procesos de la fase de inicio", p: "Ordena los 6 procesos (8.1 a 8.6).", i: ["Crear la visión del proyecto", "Identificar al Scrum Master y a los interesados del negocio", "Formar el Equipo Scrum", "Desarrollar épicas", "Crear el backlog priorizado del producto", "Realizar la planificación de la liberación"], r: "§1.4.4.1" },
+  { t: "plan", n: "Procesos de planificación y estimación", p: "Ordena los 6 procesos (9.1 a 9.6).", i: ["Crear historias de usuario", "Estimar historias de usuario", "Comprometer historias de usuario", "Identificar tareas", "Estimar tareas", "Actualizar el backlog del sprint"], r: "§1.4.4.2" },
+  { t: "impl", n: "Procesos 13 a 19", p: "Ordena los procesos de implementación, revisión y liberación.", i: ["Crear entregables", "Realizar el Daily Standup", "Refinar el backlog priorizado del producto", "Demostrar y validar el sprint", "Retrospectiva del sprint", "Enviar entregables", "Retrospectiva de la liberación"], r: "§1.4.4.3–5" },
+  { t: "marco", n: "Flujo de Scrum (figura 1-1)", p: "Ordena los artefactos desde la idea hasta lo entregado.", i: ["Caso de negocio", "Declaración de la visión del proyecto", "Backlog priorizado del producto", "Cronograma de planificación de la liberación", "Backlog del sprint", "Daily Standup", "Entregables aceptados"], r: "§1.1" },
+  { t: "principios", n: "Reuniones de un sprint", p: "Ordena las reuniones tal como ocurren en un sprint.", i: ["Reunión de planificación del sprint", "Daily Standup (cada día)", "Reunión de revisión del sprint", "Reunión de retrospectiva del sprint"], r: "§2.7.1" },
+  { t: "org", n: "Modelo de Tuckman", p: "Ordena las etapas por las que pasa un equipo nuevo.", i: ["Formación", "Enfrentamiento", "Normalización", "Desempeño"], r: "§3.10.1" },
+  { t: "riesgo", n: "Gestión de riesgos", p: "Ordena los 5 pasos del procedimiento.", i: ["Identificación", "Evaluación", "Priorización", "Mitigación", "Comunicación"], r: "§7.4" },
+  { t: "just", n: "Justificación del negocio en el ciclo de vida", p: "Ordena los 3 pasos.", i: ["Evaluar y presentar un caso de negocio", "Justificación continua de valor", "Confirmar la realización de beneficios"], r: "§4.4.2" },
+  { t: "cal", n: "Ciclo PDCA", p: "Ordena el ciclo de Deming y Shewhart.", i: ["Planificar", "Hacer", "Verificar", "Actuar"], r: "§5.5.3" },
+  { t: "just", n: "MoSCoW", p: "De mayor a menor prioridad.", i: ["Debe tener (Must)", "Debería tener (Should)", "Podría tener (Could)", "No tendrá (Won't)"], r: "§4.5.2" },
+  { t: "org", n: "Pirámide de Maslow", p: "De la base a la cima.", i: ["Fisiológicas", "Seguridad", "Pertenencia o sociales", "Reconocimiento o estima", "Autorrealización"], r: "§3.10.5" },
+  { t: "plan", n: "Puño de cinco", p: "De menor a mayor acuerdo (1 a 5 dedos).", i: ["En desacuerdo, con grandes inquietudes", "En desacuerdo, con asuntos menores", "No estoy seguro, me sumo al consenso", "De acuerdo, con asuntos por discutir", "Totalmente de acuerdo"], r: "§9.2.2.1" },
+  { t: "plan", n: "De lo general a lo específico", p: "Ordena del nivel más amplio al más detallado.", i: ["Declaración de la visión del proyecto", "Épica", "Historia de usuario", "Tarea"], r: "§8.4 · §9.4" },
+  { t: "curso", n: "Secuencia de avances del curso", p: "Ordena los formatos como los pide el docente.", i: ["FGAP010 Acta de Constitución", "FGAP020 Registro de Stakeholders", "FGAP030 Roles y Prototipos", "FGAP040 Épicas", "FGAP060 Backlog priorizado + FGAP070 Criterios de terminado", "Sprints: planificación, implementación, revisión y retrospectiva", "FGAP090 Cierre del proyecto"], r: "Curso, semana 5" },
+  { t: "inicio", n: "Casuística: NewBit de principio a fin", p: "Una empresa metalmecánica aprueba NewBit. Ordena lo que hace el equipo según el SBOK.", i: ["Revisar el caso de negocio y redactar la visión del proyecto", "Identificar al Scrum Master y a los interesados", "Formar el Equipo Scrum", "Desarrollar épicas y personajes", "Crear el backlog priorizado con criterios de terminado", "Planificar la liberación y fijar la duración del sprint", "Escribir historias con sus criterios de aceptación", "Estimar las historias con el puño de cinco", "Comprometer historias y armar el backlog del sprint", "Crear entregables con Daily Standups", "Demostrar el sprint al PO para que acepte o rechace", "Hacer la retrospectiva del sprint", "Enviar los entregables aceptados"], r: "Caps. 8–12" },
+  { t: "cambio", n: "Casuística: llega un cambio no urgente", p: "A mitad del sprint, el cliente pide una funcionalidad nueva que no es urgente. Ordena el camino que sigue.", i: ["El cliente presenta la solicitud; queda como cambio no aprobado", "El PO, con los interesados, evalúa si es urgente o puede esperar", "Como puede esperar, el alcance del sprint actual no cambia", "Al refinar el backlog, el cambio se aprueba y se prioriza junto a las demás historias", "Entra en la planificación de un sprint posterior"], r: "§6.3.1 · §6.5.1" }
+];
+
+/* Juegos para clasificar: b = categorías, i = [elemento, índice de categoría] */
+const SORTS = [
+  { t: "marco", n: "Proceso → fase", p: "¿A qué fase pertenece cada proceso?", b: ["Inicio", "Planificación y estimación", "Implementación", "Revisión y retrospectiva", "Liberación"], i: [
+    ["Crear la visión del proyecto", 0], ["Identificar al Scrum Master y a los interesados", 0], ["Formar el Equipo Scrum", 0], ["Desarrollar épicas", 0], ["Crear el backlog priorizado del producto", 0], ["Realizar la planificación de la liberación", 0],
+    ["Crear historias de usuario", 1], ["Estimar historias de usuario", 1], ["Comprometer historias de usuario", 1], ["Identificar tareas", 1], ["Estimar tareas", 1], ["Actualizar el backlog del sprint", 1],
+    ["Crear entregables", 2], ["Realizar el Daily Standup", 2], ["Refinar el backlog priorizado del producto", 2],
+    ["Demostrar y validar el sprint", 3], ["Retrospectiva del sprint", 3],
+    ["Enviar entregables", 4], ["Retrospectiva de la liberación", 4]
+  ], r: "Tabla 1-1" },
+  { t: "org", n: "Responsabilidad → rol", p: "¿Quién es responsable?", b: ["Product Owner", "Scrum Master", "Equipo Scrum"], i: [
+    ["Priorizar el backlog del producto", 0], ["Definir los criterios de aceptación", 0], ["Escribir las historias de usuario", 0], ["Aceptar o rechazar historias en la revisión", 0], ["Ser dueño del riesgo de negocio", 0], ["Mantener la justificación del negocio", 0], ["Definir la visión del proyecto", 0],
+    ["Eliminar impedimentos", 1], ["Facilitar el Daily Standup", 1], ["Proteger al equipo de influencias externas", 1], ["Enseñar y hacer cumplir las prácticas de Scrum", 1], ["Recoger las respuestas del ESVP", 1], ["Facilitar las reuniones de estimación", 1],
+    ["Crear los entregables", 2], ["Estimar historias y tareas", 2], ["Asignarse las tareas", 2], ["Implementar las respuestas a riesgos durante el sprint", 2], ["Identificar las tareas de las historias comprometidas", 2]
+  ], r: "§3.4–3.6 · §7.4.4" },
+  { t: "riesgo", n: "Técnica → para qué sirve", p: "¿Para qué se usa cada técnica?", b: ["Priorizar", "Estimar", "Identificar riesgos", "Evaluar riesgos", "Retrospectiva"], i: [
+    ["MoSCoW", 0], ["Análisis de Kano", 0], ["Método de los 100 puntos", 0], ["Dinero de Monopoly", 0], ["Mapeo de historias", 0], ["Clasificación de priorización relativa", 0],
+    ["Planning Poker", 1], ["Wideband Delphi", 1], ["Puño de cinco", 1], ["Estimación por afinidad", 1],
+    ["Estructura de desglose de riesgos", 2], ["Listas de verificación de riesgos", 2], ["Lista corta de riesgos", 2], ["Tormenta de ideas", 2], ["Lecciones aprendidas de retrospectivas", 2],
+    ["Árbol de probabilidad", 3], ["Análisis de Pareto", 3], ["Matriz de probabilidad e impacto", 3], ["Valor monetario esperado", 3],
+    ["ESVP", 4], ["Lancha rápida", 4]
+  ], r: "§4.5.2 · §7.4 · §9.2.2.1 · §11.2.2" },
+  { t: "principios", n: "Ejemplo de NewBit → principio", p: "¿Qué principio se ve en cada situación?", b: ["Control del proceso empírico", "Autoorganización", "Colaboración", "Priorización basada en valor", "Time-boxing", "Desarrollo iterativo"], i: [
+    ["El burndown está a la vista de todos en el tablero", 0], ["Tras ver métricas bajas, ajustan el umbral de confianza del modelo", 0], ["Prueban un prototipo con poca luz y deciden según el resultado", 0],
+    ["Cada developer elige sus tareas en la planificación", 1], ["El equipo resuelve sus problemas en el daily sin esperar al gerente", 1],
+    ["Developers, PO y jefe de planta validan juntos el panel de alertas", 2], ["El equipo trabaja coubicado en el laboratorio", 2],
+    ["La detección de casco va primero porque da más valor", 3], ["El cliente reparte 100 puntos entre las historias", 3],
+    ["El daily dura 15 minutos y no más", 4], ["Todos los sprints duran 2 semanas", 4],
+    ["La épica de alertas se divide en historias que se entregan sprint a sprint", 5], ["Cada sprint incorpora la retroalimentación del cliente al producto", 5]
+  ], r: "Cap. 2" },
+  { t: "riesgo", n: "¿Riesgo o problema?", p: "Decide si es una incertidumbre futura o algo que ya ocurre.", b: ["Riesgo", "Problema"], i: [
+    ["Las cámaras podrían no tener resolución suficiente", 0], ["El proveedor podría retrasar la entrega del servidor", 0], ["Podría llegar un nuevo dataset que mejore el modelo", 0], ["Una lluvia fuerte podría retrasar a los pintores", 0],
+    ["No se autorizó el financiamiento", 1], ["Los requisitos no se entienden", 1], ["El servidor de pruebas está caído hoy", 1]
+  ], r: "§7.3.1" },
+  { t: "cal", n: "¿Aceptación, terminado o listo?", p: "Clasifica cada criterio.", b: ["Criterio de aceptación", "Criterios de terminado (DoD)", "Definición de listo (DoR)"], i: [
+    ["El reporte PDF incluye fecha, zona y tipo de infracción", 0], ["La alerta llega al supervisor cuando alguien entra sin casco a la zona", 0], ["El panel permite filtrar infracciones por turno", 0],
+    ["El código pasó revisión por pares", 1], ["Tiene prueba unitaria e integrada", 1], ["La documentación (dataset, modelo, métricas) está actualizada", 1],
+    ["La historia tiene criterios de aceptación antes de estimarse", 2], ["La historia cabe en un sprint", 2], ["Hay documentación de apoyo suficiente para estimarla", 2]
+  ], r: "§5.4" },
+  { t: "org", n: "Estilo o enfoque → nombre", p: "Identifica el estilo de liderazgo o el enfoque de conflicto.", b: ["Ganar-ganar", "Perder-ganar", "Perder-perder", "Ganar-perder", "Laissez faire", "Liderazgo de apoyo"], i: [
+    ["Enfrentan el desacuerdo con diálogo hasta el consenso", 0],
+    ["Alguien acepta todo porque siente que no lo escuchan", 1],
+    ["Cada uno cede algo y queda una solución subóptima", 2],
+    ["Un miembro influyente impone su punto de vista", 3],
+    ["El líder no supervisa ni interviene; hay anarquía", 4],
+    ["Escucha, tiene empatía y comparte el poder con el equipo", 5]
+  ], r: "§3.10.3 · §3.10.4" }
+];
+
+/* ============================================================
+   Estado y persistencia
+   ============================================================ */
+CARDS.forEach((c, i) => c.id = "c" + i);
+MCQ.forEach((q, i) => q.id = "q" + i);
+
+const store = {
+  key: "recall-sbok-unidad-1",
+  d: { cards: {}, q: {}, topics: Object.keys(TOPICS), theme: null },
+  load() {
+    try { const raw = localStorage.getItem(this.key); if (raw) Object.assign(this.d, JSON.parse(raw)); } catch (e) {}
+    this.d.topics = (this.d.topics || []).filter(t => TOPICS[t]);
+  },
+  save() { try { localStorage.setItem(this.key, JSON.stringify(this.d)); } catch (e) {} }
+};
+store.load();
+
+const S = { screen: "home", onKey: null, timer: null };
+
+const $ = (s, el = document) => el.querySelector(s);
+const view = $("#view");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const shuffle = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const inTopics = t => store.d.topics.includes(t);
+const LETTERS = ["A", "B", "C", "D", "E", "F"];
+
+function setChrome({ crumb = "", meter = "", progress = 0, keys = [] } = {}) {
+  $("#crumb").textContent = crumb;
+  $("#meter").innerHTML = meter;
+  $("#prog").style.width = Math.max(0, Math.min(100, progress)) + "%";
+  const base = [["F", "pantalla completa"], ["H", "inicio"]];
+  $("#keys").innerHTML = [...keys, ...base].map(([k, d]) => `<span><kbd>${esc(k)}</kbd>${esc(d)}</span>`).join("");
+}
+
+function stopTimer() { if (S.timer) { clearInterval(S.timer); S.timer = null; } }
+
+function go(screen) {
+  stopTimer();
+  S.screen = screen; S.onKey = null;
+  $("#stage").scrollTop = 0;
+}
+
+/* Pantalla completa */
+function fsElement() { return document.fullscreenElement || document.webkitFullscreenElement; }
+function enterFs() {
+  const el = document.documentElement;
+  try {
+    const p = el.requestFullscreen ? el.requestFullscreen() : (el.webkitRequestFullscreen && el.webkitRequestFullscreen());
+    if (p && p.catch) p.catch(() => {});
+  } catch (e) {}
+}
+function toggleFs() {
+  if (fsElement()) { try { (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch (e) {} }
+  else enterFs();
+}
+function syncFsLabel() { $("#fs-btn").textContent = fsElement() ? "Salir de pantalla completa" : "Pantalla completa"; }
+document.addEventListener("fullscreenchange", syncFsLabel);
+document.addEventListener("webkitfullscreenchange", syncFsLabel);
+$("#fs-btn").addEventListener("click", toggleFs);
+
+/* Tema */
+function applyTheme() {
+  if (store.d.theme) document.documentElement.setAttribute("data-theme", store.d.theme);
+  else document.documentElement.removeAttribute("data-theme");
+}
+$("#theme-btn").addEventListener("click", () => {
+  const dark = store.d.theme ? store.d.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  store.d.theme = dark ? "light" : "dark";
+  store.save(); applyTheme();
+});
+applyTheme();
+
+$("#home-btn").addEventListener("click", home);
+
+document.addEventListener("keydown", e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key;
+  if (k === "f" || k === "F") { e.preventDefault(); toggleFs(); return; }
+  if (k === "h" || k === "H" || (k === "Escape" && !fsElement())) { e.preventDefault(); home(); return; }
+  if (S.onKey && S.onKey(e) === true) e.preventDefault();
+});
+
+/* ============================================================
+   Inicio
+   ============================================================ */
+function counts() {
+  return {
+    cards: CARDS.filter(c => inTopics(c[0])).length,
+    mcq: MCQ.filter(q => inTopics(q[0])).length,
+    cases: MCQ.filter(q => inTopics(q[0]) && q[1]).length,
+    orders: ORDERS.filter(o => inTopics(o.t)).length,
+    sorts: SORTS.filter(s => inTopics(s.t)).length,
+    misses: MCQ.filter(q => { const s = store.d.q[q.id]; return inTopics(q[0]) && s && s.last === 0; }).length
+  };
+}
+
+function topicStats(t) {
+  const qs = MCQ.filter(q => q[0] === t);
+  let seen = 0, ok = 0;
+  qs.forEach(q => { const s = store.d.q[q.id]; if (s) { seen += s.n; ok += s.ok; } });
+  const cs = CARDS.filter(c => c[0] === t);
+  const known = cs.filter(c => (store.d.cards[c.id] || 0) >= 2).length;
+  return { q: qs.length, c: cs.length, acc: seen ? Math.round(ok / seen * 100) : null, known };
+}
+
+function home() {
+  go("home");
+  const n = counts();
+  const modes = [
+    ["Recall", "Piensa la respuesta, revélala y califícate. Lo que no sabes vuelve antes.", `${n.cards} tarjetas`, startRecall],
+    ["Marcar", "Opción múltiple con casuísticas de NewBit, explicación y sección del libro.", `${n.mcq} preguntas · ${n.cases} casos`, () => startQuiz({})],
+    ["Ordenar", "Pon en secuencia fases, procesos, pasos y casuísticas completas.", `${n.orders} secuencias`, () => picker("order")],
+    ["Clasificar", "Asigna cada elemento a su fase, rol, técnica o principio.", `${n.sorts} juegos`, () => picker("sort")],
+    ["Simulacro", "25 preguntas mezcladas, 30 minutos, sin pistas. Nota sobre 20.", "examen", startExam]
+  ];
+  const rows = Object.keys(TOPICS).map(t => {
+    const s = topicStats(t);
+    const pct = s.acc == null ? 0 : s.acc;
+    return `<tr>
+      <td>${esc(TOPICS[t])}</td>
+      <td class="num">${s.q} preg. · ${s.c} tarj.</td>
+      <td class="num">${s.known}/${s.c}</td>
+      <td style="width:28%"><div class="bar-mini" title="${s.acc == null ? "sin intentos" : pct + " % de aciertos"}"><i style="width:${pct}%"></i></div></td>
+      <td class="num">${s.acc == null ? "—" : pct + " %"}</td>
+    </tr>`;
+  }).join("");
+
+  view.className = "wrap top";
+  view.innerHTML = `
+    <div class="eyebrow"><span>Ingeniería de Software II · UNS 2026-II</span><span class="tag">Guía del SBOK, 4.ª ed.</span></div>
+    <h1>Repaso activo para el examen de la Unidad I</h1>
+    <p class="lede">Primero recuerda, después mira. Marca, ordena y clasifica como en las casuísticas del profe: principios, aspectos, los 19 procesos y los formatos del curso.</p>
+    <div class="modes">
+      ${modes.map((m, i) => `<button class="mode" type="button" data-i="${i}"><span class="k">${i + 1}</span><div><div class="t">${m[0]}</div><div class="d">${m[1]}</div></div><span class="n">${m[2]}</span></button>`).join("")}
+      ${n.misses ? `<button class="mode" type="button" data-i="5"><span class="k">6</span><div><div class="t">Mis errores</div><div class="d">Solo las preguntas que fallaste la última vez.</div></div><span class="n">${n.misses} pendientes</span></button>` : ""}
+    </div>
+    <div class="section-h"><h2>Temas incluidos</h2><span><button class="linkish" type="button" id="all-t">Todos</button> · <button class="linkish" type="button" id="none-t">Ninguno</button></span></div>
+    <div class="chips">${Object.keys(TOPICS).map(t => `<button class="chip" type="button" data-t="${t}" aria-pressed="${inTopics(t)}">${esc(TOPICS[t])}<i>${MCQ.filter(q => q[0] === t).length + CARDS.filter(c => c[0] === t).length}</i></button>`).join("")}</div>
+    <div class="section-h"><h2>Tu dominio por tema</h2><button class="linkish" type="button" id="reset">Borrar progreso</button></div>
+    <div class="table-scroll"><table class="mastery">
+      <thead><tr><th>Tema</th><th>Banco</th><th>Tarjetas sabidas</th><th>Aciertos al marcar</th><th></th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+  `;
+  const run = i => {
+    if (i === 5 && n.misses) { enterFs(); startQuiz({ misses: true }); return; }
+    if (modes[i]) { enterFs(); modes[i][3](); }
+  };
+  view.querySelectorAll(".mode").forEach(b => b.addEventListener("click", () => run(+b.dataset.i)));
+  view.querySelectorAll(".chip").forEach(b => b.addEventListener("click", () => {
+    const t = b.dataset.t;
+    store.d.topics = inTopics(t) ? store.d.topics.filter(x => x !== t) : [...store.d.topics, t];
+    store.save(); home();
+  }));
+  $("#all-t").addEventListener("click", () => { store.d.topics = Object.keys(TOPICS); store.save(); home(); });
+  $("#none-t").addEventListener("click", () => { store.d.topics = []; store.save(); home(); });
+  const reset = $("#reset");
+  reset.addEventListener("click", () => {
+    if (reset.dataset.armed) { store.d.cards = {}; store.d.q = {}; store.save(); home(); return; }
+    reset.dataset.armed = "1"; reset.textContent = "Confirmar: borrar todo";
+  });
+  setChrome({ crumb: "", meter: `<span><b>${n.cards + n.mcq}</b> ítems en tus temas</span>`, progress: 0, keys: [["1–5", "elegir modo"]] });
+  S.onKey = e => { const d = parseInt(e.key, 10); if (d >= 1 && d <= 6) { run(d - 1); return true; } };
+}
+
+function emptyState(what) {
+  view.className = "wrap";
+  view.innerHTML = `<div class="eyebrow">Sin contenido</div><p class="q">No hay ${what} en los temas que elegiste.</p><p class="lede">Activa más temas en el inicio.</p><div class="actions"><button class="btn primary" type="button" id="back">Volver al inicio <kbd>H</kbd></button></div>`;
+  $("#back").addEventListener("click", home);
+  setChrome({});
+}
+
+/* ============================================================
+   Recall (tarjetas con autocalificación tipo Leitner)
+   ============================================================ */
+function startRecall() {
+  go("recall");
+  const pool = CARDS.filter(c => inTopics(c[0]));
+  if (!pool.length) return emptyState("tarjetas");
+  const box = c => store.d.cards[c.id] || 0;
+  const deck = shuffle(pool).sort((a, b) => box(a) - box(b));
+  const R = { deck, total: deck.length, done: 0, shown: false, tally: [0, 0, 0] };
+  renderRecall(R);
+}
+
+function renderRecall(R) {
+  if (!R.deck.length) return recallSummary(R);
+  const c = R.deck[0];
+  const b = store.d.cards[c.id] || 0;
+  const parts = c[2].split(" · ");
+  const answer = parts.length > 1 ? `<ul>${parts.map(p => `<li>${esc(p)}</li>`).join("")}</ul>` : `<p>${esc(c[2])}</p>`;
+  view.className = "wrap";
+  view.innerHTML = `
+    <div class="eyebrow"><span class="tag">${esc(TOPICS[c[0]])}</span><span>${esc(c[3])}</span><span class="boxes" title="Nivel de dominio">${[0, 1, 2, 3].map(i => `<i class="${i < b ? "on" : ""}"></i>`).join("")}</span></div>
+    <p class="q">${esc(c[1])}</p>
+    ${R.shown ? `<div class="answer">${answer}</div>` : `<p class="think">Dilo en voz alta o escríbelo antes de mirar.</p>`}
+    <div class="actions">
+      ${R.shown
+        ? `<button class="btn g1" type="button" data-g="0">No lo sabía <kbd>1</kbd></button>
+           <button class="btn g2" type="button" data-g="1">Dudé <kbd>2</kbd></button>
+           <button class="btn g3" type="button" data-g="2">Lo sabía <kbd>3</kbd></button>`
+        : `<button class="btn primary" type="button" id="reveal">Mostrar respuesta <kbd>Espacio</kbd></button>`}
+    </div>`;
+  const grade = g => {
+    const card = R.deck.shift();
+    const cur = store.d.cards[card.id] || 0;
+    R.tally[g]++;
+    if (g === 0) { store.d.cards[card.id] = 0; R.deck.splice(Math.min(3, R.deck.length), 0, card); }
+    else if (g === 1) { store.d.cards[card.id] = Math.max(cur, 1); R.done++; }
+    else { store.d.cards[card.id] = Math.min(cur + 1, 4); R.done++; }
+    store.save();
+    R.shown = false; renderRecall(R);
+  };
+  if (R.shown) view.querySelectorAll("[data-g]").forEach(btn => btn.addEventListener("click", () => grade(+btn.dataset.g)));
+  else $("#reveal").addEventListener("click", () => { R.shown = true; renderRecall(R); });
+  setChrome({
+    crumb: "Recall",
+    meter: `<span><b>${R.done}</b>/${R.total}</span><span>sabía <b>${R.tally[2]}</b></span><span>no <b>${R.tally[0]}</b></span>`,
+    progress: R.done / R.total * 100,
+    keys: R.shown ? [["1", "no lo sabía"], ["2", "dudé"], ["3", "lo sabía"]] : [["Espacio", "mostrar"]]
+  });
+  S.onKey = e => {
+    if (!R.shown && (e.key === " " || e.key === "Enter")) { R.shown = true; renderRecall(R); return true; }
+    if (R.shown && ["1", "2", "3"].includes(e.key)) { grade(+e.key - 1); return true; }
+  };
+}
+
+function recallSummary(R) {
+  view.className = "wrap";
+  view.innerHTML = `
+    <div class="eyebrow">Ronda terminada</div>
+    <div class="score"><span class="big">${R.tally[2]}<small> / ${R.total}</small></span><span class="meta">tarjetas que sabías<br>dudaste en ${R.tally[1]} · fallaste ${R.tally[0]} veces</span></div>
+    <p class="lede">Las tarjetas que fallaste vuelven primero en la próxima ronda.</p>
+    <div class="actions"><button class="btn primary" type="button" id="again">Otra ronda <kbd>Enter</kbd></button><button class="btn" type="button" id="back">Inicio <kbd>H</kbd></button></div>`;
+  $("#again").addEventListener("click", startRecall);
+  $("#back").addEventListener("click", home);
+  setChrome({ crumb: "Recall", progress: 100, keys: [["Enter", "otra ronda"]] });
+  S.onKey = e => { if (e.key === "Enter") { startRecall(); return true; } };
+}
+
+/* ============================================================
+   Marcar (opción múltiple con retroalimentación)
+   ============================================================ */
+function buildQuestion(q) {
+  const opts = shuffle(q[3].map((text, i) => ({ text, ok: i === 0 })));
+  return { q, opts, pick: null };
+}
+
+function recordAnswer(q, ok) {
+  const s = store.d.q[q.id] || { n: 0, ok: 0, last: null };
+  s.n++; if (ok) s.ok++; s.last = ok ? 1 : 0;
+  store.d.q[q.id] = s; store.save();
+}
+
+function startQuiz({ misses = false, cases = false }) {
+  go("quiz");
+  let pool = MCQ.filter(q => inTopics(q[0]));
+  if (misses) pool = pool.filter(q => store.d.q[q.id] && store.d.q[q.id].last === 0);
+  if (cases) pool = pool.filter(q => q[1]);
+  if (!pool.length) return emptyState("preguntas");
+  const weight = q => { const s = store.d.q[q.id]; if (!s) return 1; return s.last === 0 ? 0 : 2; };
+  const items = shuffle(pool).sort((a, b) => weight(a) - weight(b)).map(buildQuestion);
+  renderQuiz({ items, i: 0, ok: 0, misses, cases });
+}
+
+function renderQuiz(Z) {
+  if (Z.i >= Z.items.length) return quizSummary(Z);
+  const it = Z.items[Z.i];
+  const q = it.q;
+  const answered = it.pick !== null;
+  view.className = "wrap";
+  view.innerHTML = `
+    <div class="eyebrow"><span class="tag">${esc(TOPICS[q[0]])}</span>${q[1] ? `<span class="case">Casuística</span>` : ""}<span>${esc(q[5])}</span></div>
+    <p class="q">${esc(q[2])}</p>
+    <div class="opts">${it.opts.map((o, i) => {
+      let cls = "";
+      if (answered) cls = o.ok ? "ok" : (i === it.pick ? "bad" : "dim");
+      return `<button class="opt ${cls}" type="button" data-i="${i}" ${answered ? "disabled" : ""}><span class="k">${LETTERS[i]}</span><span>${esc(o.text)}</span></button>`;
+    }).join("")}</div>
+    ${answered ? `<div class="feedback"><span class="verdict ${it.opts[it.pick].ok ? "ok" : "bad"}">${it.opts[it.pick].ok ? "Correcto" : "Incorrecto"}</span><p>${esc(q[4])}</p></div>
+      <div class="actions"><button class="btn primary" type="button" id="next">${Z.i + 1 < Z.items.length ? "Siguiente" : "Ver resultado"} <kbd>Enter</kbd></button></div>` : ""}
+    ${!answered && !Z.misses ? `<label class="toggle"><input type="checkbox" id="only-cases" ${Z.cases ? "checked" : ""}> Solo casuísticas</label>` : ""}
+  `;
+  const choose = i => {
+    if (answered || !it.opts[i]) return;
+    it.pick = i;
+    const ok = it.opts[i].ok;
+    if (ok) Z.ok++;
+    recordAnswer(q, ok);
+    renderQuiz(Z);
+  };
+  const next = () => { Z.i++; renderQuiz(Z); };
+  view.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => choose(+b.dataset.i)));
+  if (answered) $("#next").addEventListener("click", next);
+  const oc = $("#only-cases");
+  if (oc) oc.addEventListener("change", () => startQuiz({ cases: oc.checked }));
+  const done = Z.i + (answered ? 1 : 0);
+  setChrome({
+    crumb: Z.misses ? "Mis errores" : (Z.cases ? "Marcar · casuísticas" : "Marcar"),
+    meter: `<span><b>${Z.i + 1}</b>/${Z.items.length}</span><span>aciertos <b>${Z.ok}</b></span>`,
+    progress: done / Z.items.length * 100,
+    keys: answered ? [["Enter", "siguiente"]] : [["1–4 · A–D", "marcar"]]
+  });
+  S.onKey = e => {
+    if (answered && (e.key === "Enter" || e.key === " " || e.key === "ArrowRight")) { next(); return true; }
+    if (!answered) {
+      const d = parseInt(e.key, 10);
+      if (d >= 1 && d <= it.opts.length) { choose(d - 1); return true; }
+      const li = LETTERS.indexOf(e.key.toUpperCase());
+      if (li >= 0 && li < it.opts.length) { choose(li); return true; }
+    }
+  };
+}
+
+function quizSummary(Z) {
+  const total = Z.items.length;
+  const wrong = Z.items.filter(it => it.pick !== null && !it.opts[it.pick].ok);
+  view.className = "wrap top";
+  view.innerHTML = `
+    <div class="eyebrow">Ronda terminada</div>
+    <div class="score"><span class="big">${Z.ok}<small> / ${total}</small></span><span class="meta">${Math.round(Z.ok / total * 100)} % de aciertos<br>equivale a ${(Z.ok / total * 20).toFixed(1)} sobre 20</span></div>
+    <div class="actions">
+      ${wrong.length ? `<button class="btn primary" type="button" id="retry">Repasar mis ${wrong.length} errores <kbd>Enter</kbd></button>` : `<button class="btn primary" type="button" id="again">Otra ronda <kbd>Enter</kbd></button>`}
+      <button class="btn" type="button" id="back">Inicio <kbd>H</kbd></button>
+    </div>
+    ${missList(wrong)}`;
+  const again = () => wrong.length ? startQuiz({ misses: true }) : startQuiz({ cases: Z.cases });
+  ($("#retry") || $("#again")).addEventListener("click", again);
+  $("#back").addEventListener("click", home);
+  setChrome({ crumb: "Marcar", progress: 100, keys: [["Enter", wrong.length ? "repasar errores" : "otra ronda"]] });
+  S.onKey = e => { if (e.key === "Enter") { again(); return true; } };
+}
+
+function missList(items) {
+  if (!items.length) return "";
+  return `<div class="section-h"><h2>Para repasar</h2></div><div class="miss">${items.map(it => {
+    const q = it.q;
+    const yours = it.pick === null ? "Sin responder" : it.opts[it.pick].text;
+    return `<div class="miss-item"><span class="eyebrow"><span class="tag">${esc(TOPICS[q[0]])}</span><span>${esc(q[5])}</span></span>
+      <div class="qq">${esc(q[2])}</div>
+      <div class="ans"><span class="y">Tu respuesta: ${esc(yours)}</span><br><span class="c">Correcta: ${esc(q[3][0])}</span></div>
+      <div class="ex">${esc(q[4])}</div></div>`;
+  }).join("")}</div>`;
+}
+
+/* ============================================================
+   Selector de secuencias y juegos
+   ============================================================ */
+function picker(kind) {
+  go("picker");
+  const list = (kind === "order" ? ORDERS : SORTS).map((x, i) => ({ x, i })).filter(o => inTopics(o.x.t));
+  if (!list.length) return emptyState(kind === "order" ? "secuencias" : "juegos");
+  const size = x => kind === "order" ? `${x.i.length} pasos` : `${x.i.length} elementos`;
+  view.className = "wrap top";
+  view.innerHTML = `
+    <div class="eyebrow">${kind === "order" ? "Ordenar" : "Clasificar"}</div>
+    <p class="q">${kind === "order" ? "Elige qué secuencia armar." : "Elige qué clasificar."}</p>
+    <div class="actions"><button class="btn primary" type="button" id="all">Hacer todas seguidas <kbd>Enter</kbd></button></div>
+    <div class="sets">${list.map((o, n) => `<button class="set" type="button" data-n="${n}"><div><b>${esc(o.x.n)}</b><span>${esc(TOPICS[o.x.t])} · ${esc(o.x.r)}</span></div><em>${size(o.x)}</em></button>`).join("")}</div>`;
+  const start = seq => kind === "order" ? startOrder(seq) : startSort(seq);
+  $("#all").addEventListener("click", () => start(list.map(o => o.x)));
+  view.querySelectorAll(".set").forEach(b => b.addEventListener("click", () => start([list[+b.dataset.n].x])));
+  setChrome({ crumb: kind === "order" ? "Ordenar" : "Clasificar", keys: [["Enter", "todas"]] });
+  S.onKey = e => { if (e.key === "Enter") { start(list.map(o => o.x)); return true; } };
+}
+
+/* ============================================================
+   Ordenar
+   ============================================================ */
+function startOrder(seq) {
+  go("order");
+  const O = { seq, k: 0, perfect: 0 };
+  loadOrder(O);
+}
+
+function loadOrder(O) {
+  const set = O.seq[O.k];
+  let pool = shuffle(set.i.map((text, idx) => ({ text, idx })));
+  if (pool.every((p, n) => p.idx === n) && pool.length > 1) pool = pool.reverse();
+  O.pool = pool; O.ans = []; O.checked = false;
+  renderOrder(O);
+}
+
+function renderOrder(O) {
+  const set = O.seq[O.k];
+  const n = set.i.length;
+  const ready = O.ans.length === n;
+  const right = O.checked ? O.ans.filter((a, i) => a.idx === i).length : 0;
+  const ansHtml = O.ans.map((a, i) => {
+    let cls = "placed", hint = "";
+    if (O.checked) { cls = a.idx === i ? "ok" : "bad"; if (a.idx !== i) hint = `<span class="hint">va en la posición ${a.idx + 1}</span>`; }
+    return `<button class="item ${cls}" type="button" data-a="${i}" ${O.checked ? "disabled" : ""}><span class="k">${i + 1}</span><span>${esc(a.text)}${hint}</span></button>`;
+  }).join("") + (O.checked ? "" : Array.from({ length: n - O.ans.length }, (_, i) => `<div class="slot">${O.ans.length + i + 1}</div>`).slice(0, 1).join(""));
+  const poolHtml = O.pool.map((p, i) => `<button class="item" type="button" data-p="${i}"><span class="k">${i < 9 ? i + 1 : "·"}</span><span>${esc(p.text)}</span></button>`).join("");
+
+  view.className = "wrap";
+  view.innerHTML = `
+    <div class="eyebrow"><span class="tag">${esc(TOPICS[set.t])}</span><span>${esc(set.r)}</span><span>${O.k + 1} de ${O.seq.length}</span></div>
+    <p class="q">${esc(set.n)}</p>
+    <p class="lede">${esc(set.p)} Toca los elementos en orden; toca uno de tu lista para devolverlo.</p>
+    <div class="order-grid">
+      <div class="order-col"><div class="col-h">Disponibles</div>${poolHtml || `<div class="slot">Todo ubicado</div>`}</div>
+      <div class="order-col"><div class="col-h">Tu orden</div>${ansHtml}</div>
+    </div>
+    ${O.checked ? `<div class="feedback"><span class="verdict ${right === n ? "ok" : "bad"}">${right === n ? "Orden perfecto" : right + " de " + n + " en su lugar"}</span>${right === n ? "" : `<ol class="solution">${set.i.map(s => `<li>${esc(s)}</li>`).join("")}</ol>`}</div>` : ""}
+    <div class="actions">
+      ${O.checked
+        ? `<button class="btn" type="button" id="redo">Reintentar <kbd>R</kbd></button><button class="btn primary" type="button" id="next">${O.k + 1 < O.seq.length ? "Siguiente secuencia" : "Terminar"} <kbd>Enter</kbd></button>`
+        : `<button class="btn" type="button" id="undo" ${O.ans.length ? "" : "disabled"}>Deshacer <kbd>⌫</kbd></button><button class="btn primary" type="button" id="check" ${ready ? "" : "disabled"}>Comprobar <kbd>Enter</kbd></button>`}
+    </div>`;
+
+  const place = i => { if (O.checked || !O.pool[i]) return; O.ans.push(O.pool.splice(i, 1)[0]); renderOrder(O); };
+  const unplace = i => { if (O.checked) return; O.pool.push(O.ans.splice(i, 1)[0]); renderOrder(O); };
+  const undo = () => { if (O.ans.length) unplace(O.ans.length - 1); };
+  const check = () => { if (!ready) return; O.checked = true; if (O.ans.every((a, i) => a.idx === i)) O.perfect++; renderOrder(O); };
+  const next = () => { O.k++; if (O.k >= O.seq.length) return orderSummary(O); loadOrder(O); };
+  view.querySelectorAll("[data-p]").forEach(b => b.addEventListener("click", () => place(+b.dataset.p)));
+  view.querySelectorAll("[data-a]").forEach(b => b.addEventListener("click", () => unplace(+b.dataset.a)));
+  if (O.checked) { $("#next").addEventListener("click", next); $("#redo").addEventListener("click", () => loadOrder(O)); }
+  else { $("#undo").addEventListener("click", undo); $("#check").addEventListener("click", check); }
+
+  setChrome({
+    crumb: "Ordenar",
+    meter: `<span><b>${O.k + 1}</b>/${O.seq.length}</span><span>perfectas <b>${O.perfect}</b></span>`,
+    progress: (O.k + (O.checked ? 1 : O.ans.length / n)) / O.seq.length * 100,
+    keys: O.checked ? [["Enter", "siguiente"], ["R", "reintentar"]] : [["1–9", "elegir"], ["⌫", "deshacer"], ["Enter", "comprobar"]]
+  });
+  S.onKey = e => {
+    if (O.checked) {
+      if (e.key === "Enter") { next(); return true; }
+      if (e.key === "r" || e.key === "R") { loadOrder(O); return true; }
+      return;
+    }
+    if (e.key === "Backspace") { undo(); return true; }
+    if (e.key === "Enter") { check(); return true; }
+    const d = parseInt(e.key, 10);
+    if (d >= 1 && d <= 9) { place(d - 1); return true; }
+  };
+}
+
+function orderSummary(O) {
+  view.className = "wrap";
+  view.innerHTML = `
+    <div class="eyebrow">Ordenar · terminado</div>
+    <div class="score"><span class="big">${O.perfect}<small> / ${O.seq.length}</small></span><span class="meta">secuencias perfectas<br>al primer intento</span></div>
+    <div class="actions"><button class="btn primary" type="button" id="again">Volver a la lista <kbd>Enter</kbd></button><button class="btn" type="button" id="back">Inicio <kbd>H</kbd></button></div>`;
+  $("#again").addEventListener("click", () => picker("order"));
+  $("#back").addEventListener("click", home);
+  setChrome({ crumb: "Ordenar", progress: 100, keys: [["Enter", "lista"]] });
+  S.onKey = e => { if (e.key === "Enter") { picker("order"); return true; } };
+}
+
+/* ============================================================
+   Clasificar
+   ============================================================ */
+function startSort(seq) {
+  go("sort");
+  const items = [];
+  seq.forEach((set, si) => shuffle(set.i).forEach(it => items.push({ si, text: it[0], b: it[1] })));
+  const C = { seq, items, i: 0, ok: 0, pick: null, wrong: [] };
+  renderSort(C);
+}
+
+function renderSort(C) {
+  if (C.i >= C.items.length) return sortSummary(C);
+  const it = C.items[C.i];
+  const set = C.seq[it.si];
+  const answered = C.pick !== null;
+  view.className = "wrap";
+  view.innerHTML = `
+    <div class="eyebrow"><span class="tag">${esc(set.n)}</span><span>${esc(set.r)}</span></div>
+    <p class="lede">${esc(set.p)}</p>
+    <p class="flash">${esc(it.text)}</p>
+    <div class="buckets">${set.b.map((b, i) => {
+      let cls = "";
+      if (answered) cls = i === it.b ? "ok" : (i === C.pick ? "bad" : "");
+      return `<button class="bucket ${cls}" type="button" data-b="${i}" ${answered ? "disabled" : ""}><span class="k">${i + 1}</span>${esc(b)}</button>`;
+    }).join("")}</div>
+    ${answered && C.pick !== it.b ? `<div class="actions"><button class="btn primary" type="button" id="next">Siguiente <kbd>Enter</kbd></button></div>` : ""}`;
+  const next = () => { C.i++; C.pick = null; renderSort(C); };
+  const choose = i => {
+    if (answered || i >= set.b.length) return;
+    C.pick = i;
+    if (i === it.b) { C.ok++; renderSort(C); setTimeout(() => { if (S.screen === "sort" && C.items[C.i] === it) next(); }, 650); }
+    else { C.wrong.push({ it, set, pick: i }); renderSort(C); }
+  };
+  view.querySelectorAll("[data-b]").forEach(b => b.addEventListener("click", () => choose(+b.dataset.b)));
+  const nb = $("#next"); if (nb) nb.addEventListener("click", next);
+  setChrome({
+    crumb: "Clasificar",
+    meter: `<span><b>${C.i + 1}</b>/${C.items.length}</span><span>aciertos <b>${C.ok}</b></span>`,
+    progress: (C.i + (answered ? 1 : 0)) / C.items.length * 100,
+    keys: answered ? [["Enter", "siguiente"]] : [[`1–${set.b.length}`, "categoría"]]
+  });
+  S.onKey = e => {
+    if (answered) { if (e.key === "Enter" && C.pick !== it.b) { next(); return true; } return; }
+    const d = parseInt(e.key, 10);
+    if (d >= 1 && d <= set.b.length) { choose(d - 1); return true; }
+  };
+}
+
+function sortSummary(C) {
+  view.className = "wrap top";
+  view.innerHTML = `
+    <div class="eyebrow">Clasificar · terminado</div>
+    <div class="score"><span class="big">${C.ok}<small> / ${C.items.length}</small></span><span class="meta">${Math.round(C.ok / C.items.length * 100)} % de aciertos</span></div>
+    <div class="actions"><button class="btn primary" type="button" id="again">Volver a la lista <kbd>Enter</kbd></button><button class="btn" type="button" id="back">Inicio <kbd>H</kbd></button></div>
+    ${C.wrong.length ? `<div class="section-h"><h2>Para repasar</h2></div><div class="miss">${C.wrong.map(w => `<div class="miss-item"><div class="qq">${esc(w.it.text)}</div><div class="ans"><span class="y">Elegiste: ${esc(w.set.b[w.pick])}</span><br><span class="c">Correcto: ${esc(w.set.b[w.it.b])}</span></div></div>`).join("")}</div>` : ""}`;
+  $("#again").addEventListener("click", () => picker("sort"));
+  $("#back").addEventListener("click", home);
+  setChrome({ crumb: "Clasificar", progress: 100, keys: [["Enter", "lista"]] });
+  S.onKey = e => { if (e.key === "Enter") { picker("sort"); return true; } };
+}
+
+/* ============================================================
+   Simulacro: 25 preguntas, 30 minutos, nota vigesimal
+   ============================================================ */
+function startExam() {
+  go("exam");
+  const pool = MCQ.filter(q => inTopics(q[0]));
+  if (!pool.length) return emptyState("preguntas");
+  const cases = shuffle(pool.filter(q => q[1]));
+  const plain = shuffle(pool.filter(q => !q[1]));
+  const N = Math.min(25, pool.length);
+  const nCases = Math.min(cases.length, Math.ceil(N * 0.6));
+  const chosen = shuffle([...cases.slice(0, nCases), ...plain.slice(0, N - nCases)]);
+  const E = { items: chosen.map(buildQuestion), i: 0, end: Date.now() + 30 * 60 * 1000, over: false };
+  S.timer = setInterval(() => tickExam(E), 1000);
+  renderExam(E);
+}
+
+function timeLeft(E) { return Math.max(0, Math.round((E.end - Date.now()) / 1000)); }
+function fmt(s) { return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
+
+function examMeter(E) {
+  const left = timeLeft(E);
+  const done = E.items.filter(x => x.pick !== null).length;
+  return `<span><b>${done}</b>/${E.items.length} respondidas</span><span class="${left < 300 ? "t-warn" : ""}">tiempo <b class="${left < 300 ? "t-warn" : ""}">${fmt(left)}</b></span>`;
+}
+
+function tickExam(E) {
+  if (S.screen !== "exam") return stopTimer();
+  $("#meter").innerHTML = examMeter(E);
+  if (timeLeft(E) === 0) finishExam(E);
+}
+
+function renderExam(E) {
+  const it = E.items[E.i];
+  const q = it.q;
+  const last = E.i === E.items.length - 1;
+  view.className = "wrap";
+  view.innerHTML = `
+    <div class="eyebrow"><span>Pregunta ${E.i + 1} de ${E.items.length}</span>${q[1] ? `<span class="case">Casuística</span>` : ""}</div>
+    <p class="q">${esc(q[2])}</p>
+    <div class="opts">${it.opts.map((o, i) => `<button class="opt ${it.pick === i ? "sel" : ""}" type="button" data-i="${i}"><span class="k">${LETTERS[i]}</span><span>${esc(o.text)}</span></button>`).join("")}</div>
+    <div class="actions">
+      <button class="btn" type="button" id="prev" ${E.i ? "" : "disabled"}>Anterior <kbd>←</kbd></button>
+      ${last ? "" : `<button class="btn primary" type="button" id="next">Siguiente <kbd>Enter</kbd></button>`}
+      <button class="btn ${last ? "primary" : ""}" type="button" id="finish">Entregar examen</button>
+    </div>
+    <div class="navdots">${E.items.map((x, n) => `<button type="button" data-n="${n}" class="${x.pick !== null ? "done" : ""} ${n === E.i ? "cur" : ""}">${n + 1}</button>`).join("")}</div>`;
+  const choose = i => { if (!it.opts[i]) return; it.pick = i; renderExam(E); };
+  const move = d => { const n = E.i + d; if (n >= 0 && n < E.items.length) { E.i = n; renderExam(E); } };
+  view.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => choose(+b.dataset.i)));
+  view.querySelectorAll(".navdots button").forEach(b => b.addEventListener("click", () => { E.i = +b.dataset.n; renderExam(E); }));
+  $("#prev").addEventListener("click", () => move(-1));
+  const nx = $("#next"); if (nx) nx.addEventListener("click", () => move(1));
+  const fin = $("#finish");
+  fin.addEventListener("click", () => {
+    const pending = E.items.filter(x => x.pick === null).length;
+    if (pending && !fin.dataset.armed) { fin.dataset.armed = "1"; fin.textContent = `Faltan ${pending}. Entregar igual`; return; }
+    finishExam(E);
+  });
+  setChrome({
+    crumb: "Simulacro",
+    meter: examMeter(E),
+    progress: E.items.filter(x => x.pick !== null).length / E.items.length * 100,
+    keys: [["1–4 · A–D", "marcar"], ["← →", "navegar"], ["Enter", "siguiente"]]
+  });
+  S.onKey = e => {
+    const d = parseInt(e.key, 10);
+    if (d >= 1 && d <= it.opts.length) { choose(d - 1); return true; }
+    const li = LETTERS.indexOf(e.key.toUpperCase());
+    if (li >= 0 && li < it.opts.length) { choose(li); return true; }
+    if (e.key === "ArrowLeft") { move(-1); return true; }
+    if (e.key === "ArrowRight" || e.key === "Enter") { move(1); return true; }
+  };
+}
+
+function finishExam(E) {
+  if (E.over) return;
+  E.over = true; stopTimer();
+  S.screen = "exam-result";
+  const total = E.items.length;
+  let ok = 0;
+  E.items.forEach(it => { const good = it.pick !== null && it.opts[it.pick].ok; if (good) ok++; if (it.pick !== null) recordAnswer(it.q, good); });
+  const wrong = E.items.filter(it => it.pick === null || !it.opts[it.pick].ok);
+  const nota = ok / total * 20;
+  const used = 30 * 60 - timeLeft(E);
+  const byTopic = {};
+  E.items.forEach(it => { const t = it.q[0]; byTopic[t] = byTopic[t] || [0, 0]; byTopic[t][1]++; if (it.pick !== null && it.opts[it.pick].ok) byTopic[t][0]++; });
+  view.className = "wrap top";
+  view.innerHTML = `
+    <div class="eyebrow">Simulacro entregado</div>
+    <div class="score"><span class="big">${nota.toFixed(1).replace(".", ",")}<small> / 20</small></span><span class="meta">${ok} de ${total} correctas<br>tiempo usado ${fmt(used)}</span></div>
+    <p class="lede">${nota >= 17 ? "Listo para el examen. Repasa los fallos y sal." : nota >= 11 ? "Aprobado. Repasa los temas con menos aciertos antes de entrar." : "Todavía no. Haz una ronda de Recall en los temas más bajos y vuelve a intentarlo."}</p>
+    <div class="table-scroll"><table class="mastery"><thead><tr><th>Tema</th><th>Aciertos</th><th></th></tr></thead><tbody>
+      ${Object.entries(byTopic).sort((a, b) => a[1][0] / a[1][1] - b[1][0] / b[1][1]).map(([t, [a, n]]) => `<tr><td>${esc(TOPICS[t])}</td><td class="num">${a}/${n}</td><td style="width:40%"><div class="bar-mini"><i style="width:${a / n * 100}%"></i></div></td></tr>`).join("")}
+    </tbody></table></div>
+    <div class="actions"><button class="btn primary" type="button" id="again">Otro simulacro <kbd>Enter</kbd></button>${wrong.length ? `<button class="btn" type="button" id="retry">Repasar errores</button>` : ""}<button class="btn" type="button" id="back">Inicio <kbd>H</kbd></button></div>
+    ${missList(wrong)}`;
+  $("#again").addEventListener("click", startExam);
+  const rt = $("#retry"); if (rt) rt.addEventListener("click", () => startQuiz({ misses: true }));
+  $("#back").addEventListener("click", home);
+  setChrome({ crumb: "Simulacro", progress: 100, keys: [["Enter", "otro simulacro"]] });
+  S.onKey = e => { if (e.key === "Enter") { startExam(); return true; } };
+}
+
+home();
+</script>
+</body>
+</html>

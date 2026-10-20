@@ -47,8 +47,13 @@ Rutas relativas a la raíz del repo. `S2…S6` = `curso/semana-02-scrum-y-acta`,
 | 5 | `Presentacion_Fist_of_Five/` | Resumen | Estimación con el Puño de cinco aplicada a las historias (HTML + PPTX + PDF + generador, 8 diapositivas) |
 | 5 | `Priorizacion_MoSCoW_100_Puntos_NewBit/` | Resumen + datos | Priorización con MoSCoW y 100 puntos de las 12 HU (PDF + PPTX + HTML + generador) |
 | 5 | `Tablero_Kanban_NewBit/` | Resumen + backlog completo | Tablero Kanban: 12 HU con criterios, prioridad, puntos y sprint; Scrumboard del Sprint 1 (HTML + PPTX + PDF + generador) |
-| 6 | `Producto_Unidad_1_NewBit/` | Resumen | Producto de la Unidad I v2: informe en LaTeX, APA 7, enfocado en la Guía SBOK (PDF de 37 págs. + `.tex` + sello UNS) |
-| 6 | `PPT_Producto_Unidad_1_NewBit/` | Resumen | Presentación del Producto de la Unidad I en PowerPoint v3, estilo pitch (`.pptx` editable de 27 láminas + PDF + generadores) |
+| 6 | `Producto_Unidad_1_NewBit/` | Resumen | Producto de la Unidad I v3: informe en LaTeX, APA 7, enfocado en la Guía SBOK, con el estado real del incremento al 20/10 (PDF de 39 págs. + `.tex` + sello UNS) |
+| 6 | `PPT_Producto_Unidad_1_NewBit/` | Resumen | Presentación del Producto de la Unidad I en PowerPoint v4, estilo pitch, con el avance real (`.pptx` editable de 30 láminas + PDF + generadores) |
+
+## Curso: herramientas de estudio (`curso/`)
+| Semana | Carpeta | Tipo de `.md` | De qué trata |
+|---|---|---|---|
+| 6 | `curso/repaso-examen-unidad-1/` | Resumen | App HTML de repaso (Recall SBOK): tarjetas, opción múltiple con casuísticas, ordenar, clasificar y simulacro, basada en la Guía del SBOK |
 
 ## Proyecto (`proyecto-newbit/investigacion/`)
 | Carpeta | Tipo de `.md` | De qué trata |

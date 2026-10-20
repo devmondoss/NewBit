@@ -6,6 +6,8 @@ Todo lo de clase, por semana. Cada semana tiene dos carpetas:
 
 El libro base del docente está en [`referencias/libro-guia-sbok/`](referencias/libro-guia-sbok/libro-guia-sbok.md) y vale para todas las semanas. Otras lecturas de referencia generales (llegaron el 19/10): [Historias de usuario – Scrum Manager](referencias/historias-de-usuario-scrum-manager/historias-de-usuario-scrum-manager.md) · [EXIN Agile Scrum Master, sesión 1](referencias/exin-asm-sesion-1/exin-asm-sesion-1.md) y [sesión 2](referencias/exin-asm-sesion-2/exin-asm-sesion-2.md). Calendario detallado, convenciones del docente y lista de entregables: [contexto-del-curso.md](contexto-del-curso.md). El proyecto en sí (investigación y código) está en [`../proyecto-newbit/`](../proyecto-newbit/README.md).
 
+**Repaso para el examen de la Unidad I:** [Recall SBOK](repaso-examen-unidad-1/repaso-examen-unidad-1.md), app HTML con tarjetas, opción múltiple con casuísticas, ordenar, clasificar y simulacro (abrir `repaso-examen-unidad-1.html`).
+
 **Reglas:** una carpeta por archivo, con el original y su `.md` del mismo nombre; se lee el `.md`, no el original. La semana de un material es la de su llegada; la de una entrega, la semana en que se pidió. La semana 1 (14–20/09) no tuvo actividad.
 
 ## Semana 6 · 19–25/10 (actual) · Producto de la Unidad I → [`semana-06-producto-unidad-1/`](semana-06-producto-unidad-1/README.md)
