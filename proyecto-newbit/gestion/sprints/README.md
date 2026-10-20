@@ -4,13 +4,23 @@ Plan de 4 sprints. Fuentes: orden y sprint de cada HU en [Priorización MoSCoW +
 
 | Sprint | Estado | Historias (según el backlog MoSCoW) | Código |
 |---|---|---|---|
-| **1** | Completado (17/10/2026) | HU01 Cargar video · HU02 Extraer frames · HU03 Detectar operarios | `app/`, `ml/` |
-| **2** | Completado (17/10/2026) | HU04 Descartar frames vacíos · HU05 Agrupar en clips · HU06 Descartar clips cortos · HU11 Calibrar umbral | `ml/`, `tests/` |
+| **1** | Construido (17/10/2026), por aceptar | HU01 Cargar video · HU02 Extraer frames · HU03 Detectar operarios | `app/`, `ml/` |
+| **2** | Construido (17/10/2026), por aceptar; HU05 en cierre | HU04 Descartar frames vacíos · HU05 Agrupar en clips · HU06 Descartar clips cortos · HU11 Calibrar umbral | `ml/`, `tests/` |
 | **3** | Pendiente | HU07 Procesar con ConvLSTM · HU08 Clasificar y tipificar | — |
 | **4** | Pendiente | HU09 Ver video con recuadro · HU10 Alerta de riesgo · HU12 Ver log de tiempos | — |
 
 ## Avance real a la fecha
-- Sprints 1 y 2: **15 puntos de historia implementados** (hito de congelamiento al ~50 %, 17/10/2026), con 43 pruebas automatizadas según el README del proyecto. No ejecuté las pruebas al escribir esta ficha.
+- Sprints 1 y 2: **15 puntos de historia implementados** (hito de congelamiento al ~50 %, 17/10/2026).
+- **Verificado el 20/10/2026:**
+  - **43/43 pruebas pasan**, incluida la E2E.
+  - En una copia aislada de la app, el flujo completo funcionó: subir, 24→5 fps, detectar, descartar vacíos y generar un clip de 5 s → 2,4 s.
+  - En macOS, un paquete `tests` de terceros en `.venv/site-packages` tapa `proyecto-newbit/tests`, y `test_e2e_pipeline` falla al importar con el comando del README. No es un fallo del código.
+- **Lo que falta para que el PO las acepte** (criterios de aceptación y FGAP070):
+  - **HU05:** agrupa secuencias continuas de longitud variable. Le faltan la ventana fija de N frames y el tensor de entrada de ConvLSTM, así que se cierra con HU07.
+  - **Prueba integrada:** solo se hizo con un clip **sintético** (`tests/fixtures`). El clip pega la foto de muestra `zidane.jpg` de Ultralytics, con personas reales y no operarios, así que no sirve como evidencia visual. Falta probar con los videos del dataset de Önal y Dandıl.
+  - **Revisión de pares:** no hay registro.
+  - **Aceptación del PO:** queda para la revisión del sprint.
+- El estado está en el Producto de la Unidad I v3 (sección 4.8) y en la PPT v4 (láminas 26–29). Reordenar los sprints para adelantar el Sprint 3 es solo una **propuesta**; la decide el PO.
 - Autor de los commits del código: EnnoAL. Detalle HU por HU: tabla de la sección 2 de [`../../README.md`](../../README.md).
 
 ## Inconsistencia a resolver

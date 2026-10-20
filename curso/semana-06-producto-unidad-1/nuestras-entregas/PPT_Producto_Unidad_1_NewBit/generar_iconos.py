@@ -21,7 +21,7 @@ ICONOS = {  # nombre: (trazos SVG, colores que usa la presentación)
     "no": ('<circle cx="12" cy="12" r="8.5"/><path d="M9 9l6 6M15 9l-6 6"/>', ['gris']),
     "objetivo": ('<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/>', ['ink']),
     "persona": ('<circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.2-3.6 4-5.5 7-5.5s5.8 1.9 7 5.5"/>', ['ink']),
-    "reloj": ('<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>', ['azul', 'ink']),
+    "reloj": ('<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>', ['azul', 'ink', 'ambar']),
     "riesgo": ('<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17h.01"/>', ['ambar']),
     "secuencia": ('<rect x="3" y="7" width="12" height="10" rx="1.5"/><path d="M18 8.5v7M21 10v4"/>', ['ink']),
     "seguro": ('<circle cx="12" cy="12" r="8.5"/><path d="M8.5 12l2.5 2.5 4.5-5"/>', ['azul', 'verde']),

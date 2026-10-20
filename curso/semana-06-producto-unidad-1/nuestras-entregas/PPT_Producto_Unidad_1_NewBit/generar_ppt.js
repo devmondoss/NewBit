@@ -5,7 +5,7 @@
 // línea) + minimalismo editorial (portadas de sección oscuras, titulares grandes, pocos elementos).
 // Lienzo 13.333 × 7.5 in (16:9). Calibri Light para titulares y Calibri para texto.
 // Narrativa de pitch: problema → idea → cómo funciona en 4 pasos → beneficio → cómo lo construimos con
-// Scrum (Guía SBOK) → entregables semana a semana → lo que viene. Cifras iguales al informe.
+// Scrum (Guía SBOK) → entregables semana a semana → avance real y lo que viene. Cifras iguales al informe.
 const path = require("path");
 const modDir = process.argv[2];
 const pptxgen = require(modDir ? path.join(modDir, "node_modules", "pptxgenjs") : "pptxgenjs");
@@ -143,7 +143,7 @@ const fuente = (s, txt, oscuro = false) => T(s, txt, M, 6.55, W - 2 * M, 0.3, { 
 // 06 · Cómo funciona en 4 pasos
 {
   const s = clara("Cómo funciona", "Cuatro pasos, sin tecnicismos",
-    "Explicar cada paso como si fuera para alguien que no sabe de tecnología. Abajo, en gris, está el nombre técnico por si alguien pregunta. Cerrar con la analogía del asistente.");
+    "Explicar cada paso como si fuera para alguien que no sabe de tecnología. Abajo, en gris, está el nombre técnico por si alguien pregunta. Cerrar con la analogía del asistente. Adelantar que los pasos 1 y 2 ya funcionan: se muestran en la parte 4.");
   const p = [
     ["01", "video", "Subes el video", "Cargas los clips que tus cámaras ya graban.", "archivos .mp4 o .avi, por lotes"],
     ["02", "buscar", "Encuentra a las personas", "Revisa cada imagen y marca dónde hay operarios. Lo que no tiene a nadie, lo descarta.", "detector YOLOv8"],
@@ -506,27 +506,118 @@ const fuente = (s, txt, oscuro = false) => T(s, txt, M, 6.55, W - 2 * M, 0.3, { 
   });
 }
 
-// ===================================================================== PARTE 4 · LO QUE VIENE
-// 26 · Plan de sprints
+// ===================================================================== PARTE 4 · AVANCE REAL Y LO QUE VIENE
+// Estado verificado el 20/10/2026: 43 pruebas automatizadas en verde; código del 17/10/2026 (historial de git).
+const chip = (s, txt, x, y, w, col, fondo) => {
+  s.addShape(pptx.ShapeType.roundRect, { x, y, w, h: 0.32, rectRadius: 0.16, fill: { color: fondo }, line: { color: fondo } });
+  T(s, txt, x, y + 0.05, w, 0.24, { fontSize: 11, bold: true, color: col, align: "center" });
+};
+
+// 26 · Dónde estamos hoy
 {
-  const s = clara("Parte 4 · Lo que viene", "Cuatro sprints hasta diciembre",
-    "Hoy empieza el Sprint 1. Cada sprint entrega algo que el usuario puede ver. El Sprint 3 es el de mayor riesgo técnico: ahí se fijan las metas con la línea base.");
+  const s = clara("Parte 4 · Avance real", "La primera mitad ya funciona",
+    "Volver a los cuatro pasos de la lámina 6. Los dos primeros ya funcionan: subir el video y encontrar a las personas, descartando las imágenes vacías y armando clips solo con actividad. Son las historias de los sprints 1 y 2 del backlog, 15 de 31 puntos. Los pasos 3 y 4 son los sprints 3 y 4. Aclarar que el PO las acepta formalmente en la revisión del sprint, como manda la guía.");
+  T(s, "15", M, 1.9, 2.2, 1.4, { fontFace: TIT, fontSize: 104 });
+  T(s, "/ 31", M + 2.05, 2.55, 1.6, 0.7, { fontFace: TIT, fontSize: 36, color: C.gris });
+  T(s, "puntos de historia construidos: 7 de las 12 historias, las de los sprints 1 y 2 del backlog.", M, 3.45, 4.6, 0.8, { fontSize: 16, color: C.tinta2 });
+  for (let k = 0; k < 31; k++) {
+    const col = k < 15 ? C.azul : C.borde;
+    s.addShape(pptx.ShapeType.rect, { x: M + k * 0.148, y: 4.45, w: 0.12, h: 0.42, fill: { color: col }, line: { color: col } });
+  }
+  T(s, "Construido el 17/10 · 43 pruebas automáticas en verde al 20/10", M, 5.05, 4.8, 0.3, { fontSize: 12, color: C.gris });
+  [["01", "video", "Subes el video", "Valida el archivo y muestra duración, resolución y FPS.", "Funciona", C.verde, C.verdeSuave],
+   ["02", "buscar", "Encuentra a las personas", "Descarta las imágenes vacías y arma clips solo con actividad.", "Funciona", C.verde, C.verdeSuave],
+   ["03", "secuencia", "Entiende lo que hacen", "Clasifica la conducta con ConvLSTM.", "Sprint 3", C.ambar, C.ambarSuave],
+   ["04", "alerta", "Te avisa con la prueba", "Alerta, recuadro de riesgo y registro.", "Sprint 4", C.ambar, C.ambarSuave]].forEach(([n, ic, t, d, est, col, fondo], i) => {
+    const y = 1.95 + i * 1.08, x = 6.3;
+    if (i > 0) linea(s, x, y - 0.14, W - M, y - 0.14);
+    T(s, n, x, y + 0.05, 0.5, 0.3, { fontSize: 13, bold: true, color: C.azul });
+    icono(s, ic, "ink", x + 0.55, y, 0.4);
+    T(s, t, x + 1.15, y, 3.6, 0.4, { fontSize: 18, bold: true });
+    T(s, d, x + 1.15, y + 0.42, 3.75, 0.5, { fontSize: 13, color: C.tinta2 });
+    chip(s, est, W - M - 1.15, y + 0.04, 1.15, col, fondo);
+  });
+  fuente(s, "Las historias se dan por aceptadas solo cuando el Product Owner las valida en la revisión del sprint (SCRUMstudy, 2022, p. 248).");
+}
+
+// 27 · Lo que ya se puede ver
+{
+  const s = clara("Parte 4 · Avance real", "Lo que ya se puede ver",
+    "Capturas de la aplicación web funcionando. A la izquierda, el catálogo: se arrastra el video y el sistema lo valida. A la derecha, la ficha del video procesado: de 24 imágenes por segundo pasa a 5, conserva solo las que tienen operarios y arma un clip de 2,4 s a partir de 5 s. Decir con honestidad que es un clip de prueba sintético; la prueba con los videos reales del conjunto de datos viene ahora. Si preguntan: la aplicación todavía rotula las historias con la numeración interna del código, que se alineará con la del backlog.");
+  const h = 3.3, w1 = h * 2880 / 1400, w2 = h * 984 / 1392, x1 = M + (W - 2 * M - (w1 + 0.3 + w2)) / 2, x2 = x1 + w1 + 0.3;
+  [["app-catalogo.png", x1, w1], ["app-ficha.png", x2, w2]].forEach(([f, x, w]) => {
+    s.addImage({ path: IMG(f), x, y: 1.95, w, h });
+    s.addShape(pptx.ShapeType.rect, { x, y: 1.95, w, h, fill: { type: "none" }, line: { color: C.borde, width: 0.75 } });
+  });
+  [["43 / 43", "pruebas automáticas en verde, incluida una de punta a punta"], ["24 → 5", "imágenes por segundo que se analizan: 80 % menos trabajo"],
+   ["5 s → 2,4 s", "el clip final conserva solo los segundos con operarios"]].forEach(([n, d], i) => {
+    const x = M + i * 3.95;
+    T(s, n, x, 5.4, 3.7, 0.45, { fontFace: TIT, fontSize: 26 });
+    T(s, d, x, 5.85, 3.6, 0.5, { fontSize: 12, color: C.tinta2 });
+  });
+  fuente(s, "Aplicación local, 20/10/2026, con un clip de prueba sintético de 5 s. Aún no se prueba con los videos del conjunto de datos de Önal y Dandıl (2024).");
+}
+
+// 28 · El tablero hoy
+{
+  const s = clara("Parte 4 · Avance real", "El tablero, hoy",
+    "El estado de las 12 historias del backlog. Seis están hechas y esperan la aceptación del PO. HU05 agrupa los clips, pero le falta el formato de entrada del modelo temporal; se cierra junto con HU07. A la derecha, lo que exigen los criterios de terminado (FGAP070) y lo que todavía falta registrar.");
+  const cols = [
+    ["HECHO · POR ACEPTAR", C.verde, C.verdeSuave, "C7E6D4", [["HU01", "Cargar video", 1], ["HU02", "Extraer fotogramas", 2], ["HU03", "Detectar operarios", 4],
+      ["HU04", "Quitar imágenes vacías", 2], ["HU06", "Descartar clips cortos", 2], ["HU11", "Calibrar sensibilidad", 1]]],
+    ["EN CIERRE", C.ambar, C.ambarSuave, "F5D0BD", [["HU05", "Agrupar en clips", 3]]],
+    ["POR HACER", C.gris, C.tarjeta, C.borde, [["HU07", "Procesar con ConvLSTM", 5], ["HU08", "Clasificar la conducta", 3], ["HU09", "Recuadro de riesgo", 4],
+      ["HU10", "Alerta de riesgo", 2], ["HU12", "Log de tiempos", 2]]],
+  ];
+  cols.forEach(([t, col, fondo, borde, hus], c) => {
+    const x = M + c * 2.7, pts = hus.reduce((a, h) => a + h[2], 0);
+    T(s, t, x, 1.95, 2.0, 0.3, { fontSize: 11, bold: true, color: col, charSpacing: 1 });
+    T(s, pts + " pts", x + 1.75, 1.95, 0.8, 0.3, { fontSize: 11, color: C.gris, align: "right" });
+    hus.forEach(([id, n, p], i) => {
+      const y = 2.35 + i * 0.62;
+      tarjeta(s, x, y, 2.55, 0.52, { fill: fondo, borde });
+      T(s, [{ text: id + "  ", options: { bold: true } }, { text: n }], x + 0.15, y + 0.14, 2.1, 0.3, { fontSize: 12 });
+      T(s, String(p), x + 2.15, y + 0.14, 0.28, 0.3, { fontSize: 12, color: C.gris, align: "right" });
+    });
+    if (c === 1) T(s, "Agrupa los clips; falta darles el formato de entrada del modelo temporal. Se cierra con HU07.", x, 3.0, 2.55, 1.2, { fontSize: 12, color: C.tinta2 });
+  });
+  const xd = 9.0;
+  tarjeta(s, xd, 1.95, W - M - xd, 4.25);
+  T(s, "PARA DARLAS POR TERMINADAS", xd + 0.3, 2.2, 3.5, 0.3, { fontSize: 11, bold: true, color: C.azul, charSpacing: 1 });
+  [["seguro", "verde", "Pruebas unitarias e integradas", "43 en verde"], ["seguro", "verde", "Documentación y guía de arranque", "en el repositorio"],
+   ["reloj", "ambar", "Revisión de código entre pares", "por registrar"], ["reloj", "ambar", "Prueba con video real", "del conjunto de datos público"],
+   ["reloj", "ambar", "Aceptación del Product Owner", "revisión del sprint"]].forEach(([ic, c, t, d], i) => {
+    const y = 2.7 + i * 0.68;
+    icono(s, ic, c, xd + 0.3, y + 0.02, 0.3);
+    T(s, t, xd + 0.75, y, 3.0, 0.3, { fontSize: 13.5, bold: true });
+    T(s, d, xd + 0.75, y + 0.3, 3.0, 0.3, { fontSize: 12, color: C.gris });
+  });
+  fuente(s, "Historias y puntos del backlog priorizado (FGAP060). Criterios de terminado del FGAP070. Estado al 20/10/2026.");
+}
+
+// 29 · Plan de sprints
+{
+  const s = clara("Parte 4 · Lo que viene", "Vamos adelantados al calendario",
+    "Las fechas son las del acta. El alcance de los sprints 1 y 2 ya está construido. Proponemos al PO usar ese tiempo ganado en el Sprint 3, el de mayor riesgo técnico: entrenar y evaluar ConvLSTM. Es una propuesta; la decide el Product Owner en la planificación.");
   const x0 = M + 0.1, dia = (W - 2 * M - 0.2) / 74, y0 = 2.35;
   [[0, "05 oct"], [14, "19 oct"], [28, "02 nov"], [42, "16 nov"], [56, "30 nov"], [70, "14 dic"]].forEach(([d, t]) => {
     T(s, t, x0 + d * dia - 0.5, y0 - 0.45, 1.0, 0.3, { fontSize: 11, color: C.gris, align: "center" });
-    linea(s, x0 + d * dia, y0 - 0.1, x0 + d * dia, y0 + 3.15, C.borde, 0.75);
+    linea(s, x0 + d * dia, y0 - 0.1, x0 + d * dia, y0 + 2.95, C.borde, 0.75);
   });
-  [["Inicio", "Formatos de la Unidad I", 0, 11, C.gris], ["Sprint 1", "Subir video y detectar personas", 14, 25, C.azul],
-   ["Sprint 2", "Filtrar fotogramas y armar clips", 28, 39, C.azul], ["Sprint 3", "Reconocer la conducta", 42, 53, C.ambar],
-   ["Sprint 4", "Alertas, recuadro de riesgo y reportes", 56, 67, C.ambar], ["Cierre", "FGAP090", 70, 74, C.gris]].forEach(([n, d, a, b, col], i) => {
+  [["Inicio", "Formatos de la Unidad I", 0, 11, C.gris, ""], ["Sprint 1", "Subir video y detectar personas", 14, 25, C.azul, "ya construido"],
+   ["Sprint 2", "Filtrar imágenes y armar clips", 28, 39, C.azul, "ya construido"], ["Sprint 3", "Reconocer la conducta", 42, 53, C.ambar, ""],
+   ["Sprint 4", "Alertas, recuadro de riesgo y reportes", 56, 67, C.ambar, ""], ["Cierre", "FGAP090", 70, 74, C.gris, ""]].forEach(([n, d, a, b, col, est], i) => {
     const y = y0 + i * 0.52;
     s.addShape(pptx.ShapeType.roundRect, { x: x0 + a * dia, y, w: (b - a) * dia, h: 0.32, rectRadius: 0.05, fill: { color: col }, line: { color: col } });
-    const tx = b > 60 ? x0 + a * dia - 3.6 : x0 + b * dia + 0.15;
-    T(s, [{ text: n + "  ", options: { bold: true } }, { text: d, options: { color: C.tinta2 } }], tx, y + 0.02, 3.5, 0.3,
-      { fontSize: 13, align: b > 60 ? "right" : "left" });
+    const tx = b > 60 ? x0 + a * dia - 3.6 : x0 + b * dia + 0.15, txt = [{ text: n + "  ", options: { bold: true } }, { text: d, options: { color: C.tinta2 } }];
+    if (est) txt.push({ text: "  · " + est, options: { bold: true, color: C.verde } });
+    T(s, txt, tx, y + 0.02, b > 60 ? 3.5 : 5.3, 0.3, { fontSize: 13, align: b > 60 ? "right" : "left" });
   });
-  linea(s, x0 + 14 * dia, y0 + 0.45, x0 + 14 * dia, y0 + 3.2, C.tinta, 1.75);
-  T(s, "Hoy · 19 de octubre", x0 + 14 * dia + 0.1, y0 + 3.0, 2.5, 0.3, { fontSize: 12, bold: true });
+  linea(s, x0 + 15 * dia, y0 + 0.45, x0 + 15 * dia, y0 + 3.0, C.tinta, 1.75);
+  T(s, "Hoy · 20 de octubre", x0 + 15 * dia + 0.1, y0 + 2.75, 2.5, 0.3, { fontSize: 12, bold: true });
+  tarjeta(s, M, 5.55, W - 2 * M, 0.85, { fill: C.azulSuave, borde: "C7D2FE" });
+  T(s, rico("**Propuesta para el Product Owner:** validar ya lo construido, con video real, y empezar antes el Sprint 3, el de mayor riesgo técnico."),
+    M + 0.35, 5.78, W - 2 * M - 0.7, 0.45, { fontSize: 15 });
   fuente(s, "Fechas del acta (FGAP010). Cada sprint: planificación 4 h · Daily 15 min · revisión 2 h · retrospectiva 2 h.");
 }
 

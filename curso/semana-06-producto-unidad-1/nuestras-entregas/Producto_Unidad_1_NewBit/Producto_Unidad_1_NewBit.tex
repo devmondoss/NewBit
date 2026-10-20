@@ -212,9 +212,10 @@ Este documento es el producto de la Unidad~I del curso. Su \textbf{objetivo gene
   \item Exponer el marco teórico de Scrum según la Guía SBOK (principios, aspectos, roles, procesos y time-boxes), de la ingeniería de requisitos ágil y de los modelos de visión artificial que emplea el proyecto.
   \item Describir cómo evolucionó la propuesta y qué motivó cada cambio.
   \item Presentar, semana por semana, los entregables de la Unidad~I (FGAP010, FGAP030, EGAP015, FGAP040, FGAP060, FGAP070 y las piezas que los acompañan), vincular cada uno con su proceso de la Guía SBOK y completar las salidas obligatorias faltantes: el registro de interesados (FGAP020), la definición de listo y la planificación de la liberación.
+  \item Informar el estado real del producto al 20 de octubre de 2026: qué historias del backlog ya están construidas, qué evidencia lo respalda y qué falta para que el Product Owner las acepte.
 \end{enumerate}
 
-El documento se organiza en cuatro partes. La sección~\ref{sec:antecedentes} revisa los antecedentes; la sección~\ref{sec:marco}, el marco teórico; la sección~\ref{sec:desarrollo} presenta los entregables semana por semana, vinculados a los procesos de la Guía SBOK, y cierra con la planificación de la liberación y de los sprints; al final se listan las referencias en formato APA.
+El documento se organiza en cuatro partes. La sección~\ref{sec:antecedentes} revisa los antecedentes; la sección~\ref{sec:marco}, el marco teórico; la sección~\ref{sec:desarrollo} presenta los entregables semana por semana, vinculados a los procesos de la Guía SBOK, sigue con la planificación de la liberación y de los sprints y cierra con el estado del primer incremento; al final se listan las referencias en formato APA.
 
 % =====================================================================
 \FloatBarrier
@@ -423,14 +424,14 @@ Esta sección presenta el trabajo de la Unidad~I en el orden en que el docente l
   \node[paso=hecho,     right=0.3cm of b] (c) {\textbf{FGAP030}\\Roles};
   \node[paso=hecho,     right=0.3cm of c] (d) {\textbf{FGAP040}\\Épicas};
   \node[paso=hecho,     right=0.3cm of d] (e) {\textbf{FGAP060}\\\textbf{FGAP070}\\Backlog y DoD};
-  \node[paso=pendiente, right=0.3cm of e] (f) {\textbf{Sprints}\\1 a 4};
+  \node[paso=acento,    right=0.3cm of e] (f) {\textbf{Sprints}\\1 a 4};
   \node[paso=gris,      right=0.3cm of f] (g) {\textbf{FGAP090}\\Cierre};
   \foreach \x/\y in {a/b,b/c,c/d,d/e,e/f,f/g} \draw[flecha] (\x) -- (\y);
   \draw[flecha, dashed] ([xshift=4mm]f.south) .. controls +(0.2,-0.9) and +(-0.2,-0.9) .. ([xshift=-4mm]f.south)
     node[pos=0.5, below=1pt, font=\scriptsize\sffamily, text=gris] {se repite por sprint};
   \node[below=1.15cm of d, anchor=north, font=\scriptsize\sffamily, text=gris] {%
     \tikz\fill[hecho!12, draw=hecho] (0,0) rectangle (0.3,0.2); Elaborado en la Unidad I \quad
-    \tikz\fill[pendiente!12, draw=pendiente] (0,0) rectangle (0.3,0.2); Inicia el 19/10/2026 \quad
+    \tikz\fill[acento!12, draw=acento] (0,0) rectangle (0.3,0.2); En curso desde el 19/10/2026 \quad
     \tikz\fill[gris!12, draw=gris] (0,0) rectangle (0.3,0.2); Al final del proyecto};
 \end{tikzpicture}
 \nota{Elaboración propia a partir de la secuencia de trabajo del proyecto entregada por el docente \parencite{daza2026secuencia}. La Justificación (EGAP015) acompaña a la secuencia como documento de apoyo.}
@@ -456,10 +457,11 @@ Sem. & Entregable & Proceso de la Guía SBOK (pág.) & Salidas obligatorias que 
 6 & FGAP020 Registro de interesados & 8.2 Identificar al Scrum Master y a los interesados (145--150) & Scrum Master e interesados identificados\\
 6 & Definición de listo & 8.5 (172); 5.4.2 (92) & Definición de listo\\
 6 & Planificación de la liberación & 8.6 Realizar la planificación de la liberación (173--178) & Cronograma de liberación; duración del sprint\\
+6 & Incremento de la etapa espacial (historias de los sprints 1 y 2) & 10.1 Crear entregables (218--227) & Entregables del sprint, por aceptar en 11.1; Scrumboard actualizado\\
 \bottomrule
 \end{tabularx}
 \end{tablaapa}
-\nota{Páginas de la Guía SBOK \parencite{sbok}. Las salidas listadas son las que la guía marca como obligatorias en cada proceso. Los entregables de la semana~6 se elaboraron para este producto.}
+\nota{Páginas de la Guía SBOK \parencite{sbok}. Las salidas listadas son las que la guía marca como obligatorias en cada proceso. Los formatos de la semana~6 se elaboraron para este producto; el estado del incremento se detalla en la sección~\ref{sec:estado}.}
 \end{table}
 
 % ---------------------------------------------------------------------
@@ -1000,10 +1002,10 @@ La Figura~\ref{fig:arquitectura} muestra la arquitectura vigente, que actualiza 
   sp/.style={font=\scriptsize\sffamily, text=gris},
   grupo/.style={draw=#1, dashed, rounded corners=5pt, inner sep=8pt, line width=0.5pt}]
   % Etapa espacial
-  \node[et=acento] (v) {Carga y validación\\[-1pt]{\scriptsize RF-01\\Sprint 1}};
-  \node[et=acento, right=0.45cm of v] (f) {Fotogramas normalizados\\[-1pt]{\scriptsize HU02\\Sprint 1}};
-  \node[et=acento, right=0.45cm of f] (y) {Detección de operarios (YOLOv8n)\\[-1pt]{\scriptsize RF-02\\Sprint 1}};
-  \node[et=acento, right=0.45cm of y] (r) {Reducción y clips\\[-1pt]{\scriptsize RF-03, RF-04\\Sprint 2}};
+  \node[et=hecho] (v) {Carga y validación\\[-1pt]{\scriptsize RF-01\\Sprint 1 · construida}};
+  \node[et=hecho, right=0.45cm of v] (f) {Fotogramas normalizados\\[-1pt]{\scriptsize HU02\\Sprint 1 · construida}};
+  \node[et=hecho, right=0.45cm of f] (y) {Detección de operarios (YOLOv8n)\\[-1pt]{\scriptsize RF-02\\Sprint 1 · construida}};
+  \node[et=hecho, right=0.45cm of y] (r) {Reducción y clips\\[-1pt]{\scriptsize RF-03, RF-04\\Sprint 2 · construida}};
   % Etapa temporal y salida
   \node[et=pendiente, below=1.3cm of r] (c) {Clasificación de la conducta (ConvLSTM)\\[-1pt]{\scriptsize RF-05\\Sprint 3}};
   \node[et=pendiente, left=0.45cm of c] (g) {Registro de la detección\\[-1pt]{\scriptsize RF-06\\Sprint 3}};
@@ -1011,13 +1013,13 @@ La Figura~\ref{fig:arquitectura} muestra la arquitectura vigente, que actualiza 
   \node[et=gris, left=0.45cm of a] (h) {Confirmación por SST\\[-1pt]{\scriptsize decisión humana}};
   \draw[fl] (v) -- (f); \draw[fl] (f) -- (y); \draw[fl] (y) -- (r); \draw[fl] (r) -- (c);
   \draw[fl] (c) -- (g); \draw[fl] (g) -- (a); \draw[fl] (a) -- (h);
-  \node[grupo=acento, fit=(v)(r), label={[font=\scriptsize\sffamily\bfseries, text=acento]above:Etapa espacial}] {};
+  \node[grupo=hecho, fit=(v)(r), label={[font=\scriptsize\sffamily\bfseries, text=hecho]above:Etapa espacial (construida al 20/10/2026)}] {};
   \node[grupo=pendiente, fit=(a)(c), label={[font=\scriptsize\sffamily\bfseries, text=pendiente]below:Etapa temporal y salida}] {};
 \end{tikzpicture}
-\nota{Elaboración propia. Los códigos RF remiten a la Tabla~\ref{tab:requisitos}; el sprint indica cuándo se construye cada etapa según el backlog priorizado.}
+\nota{Elaboración propia. Los códigos RF remiten a la Tabla~\ref{tab:requisitos}; el sprint indica a qué sprint asigna cada etapa el backlog priorizado. En verde, lo ya construido (sección~\ref{sec:estado}); en ámbar, lo pendiente.}
 \end{figure}
 
-La Figura~\ref{fig:sprints} ubica los cuatro sprints en el calendario del semestre, con las épicas y la carga de cada uno. El Sprint~1 empieza el 19 de octubre de 2026, al cierre de la Unidad~I.
+La Figura~\ref{fig:sprints} ubica los cuatro sprints en el calendario del semestre, con las épicas y la carga de cada uno. El Sprint~1 empezó el 19 de octubre de 2026, al cierre de la Unidad~I, y el alcance de los sprints 1 y 2 ya está construido (sección~\ref{sec:estado}).
 
 \begin{figure}[!htbp]
 \caption{Plan de sprints de NewBit, octubre a diciembre de 2026}\label{fig:sprints}
@@ -1029,19 +1031,19 @@ La Figura~\ref{fig:sprints} ubica los cuatro sprints en el calendario del semest
     \node[font=\scriptsize\sffamily, text=gris, above] at (\d,0.45) {\t};}
   \foreach \fila/\ini/\fin/\col/\nom/\det in {
       0/0/11/gris/Inicio/{Formatos FGAP010 a FGAP070},
-      1/14/25/acento/Sprint 1/{EP01, EP02 · 7 pts},
-      2/28/39/acento/Sprint 2/{EP03 y HU11 · 8 pts},
+      1/14/25/hecho/Sprint 1/{EP01, EP02 · 7 pts · construido},
+      2/28/39/hecho/Sprint 2/{EP03 y HU11 · 8 pts · construido},
       3/42/53/pendiente/Sprint 3/{EP04 · 8 pts},
       4/56/67/pendiente/Sprint 4/{EP05 y HU12 · 8 pts},
       5/70/74/gris/Cierre/{FGAP090}} {
     \fill[\col!18, draw=\col, rounded corners=2pt] (\ini,-\fila+0.3) rectangle (\fin,-\fila-0.3);
     \node[anchor=east, font=\scriptsize\sffamily, align=right, text=tinta] at (-1.2,-\fila) {\textbf{\nom}\enspace\textcolor{gris}{\det}};}
-  \draw[tinta, line width=0.9pt] (14,0.45) -- (14,-5.75) node[below, font=\scriptsize\sffamily\bfseries, text=tinta] {19/10: inicio del Sprint 1};
+  \draw[tinta, line width=0.9pt] (15,0.45) -- (15,-5.75) node[below, font=\scriptsize\sffamily\bfseries, text=tinta] {20/10: estado de este documento};
 \end{tikzpicture}
-\nota{Fechas según el cronograma del acta (Tabla~\ref{tab:hitos}). En azul, la etapa espacial; en ámbar, la temporal y la interfaz.}
+\nota{Fechas según el cronograma del acta (Tabla~\ref{tab:hitos}). En verde, la etapa espacial, cuyo alcance ya está construido y espera la aceptación del Product Owner; en ámbar, la etapa temporal y la interfaz.}
 \end{figure}
 
-El orden de los sprints sigue el recorrido del dato. Los sprints 1 y 2 construyen la etapa espacial, que no depende de ningún modelo entrenado por el equipo. El Sprint~3 concentra el mayor riesgo técnico: entrenar y evaluar el modelo ConvLSTM sobre la división oficial del conjunto de datos y comparar la clasificación directa con el pipeline completo. Las metas de desempeño se fijarán con la línea base que se obtenga en ese sprint; por eso este documento no adelanta cifras propias. El Sprint~4 lleva el resultado al usuario: visualización con recuadro de riesgo, alerta y log de tiempos.
+El orden de los sprints sigue el recorrido del dato. Los sprints 1 y 2 construyen la etapa espacial, que no depende de ningún modelo entrenado por el equipo; por eso fue la primera en estar lista. El Sprint~3 concentra el mayor riesgo técnico: entrenar y evaluar el modelo ConvLSTM sobre la división oficial del conjunto de datos y comparar la clasificación directa con el pipeline completo. Las metas de desempeño se fijarán con la línea base que se obtenga en ese sprint; por eso este documento no adelanta cifras propias. El Sprint~4 lleva el resultado al usuario: visualización con recuadro de riesgo, alerta y log de tiempos.
 
 
 En cada sprint se repiten los procesos de las fases de planificación, implementación y revisión, con las reuniones de la Tabla~\ref{tab:timebox}. La Tabla~\ref{tab:ciclo} resume qué produce cada momento del sprint según las salidas obligatorias de la guía; al cierre del proyecto, los procesos de liberación dan lugar al formato FGAP090.
@@ -1063,6 +1065,59 @@ Cierre del proyecto & 12.1 Enviar entregables y 12.2 Retrospectiva de la liberac
 \end{tablaapa}
 \nota{Páginas de la Guía SBOK \parencite{sbok}. Los time-boxes corresponden a sprints de dos semanas.}
 \end{table}
+
+% ---------------------------------------------------------------------
+\FloatBarrier
+\subsection{Estado del primer incremento al 20 de octubre de 2026}\label{sec:estado}
+% ---------------------------------------------------------------------
+
+El trabajo no se detuvo en la planificación. El 17 de octubre de 2026 los Developers construyeron la etapa espacial completa: las siete historias que el backlog asigna a los sprints 1 y 2, que suman 15 de los 31 puntos de historia. En términos de la guía, es el proceso 10.1, Crear entregables, cuya salida obligatoria es el entregable del sprint, que «debe incluir todas las características y funcionalidades definidas en las historias de usuario que se incluyen en el sprint y debe haber sido evaluado satisfactoriamente» \parencitep{sbok}{p.~227}.
+
+Para este documento el equipo verificó ese avance de forma independiente el 20 de octubre: ejecutó las 43 pruebas automatizadas del repositorio, que pasaron todas, y recorrió el flujo completo en la aplicación web con un clip de prueba de cinco segundos. El sistema validó el video, lo redujo de 24 a 5 fotogramas por segundo (80\,\% menos imágenes por analizar), detectó a los operarios, descartó las imágenes sin personas y generó un clip de 2,4~s con solo los segundos de actividad. La Tabla~\ref{tab:estado} contrasta cada historia con sus criterios de aceptación.
+
+\begin{table}[!htbp]
+\caption{Estado de las historias de los sprints 1 y 2 frente a sus criterios de aceptación}\label{tab:estado}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{C{1.0cm} P{3.0cm} C{0.8cm} L P{2.3cm}}
+\toprule
+HU & Historia & Pts. & Qué se verificó & Estado\\
+\midrule
+HU01 & Cargar video & 1 & Acepta .mp4 y .avi, rechaza otros formatos y muestra nombre, duración, resolución y FPS & Hecha, por aceptar\\
+HU02 & Extraer fotogramas & 2 & Fotogramas numerados y normalizados a 640\,×\,640 píxeles, el tamaño de entrada de YOLOv8 & Hecha, por aceptar\\
+HU03 & Detectar operarios & 4 & Cajas de la clase «persona» con su confianza, dibujadas sobre el fotograma & Hecha, por aceptar\\
+HU04 & Descartar fotogramas vacíos & 2 & Excluye los fotogramas sin personas y registra los totales y el porcentaje de reducción & Hecha, por aceptar\\
+HU05 & Agrupar en clips & 3 & Agrupa los fotogramas activos en secuencias continuas; falta la ventana fija de N fotogramas y el tensor de entrada de ConvLSTM & En cierre: se completa con HU07\\
+HU06 & Descartar clips cortos & 2 & Descarta las secuencias de menos de 1~s y registra cuántas descartó & Hecha, por aceptar\\
+HU11 & Calibrar el umbral & 1 & Ajuste de la confianza desde la interfaz, con validación de límites y registro en una bitácora de auditoría & Hecha, por aceptar\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{Numeración y puntos del backlog priorizado (FGAP060). Verificación del equipo del 20/10/2026 con la aplicación local y la suite de pruebas del repositorio. El rango del umbral en la interfaz es de 0,10 a 0,95, dentro del rango de 0 a 1 que pide HU11.}
+\end{table}
+
+\FloatBarrier
+Que el código funcione no basta para dar una historia por terminada. La guía es explícita: en la revisión del sprint el Product Owner acepta o rechaza cada historia según sus criterios de aceptación, y una historia completada en parte se rechaza \parencitep{sbok}{pp.~94 y~248}. Además, todas deben cumplir los criterios de terminado del FGAP070. La Tabla~\ref{tab:dod-estado} resume en qué punto está cada criterio.
+
+\begin{table}[!htbp]
+\caption{Criterios de terminado (FGAP070) aplicados al primer incremento}\label{tab:dod-estado}
+\begin{tablaapa}
+\begin{tabularx}{\textwidth}{P{3.6cm} L P{2.6cm}}
+\toprule
+Criterio & Evidencia al 20/10/2026 & Estado\\
+\midrule
+Prueba unitaria & 43 pruebas automatizadas ejecutadas, sin fallas & Cumplido\\
+Prueba integrada & Prueba de extremo a extremo (carga, submuestreo, calibración, detección, agrupamiento y clip final) con un clip sintético; falta repetirla con los videos del conjunto de datos & En parte\\
+Revisión de pares & Aún no hay registro de la revisión cruzada entre los dos Developers & Pendiente\\
+Documentación & Guía de instalación, arranque y pruebas en el repositorio del proyecto & Cumplido\\
+Aprobación técnica y del Product Owner & Se hará en la revisión del Sprint~1 (proceso 11.1) & Pendiente\\
+\bottomrule
+\end{tabularx}
+\end{tablaapa}
+\nota{Criterios tomados del FGAP070 (Tabla~\ref{tab:dod}).}
+\end{table}
+
+\FloatBarrier
+El avance también cambia el panorama del calendario. El acta asigna estas historias a los sprints 1 y 2, que terminan el 13 de noviembre; ya están construidas. Como propuesta del equipo, que decide el Product Owner en la planificación, el tiempo ganado se destina a lo más incierto del proyecto. Primero, cerrar lo construido: probarlo con los videos reales del conjunto de datos, registrar la revisión de pares, completar HU05 y presentarlo al Product Owner para su aceptación. Después, adelantar el trabajo del Sprint~3, el de mayor riesgo técnico, porque entrenar y evaluar ConvLSTM es lo único del plan que depende de un resultado todavía no demostrado. Este reordenamiento aplica el proceso 10.3, Refinar el backlog priorizado del producto \parencitep{sbok}{pp.~235--239}, y no altera la fecha de liberación del 14 al 18 de diciembre.
 
 
 
