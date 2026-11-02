@@ -189,6 +189,8 @@ Los entregables de gestión ágil aprobados se encuentran normalizados en la car
 * **Semana 4:** Justificación Técnica y Presupuestaria (`EGAP015`) y Catálogo Canónico de Épicas (`FGAP040`).
 * **Semana 5:** Tablero Kanban oficial de 12 HU (`Tablero_Kanban_NewBit`), Priorización MoSCoW (`Priorizacion_MoSCoW_100_Puntos_NewBit`), Presentación Puño de Cinco (`Presentacion_Fist_of_Five`) y Criterios de Terminado (`FGAP070`).
 * **Semana 6:** Producto de la Unidad I, informe en LaTeX con normas APA 7 (`Producto_Unidad_1_NewBit`, incluye el FGAP020 v1.0) y su presentación en PowerPoint (`PPT_Producto_Unidad_1_NewBit`).
+* **Semana 7 (pendiente):** Solicitud de Cambio (`FGAP090`) de NewBit. Formato, ejemplos y plantilla de cotejo del docente en [`curso/semana-07-gestion-del-cambio/`](../curso/semana-07-gestion-del-cambio/README.md).
+* **Semana 8 (pendiente, por confirmar):** Riesgo (`FGAP050`), EDT del Sprint (`FGAP110`), Cronograma (`FGAP130`) y burndown de NewBit. Ejemplos del docente en [`curso/semana-08-riesgo-y-planificacion-del-sprint/`](../curso/semana-08-riesgo-y-planificacion-del-sprint/README.md).
 * **Hoja de Ruta Canónica:** [`gestion/roadmap-reestructuracion.md`](gestion/roadmap-reestructuracion.md).
 
 ---

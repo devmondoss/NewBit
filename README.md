@@ -37,7 +37,9 @@ NewBit/
 | 3 | 28/09–04/10 | Roles y Prototipos · infografía · PPT · diagrama | [`curso/semana-03-roles-y-prototipos/`](curso/semana-03-roles-y-prototipos/) |
 | 4 | 05–11/10 | Justificación · Épicas e historias | [`curso/semana-04-justificacion-y-epicas/`](curso/semana-04-justificacion-y-epicas/) |
 | 5 | 12–18/10 | RSU · Secuencia de avances · Criterios de terminado · Puño de cinco · Kanban · Priorización | [`curso/semana-05-rsu-y-backlog/`](curso/semana-05-rsu-y-backlog/) |
-| **6** | **19–25/10 (actual)** | Producto de la Unidad I (informe LaTeX/APA + presentación) | [`curso/semana-06-producto-unidad-1/`](curso/semana-06-producto-unidad-1/) |
+| 6 | 19–25/10 | Producto de la Unidad I (informe LaTeX/APA + presentación) | [`curso/semana-06-producto-unidad-1/`](curso/semana-06-producto-unidad-1/) |
+| 7 | 26/10–01/11 | Gestión del cambio · FGAP090 Solicitud de Cambio | [`curso/semana-07-gestion-del-cambio/`](curso/semana-07-gestion-del-cambio/) |
+| **8** | **02–08/11 (actual)** | Riesgo (FGAP050) · EDT del Sprint (FGAP110) · Cronograma (FGAP130) · Burndown | [`curso/semana-08-riesgo-y-planificacion-del-sprint/`](curso/semana-08-riesgo-y-planificacion-del-sprint/) |
 
 ## Reglas para agregar contenido
 1. **¿Lo mandó el profe?** → `curso/semana-XX-<tema>/material-del-profe/` (la semana es la de llegada). Si es de todo el curso, como el libro, va directo en `curso/`. Actualizar [`curso/README.md`](curso/README.md) y [`curso/contexto-del-curso.md`](curso/contexto-del-curso.md).

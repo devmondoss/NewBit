@@ -7,7 +7,7 @@ Tipos de `.md`:
 - **Resumen:** contenido útil (estructura, datos, cifras), no cada palabra.
 - **Transcripción:** todo el texto; solo para documentos cortos o formatos a llenar.
 
-Rutas relativas a la raíz del repo. `S2…S6` = `curso/semana-02-scrum-y-acta`, `curso/semana-03-roles-y-prototipos`, `curso/semana-04-justificacion-y-epicas`, `curso/semana-05-rsu-y-backlog`, `curso/semana-06-producto-unidad-1`.
+Rutas relativas a la raíz del repo. `S2…S8` = `curso/semana-02-scrum-y-acta`, `curso/semana-03-roles-y-prototipos`, `curso/semana-04-justificacion-y-epicas`, `curso/semana-05-rsu-y-backlog`, `curso/semana-06-producto-unidad-1`, `curso/semana-07-gestion-del-cambio`, `curso/semana-08-riesgo-y-planificacion-del-sprint`.
 
 ## Curso: material del profe (`S*/material-del-profe/`)
 | Semana | Carpeta | Tipo de `.md` | De qué trata |
@@ -32,6 +32,19 @@ Rutas relativas a la raíz del repo. `S2…S6` = `curso/semana-02-scrum-y-acta`,
 | 5 | `rsu-reglamento-uns/` | Resumen detallado (escaneado; no reabrir) | Reglamento RSU de la UNS + anexos |
 | 5 | `rsu-ejemplo-1-charla-tecnologia/` | Resumen | Ejemplo RSU: charla vocacional |
 | 5 | `rsu-ejemplo-2-ajedrez-con-ia/` | Resumen | Ejemplo RSU: ajedrez con IA |
+| 7 | `gestion-del-cambio-clase/` | Ficha rápida (40 diap.) + texto completo en `.texto-completo.md` | Clase de la semana 7: Gestión del cambio en Scrum (cap. 6 SBOK) |
+| 7 | `gestion-del-cambio-casos-ilustrados/` | Ficha rápida (14 págs.) + texto completo en `.texto-completo.md` | 4 casos de cambio paso a paso (Retinopatía, ficticio) + plantilla de cotejo del docente |
+| 7 | `solicitud-de-cambio-fgap090-formato/` | Transcripción (2 págs.) | FGAP090 Solicitud de Cambio, formato en blanco |
+| 7 | `solicitud-de-cambio-fgap090-ejemplo/` | Resumen (2 págs.) | FGAP090 resuelto: control de calidad de imágenes (Retinopatía) |
+| 7 | `solicitud-de-cambio-egap050-ejemplo-1/` | Resumen (2 págs.) | EGAP050 Solicitud de Cambio, ejemplo 1: informe PDF (Retinopatía) |
+| 7 | `solicitud-de-cambio-egap050-ejemplo-2/` | Resumen (2 págs.) | EGAP050 Solicitud de Cambio, ejemplo 2: validar calidad de imágenes (Retinopatía) |
+| 8 | `riesgo-fgap050-ejemplo-1/` | Resumen (1 pág.) + tabla de escalas | FGAP050 Riesgo del Proyecto, ejemplo resuelto: desempeño del modelo con otras cámaras (Retinopatía) |
+| 8 | `riesgo-fgap050-ejemplo-2/` | Resumen (1 pág.) | FGAP050, ejemplo 2: acceso no autorizado a imágenes (Retinopatía) |
+| 8 | `edt-del-sprint-fgap110-formato/` (DOC) | Transcripción + imagen descrita | FGAP110 EDT del Sprint, formato en blanco (árbol con HU, solicitudes de cambio y riesgos) |
+| 8 | `edt-del-sprint-fgap110-ejemplo-sprint-02/` | Resumen (2 págs.) | FGAP110 resuelto, Sprint 02: 3 HU → 12 tareas técnicas (Retinopatía) |
+| 8 | `edt-del-sprint-fgap110-ejemplo-sprint-03/` | Resumen (2 págs.) | FGAP110 resuelto, Sprint 03: historial, PDF y auditoría (Retinopatía) |
+| 8 | `cronograma-del-sprint-fgap130-ejemplo/` | Transcripción de la tabla (1 pág.) | FGAP130 Cronograma del Sprint (Gantt), ejemplo Sprint 02 (Retinopatía) |
+| 8 | `burndown-sprint-01-ejemplo/` (XLSX) | Resumen + fórmulas | Burndown editable del Sprint 01: ideal vs. real, solo bajan HU terminadas (Retinopatía) |
 
 ## Curso: nuestras entregas (`S*/nuestras-entregas/`)
 | Semana | Carpeta | Tipo de `.md` | De qué trata |

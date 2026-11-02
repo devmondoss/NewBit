@@ -8,10 +8,7 @@ El libro base del docente está en [`referencias/libro-guia-sbok/`](referencias/
 
 **Reglas:** una carpeta por archivo, con el original y su `.md` del mismo nombre; se lee el `.md`, no el original. La semana de un material es la de su llegada; la de una entrega, la semana en que se pidió. La semana 1 (14–20/09) no tuvo actividad.
 
-## Semana 6 · 19–25/10 (actual) · Producto de la Unidad I → [`semana-06-producto-unidad-1/`](semana-06-producto-unidad-1/README.md)
-| Material del profe | Nuestras entregas |
-|---|---|
-| Pedido por mensaje (19/10): carátula, índice, introducción, antecedentes, marco teórico, desarrollo con todos los formatos, referencias y PPT | [Informe del Producto de la Unidad I](semana-06-producto-unidad-1/nuestras-entregas/Producto_Unidad_1_NewBit/Producto_Unidad_1_NewBit.md) · [Presentación](semana-06-producto-unidad-1/nuestras-entregas/PPT_Producto_Unidad_1_NewBit/PPT_Producto_Unidad_1_NewBit.md) |
+**Semana actual: 8 (02–08/11), Riesgo y planificación del sprint.** Ya llegaron ejemplos (FGAP050, FGAP110, FGAP130 y burndown); la clase de la semana todavía no.
 
 ## Semana 2 · 21–27/09 · Scrum y Acta → [`semana-02-scrum-y-acta/`](semana-02-scrum-y-acta/)
 | Material del profe | Nuestras entregas |
@@ -28,10 +25,25 @@ El libro base del docente está en [`referencias/libro-guia-sbok/`](referencias/
 |---|---|
 | [Justificación: formato y ejemplo](semana-04-justificacion-y-epicas/material-del-profe/justificacion-formato-y-ejemplo/justificacion-formato-y-ejemplo.md) · [Épicas: ejemplo Retinopatía](semana-04-justificacion-y-epicas/material-del-profe/epicas-ejemplo-retinopatia/epicas-ejemplo-retinopatia.md) | [EGAP015 Justificación](semana-04-justificacion-y-epicas/nuestras-entregas/EGAP015_Justificacion_NewBit/EGAP015_Justificacion_NewBit.md) · [FGAP040 Épicas canónicas (12 HU)](semana-04-justificacion-y-epicas/nuestras-entregas/FGAP040_Epicas_NewBit/FGAP040_Epicas_NewBit.md) *(versión previa de 26 HU archivada en [`descartado/`](../descartado/epicas-26-hu-obsoletas/epicas-26-hu-obsoletas.md))* |
 
-## Semana 5 · 12–18/10 (actual) · RSU y Backlog → [`semana-05-rsu-y-backlog/`](semana-05-rsu-y-backlog/README.md)
+## Semana 5 · 12–18/10 · RSU y Backlog → [`semana-05-rsu-y-backlog/`](semana-05-rsu-y-backlog/README.md)
 | Material del profe | Nuestras entregas |
 |---|---|
 | [Secuencia de avances FGAP010 → FGAP090](semana-05-rsu-y-backlog/material-del-profe/secuencia-de-avances/secuencia-de-avances.md) · [Clase: Justificación de negocio (12/10)](semana-05-rsu-y-backlog/material-del-profe/justificacion-de-negocio-clase/justificacion-de-negocio-clase.md) · [FGAP060 Backlog priorizado: ejemplo Retinopatía](semana-05-rsu-y-backlog/material-del-profe/backlog-priorizado-ejemplo-retinopatia/backlog-priorizado-ejemplo-retinopatia.md) · [FGAP070 Criterios de Terminado: ejemplo](semana-05-rsu-y-backlog/material-del-profe/criterios-de-terminado-ejemplo-retinopatia/criterios-de-terminado-ejemplo-retinopatia.md) · [RSU: reglamento](semana-05-rsu-y-backlog/material-del-profe/rsu-reglamento-uns/rsu-reglamento-uns.md) · [RSU: resolución 448-2023](semana-05-rsu-y-backlog/material-del-profe/rsu-resolucion-448-2023/rsu-resolucion-448-2023.md) · [RSU: ejemplo 1](semana-05-rsu-y-backlog/material-del-profe/rsu-ejemplo-1-charla-tecnologia/rsu-ejemplo-1-charla-tecnologia.md) · [RSU: ejemplo 2](semana-05-rsu-y-backlog/material-del-profe/rsu-ejemplo-2-ajedrez-con-ia/rsu-ejemplo-2-ajedrez-con-ia.md) · [Comparación RSU](semana-05-rsu-y-backlog/README.md) | [Estimación: Puño de cinco](semana-05-rsu-y-backlog/nuestras-entregas/Presentacion_Fist_of_Five/Presentacion_Fist_of_Five.md) · [Priorización: MoSCoW y 100 puntos](semana-05-rsu-y-backlog/nuestras-entregas/Priorizacion_MoSCoW_100_Puntos_NewBit/Priorizacion_MoSCoW_100_Puntos_NewBit.md) · [Tablero Kanban](semana-05-rsu-y-backlog/nuestras-entregas/Tablero_Kanban_NewBit/Tablero_Kanban_NewBit.md) |
+
+## Semana 6 · 19–25/10 · Producto de la Unidad I → [`semana-06-producto-unidad-1/`](semana-06-producto-unidad-1/README.md)
+| Material del profe | Nuestras entregas |
+|---|---|
+| Pedido por mensaje (19/10): carátula, índice, introducción, antecedentes, marco teórico, desarrollo con todos los formatos, referencias y PPT | [Informe del Producto de la Unidad I](semana-06-producto-unidad-1/nuestras-entregas/Producto_Unidad_1_NewBit/Producto_Unidad_1_NewBit.md) · [Presentación](semana-06-producto-unidad-1/nuestras-entregas/PPT_Producto_Unidad_1_NewBit/PPT_Producto_Unidad_1_NewBit.md) |
+
+## Semana 7 · 26/10–01/11 · Gestión del cambio → [`semana-07-gestion-del-cambio/`](semana-07-gestion-del-cambio/README.md)
+| Material del profe | Nuestras entregas |
+|---|---|
+| [Clase: Gestión del cambio (cap. 6 SBOK)](semana-07-gestion-del-cambio/material-del-profe/gestion-del-cambio-clase/gestion-del-cambio-clase.md) · [Casos ilustrados + plantilla de cotejo](semana-07-gestion-del-cambio/material-del-profe/gestion-del-cambio-casos-ilustrados/gestion-del-cambio-casos-ilustrados.md) · [FGAP090 Solicitud de Cambio: formato](semana-07-gestion-del-cambio/material-del-profe/solicitud-de-cambio-fgap090-formato/solicitud-de-cambio-fgap090-formato.md) · [FGAP090: ejemplo resuelto](semana-07-gestion-del-cambio/material-del-profe/solicitud-de-cambio-fgap090-ejemplo/solicitud-de-cambio-fgap090-ejemplo.md) · [EGAP050: ejemplo 1](semana-07-gestion-del-cambio/material-del-profe/solicitud-de-cambio-egap050-ejemplo-1/solicitud-de-cambio-egap050-ejemplo-1.md) · [EGAP050: ejemplo 2](semana-07-gestion-del-cambio/material-del-profe/solicitud-de-cambio-egap050-ejemplo-2/solicitud-de-cambio-egap050-ejemplo-2.md) | **Pendiente:** FGAP090 Solicitud de Cambio de NewBit |
+
+## Semana 8 · 02–08/11 (actual) · Riesgo y planificación del sprint → [`semana-08-riesgo-y-planificacion-del-sprint/`](semana-08-riesgo-y-planificacion-del-sprint/README.md)
+| Material del profe | Nuestras entregas |
+|---|---|
+| [FGAP050 Riesgo: ejemplo 1 + escalas](semana-08-riesgo-y-planificacion-del-sprint/material-del-profe/riesgo-fgap050-ejemplo-1/riesgo-fgap050-ejemplo-1.md) · [FGAP050: ejemplo 2](semana-08-riesgo-y-planificacion-del-sprint/material-del-profe/riesgo-fgap050-ejemplo-2/riesgo-fgap050-ejemplo-2.md) · [FGAP110 EDT del Sprint: formato](semana-08-riesgo-y-planificacion-del-sprint/material-del-profe/edt-del-sprint-fgap110-formato/edt-del-sprint-fgap110-formato.md) · [FGAP110: ejemplo Sprint 02](semana-08-riesgo-y-planificacion-del-sprint/material-del-profe/edt-del-sprint-fgap110-ejemplo-sprint-02/edt-del-sprint-fgap110-ejemplo-sprint-02.md) · [FGAP110: ejemplo Sprint 03](semana-08-riesgo-y-planificacion-del-sprint/material-del-profe/edt-del-sprint-fgap110-ejemplo-sprint-03/edt-del-sprint-fgap110-ejemplo-sprint-03.md) · [FGAP130 Cronograma: ejemplo](semana-08-riesgo-y-planificacion-del-sprint/material-del-profe/cronograma-del-sprint-fgap130-ejemplo/cronograma-del-sprint-fgap130-ejemplo.md) · [Burndown en Excel: ejemplo](semana-08-riesgo-y-planificacion-del-sprint/material-del-profe/burndown-sprint-01-ejemplo/burndown-sprint-01-ejemplo.md) | **Pendiente** (por confirmar qué se pide): FGAP050, FGAP110, FGAP130 y burndown de NewBit |
 
 ## Ejemplos del docente ≠ trabajo del equipo
 **BigFarma**, **Retinopatía Diabética** y los dos **proyectos RSU de 2025** son modelos del docente. El proyecto del equipo es **NewBit**, con Unsafe-Net como investigación base. En [`../descartado/`](../descartado/) hay un borrador de Justificación escrito para Retinopatía que no es del equipo.
