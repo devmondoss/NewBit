@@ -18,6 +18,8 @@
 
 Cada semana tiene su ficha `README.md` dentro de su carpeta.
 
+**Para el Drive del curso:** `herramientas/exportar_drive.py` copia solo las entregas finales, ordenadas por semana y con un índice «00 - LEEME» en PDF, a `~/Desktop/NewBit - Entregas (Drive)` (y un `.zip`), lista para arrastrar al Drive.
+
 ## 🗺️ Roadmap, sprints y proyecto
 
 | Qué | Dónde |
