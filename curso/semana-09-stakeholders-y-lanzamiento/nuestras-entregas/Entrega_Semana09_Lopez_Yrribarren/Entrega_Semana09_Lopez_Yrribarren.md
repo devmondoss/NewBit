@@ -1,0 +1,6 @@
+# Entrega individual de la semana 9: EGAP020 + FGAP080 (Anthony Gabriel Lopez Yrribarren)
+
+- **Archivo para entregar:** `Entrega_Semana09_Lopez_Yrribarren.pdf` (11 págs., horizontal, con marcadores).
+- **Contenido:** carátula (UNS, Facultad de Ingeniería, EP de Ingeniería de Sistemas e Informática, curso, alumno y docente, con los datos de la carátula del Producto de la Unidad I) → [EGAP020 Registro de Stakeholders](../EGAP020_Registro_de_Stakeholders_NewBit/EGAP020_Registro_de_Stakeholders_NewBit.md) (págs. 2–3) → [FGAP080 Cronograma de Planificación de Lanzamiento](../FGAP080_Cronograma_Lanzamiento_NewBit/FGAP080_Cronograma_Lanzamiento_NewBit.md) (págs. 4–11: parámetros de la liberación, cronograma detallado con resultado verificable, vista tipo Gantt por semanas, condiciones de uso, vista resumen de MS Project y detalle de las tareas de cada sprint).
+- **Cómo se arma:** `unir_entrega.py` (PyMuPDF) toma los PDF ya exportados de cada carpeta y les antepone la carátula. Si se corrige alguno de los dos, primero se regenera en su carpeta (`generar_egap020.py` + Pages, `generar_fgap080.py --pdf` o el botón Word/PDF de Mini Project) y después se vuelve a correr este script.
+- **Fecha:** 09/11/2026 · actividad individual (los dos formatos llevan «Hecho por: Anthony Gabriel Lopez Yrribarren» y su nombre al pie).

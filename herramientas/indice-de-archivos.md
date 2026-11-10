@@ -7,7 +7,7 @@ Tipos de `.md`:
 - **Resumen:** contenido útil (estructura, datos, cifras), no cada palabra.
 - **Transcripción:** todo el texto; solo para documentos cortos o formatos a llenar.
 
-Rutas relativas a la raíz del repo. `S2…S8` = `curso/semana-02-scrum-y-acta`, `curso/semana-03-roles-y-prototipos`, `curso/semana-04-justificacion-y-epicas`, `curso/semana-05-rsu-y-backlog`, `curso/semana-06-producto-unidad-1`, `curso/semana-07-gestion-del-cambio`, `curso/semana-08-riesgo-y-planificacion-del-sprint`.
+Rutas relativas a la raíz del repo. `S2…S9` = `curso/semana-02-scrum-y-acta`, `curso/semana-03-roles-y-prototipos`, `curso/semana-04-justificacion-y-epicas`, `curso/semana-05-rsu-y-backlog`, `curso/semana-06-producto-unidad-1`, `curso/semana-07-gestion-del-cambio`, `curso/semana-08-riesgo-y-planificacion-del-sprint`, `curso/semana-09-stakeholders-y-lanzamiento`.
 
 ## Curso: material del profe (`S*/material-del-profe/`)
 | Semana | Carpeta | Tipo de `.md` | De qué trata |
@@ -44,7 +44,12 @@ Rutas relativas a la raíz del repo. `S2…S8` = `curso/semana-02-scrum-y-acta`,
 | 8 | `edt-del-sprint-fgap110-ejemplo-sprint-02/` | Resumen (2 págs.) | FGAP110 resuelto, Sprint 02: 3 HU → 12 tareas técnicas (Retinopatía) |
 | 8 | `edt-del-sprint-fgap110-ejemplo-sprint-03/` | Resumen (2 págs.) | FGAP110 resuelto, Sprint 03: historial, PDF y auditoría (Retinopatía) |
 | 8 | `cronograma-del-sprint-fgap130-ejemplo/` | Transcripción de la tabla (1 pág.) | FGAP130 Cronograma del Sprint (Gantt), ejemplo Sprint 02 (Retinopatía) |
+| 8 | `riesgo-en-scrum-diapositivas/` | Ficha rápida (no leído completo) | Clase «Gestión del riesgo en Scrum» (cap. 7 SBOK), 40 láminas; lámina 39 = actividad calificada FGAP050 |
 | 8 | `burndown-sprint-01-ejemplo/` (XLSX) | Resumen + fórmulas | Burndown editable del Sprint 01: ideal vs. real, solo bajan HU terminadas (Retinopatía) |
+| 9 | `stakeholders-egap020-ejemplo-bigfarma/` | Resumen (3 págs.) | EGAP020 Registro de Stakeholders, ejemplo BigFarma, versión «alumnos» |
+| 9 | `stakeholders-egap020-ejemplo-retinopatia/` | Resumen (2 págs.) | EGAP020 Registro de Stakeholders, ejemplo Retinopatía (09/11/2026) |
+| 9 | `lanzamiento-fgap080-formato/` | Transcripción (1 pág.) | FGAP080 Cronograma de Planificación de Lanzamiento, formato con captura modelo de MS Project |
+| 9 | `lanzamiento-fgap080-ejemplo-retinopatia/` | Resumen (2 págs.) | FGAP080 resuelto: 4 sprints de 8 días hábiles y 2 lanzamientos (Retinopatía) |
 
 ## Curso: nuestras entregas (`S*/nuestras-entregas/`)
 | Semana | Carpeta | Tipo de `.md` | De qué trata |
@@ -63,6 +68,9 @@ Rutas relativas a la raíz del repo. `S2…S8` = `curso/semana-02-scrum-y-acta`,
 | 6 | `Producto_Unidad_1_NewBit/` | Resumen | Producto de la Unidad I v3: informe en LaTeX, APA 7, enfocado en la Guía SBOK, con el estado real del incremento al 20/10 (PDF de 40 págs. + `.tex` + sello UNS) |
 | 6 | `PPT_Producto_Unidad_1_NewBit/` | Resumen | Presentación del Producto de la Unidad I en PowerPoint v4, estilo pitch, con el avance real (`.pptx` editable de 30 láminas + PDF + generadores) |
 | 6 | `Tablero_Kanban_NewBit_Actualizado/` | Resumen | Tablero Kanban de la semana 5 con el estado al 20/10/2026: backlog con columna Estado, Scrumboard del Sprint 1 terminado, historias del Sprint 2 adelantadas (`.pptx` de 7 diap. + PDF + HTML) |
+| 9 | `FGAP080_Cronograma_Lanzamiento_NewBit/` | Resumen + tabla completa | FGAP080 Cronograma de Lanzamiento con las tareas de los 4 sprints (80 filas, responsables y predecesoras): PDF de 8 págs. (parámetros, cronograma detallado, Gantt por semanas, condiciones y MS Project) + Word + XML de MS Project + Gantt PNG + generador |
+| 9 | `Entrega_Semana09_Lopez_Yrribarren/` | Resumen | PDF único de la entrega individual: carátula + EGAP020 + FGAP080 (11 págs.) y el script que lo arma |
+| 9 | `EGAP020_Registro_de_Stakeholders_NewBit/` | Resumen + tabla completa | EGAP020 Registro de Stakeholders en el formato del docente: 10 interesados con identificación y evaluación (Word + PDF horizontal + generador) |
 
 ## Proyecto (`proyecto-newbit/investigacion/`)
 | Carpeta | Tipo de `.md` | De qué trata |

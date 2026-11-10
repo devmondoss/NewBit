@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mini Project</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<header class="titulo">
+  <span class="logo">P</span>
+  <span id="nombreArchivo">Sin título</span><span id="sucio" title="Cambios sin guardar"></span>
+  <span class="espacio"></span>
+  <span class="ayuda-corta">Mini Project · formato XML de MS Project (MSPDI)</span>
+</header>
+
+<nav class="cinta" aria-label="Herramientas">
+  <div class="grupo">
+    <button data-accion="nuevo" title="Nuevo proyecto">📄<span>Nuevo</span></button>
+    <button data-accion="abrir" title="Abrir un .xml del repo (Ctrl+O)">📂<span>Abrir</span></button>
+    <button data-accion="guardar" title="Guardar (Ctrl+S)">💾<span>Guardar</span></button>
+    <button data-accion="guardarComo" title="Guardar como…">🗂️<span>Guardar como</span></button>
+    <div class="nombre-grupo">Archivo</div>
+  </div>
+  <div class="grupo">
+    <button data-accion="deshacer" title="Deshacer (Ctrl+Z)">↶<span>Deshacer</span></button>
+    <button data-accion="rehacer" title="Rehacer (Ctrl+Y)">↷<span>Rehacer</span></button>
+    <div class="nombre-grupo">Edición</div>
+  </div>
+  <div class="grupo">
+    <button data-accion="insertar" title="Insertar tarea encima (Insert)">➕<span>Tarea</span></button>
+    <button data-accion="hito" title="Insertar hito (0 días)">◆<span>Hito</span></button>
+    <button data-accion="eliminar" title="Eliminar tarea (Ctrl+Supr)">✖<span>Eliminar</span></button>
+    <button data-accion="sangria" title="Aplicar sangría: volverla subtarea (Alt+Shift+→)">⇥<span>Sangría</span></button>
+    <button data-accion="anularSangria" title="Anular sangría (Alt+Shift+←)">⇤<span>Anular</span></button>
+    <button data-accion="subir" title="Subir (Alt+Shift+↑)">▲<span>Subir</span></button>
+    <button data-accion="bajar" title="Bajar (Alt+Shift+↓)">▼<span>Bajar</span></button>
+    <button data-accion="vincular" title="Vincular las filas seleccionadas en cadena (fin → comienzo)">🔗<span>Vincular</span></button>
+    <div class="nombre-grupo">Tarea</div>
+  </div>
+  <div class="grupo">
+    <button data-accion="alejar" title="Alejar escala de tiempo">🔍−<span>Alejar</span></button>
+    <button data-accion="acercar" title="Acercar escala de tiempo">🔍+<span>Acercar</span></button>
+    <button data-accion="irHoy" title="Ir a hoy">📍<span>Hoy</span></button>
+    <button data-accion="ajustarColumnas" title="Ajustar el ancho de todas las columnas a su contenido">↔<span>Ajustar</span></button>
+    <button data-accion="restablecerColumnas" title="Volver al orden y ancho de columnas por defecto">⟲<span>Columnas</span></button>
+    <div class="nombre-grupo">Vista</div>
+  </div>
+  <div class="grupo">
+    <button data-accion="propiedades" title="Nombre, fecha de inicio y feriados">⚙️<span>Proyecto</span></button>
+    <button data-accion="exportarPng" title="Descargar la vista como imagen PNG">🖼️<span>PNG</span></button>
+    <button data-accion="generar" title="Guardar y correr el generar_*.py de la carpeta (Word/PDF del formato)">📑<span>Word/PDF</span></button>
+    <div class="nombre-grupo">Proyecto</div>
+  </div>
+</nav>
+
+<main id="vista">
+  <section id="panelTabla">
+    <div id="cabTabla" class="cab"></div>
+    <div id="cuerpoTabla"></div>
+  </section>
+  <div id="divisor" title="Arrastrar para cambiar el ancho"></div>
+  <section id="panelGantt">
+    <div id="cabGantt" class="cab"><svg id="svgCab"></svg></div>
+    <div id="cuerpoGantt"><svg id="svgGantt"></svg></div>
+  </section>
+</main>
+
+<footer class="estado">
+  <span id="msgEstado">Listo</span>
+  <span class="espacio"></span>
+  <span id="resumenEstado"></span>
+</footer>
+
+<dialog id="dlgAbrir">
+  <form method="dialog">
+    <h2>Abrir proyecto</h2>
+    <p class="nota">Archivos XML de MS Project encontrados en el repositorio (los más recientes primero).</p>
+    <input id="filtroAbrir" type="search" placeholder="Filtrar…" autocomplete="off">
+    <ul id="listaAbrir"></ul>
+    <div class="botones"><button value="cancelar">Cancelar</button></div>
+  </form>
+</dialog>
+
+<dialog id="dlgGuardar">
+  <form method="dialog">
+    <h2>Guardar como</h2>
+    <label>Ruta dentro del repo (termina en .xml)
+      <input id="rutaGuardar" type="text" required pattern=".*\.xml$" placeholder="curso/semana-XX-tema/nuestras-entregas/CARPETA/archivo.xml">
+    </label>
+    <p class="nota">Consejo: guárdalo en la carpeta de la entrega. Si allí hay un <code>generar_*.py</code> que acepta <code>--xml</code>, el botón Word/PDF lo usará.</p>
+    <div class="botones"><button value="cancelar" formnovalidate>Cancelar</button><button value="ok" class="primario">Guardar</button></div>
+  </form>
+</dialog>
+
+<dialog id="dlgPropiedades">
+  <form method="dialog">
+    <h2>Información del proyecto</h2>
+    <label>Nombre (título)<input id="propTitulo" type="text"></label>
+    <label>Fecha de comienzo<input id="propInicio" type="date" required></label>
+    <label>Feriados / días no laborables (uno por línea: dd/mm/aaaa)
+      <textarea id="propFeriados" rows="6" placeholder="08/12/2026"></textarea>
+    </label>
+    <p class="nota">Sábados y domingos ya son no laborables. Si agregas un feriado, las fechas se recalculan solas.</p>
+    <div class="botones"><button value="cancelar" formnovalidate>Cancelar</button><button value="ok" class="primario">Aceptar</button></div>
+  </form>
+</dialog>
+
+<dialog id="dlgSalida">
+  <form method="dialog">
+    <h2 id="salidaTitulo">Resultado</h2>
+    <pre id="salidaTexto"></pre>
+    <div class="botones"><button value="ok" class="primario">Cerrar</button></div>
+  </form>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>
