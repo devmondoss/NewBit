@@ -5,7 +5,7 @@
 | Qué | Dónde |
 |---|---|
 | Lo que mandó el profe | [material-del-profe/](material-del-profe/) (tabla abajo) |
-| Lo que entregamos | [nuestras-entregas/](nuestras-entregas/): **FGAP050 Riesgo**, **FGAP110 EDT del Sprint 02**, **FGAP130 Cronograma del Sprint 02** y **burndown** de los Sprints 01 y 02. Según la lámina 39 de la clase, el FGAP050 pide **al menos 6 riesgos** y hoy tiene 3 |
+| Lo que entregamos | [nuestras-entregas/](nuestras-entregas/): **FGAP050 Riesgo**, **FGAP110 EDT del Sprint 02**, **FGAP130 Cronograma del Sprint 02** y **burndown** de los Sprints 01 y 02. El FGAP050 v1.1 cumple la lámina 39 de la clase (al menos 6 riesgos, priorización, respuesta y guion de 3 minutos). La SC-001 no se aprobó: T06–T10 no se ejecutan (carga real del Sprint 2: 24 h) |
 | Teoría | `curso/referencias/libro-guia-sbok/texto-completo/07-riesgo.md` (cap. 7) |
 
 Vista global: [INDICE.md](../../INDICE.md).

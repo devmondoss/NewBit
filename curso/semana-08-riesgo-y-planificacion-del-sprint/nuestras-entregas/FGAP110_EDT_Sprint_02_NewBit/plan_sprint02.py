@@ -23,7 +23,7 @@ NODOS = [
     {"id": "HU05", "tipo": "HU", "titulo": "Agrupar en clips", "pts": 3, "nota": "Falta la ventana fija de N frames y el tensor de ConvLSTM."},
     {"id": "HU06", "tipo": "HU", "titulo": "Descartar clips cortos", "pts": 2, "nota": "Construida; se alinea con la ventana N."},
     {"id": "HU11", "tipo": "HU", "titulo": "Calibrar umbral (confidence)", "pts": 1, "nota": "Construida; falta evidencia con video real."},
-    {"id": "SC-001", "tipo": "SC", "titulo": "Adelantar HU07 (ConvLSTM)", "pts": 5, "nota": "Solo si el PO aprueba la SC-001 (FGAP090)."},
+    {"id": "SC-001", "tipo": "SC", "titulo": "Adelantar HU07 (ConvLSTM)", "pts": 5, "nota": "No aprobada por el PO (02/11/2026): HU07 queda en el Sprint 3."},
     {"id": "R-01", "tipo": "R", "titulo": "Ajuste del modelo temporal", "pts": None, "nota": "P×I 0,40 · Alto (FGAP050)."},
     {"id": "R-02", "tipo": "R", "titulo": "Implementación propia del pipeline", "pts": None, "nota": "P×I 0,20 · Moderado (FGAP050)."},
     {"id": "R-03", "tipo": "R", "titulo": "GPU y tiempo de entrenamiento", "pts": None, "nota": "P×I 0,20 · Moderado (FGAP050)."},

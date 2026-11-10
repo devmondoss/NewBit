@@ -137,7 +137,7 @@ def main(out):
         d.text(((lx + 14) * S, ly * S), etiqueta, font=font(False, 8.2), fill=negro, anchor="lm")
         lx += 14 + d.textlength(etiqueta, font=font(False, 8.2)) / S + 16
     d.text((lx * S, ly * S), "Tareas T01–T14 numeradas en forma correlativa en todo el sprint · horas = estimación del equipo · "
-           "SC-001 entra solo si el PO la aprueba", font=font(False, 8.2), fill=(70, 70, 70), anchor="lm")
+           "SC-001 no aprobada por el PO (02/11): T06–T10 no se ejecutan", font=font(False, 8.2), fill=(70, 70, 70), anchor="lm")
     # recortar alto sobrante
     bbox = Image.eval(img.convert("L"), lambda v: 255 - v).getbbox()
     img = img.crop((0, 0, W * S, min(H * S, bbox[3] + 8 * S) if False else (H + 2) * S))

@@ -2,12 +2,12 @@
 
 **Tema:** Scrum – Gestión del cambio (cap. 6 de la Guía del SBOK, pp. 101–118). Material recibido el 27/10.
 
-**Evidencia que pide el sílabo:** «Solicitud de Cambio desarrollada» en el formato **FGAP090** para nuestro proyecto: solicitud completa, decisión justificada y Product Backlog impactado. **Pendiente:** no hay entrega en el repo.
+**Evidencia que pide el sílabo:** «Solicitud de Cambio desarrollada» en el formato **FGAP090** para nuestro proyecto: solicitud completa, decisión justificada y Product Backlog impactado. **Hecho:** FGAP090 y EGAP050 de la SC-001.
 
 | Qué | Dónde |
 |---|---|
 | Lo que mandó el profe | [material-del-profe/](material-del-profe/) (tabla abajo) |
-| Lo que entregamos | Pendiente: FGAP090 Solicitud de Cambio de NewBit |
+| Lo que entregamos | [FGAP090 Solicitud de Cambio](nuestras-entregas/FGAP090_Solicitud_de_Cambio_NewBit/FGAP090_Solicitud_de_Cambio_NewBit.md) y [EGAP050 Solicitud de Cambio](nuestras-entregas/EGAP050_Solicitud_de_Cambio_NewBit/EGAP050_Solicitud_de_Cambio_NewBit.md): SC-001 (adelantar HU07 al Sprint 2), **no aprobada** por el PO el 02/11/2026; HU07 sigue en el Sprint 3 |
 | Semana siguiente | [Semana 8: Riesgo y planificación del sprint](../semana-08-riesgo-y-planificacion-del-sprint/README.md) (la diapositiva 40 anunció Scrum – Riesgo) |
 
 Vista global: [INDICE.md](../../INDICE.md).

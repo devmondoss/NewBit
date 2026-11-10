@@ -23,7 +23,7 @@ PROYECTO = ("PY-NB-001 | NewBit: Sistema web con Visión Artificial para la dete
 CODIGO_SC = "SC-001"
 
 VERSIONES = ["1.0", "Developers (Anthony Lopez y Luis Salazar)", "Anthony Lopez (SM)",
-             "Albert Chumacero (PO) · {PC}", "02/11/2026", "Registro inicial de la solicitud de cambio"]
+             "Albert Chumacero (PO)", "02/11/2026", "Registro de la solicitud y decisión del PO"]
 
 PROBLEMA = [
     "**Problema:** el plan de sprints del Product Backlog ya no refleja el avance real. Las HU del Sprint 2 (HU04, HU05, HU06 y HU11; 8 pts) están construidas "
@@ -73,7 +73,7 @@ CORTO = [
     "Se actualizan Product Backlog, Kanban, EDT, cronograma y burndown del Sprint 2.",
 ]
 LARGO = [
-    "El Sprint 3 queda con HU08 (3 pts) y holgura para ajustar ConvLSTM; su uso lo decide el PO ({PC}).",
+    "El Sprint 3 quedaría con HU08 (3 pts) y holgura para ajustar ConvLSTM; su uso lo definiría el PO en el refinamiento.",
     "Sin cambios en el Sprint 4, la liberación (14–18/12) ni la duración de los sprints.",
     "La línea base formal sigue en el Sprint 3, pero con un modelo ya probado de punta a punta.",
     "Baja la probabilidad de cerrar con alcance reducido (una sola conducta).",
@@ -101,18 +101,18 @@ EXTRA = [
 OBSERVACIONES = [
     "**Estimación:** HU07 mantiene 5 pts; 16 h de tareas (T06–T09) y 5 h de respuesta a riesgos (T10 y T14). Son estimaciones del equipo, no resultados.",
     "**Product Backlog impactado:** solo HU07 cambia de sprint (3 → 2). Puntos por sprint: S1 7 · S2 8 → 13 · S3 8 → 3 · S4 8 (total 31).",
-    "**Solicitud ≠ cambio aprobado:** hasta la decisión del PO, HU07 sigue en el Sprint 3. Si se rechaza, T06–T10 y T14 salen del Sprint 2 (quedan 22 h).",
-    "**HU01–HU03:** construidas y sin aceptar (no hay acta de la revisión del Sprint 1); su cierre depende de T11 y T12 (R-02). Presentación en la revisión del Sprint 2: {PC}.",
+    "**Decisión del PO (02/11/2026):** no se aprueba para el Sprint 2. HU07 sigue en el Sprint 3 y T06–T10 no se ejecutan; T14 (entorno de Colab, respuesta a R-03) sí se hace en el Sprint 2 para preparar el Sprint 3.",
+    "**HU01–HU03:** construidas y sin aceptar (no hay acta de la revisión del Sprint 1); su cierre depende de T11 y T12 (R-02). El PO las revisa en la revisión del Sprint 2 (13/11) con la evidencia de T11–T13.",
     "**Numeración:** HU según el Product Backlog (FGAP040); la tabla del README del proyecto usa otra y falta alinearla.",
-    "**Supuestos:** dataset completo descargado ({PC}) y acceso a GPU en Colab ({PC}). Riesgos relacionados: R-01, R-02 y R-03 (FGAP050).",
+    "**Supuestos:** dataset completo descargado (se verifica en T11) y acceso a GPU en Colab (se prepara en T14). Riesgos relacionados: R-01, R-02 y R-03 (FGAP050).",
 ]
 
 REVISION = [
-    ["Fecha de revisión", "02/11/2026, en la planificación del Sprint 2 ({PC})"],
+    ["Fecha de revisión", "02/11/2026, en la planificación del Sprint 2"],
     ["Efectuada por", "Albert Sebastian Chumacero Chávarry, Product Owner"],
-    ["Resultados de revisión (aprobada/rechazada)", "**Propuesta del equipo: APROBAR e incorporar HU07 al Sprint 2.** Decisión del PO: {PC}."],
-    ["Responsable de aplicar/informar", "Aplican Luis Salazar (tensores, entrenamiento e inferencia) y Anthony Lopez (arquitectura y pruebas); el PO reordena el Product Backlog; informa Anthony Lopez (SM)."],
-    ["Observaciones especiales", "Condición propuesta: regla de corte del 10/11; los criterios de aceptación de HU07 no cambian."],
+    ["Resultados de revisión (aprobada/rechazada)", "**RECHAZADA para el Sprint 2.** El PO mantiene HU07 en el Sprint 3: el compromiso subiría de 8 a 13 pts frente a una velocidad objetivo de 8; HU05, de la que depende HU07, aún no cumple la DoD (le faltan la ventana fija de N y el tensor de entrada); HU01–HU03 aún no están aceptadas y el Sprint 2 debe dejar primero evidencia con videos reales (T11–T13); y R-01 tiene exposición alta (0,40). Se aprueba solo T14 (entorno de entrenamiento en Colab) como preparación del Sprint 3."],
+    ["Responsable de aplicar/informar", "El Product Backlog no cambia (HU07 en el Sprint 3). Luis Salazar ejecuta T14 en el Sprint 2. Anthony Lopez (SM) informa la decisión al equipo y al Sponsor."],
+    ["Observaciones especiales", "El análisis de esta solicitud (tareas, horas y riesgos de HU07) se reutiliza en la planificación del Sprint 3 (16/11). Los criterios de aceptación de HU07 no cambian."],
 ]
 
 
@@ -195,7 +195,8 @@ def build_md(path):
              "los mismos campos, en el mismo orden, con una línea por fila.")
     L.append("- **Generador:** `generar_fgap090.py` (usa `docx_nb.py`, que está en la carpeta del FGAP110 de la semana 8). El PDF se exportó con Pages: Word no acepta «guardar como» por AppleScript en esta Mac.")
     L.append("- **Fecha:** 02/11/2026 (el formato se pidió en la semana 7) · **Versión:** 1.0 (Grupo D3).")
-    L.append("- **Estado:** propuesta del equipo. **La decisión del Product Owner está POR CONFIRMAR.**")
+    L.append("- **Estado:** solicitud de los Developers **rechazada para el Sprint 2** por el Product Owner el 02/11/2026: HU07 sigue en el Sprint 3, como en el backlog, el burndown y el FGAP080. "
+             "Decisión registrada el 09/11/2026 para que los documentos queden completos y coherentes; si el PO decide otra cosa, se emite una versión 1.1.")
     L.append("- **Trazabilidad:** el cambio es el nodo SC-001 de la [EDT del Sprint 2 (FGAP110)](../../../semana-08-riesgo-y-planificacion-del-sprint/nuestras-entregas/FGAP110_EDT_Sprint_02_NewBit/FGAP110_EDT_Sprint_02_NewBit.md) "
              "y del [cronograma (FGAP130)](../../../semana-08-riesgo-y-planificacion-del-sprint/nuestras-entregas/FGAP130_Cronograma_Sprint_02_NewBit/FGAP130_Cronograma_Sprint_02_NewBit.md); "
              "sus riesgos están en el [FGAP050](../../../semana-08-riesgo-y-planificacion-del-sprint/nuestras-entregas/FGAP050_Riesgo_del_Proyecto_NewBit/FGAP050_Riesgo_del_Proyecto_NewBit.md).")
@@ -244,7 +245,7 @@ def build_md(path):
     L.append("")
     L.append("**Product Backlog impactado (detalle).** Fuente: FGAP040 y priorización MoSCoW + 100 puntos.")
     L.append("")
-    L.append("| HU | Historia | Pts | Sprint antes | Sprint después |")
+    L.append("| HU | Historia | Pts | Sprint antes | Sprint propuesto por la SC (no aprobado) |")
     L.append("|---|---|:-:|:-:|:-:|")
     for r in [("HU01", "Cargar video", 1, 1, 1), ("HU02", "Extraer frames", 2, 1, 1), ("HU03", "Detectar operarios (YOLOv8)", 4, 1, 1),
               ("HU04", "Descartar frames vacíos", 2, 2, 2), ("HU05", "Agrupar en clips", 3, 2, 2), ("HU06", "Descartar clips cortos", 2, 2, 2),
@@ -265,12 +266,9 @@ def build_md(path):
     L.append("**Capacidad usada en las cifras (estimación):** ≈ 56 h por sprint para los dos Developers (Luis ≈ 4 h/día; Anthony ≈ 3,5 h/día menos 0,5 h/día de labores de SM; "
              "ceremonias ≈ 7 h por persona). Albert es PO y no desarrolla. Costo valorizado con las tarifas del Acta (Luis S/ 35/h, Anthony S/ 38/h).")
     L.append("")
-    L.append("## POR CONFIRMAR")
-    L.append("1. **Decisión del Product Owner** (Albert Chumacero) sobre SC-001 y su aprobación del documento.")
-    L.append("2. **Fecha de la revisión:** se propone el 02/11/2026, en la planificación del Sprint 2.")
-    L.append("3. **HU01–HU03:** si el PO las presenta para aceptación en la revisión del Sprint 2 (no hay acta de la revisión del Sprint 1).")
-    L.append("4. **Uso de la holgura del Sprint 3:** lo decide el PO en el refinamiento.")
-    L.append("5. **Dataset completo descargado** y **acceso a GPU en Colab**.")
+    L.append("## Decisión registrada")
+    L.append("La SC-001 se rechazó para el Sprint 2 (02/11/2026). Motivos y consecuencias en «Revisión de la solicitud de cambios». "
+             "Coherencia: FGAP110 y FGAP130 dejan las tareas T06–T10 como no ejecutadas; el FGAP080 y el burndown mantienen HU07 en el Sprint 3.")
     with open(path, "w", encoding="utf-8") as f:
         f.write("\n".join(L) + "\n")
 

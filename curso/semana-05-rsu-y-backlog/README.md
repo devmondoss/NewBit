@@ -5,7 +5,7 @@
 | Qué | Dónde |
 |---|---|
 | Lo que mandó el profe | [material-del-profe/](material-del-profe/) |
-| Lo que entregamos | [nuestras-entregas/](nuestras-entregas/): FGAP070, Puño de cinco, MoSCoW + 100 puntos, Kanban |
+| Lo que entregamos | [nuestras-entregas/](nuestras-entregas/): [**FGAP060 Backlog Priorizado**](nuestras-entregas/FGAP060_Backlog_Priorizado_NewBit/FGAP060_Backlog_Priorizado_NewBit.md) (formato del docente), [FGAP070 Criterios de Terminado](nuestras-entregas/FGAP070_Criterios_de_Terminado_NewBit/FGAP070_Criterios_de_Terminado_NewBit.md), Puño de cinco, MoSCoW + 100 puntos, Kanban y la [**propuesta de Proyecto RSU**](nuestras-entregas/Proyecto_RSU_NewBit/Proyecto_RSU_NewBit.md) (taller de seguridad laboral asistida por IA, 05/12/2026) |
 | Avance del proyecto | Sprints 1 y 2 implementados: [gestion/sprints](../../proyecto-newbit/gestion/sprints/README.md) |
 
 Vista global: [INDICE.md](../../INDICE.md).

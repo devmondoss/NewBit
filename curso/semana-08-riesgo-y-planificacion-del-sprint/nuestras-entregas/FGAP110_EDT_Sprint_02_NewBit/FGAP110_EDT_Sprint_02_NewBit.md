@@ -9,7 +9,7 @@
 ## Control de versiones
 | Versión | Hecha por | Revisada por | Aprobada por | Fecha | Motivo |
 |---|---|---|---|---|---|
-| 1.0 | Developers (Anthony Lopez y Luis Salazar) | Anthony Lopez (Scrum Master) | Albert Chumacero (Product Owner) · **POR CONFIRMAR** | 02/11/2026 | Creación de la EDT del Sprint 02 |
+| 1.0 | Developers (Anthony Lopez y Luis Salazar) | Anthony Lopez (Scrum Master) | Albert Chumacero (Product Owner) | 02/11/2026 | Creación de la EDT del Sprint 02 |
 
 ## Estructura de descomposición del trabajo (EDT) del sprint
 | Código y nombre del proyecto | Sprint número |
@@ -52,12 +52,12 @@ PY-NB-001 · NewBit · Sprint Nro. 02 (02–13/11/2026) · 43 h
 | HU05 · Historia de usuario | Como Supervisora de SST (Mariana), quiero agrupar los frames activos filtrados en clips de tamaño fijo, para estructurar la entrada al modelo de inferencia temporal. |
 | HU06 · Historia de usuario | Como Supervisora de SST (Mariana), quiero descartar clips que no cumplan con una ventana de tiempo mínima de acción, para evitar alertas falsas por movimientos fugaces. |
 | HU11 · Historia de usuario | Como Administrador de la plataforma (Jorge), quiero modificar el umbral de confianza (confidence) de YOLOv8 desde la interfaz de configuración sin alterar código, para calibrar la sensibilidad del filtrado espacial según la iluminación de la nave. |
-| SC-001 · Solicitud de cambio | Adelantar HU07 al Sprint 2 (FGAP090). HU07: como Supervisora de SST (Mariana), quiero procesar el clip segmentado mediante ConvLSTM, para extraer características de movimiento y dependencias temporales. Entra solo si el PO aprueba la solicitud (**POR CONFIRMAR**). |
+| SC-001 · Solicitud de cambio | Adelantar HU07 al Sprint 2 (FGAP090). HU07: como Supervisora de SST (Mariana), quiero procesar el clip segmentado mediante ConvLSTM, para extraer características de movimiento y dependencias temporales. No aprobada por el PO el 02/11/2026: HU07 se hace en el Sprint 3. |
 | R-01 · Riesgo | Riesgo del FGAP050 (P × I = 0,40, alto): el modelo ConvLSTM podría no aprender a distinguir las conductas con la configuración inicial. Respuesta: mitigar con un *spike* y un registro de experimentos. |
 | R-02 · Riesgo | Riesgo del FGAP050 (P × I = 0,20, moderado): defectos no detectados en el pipeline propio, probado solo con un clip sintético y sin revisión de pares. Respuesta: verificación con videos reales, revisión de pares y prueba E2E; cubre también el cierre de HU01–HU03. |
 | R-03 · Riesgo | Riesgo del FGAP050 (P × I = 0,20, moderado): falta de GPU propia o cortes de Google Colab. Respuesta: entorno de entrenamiento reanudable, con checkpoint por época. |
 
-**Nota del documento:** **Total del Sprint 02: 43 h** (historias de usuario 12 h · SC-001 16 h · riesgos 15 h). Dos Developers, Luis Salazar y Anthony Lopez, con un máximo de 2 tareas en paralelo por día (Albert Chumacero es PO y no desarrolla). **POR CONFIRMAR**: aprobación del PO y decisión sobre SC-001 (si la rechaza, salen T06–T10 y T14).
+**Nota del documento:** **Total del Sprint 02: 43 h** (historias de usuario 12 h · SC-001 16 h · riesgos 15 h). Dos Developers, Luis Salazar y Anthony Lopez, con un máximo de 2 tareas en paralelo por día (Albert Chumacero es PO y no desarrolla). SC-001 no aprobada (02/11/2026): T06–T10 no se ejecutan y la carga real es de 24 h.
 
 ### Detalle de tareas técnicas
 | Nodo | ID | Tarea técnica (entregable verificable) | Responsable (propuesto) | Fechas | Predecesoras | Horas |
@@ -100,15 +100,15 @@ Historias del backlog del Sprint 2 (HU04, HU05, HU06, HU11): 12 h · SC-001 (HU0
 - **Carga planificada:** **43 h** (≈ 77 %): Luis 26 h y Anthony 17 h. **Nunca hay más de 2 tareas en paralelo por día** (una por Developer); la revisión de pares (T12) la hace Luis el 10/11 y Anthony el 11/11. Ver el cronograma FGAP130.
 
 ### Notas
-- **SC-001 es condicional.** El nodo SC-001 (T06–T09) y las respuestas a R-01 (T10) y R-03 (T14) existen porque se propone adelantar HU07 (FGAP090). Si el Product Owner rechaza la solicitud, salen del sprint y quedan 22 h (T01–T05 y T11–T13). Decisión del PO: **POR CONFIRMAR**.
-- **HU01–HU03 (Sprint 1):** construidas el 17/10 y sin aceptar; no hay acta de la revisión del Sprint 1 (30/10). No tienen tareas nuevas: su verificación con videos del dataset (T11) y su revisión de pares (T12) cuelgan del riesgo R-02. Si el PO las presenta en la revisión del Sprint 2: **POR CONFIRMAR**.
+- **SC-001 no aprobada.** El nodo SC-001 (T06–T09) y la respuesta a R-01 (T10) se planificaron porque se propuso adelantar HU07 (FGAP090), pero el Product Owner no la aprobó el 02/11/2026 (FGAP090): T06–T10 no se ejecutan, HU07 queda en el Sprint 3 y la carga real del sprint es de 24 h (T01–T05 y T11–T14). T14 (entorno de Colab, R-03) sí se ejecuta como preparación del Sprint 3.
+- **HU01–HU03 (Sprint 1):** construidas el 17/10 y sin aceptar; no hay acta de la revisión del Sprint 1 (30/10). No tienen tareas nuevas: su verificación con videos del dataset (T11) y su revisión de pares (T12) cuelgan del riesgo R-02. El PO las revisa en la revisión del Sprint 2 (13/11).
 - **HU04, HU06 y HU11** ya están construidas (17/10/2026); sus tareas son de evidencia y ajuste para que el PO pueda aceptarlas con sus criterios y con la Definición de Terminado (FGAP070).
 - **Numeración:** HU según el Product Backlog (FGAP040 y priorización MoSCoW). La tabla de la sección 2 del README del proyecto usa otra numeración; falta alinearla.
-- **Supuestos:** el dataset completo de Önal y Dandıl (2024) está descargado en el equipo de trabajo (**POR CONFIRMAR**) y hay acceso a GPU en Google Colab (**POR CONFIRMAR**).
+- **Supuestos:** el dataset completo de Önal y Dandıl (2024) está descargado en el equipo de trabajo (se verifica en T11) y hay acceso a GPU en Google Colab (se prepara en T14).
 - Las horas son **estimaciones** del equipo hechas en la planificación; no son horas consumidas.
 
-## POR CONFIRMAR
-1. **Aprobación del Product Owner** de la EDT (control de versiones) y **decisión sobre SC-001**: si la rechaza, salen T06–T10 y T14 (quedan 22 h).
-2. Si el PO presenta **HU01–HU03** para aceptación en la revisión del Sprint 2.
-3. **Dataset completo descargado** en el equipo de trabajo y **acceso a GPU en Colab**.
+## Decisión registrada
+1. **SC-001 no aprobada** por el PO el 02/11/2026: T06–T10 no se ejecutan; HU07 queda en el Sprint 3; T14 sí se ejecuta. Carga real del sprint: 24 h.
+2. **HU01–HU03** se revisan en la revisión del Sprint 2 (13/11), con la evidencia de T11 y T12.
+3. **Supuestos:** dataset completo descargado (se verifica en T11) y acceso a GPU en Colab (se prepara en T14).
 4. La capacidad (≈ 56 h) es una estimación de referencia; si el burndown usa otra, prevalece la que acuerde el equipo en la planificación.

@@ -9,7 +9,7 @@
 ## Control de versiones
 | Versión | Hecho por | Revisado por | Aprobado por | Fecha | Motivo |
 |---|---|---|---|---|---|
-| 1.0 | Developers (Anthony Lopez y Luis Salazar) | Anthony Lopez – Scrum Master | Albert Chumacero – Product Owner · **POR CONFIRMAR** | 02/11/2026 | Cronograma inicial del Sprint 02 |
+| 1.0 | Developers (Anthony Lopez y Luis Salazar) | Anthony Lopez – Scrum Master | Albert Chumacero – Product Owner | 02/11/2026 | Cronograma inicial del Sprint 02 |
 
 ## Cronograma del sprint
 | Código y nombre del proyecto | Sprint número |
@@ -59,11 +59,10 @@ Leyenda: █ tarea programada · ░ duración del nodo de la EDT (historia, sol
 - **Mismas tareas que la EDT.** T01–T14 y sus horas son las del FGAP110 del Sprint 02 (fuente común: `plan_sprint02.py`).
 - **Dos Developers, máximo 2 tareas por día.** Cada día hay como mucho una tarea de Luis y una de Anthony (tabla de asignación diaria). Albert Chumacero (Product Owner) no desarrolla: refina el backlog, aclara criterios y acepta o rechaza en la revisión.
 - **Ceremonias (no son tareas):** planificación el 02/11; Daily de 15 min cada día; revisión y retrospectiva el 13/11. Por eso el primer y el último día tienen poca carga.
-- **SC-001 es condicional.** Las filas de SC-001 (T06–T09), R-01 (T10) y R-03 (T14) dependen de que el Product Owner apruebe la solicitud de cambio (FGAP090): **POR CONFIRMAR**. Si la rechaza, el cronograma queda con T01–T05 y T11–T13 y el hito no cambia.
-- **Regla de corte (FGAP090):** si el 10/11 se activa el trigger de R-01 o de R-03 (T10), HU07 vuelve al Product Backlog y T08–T09 no se ejecutan.
+- **SC-001 no aprobada.** Las filas de SC-001 (T06–T09) y R-01 (T10) se planificaron para la solicitud de cambio (FGAP090), pero el Product Owner no la aprobó el 02/11/2026 (FGAP090): T06–T10 no se ejecutan, HU07 queda en el Sprint 3 y la carga real del sprint es de 24 h (T01–T05 y T11–T14). El hito no cambia.
+- **Riesgos R-01 y R-03:** al no aprobarse la SC-001, la regla de corte del 10/11 ya no aplica; R-01 se controla en el Sprint 3 (FGAP050 v1.1) y R-03 se prepara aquí con T14.
 - Duraciones en días hábiles (lunes a viernes). Fechas, dependencias y horas son una **estimación** de la planificación, no un avance real.
 
-## POR CONFIRMAR
-1. **Aprobación del Product Owner** del cronograma (control de versiones).
-2. **Decisión del PO sobre SC-001** (FGAP090): si la rechaza, salen T06–T10 y T14.
-3. **Dataset completo descargado** y **acceso a GPU en Colab** (supuestos de T05, T06, T08, T10, T11 y T14).
+## Decisión registrada
+1. **SC-001 no aprobada** por el PO el 02/11/2026 (FGAP090): T06–T10 no se ejecutan; HU07 queda en el Sprint 3. Carga real: 24 h.
+2. **Supuestos:** dataset completo descargado (se verifica en T11) y acceso a GPU en Colab (se prepara en T14).

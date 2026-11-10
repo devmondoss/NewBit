@@ -22,7 +22,7 @@ FILL = {"HU": "DCE3F0", "SC": "FCE9D2", "R": "F6DADF"}
 ETQ = {"HU": "Historia de usuario", "SC": "Solicitud de cambio", "R": "Riesgo"}
 
 VERSION = ["1.0", "Developers (Anthony Lopez y Luis Salazar)", "Anthony Lopez (Scrum Master)",
-           "Albert Chumacero (Product Owner) · {PC}", "02/11/2026", "Creación de la EDT del Sprint 02"]
+           "Albert Chumacero (Product Owner)", "02/11/2026", "Creación de la EDT del Sprint 02"]
 
 CAPACIDAD = [
     "**Equipo:** 3 personas y **2 Developers**. Albert Chumacero es Product Owner y no desarrolla; Anthony Lopez es Scrum Master y Developer; Luis Salazar es Developer.",
@@ -32,13 +32,13 @@ CAPACIDAD = [
 ]
 
 NOTAS = [
-    "**SC-001 es condicional.** El nodo SC-001 (T06–T09) y las respuestas a R-01 (T10) y R-03 (T14) existen porque se propone adelantar HU07 (FGAP090). "
-    "Si el Product Owner rechaza la solicitud, salen del sprint y quedan 22 h (T01–T05 y T11–T13). Decisión del PO: {PC}.",
+    "**SC-001 no aprobada.** El nodo SC-001 (T06–T09) y la respuesta a R-01 (T10) se planificaron porque se propuso adelantar HU07 (FGAP090), pero el Product Owner no la aprobó el 02/11/2026 (FGAP090): T06–T10 no se ejecutan, HU07 queda en el Sprint 3 y la carga real del sprint es de 24 h (T01–T05 y T11–T14). "
+    "T14 (entorno de Colab, R-03) sí se ejecuta como preparación del Sprint 3.",
     "**HU01–HU03 (Sprint 1):** construidas el 17/10 y sin aceptar; no hay acta de la revisión del Sprint 1 (30/10). No tienen tareas nuevas: su verificación con videos "
-    "del dataset (T11) y su revisión de pares (T12) cuelgan del riesgo R-02. Si el PO las presenta en la revisión del Sprint 2: {PC}.",
+    "del dataset (T11) y su revisión de pares (T12) cuelgan del riesgo R-02. El PO las revisa en la revisión del Sprint 2 (13/11).",
     "**HU04, HU06 y HU11** ya están construidas (17/10/2026); sus tareas son de evidencia y ajuste para que el PO pueda aceptarlas con sus criterios y con la Definición de Terminado (FGAP070).",
     "**Numeración:** HU según el Product Backlog (FGAP040 y priorización MoSCoW). La tabla de la sección 2 del README del proyecto usa otra numeración; falta alinearla.",
-    "**Supuestos:** el dataset completo de Önal y Dandıl (2024) está descargado en el equipo de trabajo ({PC}) y hay acceso a GPU en Google Colab ({PC}).",
+    "**Supuestos:** el dataset completo de Önal y Dandıl (2024) está descargado en el equipo de trabajo (se verifica en T11) y hay acceso a GPU en Google Colab (se prepara en T14).",
     "Las horas son **estimaciones** del equipo hechas en la planificación; no son horas consumidas.",
 ]
 
@@ -68,7 +68,7 @@ HISTORIA = {
     "HU05": "Como Supervisora de SST (Mariana), quiero agrupar los frames activos filtrados en clips de tamaño fijo, para estructurar la entrada al modelo de inferencia temporal.",
     "HU06": "Como Supervisora de SST (Mariana), quiero descartar clips que no cumplan con una ventana de tiempo mínima de acción, para evitar alertas falsas por movimientos fugaces.",
     "HU11": "Como Administrador de la plataforma (Jorge), quiero modificar el umbral de confianza (confidence) de YOLOv8 desde la interfaz de configuración sin alterar código, para calibrar la sensibilidad del filtrado espacial según la iluminación de la nave.",
-    "SC-001": "Adelantar HU07 al Sprint 2 (FGAP090). HU07: como Supervisora de SST (Mariana), quiero procesar el clip segmentado mediante ConvLSTM, para extraer características de movimiento y dependencias temporales. Entra solo si el PO aprueba la solicitud ({PC}).",
+    "SC-001": "Adelantar HU07 al Sprint 2 (FGAP090). HU07: como Supervisora de SST (Mariana), quiero procesar el clip segmentado mediante ConvLSTM, para extraer características de movimiento y dependencias temporales. No aprobada por el PO el 02/11/2026: HU07 se hace en el Sprint 3.",
     "R-01": "Riesgo del FGAP050 (P × I = 0,40, alto): el modelo ConvLSTM podría no aprender a distinguir las conductas con la configuración inicial. Respuesta: mitigar con un //spike// y un registro de experimentos.",
     "R-02": "Riesgo del FGAP050 (P × I = 0,20, moderado): defectos no detectados en el pipeline propio, probado solo con un clip sintético y sin revisión de pares. Respuesta: verificación con videos reales, revisión de pares y prueba E2E; cubre también el cierre de HU01–HU03.",
     "R-03": "Riesgo del FGAP050 (P × I = 0,20, moderado): falta de GPU propia o cortes de Google Colab. Respuesta: entorno de entrenamiento reanudable, con checkpoint por época.",
@@ -77,7 +77,7 @@ ETQ_MAY = {"HU": "HISTORIA DE USUARIO", "SC": "SOLICITUD DE CAMBIO", "R": "RIESG
 ROJO = "8B1E2D"
 
 NOTA_FINAL = ("**Total del Sprint 02: 43 h** (historias de usuario 12 h · SC-001 16 h · riesgos 15 h). Dos Developers, Luis Salazar y Anthony Lopez, con un máximo de 2 tareas "
-              "en paralelo por día (Albert Chumacero es PO y no desarrolla). {PC}: aprobación del PO y decisión sobre SC-001 (si la rechaza, salen T06–T10 y T14).")
+              "en paralelo por día (Albert Chumacero es PO y no desarrolla). SC-001 no aprobada (02/11/2026): T06–T10 no se ejecutan y la carga real es de 24 h.")
 
 
 def objetivo_xml():
@@ -231,10 +231,10 @@ def build_md(path):
     for t in NOTAS:
         L.append("- " + md_from_markup(t))
     L.append("")
-    L.append("## POR CONFIRMAR")
-    L.append("1. **Aprobación del Product Owner** de la EDT (control de versiones) y **decisión sobre SC-001**: si la rechaza, salen T06–T10 y T14 (quedan 22 h).")
-    L.append("2. Si el PO presenta **HU01–HU03** para aceptación en la revisión del Sprint 2.")
-    L.append("3. **Dataset completo descargado** en el equipo de trabajo y **acceso a GPU en Colab**.")
+    L.append("## Decisión registrada")
+    L.append("1. **SC-001 no aprobada** por el PO el 02/11/2026: T06–T10 no se ejecutan; HU07 queda en el Sprint 3; T14 sí se ejecuta. Carga real del sprint: 24 h.")
+    L.append("2. **HU01–HU03** se revisan en la revisión del Sprint 2 (13/11), con la evidencia de T11 y T12.")
+    L.append("3. **Supuestos:** dataset completo descargado (se verifica en T11) y acceso a GPU en Colab (se prepara en T14).")
     L.append("4. La capacidad (≈ 56 h) es una estimación de referencia; si el burndown usa otra, prevalece la que acuerde el equipo en la planificación.")
     with open(path, "w", encoding="utf-8") as f:
         f.write("\n".join(L) + "\n")
